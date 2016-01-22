@@ -1,0 +1,105 @@
+#!/bin/sh
+#######################################################################################################
+#
+#
+#           Script for copying and launching the DIRAC suite on grid CE
+#
+#
+#######################################################################################################
+
+source UtilsCE.sh
+
+# check the parameter - VO name
+
+if [[ $1 != "voce" && $1 != "compchem" && $1 != "isragrid" && $1 != "osg" ]]; then
+ echo -e "\n wrong parameter - VO name : $1 "
+ exit -12
+else
+ VO=$1
+ echo -e "OK, you specified properly the VO=$VO"
+ #exit 0
+fi
+
+print_CE_info;
+querry_CE_attributes $VO
+check_file_on_SE $VO
+download_from_SE $VO
+
+##########################################
+##  make it executable and finally launch
+##########################################
+echo -e "\n Job started at : \c"; date
+
+get_nprocs_CE nprocs
+echo -e "nprocs=$nprocs"
+
+exit 0
+
+# directory with all static executables - dirac.x, cmake, ctest, mpirun - and related directories
+ export BUILD=build_Intel_OpenMPI_MKL_ILP64_STATIC
+ export BUILD_SERIAL=build_Intel_serial_MKL_ILP64_STATIC
+ export BUILD_GNU_SERIAL=build_GNU_serial_ILP64_STATIC
+
+ unset OPAL_PREFIX
+ export OPAL_PREFIX=$PWD/$BUILD
+ echo -e "Variable OPAL_PREFIX=$OPAL_PREFIX"
+ export PATH=$PWD/$BUILD:$PATH
+ #export PATH=$PWD/$BUILD_SERIAL:$PWD/$BUILD:$PATH
+ echo -e "Modified PATH=$PATH"
+ echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+
+# here exit
+#exit
+
+echo -e "\n\n ---- Unpacking dowloaded DIRAC suite, tar : \c "; which tar;  tar --version
+echo -e "performing tar xfz dirac_grid_suite.tgz ...\c"
+tar xfz dirac_grid_suite.tgz
+echo -e "unpacking done; see the content of $PWD :"; ls -lt
+
+#echo -e "\n making executables:"
+
+# create diracrc file for paralle run on the grid CE
+cp maintenance/grid_computing/diracrc_grid  diracrc
+echo -e "\n ---- diracrc created: "; cat diracrc
+
+echo -e "\n --- Launching very simple pam test  --- \n "; 
+python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs
+
+ #################################################
+ #### testing of 3 static dirac.x executables ####
+ #################################################
+  echo -e "\n\n --- Launching runtest - OpenMPI+Intel+MKL --- \n "; date 
+  #python ./runtest  --verbose --backup --binary=$PWD/$BUILD/dirac.x --mpi=$nprocs --quick
+  python ./runtest  --verbose --backup --binary=$PWD/$BUILD/dirac.x --mpi=$nprocs 
+
+  echo -e "\n\n --- Launching serial runtest - Intel+MKL --- \n "; date 
+  #python ./runtest --verbose --backup --binary=$PWD/$BUILD_SERIAL/dirac.x --quick
+  python ./runtest --verbose --backup --binary=$PWD/$BUILD_SERIAL/dirac.x 
+
+  echo -e "\n\n --- Launching  serial runtest - GNU,ownlibs --- \n "; date 
+  #python ./runtest --all --benchmark --verbose --backup --binary=$PWD/$BUILD_GNU_SERIAL/dirac.x --quick
+  python ./runtest --all --benchmark --verbose --backup --binary=$PWD/$BUILD_GNU_SERIAL/dirac.x 
+
+##############################################################
+#
+# pack selected files to get them back from CE
+#
+##############################################################
+echo -e "\n --------------------------------- \n "; 
+# delete old tar-ball first
+ls -lt dirac_grid_suite.tgz
+echo -e "\n deleting the old dirac_grid_suite.tgz..."
+rm dirac_grid_suite.tgz
+echo "check files..."
+ls -lt
+echo -e "\n --- Packing all wanted stuff back from the grid CE  --- "; 
+tar --version
+echo -e "\n we have to pack (ls -lt) :"
+ls -lt
+echo " "
+tar czf dirac_grid_suite_back.tgz test *.out
+echo -e "\n selected files of the DIRAC suite packed back , ls -lt dirac_grid_suite_back.tgz:";ls -lt dirac_grid_suite_back.tgz
+
+final_message()
+
+exit 0

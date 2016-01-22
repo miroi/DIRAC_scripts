@@ -1,0 +1,27 @@
+[
+Type = "Collection";
+JobType = "Normal";
+InputSandbox = {"launch_VO.sh","UtilsCE.sh"};
+VirtualOrganisation="sivvp.slovakgrid.sk";
+WholeNodes = True;
+HostNumber = 1;
+MyProxyServer = "px.ui.savba.sk";
+#StdOutput = "DIRAC_runs.std_oe";StdError  = "DIRAC_runs.std_oe";
+OutputSandbox = {"DIRAC_runs.std_oe", "dirac_grid_suite_back.tgz"};
+PerusalFileEnable=true;
+PerusalTimeInterval=10005; 
+#Requirements =  other.GlueCEPolicyMaxWallClockTime > 3600;
+# global set of attributes is inherited by all the sub-jobs, and a set of attributes for each sub-job supersede sthe global ones
+#   lcg-infosites -vo sivvp.slovakgrid.sk ce
+Nodes = {
+##  ce-sivvp.ui.savba.sp
+ [Executable = "launch_VO.sh"; Arguments = "sivvp.slovakgrid.sk"; 
+   StdOutput = "DIRAC_runs.std_oe";StdError  = "DIRAC_runs.std_oe";
+   Requirements = other.GlueCEUniqueID == "ce-sivvp.ui.savba.sk:8443/cream-pbs-sivvp";],
+ [Executable = "launch_VO.sh"; Arguments = "sivvp.slovakgrid.sk"; 
+# ce3.ui.savba.sk
+   StdOutput = "DIRAC_runs.std_oe";StdError  = "DIRAC_runs.std_oe";
+   Requirements = other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-sivvp";]
+}; 
+##
+]

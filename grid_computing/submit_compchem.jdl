@@ -1,0 +1,51 @@
+##############################################################
+#
+#
+#                 ***  gLite script  ***
+#
+#
+##############################################################
+Executable = "launch_VO.sh";
+InputSandbox = {"launch_VO.sh","UtilsCE.sh"};
+#Arguments = "voce";
+Arguments = "compchem";
+#Arguments = "osg";
+#VirtualOrganisation="voce";
+VirtualOrganisation="compchem";
+#VirtualOrganisation="osg";
+
+# myproxy server
+#MyProxyServer = "myproxy.cern.ch";
+MyProxyServer = "myproxy.cnaf.infn.it";
+
+# whether whole nodes should be used exclusively or not - sets according to the GlueHostArchitectureSMPSize parameter
+WholeNodes = True;
+# maximum number of nodes 
+HostNumber = 1;
+# maximum number of accessible CPU's (on one or also on more nodes!) 
+#CpuNumber = 8;
+
+##############################################
+# stdout,stderr output & other working files
+##############################################
+StdOutput = "DIRAC_runs.std_oe.log";
+StdError  = "DIRAC_runs.std_oe.log";
+OutputSandbox = {"DIRAC_runs.std_oe.log"};
+
+## to be able to reach intermediate results of your job
+# see http://goc.grid.auth.gr/wiki/bin/view/Groups/ALL/MonitoringTheOutputOfYourJob
+PerusalFileEnable=true;
+# for VOCE this limit must be > 10000 sec (cca 17 min)
+PerusalTimeInterval=10005; 
+
+#################
+# Demands on CE #
+# RegExp("gridce.iihe.ac.be", other.GlueCEUniqueId) 
+#################
+# for VOCE can not be > 10000
+Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
+#Requirements =
+# other.GlueCEPolicyMaxWallClockTime > 1200 && 
+# other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
+# other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"
+#;
