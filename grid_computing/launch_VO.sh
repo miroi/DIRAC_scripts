@@ -38,6 +38,15 @@ get_nprocs_CE nprocs
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 5
 echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 
+#
+# Unpack the downloaded DIRAC tar-ball
+#
+unpack_DIRAC "DIRAC_grid_suite.tgz"
+#RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
+
+# specify scratch space for DIRAC runs #
+echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
+echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 
 ##########################################
 #      set build dirs and paths          #
@@ -52,42 +61,32 @@ echo -e "Variable OPAL_PREFIX=$OPAL_PREFIX"
 export PATH=$PWD/$BUILD:$PATH
 #export PATH=$PWD/$BUILD_SERIAL:$PWD/$BUILD:$PATH
 echo -e "Modified PATH=$PATH"
-echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+#echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 
 #############################################################
-#           check own static mpirun stuff
-#############################################################
-echo -e "\n\n"
-echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
-
-
-unpack_DIRAC "DIRAC_grid_suite.tgz"
-#RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
-
-# specify scratch space for DIRAC runs #
-echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
-echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
-
-
-#############################################################
-#              check own static mpirun stuff
+#               check own static mpirun stuff               #
 #############################################################
 echo -e "\n\n"
 echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
 
-echo -e "\n --- Launching simple parallel pam test  --- \n "; 
-python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs --dirac=$BUILD/dirac.x
 
 #####################################################################
-#           specify tests for two runtest runs
+#                    Run few control tests
 #####################################################################
 
-  echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL - with short tests suite  --- \n "; date 
+  echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL - with few tests  --- \n "; date 
 
   export DIRAC_MPI_COMMAND="mpirun -np 2"
+  test/cosci_energy/test -b $PWD/$BUILD
 
-  echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL - with short test suite --- \n "; date 
-  cd $BUILD_SERIAL
+  echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL - with few tests --- \n "; date 
+  test/cosci_energy/test -b $PWD/$BUILD_SERIAL
+
+#
+# Individual runs
+#
+#echo -e "\n --- Launching simple parallel pam test  --- \n "; 
+#python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs --dirac=$BUILD/dirac.x
 
 
 ##############################################################
@@ -97,11 +96,11 @@ python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --out
 ##############################################################
 echo -e "\n --------------------------------- \n "; 
 # delete old tar-ball first
-ls -lt DIRAC_grid_suite.tgz
-echo -e "\n deleting the old DIRAC_grid_suite.tgz..."
+#ls -lt DIRAC_grid_suite.tgz
+#echo -e "\n deleting the old DIRAC_grid_suite.tgz..."
 #rm dirac_grid_suite.tgz
-echo "check files..."
-ls -lt
+#echo "check files..."
+#ls -lt
 
 #echo -e "\n --- Packing all wanted stuff back from the grid CE  --- "; 
 #tar --version
