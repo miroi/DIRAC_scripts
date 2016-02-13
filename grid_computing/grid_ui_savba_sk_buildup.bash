@@ -286,7 +286,7 @@ if [[ -d "$BUILD_SERIAL_GNU" ]]; then
    echo "removing previous build directory $BUILD_SERIAL_GNU"
   /bin/rm -rf $BUILD_SERIAL_GNU
 fi
-python ./setup --fc=gfortran --cc=gcc --cxx=g++ --static --int64 --cmake-options="-D BUILDNAME='grid_savba_gnu_mkl_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF"  $BUILD_SERIAL_GNU
+python ./setup --fc=gfortran --cc=gcc --cxx=g++ --static --int64 --cmake-options="-D BUILDNAME='grid_savba_gnu_mkl_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='MKL'"  $BUILD_SERIAL_GNU
  cd $BUILD_SERIAL_GNU
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure   
