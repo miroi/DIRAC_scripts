@@ -63,7 +63,8 @@ git clean -f -d -x
 # submodule update
 git submodule update --init --recursive
 
-#export MATH_ROOT=$HOME/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+export MATH_ROOT=/opt/intel/mkl
+echo -e  "\n Activated MATH_ROOT=$MATH_ROOT ! \n"
 
 # update the local trunk...
 #echo -e "\n updating the local $DIRAC"
