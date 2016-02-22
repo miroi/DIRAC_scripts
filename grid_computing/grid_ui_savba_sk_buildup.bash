@@ -55,7 +55,8 @@ export DIRTIMEOUT="8m"
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo "Running DIRAC cdash buildup at "$timestamp
 
-DIRAC=/home/ilias/Work/qch/software/trunk
+#DIRAC=/home/ilias/Work/qch/software/trunk
+DIRAC=/scratch/milias/Work/qch/software/trunk
 
 cd $DIRAC
 git clean -f -d -x
@@ -278,6 +279,31 @@ echo -e "\n build  - PGI,openblas,serial,static - finished at $timestamp \n"
 sleep 10
 
 
+#
+# PGI + i8 + OpenBLAS - static 
+#
+cd $DIRAC
+BUILD_PGI3=build_pgi_openblas_i8_static
+if [[ -d "$BUILD_PGI2" ]]; then
+   echo "removing previous build directory $BUILD_PGI2"
+  /bin/rm -rf $BUILD_PGI2
+fi
+python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUILDNAME='grid_savba_pgi_openblas_i8_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_PGI3
+ cd $BUILD_PGI3
+ ctest -D ExperimentalUpdate   
+ ctest -D ExperimentalConfigure  
+ ctest -j4 -D ExperimentalBuild   
+ ctest -j4 -D ExperimentalTest -R cc
+ ctest -D ExperimentalSubmit 
+
+ ls -lt $DIRAC/$BUILD_PGI3/dirac.x
+ ldd $DIRAC/$BUILD_PGI3/dirac.x
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n build  - PGI,openblas,i8,serial,static - finished at $timestamp \n"
+
+sleep 10
+
+
 #####################
 ##  GNU+MKL STATIC ##
 #####################
@@ -388,6 +414,7 @@ $BUILD_SERIAL_GNU2/dirac.x $BUILD_SERIAL_GNU2/pam  \
 $BUILD_PGI/dirac.x $BUILD_PGI/pam \
 $BUILD_PGI1/dirac.x $BUILD_PGI1/pam \
 $BUILD_PGI2/dirac.x $BUILD_PGI2/pam \
+$BUILD_PGI3/dirac.x $BUILD_PGI3/pam \
 maintenance/grid_computing/diracrc_grid 
 
 echo -e "\n packing done, we have tar-ball file ready to be placed on SE for grid-computing : "
