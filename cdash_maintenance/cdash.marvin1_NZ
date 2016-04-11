@@ -1,0 +1,97 @@
+#!/bin/bash
+
+export PATH=/home/ilias/bin/cmake/install_src/cmake-2.8.9/bin:$PATH
+
+module load ctcp pgi/64
+module load acml
+module load intel/compiler/64/12.1/2011_sp1.11.339
+module load intel/mkl/64/10.3/2011_sp1.11.339
+module load ctcp
+##Keep a record of which modules were loaded in the job's output:
+module list 2>&1
+echo
+#
+
+# add dynamic libraries 
+#export LD_LIBRARY_PATH=/data/programs/ctcp/pgi/linux86-64/12.5/libso:/data/programs/ctcp/pgi/linux86-64/12.5/lib:$LD_LIBRARY_PATH
+
+/bin/echo -e  "\n PATH=$PATH"
+/bin/echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+
+#
+NUM_OF_CPUS=$(cat /proc/cpuinfo | grep processor | wc -l)
+echo -e  'Number of all processors available per core, NUM_OF_CPUS='$NUM_OF_CPUS
+
+# the directory where your DIRAC sits #
+DIRAC=/home/ilias/Work/software/dirac/working_trunk
+export DIRTIMEOUT="14m"
+
+# go to the local DIRAC directory
+cd $DIRAC
+BUILD_INTEL=build_intelmkl_i8
+if [[ -d "$BUILD_INTEL" ]]; then
+  echo "deleting previous build directory $BUILD_INTEL."
+  /bin/rm -rf $BUILD_INTEL
+fi
+#
+#export MATH_ROOT=/data/programs/ctcp/pgi/linux86-64/2012/acml/5.1.0/libso
+# configure step
+./setup --fc=ifort  --cc=icc  --cxx=icpc  -D BUILDNAME="Marvin_intelmkl_i8" -D BLAS_TYPE=MKL -D LAPACK_TYPE=MKL -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF $BUILD_INTEL
+cd $BUILD_INTEL
+ctest -D ExperimentalUpdate
+ctest -D ExperimentalConfigure
+ctest -D ExperimentalBuild
+ctest -j2 -D ExperimentalTest  -R  cosci_energy
+ctest -D ExperimentalSubmit
+
+
+# go to the local DIRAC directory
+cd $DIRAC
+BUILD_PGI=build_PGI_i32lp64_acml_dyn
+if [[ -d "$BUILD_PGI" ]]; then
+  echo "deleting previous build directory $BUILD_PGI."
+  /bin/rm -rf $BUILD_PGI
+fi
+#
+#export MATH_ROOT=/data/programs/ctcp/pgi/linux86-64/2012/acml/5.1.0/libso
+# configure step
+./setup --fc=pgf90  --cc=pgcc  --cxx=pgCC  -D BUILDNAME="Marvin_PGI_acml" -D BLAS_TYPE=ACML -D LAPACK_TYPE=ACML -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF  $BUILD_PGI
+cd $BUILD_PGI
+ctest -D ExperimentalUpdate
+ctest -D ExperimentalConfigure
+ctest -D ExperimentalBuild
+ctest -j2 -D ExperimentalTest  -R cosci_energy
+ctest -D ExperimentalSubmit
+
+# go to the local DIRAC directory
+cd $DIRAC
+BUILD_PGIMKL=build_pgi_mkl_i8
+if [[ -d "$BUILD_PGIMKL" ]]; then
+  echo "deleting previous build directory $BUILD_PGIMKL ."
+  /bin/rm -rf $BUILD_PGIMKL
+fi
+# configure step
+./setup --fc=pgf90  --cc=pgcc  --cxx=pgCC  -D BUILDNAME="Marvin_PGI_mkl_i8" -D BLAS_TYPE=MKL -D LAPACK_TYPE=MKL -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF  $BUILD_PGIMKL
+cd $BUILD_PGIMKL
+ctest -D ExperimentalUpdate
+ctest -D ExperimentalConfigure
+ctest -D ExperimentalBuild
+ctest -j2 -D ExperimentalTest  -R cosci_energy
+ctest -D ExperimentalSubmit
+
+# go to the local DIRAC directory
+cd $DIRAC
+BUILD_GNU=build_gnu_ownmath_i8
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU ."
+  /bin/rm -rf $BUILD_GNU
+fi
+# configure step
+./setup --fc=gfortran  --cc=gcc  --cxx=g++ --int64 -D BUILDNAME="Marvin_gnu_ownmath_i8" --blas=builtin --lapack=builtin -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF  $BUILD_GNU
+cd $BUILD_GNU
+ctest -D ExperimentalUpdate
+ctest -D ExperimentalConfigure
+ctest -D ExperimentalBuild
+ctest -j2 -D ExperimentalTest  -R cosci_energy
+ctest -D ExperimentalSubmit
+

@@ -1,0 +1,124 @@
+#!/bin/bash
+
+#PBS -S /bin/bash
+#PBS -N DIRACbuild
+#PBS -r n
+#PBS -l nodes=1:ppn=12
+#PBS -l walltime=23:00:00
+#PBS -l mem=24gb
+#PBS -j oe
+##PBS -q qs
+
+echo "Working host is: "; hostname -f
+
+#source /mnt/apps/intel/bin/compilervars.sh intel64
+#echo "Intel Fortran/C/C++ noncommercial compilers with MKL library activated, PROD_DIR=$PROD_DIR."
+
+#source /mnt/apps/pgi/environment.sh
+#echo "Portlang Group compilers activated ! PGI=$PGI"
+
+# my cmake stuff
+#export PATH=/home/milias/bin/cmake/bin:$PATH
+#echo "My own CMake is in PATH."
+
+# my most recent python 2.7.1 #
+#export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
+
+# set scratch directory on nodes (~/.diracrc setting must be deactivated)
+#export DIRAC_TMPDIR=/mnt/local/milias
+
+# load intel compilers
+module load intel/14.0.2-2.144
+
+
+echo "My PATH=$PATH"
+echo "Running on host `hostname`"
+echo "Time is `date`"
+echo "Directory is `pwd`"
+echo "This jobs runs on the following processors:"
+echo `cat $PBS_NODEFILE`
+# Define number of processors
+NPROCS_PBS=`wc -l < $PBS_NODEFILE`
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs."
+echo "PBS_SERVER=$PBS_SERVER"
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
+
+DIRAC=/home/milias/work/software/dirac/trunk
+
+export MATH_ROOT=/usr/local/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+export LC_ALL=C
+export MKL_NUM_THREADS=${NPROCS_PBS}
+export MKL_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+export DIRTIMEOUT="12m"
+
+
+###############################################
+#      serial DIRAC buildup, Intel MKL        #
+###############################################
+BUILD_SERIAL=build_intelmkl_i8_batch
+cd $DIRAC
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_SERIAL"
+#
+if [[ -d "$BUILD_SERIAL" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL"
+  /bin/rm -rf $BUILD_SERIAL
+fi
+./setup --int64 --fc=ifort --cc=icc --cxx=icpc -D BUILDNAME="bugaboo_intelmkl_i8-batch"  -D DART_TESTING_TIMEOUT=99999 $BUILD_SERIAL
+cd $BUILD_SERIAL
+python binary_info.py
+#ctest -D ExperimentalUpdate
+ctest -D ExperimentalConfigure --track Miro
+ctest -D ExperimentalBuild --track Miro
+ctest -D ExperimentalTest -L short --track Miro
+ctest -D ExperimentalSubmit --track Miro
+
+##############################################################################
+#          serial,static DIRAC buildup with Intel+MKL
+##############################################################################
+BUILD_SERIAL_STATIC=build_intelmkl_i8_static_batch
+echo -e "\n\n Running serial, static DIRAC buildup in $BUILD_SERIAL_STATIC"
+cd $DIRAC
+if [[ -d "$BUILD_SERIAL_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL_STATIC"
+  /bin/rm -rf $BUILD_SERIAL_STATIC
+fi
+./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static -D BUILDNAME="bugaboo_intelmkl_i8_static-batch"  -D DART_TESTING_TIMEOUT=99999 $BUILD_SERIAL_STATIC
+cd $BUILD_SERIAL_STATIC
+python binary_info.py
+#ctest -D ExperimentalUpdate
+ctest --track Grid  -D ExperimentalConfigure
+ctest --track Grid  -D ExperimentalBuild
+ctest --track Grid  -D ExperimentalTest -L short
+#ctest -D ExperimentalTest -R cosci_energy dft
+ctest -D ExperimentalSubmit --track Grid
+
+#####################################################
+#        serial DIRAC buildup with GNU+mkl
+#####################################################
+BUILD_GNU=build_gnu_mkl_i8_batch
+echo -e "\n\n Running serial DIRAC buildup in $BUILD_GNU"
+cd $DIRAC
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+./setup --int64 --fc=gfortran --cc=gcc --cxx=g++ -D BUILDNAME="bugaboo_GNU_mkl_i8-batch"  -D DART_TESTING_TIMEOUT=99999  $BUILD_GNU
+cd $BUILD_GNU
+python binary_info.py
+#ctest -D ExperimentalUpdate
+ctest -D ExperimentalConfigure --track Miro
+ctest -D ExperimentalBuild  --track Miro
+ctest -D ExperimentalTest -R cosci_energy  --track Miro
+ctest -D ExperimentalSubmit  --track Miro
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n All buildups finished at "$timestamp
+exit 0

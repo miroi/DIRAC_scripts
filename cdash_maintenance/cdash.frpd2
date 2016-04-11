@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# the directory where your DIRAC sits #
+DIRAC=/home/ilias/Work/qch/qch_software/dirac/trunk
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export DIRTIMEOUT="14m"
+
+export CTEST_PROJECT_NAME="DIRACext"
+
+# go to the local DIRAC directory
+cd $DIRAC
+
+# clean dir
+git clean -f -d -x
+
+# get the fresh clone
+git pull origin master
+
+git submodule update --init --recursive
+git submodule status
+
+git status
+
+BUILD_GNU=build_gnu_i8
+# configure step
+python ./setup  --int64 --blas=off --lapack=off  --cmake-options="-D BUILDNAME='gnu_i8' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=ON -D PYTHON_EXECUTABLE=/usr/bin/python -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_BLAS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD_GNU 
+cd $BUILD_GNU
+ctest  -D ExperimentalConfigure  
+ctest -j3 -D ExperimentalBuild  
+ctest -j3 -D ExperimentalTest  -L short
+ctest  -D ExperimentalSubmit    
+
+cd $DIRAC
+BUILD_GNU1=build_gnu_i4
+# configure step
+python ./setup --cmake-options="-D BUILDNAME='frpd2.gnu_i4' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF -D PYTHON_EXECUTABLE=/usr/bin/python  -D ENABLE_UNIT_TESTS=ON" $BUILD_GNU1
+cd $BUILD_GNU1
+ctest -j3 -D Experimental -L short 
+
+
+####  server's Intel compilers  ####
+#if [[ -z $PROD_DIR ]]; then
+#  source /home/ilias/intel/bin/compilervars.sh intel64
+#  echo "Intel Fortran/C/C++ noncommercial compilers with MKL library activated."
+#  export MATH_ROOT=/home/ilias/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+#fi
+#cd $DIRAC
+#BUILD_INTEL=build_intelmkl_i8
+# configure step
+#python ./setup --fc=ifort  --cc=icc  --cxx=g++  --int64 --cmake-options="-D BUILDNAME='intel_g++_mkl_i8' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF -D ENABLE_PCMSOLVER=ON   -D ENABLE_UNIT_TESTS=ON -D PYTHON_EXECUTABLE=/usr/bin/python" $BUILD_INTEL
+#cd $BUILD_INTEL
+#export MKL_NUM_THREADS=3
+#export MKL_DYNAMIC="FALSE"
+#ctest -D Experimental
+
+
+############################################
+### Now run Nightly buildup with cloning ###
+############################################
+export CTEST_PROJECT_NAME="DIRAC"
+TMP_DIR=/tmp/ilias/DIRAC_build
+if [[ -d "$TMP_DIR" ]]; then
+  /bin/rm -rf $TMP_DIR
+  mkdir -p $TMP_DIR
+else
+  mkdir -p $TMP_DIR
+fi
+git clone --recursive git@repo.ctcc.no:dirac.git  $TMP_DIR
+cd $TMP_DIR
+git submodule update --init --recursive
+BUILD_INTEL=build_ifort_icc_g++_mkl_i8
+# configure step
+python ./setup --fc=ifort  --cc=icc  --cxx=g++  --int64  --cmake-options="-D BUILDNAME='ifort_icc_g++_mkl_i8' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF  -D ENABLE_UNIT_TESTS=ON -D PYTHON_EXECUTABLE=/usr/bin/python" $BUILD_INTEL
+cd $BUILD_INTEL
+export MKL_NUM_THREADS=3
+export MKL_DYNAMIC="FALSE"
+ctest -D Nightly --track master
+
+exit 0

@@ -1,0 +1,154 @@
+#!/bin/bash
+
+##### 05 00 * * 1,2,3,4,5,6,7 DIRAC=/home/ilias/Work/software/dirac/working_trunk; cd $DIRAC; /cm/shared/apps/torque/2.5.5/bin/qsub $DIRAC/maintenance/cdash/cdash.marvin1_NZ.batch
+
+##The job name
+#PBS -N DIRAbuild
+
+# employ already set enviroment variables
+#PBS -V
+
+##The maximum time needed in hours:mins:secs
+#PBS -l walltime=03:30:00 
+
+##The number of nodes and the number of processes per node 
+#PBS -l nodes=1:ppn=1
+
+##The maximum amount of memory required
+##PBS -l mem=8000mb 
+
+# one file for both stdout+stderr output
+#PBS -j oe
+
+##The maximum amount of Hard Disk/Scratch space required
+##PBS -l file=100gb
+
+echo '------------------------------------'
+echo '  *** PBS control variables ***  '
+echo '------------------------------------'
+echo '   $PBS_O_HOME='$PBS_O_HOME
+echo '   $PBS_O_HOST='$PBS_O_HOST
+echo '   $PBS_SERVER='$PBS_SERVER
+echo '  $PBS_O_QUEUE='$PBS_O_QUEUE
+echo '$PBS_O_WORKDIR='$PBS_O_WORKDIR
+echo '  $PBS_JOBNAME='$PBS_JOBNAME
+echo '    $PBS_JOBID='$PBS_JOBID
+echo ' $PBS_NODEFILE='$PBS_NODEFILE
+echo '------------------------------------'
+
+
+#1. Print some helpful information:
+echo This job was submitted from the computer:
+echo $PBS_O_HOST
+echo and the directory:
+echo $PBS_O_WORKDIR
+echo
+echo It is running on the compute node:
+echo $HOSTNAME
+echo
+echo The local scratch directory "(located on the compute node)" is:
+echo /scratch/$PBS_JOBID
+echo
+
+#export PATH=/home/ilias/bin/openmpi_intel/bin:/data/programs/ctcp/pgi/linux86-64/12.5/bin:/home/ilias/bin/cmake/install_src/cmake-2.8.9/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/sbin:/usr/sbin:.:/cm/shared/apps/intel/composer_xe/2011_sp1.11.339/bin:/cm/shared/apps/intel/composer_xe/2011_sp1.11.339/bin/intel64:/cm/shared/apps/intel/composer_xe/2011_sp1.11.339/mkl/bin:/cm/shared/apps/intel/composer_xe/2011_sp1.11.339/mkl/bin/intel64:/cm/shared/apps/torque/2.5.5/bin:/cm/shared/apps/torque/2.5.5/sbin:/home/ilias/bin
+
+export PATH=/home/ilias/bin/cmake/install_src/cmake-2.8.9/bin:$PATH
+
+module load ctcp pgi/64
+module load acml
+module load intel/compiler/64/12.1/2011_sp1.11.339
+module load intel/mkl/64/10.3/2011_sp1.11.339
+module load ctcp
+##Keep a record of which modules were loaded in the job's output:
+module list 2>&1
+echo
+#
+
+# add dynamic libraries 
+export LD_LIBRARY_PATH=/data/programs/ctcp/pgi/linux86-64/12.5/libso:/data/programs/ctcp/pgi/linux86-64/12.5/lib:$LD_LIBRARY_PATH
+
+/bin/echo -e  "\n PATH=$PATH"
+/bin/echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+
+
+#3. Change directory to the directory from which the job was submited.
+cd $PBS_O_WORKDIR
+echo Current directory:
+pwd
+echo
+#
+NUM_OF_CPUS=$(cat /proc/cpuinfo | grep processor | wc -l)
+echo -e  'Number of all processors available per core, NUM_OF_CPUS='$NUM_OF_CPUS
+NUM_OF_PROCESSES=$(cat ${PBS_NODEFILE} | wc -l)
+echo -e 'Number of cores requested, NUM_OF_PROCESSES='$NUM_OF_PROCESSES
+
+export DIRTIMEOUT="10m"
+
+# the directory where your DIRAC sits #
+DIRAC=/home/ilias/Work/software/dirac/working_trunk
+
+echo -e "\n cmake ? \c"; cmake --version
+echo -e "git ? \c"; git --version
+echo -e "\nifort ? \c"; ifort -V
+echo -e "pgf90 ? \c"; pgf90 -V
+echo -e "gfortran ? \c"; gfortran --version
+
+
+# go to the local DIRAC directory
+cd $DIRAC
+
+git submodule update
+git submodule status
+
+BUILD_INTEL=build_intelmkl_i8
+if [[ -d "$BUILD_INTEL" ]]; then
+  echo "deleting previous build directory $BUILD_INTEL."
+  /bin/rm -rf $BUILD_INTEL
+fi
+#
+#export MATH_ROOT=/data/programs/ctcp/pgi/linux86-64/2012/acml/5.1.0/libso
+# configure step
+./setup --fc=ifort  --cc=icc  --cxx=icpc  -D BUILDNAME="Marvin_intelmkl_i8" -D BLAS_TYPE=MKL -D LAPACK_TYPE=MKL -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF $BUILD_INTEL
+cd $BUILD_INTEL
+ctest -D ExperimentalUpdate  --track Miro
+ctest -D ExperimentalConfigure --track Miro
+ctest -D ExperimentalBuild --track Miro
+ctest -D ExperimentalTest  -R  cosci_energy --track Miro
+ctest -D ExperimentalSubmit --track Miro
+
+
+# go to the local DIRAC directory
+cd $DIRAC
+BUILD_PGI=build_PGI_i32lp64_acml_dyn
+if [[ -d "$BUILD_PGI" ]]; then
+  echo "deleting previous build directory $BUILD_PGI."
+  /bin/rm -rf $BUILD_PGI
+fi
+#
+export MATH_ROOT=/data/programs/ctcp/pgi/linux86-64/2012/acml/5.1.0/libso
+# configure step
+./setup --fc=pgf90  --cc=pgcc  --cxx=pgCC  -D BUILDNAME="Marvin_PGI_acml" -D BLAS_TYPE=ACML -D LAPACK_TYPE=ACML -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF  $BUILD_PGI
+cd $BUILD_PGI
+ctest -D ExperimentalUpdate --track Miro 
+ctest -D ExperimentalConfigure --track Miro
+ctest -D ExperimentalBuild --track Miro
+ctest -D ExperimentalTest  -R cosci_energy --track Miro
+ctest -D ExperimentalSubmit --track Miro
+
+
+# go to the local DIRAC directory
+cd $DIRAC
+BUILD_GNU=build_gnu_i8
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU."
+  /bin/rm -rf $BUILD_GNU
+fi
+#
+# configure step
+./setup --fc=gfortran  --cc=gcc  --cxx=g++  -D BUILDNAME="Marvin_gnu_i8_ownmath" --blas=builtin --lapack=builtin -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF  $BUILD_GNU
+cd $BUILD_GNU
+ctest -D ExperimentalUpdate  --track Miro
+ctest -D ExperimentalConfigure  --track Miro
+ctest -D ExperimentalBuild  --track Miro
+ctest -D ExperimentalTest  -R cosci_energy  --track Miro
+ctest -D ExperimentalSubmit --track Miro

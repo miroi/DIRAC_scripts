@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# cron prescription
+#15 00 * * 1,2,3,4,5,6,7   . /etc/profile; . /etc/bashrc; . ~/.bashrc; timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};  echo "running dirac CDash buildup at "$timestamp; DIRAC=/home/miro/qch_software/dirac_git/dirac-git-repo; $DIRAC/maintenance/cdash/cdash.opteron.ompi_ifort.gcc.mkl.ilp64  > $DIRAC/maintenance/CDash_buildup_log_$timestamp 2>&1 || {echo "cront initiated command failed at" $timestamp}
+
+# for cron&queue system you have to set up enviroment !
+export PATH=/home/miro/bin/python/Python-2.7.1:$PATH:/usr/local/bin
+# ifort, ompi compilers
+export PATH=/opt/intel/idbe/10.1.015/bin:/opt/intel/fce/10.1.015/bin:$PATH
+export LD_LIBRARY_PATH=/opt/intel/mkl/10.0.3.020/lib/em64t:/opt/intel/fce/10.1.015/lib:$LD_LIBRARY_PATH
+
+echo "Welcome to the DIRAC CDash buildup on opteron.tau.ac.il"
+
+echo "set PATH=$PATH"
+which python;  
+python -V
+
+# the directory where your DIRAC sits
+DIRAC=/home/miro/qch_software/dirac_git/dirac-git-repo
+
+# go to the local DIRAC directory
+cd $DIRAC
+
+#git pull origin master
+git submodule update
+git submodule status
+
+export DIRTIMEOUT="12m"
+
+export MKL_NUM_THREADS=2
+export MKL_DYNAMIC="FALSE"
+
+BUILD=build_ifort_gnu_mkl_i8
+# configure step
+if [[ -d "$BUILD" ]]; then
+  echo "deleting previous build directory $BUILD"
+  /bin/rm -rf $BUILD
+fi
+#
+export MATH_ROOT=/opt/intel/mkl/10.0.3.020
+./setup --fc=ifort -D BUILDNAME="ifort_gnu_mkl.i8" --int64 -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BENCHMARKS=OFF -D ENABLE_TUTORIALS=ON  $BUILD
+#
+cd $BUILD
+ctest -D ExperimentalUpdate --track Miro
+ctest -D Experimental  -L short  --track Miro
+
+
+cd $DIRAC
+BUILD_STATIC=build_ifort_gnu_mkl_i8_static
+if [[ -d "$BUILD_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_STATIC"
+  /bin/rm -rf $BUILD_STATIC
+fi
+#
+export MATH_ROOT=/opt/intel/mkl/10.0.3.020
+./setup --fc=ifort -D BUILDNAME="ifort_gnu_mkl_i8_static" --static -D ENABLE_OLD_LINKER=ON --int64 -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BENCHMARKS=OFF -D ENABLE_TUTORIALS=ON  $BUILD_STATIC
+#
+cd $BUILD_STATIC
+ctest -D ExperimentalUpdate --track Grid
+ctest -D Experimental -L short --track Grid
+
+
+cd $DIRAC
+BUILD_STATIC=build_ifort_gnu_mkl_i8_nopcm_static
+if [[ -d "$BUILD_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_STATIC"
+  /bin/rm -rf $BUILD_STATIC
+fi
+#
+export MATH_ROOT=/opt/intel/mkl/10.0.3.020
+./setup --fc=ifort -D BUILDNAME="ifort_gnu_mkl_i8_nopcm_static" --static -D ENABLE_OLD_LINKER=ON -D ENABLE_PCMSOLVER=OFF --int64 -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BENCHMARKS=OFF -D ENABLE_TUTORIALS=ON  $BUILD_STATIC
+#
+cd $BUILD_STATIC
+ctest -D ExperimentalUpdate      --track Grid
+ctest -D Experimental -L short   --track Grid
+
+
+exit 0

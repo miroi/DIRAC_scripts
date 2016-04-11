@@ -1,0 +1,61 @@
+#!/bin/bash
+
+#PBS -S /bin/bash
+#PBS -N cdash_buildup
+#PBS -l nodes=1
+#PBS -l walltime=10:00:00
+#PBS -j oe
+
+# intel fortran/MKL stuff
+export PATH=/home/chemia/ucitelia/milias/bin/intel_stuff/intel/composerxe-2011.2.137/mpirt/bin/intel64:$PATH
+export PATH=/home/chemia/ucitelia/milias/bin/intel_stuff/intel/composerxe-2011.2.137/bin/intel64:$PATH
+export LD_LIBRARY_PATH=/home/chemia/ucitelia/milias/bin/intel_stuff/intel/composerxe-2011.2.137/mkl/lib/intel64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/chemia/ucitelia/milias/bin/intel_stuff/intel/composerxe-2011.2.137/mpirt/lib/intel64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/chemia/ucitelia/milias/bin/intel_stuff/intel/composerxe-2011.2.137/compiler/lib/intel64:$LD_LIBRARY_PATH
+
+# OpenMPI-ifort stuff
+export PATH=/home/chemia/ucitelia/milias/bin:/home/chemia/ucitelia/milias/bin/open_mpi_ifort_ILP64/bin:$PATH
+export LD_LIBRARY_PATH=/home/chemia/ucitelia/milias/bin/open_mpi_ifort_ILP64/lib:$LD_LIBRARY_PATH
+
+# OpenMPI_valgrind-ifort stuff
+export PATH=/home/chemia/ucitelia/milias/bin/open_mpi_ifort_ILP64_valgrind/bin:$PATH
+export LD_LIBRARY_PATH=/home/chemia/ucitelia/milias/bin/open_mpi_ifort_ILP64_valgrind/lib:$LD_LIBRARY_PATH
+
+# cmake stuff
+export PATH=/home/chemia/ucitelia/milias/bin/cmake-install/cmake-2.8.4-Linux-i386/bin:$PATH
+
+# new python 2.7.1
+export PATH=/home/chemia/ucitelia/milias/bin/python/Python-2.7.1:$PATH
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo "running dirac cdash buildup at "$timestamp
+
+DIRAC=/home/chemia/ucitelia/milias/work/qch/software/dirac_git/trunk
+#
+BUILD=build_ompi_ifort_gcc_mkl_ILP64_cdash
+#BUILD_VG=build_ompi_ifort_gcc_mkl_ILP64_valgrind_cdash
+#
+OMPI=/home/chemia/ucitelia/milias/bin/open_mpi_ifort_ILP64/bin
+OMPI_VG=/home/chemia/ucitelia/milias/bin/open_mpi_ifort_ILP64_valgrind/bin
+
+cd $DIRAC
+
+
+###  return back to the main directory and rerun setup ###
+#cd $DIRAC
+
+###  MKL ILP64 libraries  ###
+export MATH_ROOT='/home/chemia/ucitelia/milias/bin/intel_stuff/intel/mkl'
+
+BUILD=build_ompi_ifort_gcc_mkl_ILP64_cdash
+export DIRAC_NUM_MPI_PROCS=4
+export DIRTIMEOUT="12m"
+
+./setup --fc=$OMPI/mpif90 --cc=$OMPI/mpicc --cxx=$OMPI/mpiCC -D BUILDNAME="linux.gbb4_BanskaBystrica.ompi_ifort_gcc_mkl" --int64 --check -D DART_TESTING_TIMEOUT=99999  $BUILD
+cd $BUILD
+make Experimental
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo "buildup finished at "$timestamp
+
+exit 0

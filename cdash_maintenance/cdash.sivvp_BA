@@ -1,0 +1,161 @@
+#!/bin/bash
+
+echo "Working host is: "; hostname -f
+
+#source ~/.bashrc
+
+#source  /opt/intel/bin/compilervars.sh  intel64
+#echo "Intel Fortran/C/C++ commercial compilers with MKL library activated."
+ #  source /shared/home/ilias/intel_suite/bin/compilervars.sh intel64
+ #  echo "Intel Fortran/C/C++ noncommercial compilers with MKL library activated."
+
+# http://hpc.ui.savba.sk/index.php?page=softvery
+source /etc/profile.d/modules.sh
+module load intel
+module load pgi
+
+##Keep a record of which modules were loaded in the job's output:
+module list 2>&1
+echo
+
+echo -e "ifort=\c";which ifort; ifort --version
+echo -e "icc=\c";which icc; icc --version
+echo -e "icpc=\c";which icpc; icpc --version
+
+echo -e "pgf90=\c";which pgf90; pgf90 -V
+echo -e "pgcc=\c";which pgcc; pgcc -V
+echo -e "pgCC=\c";which pgCC; pgCC -V
+
+export CTEST_PROJECT_NAME="DIRACext"
+
+# my cmake stuff
+export PATH=/shared/home/ilias/bin/cmake/bin:$PATH
+echo "My own CMake is in PATH."
+# my most recent python 2.7.1 #
+#export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
+
+echo "My PATH=$PATH"
+echo -e "Disks (df -h): \n `df -h`"
+echo "Running on host `hostname`"
+echo "Time is `date`"
+echo "Directory is `pwd`"
+
+# Define number of processors
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs."
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
+
+DIRAC=/shared/home/ilias/Work/software/dirac/trunk
+
+#export LC_ALL=C
+export MKL_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+export DIRTIMEOUT="14m"
+
+# temporary solution - needed module mkl 
+export MATH_ROOT=/opt/intel/mkl
+
+###############################################
+#      serial DIRAC buildup, Intel MKL        #
+###############################################
+BUILD_SERIAL=build_intelmkl_i8
+cd $DIRAC
+
+git clean -f -d -x
+git submodule update --init --recursive
+
+
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_SERIAL"
+#
+if [[ -d "$BUILD_SERIAL" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL"
+  /bin/rm -rf $BUILD_SERIAL
+fi
+python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D BUILDNAME='sivvp-BA_Intel_mkl_i8'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
+cd $BUILD_SERIAL
+ctest -D ExperimentalUpdate  
+ctest -D ExperimentalConfigure 
+ctest -j2 -D ExperimentalBuild  
+ctest -j2 -D ExperimentalTest -R cosci_energy pcm 
+ctest -D ExperimentalSubmit 
+
+##############################################################################
+#          serial,static DIRAC buildup with Intel+MKL
+##############################################################################
+BUILD_SERIAL_STATIC=build_intelmkl_i8_static
+echo -e "\n\n Running serial, static DIRAC buildup in $BUILD_SERIAL_STATIC"
+cd $DIRAC
+if [[ -d "$BUILD_SERIAL_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL_STATIC"
+  /bin/rm -rf $BUILD_SERIAL_STATIC
+fi
+python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D BUILDNAME='sivvp-BA_Intel_mkl_i8_static'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
+cd $BUILD_SERIAL_STATIC
+ctest   -D ExperimentalUpdate  
+ctest   -D ExperimentalConfigure 
+ctest -j2  -D ExperimentalBuild  
+ctest -j2  -D ExperimentalTest -R cosci_energy  pcm 
+ctest -D ExperimentalSubmit 
+
+
+#####################################################
+#        serial DIRAC buildup with GNU+mkl
+#####################################################
+BUILD_GNU=build_gnu_mkl_i8
+echo -e "\n\n Running serial DIRAC buildup in $BUILD_GNU"
+cd $DIRAC
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++ --cmake-options="-D BUILDNAME='sivvp-BA_GNU_mkl_i8' -D DART_TESTING_TIMEOUT=99999"  $BUILD_GNU
+cd $BUILD_GNU
+ctest -D ExperimentalUpdate  
+ctest -D ExperimentalConfigure 
+ctest -j2 -D ExperimentalBuild  
+ctest -j2 -D ExperimentalTest -R cosci_energy  pcm 
+ctest -D ExperimentalSubmit  
+
+#####################################################
+#        serial DIRAC buildup with GNU+ownmath
+#####################################################
+BUILD_GNU=build_gnu_ownmath_i8
+echo -e "\n\n Running serial DIRAC buildup in $BUILD_GNU"
+cd $DIRAC
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++ --blas=off --lapack=off --cmake-options="-D BUILDNAME='sivvp-BA_GNU_ownmath_i8' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=ON -D ENABLE_BUILTIN_LAPACK=ON"  $BUILD_GNU
+cd $BUILD_GNU
+ctest -D ExperimentalUpdate  
+ctest -D ExperimentalConfigure  
+ctest -j2 -D ExperimentalBuild  
+ctest -j2 -D ExperimentalTest -R cosci_energy pcm 
+ctest -D ExperimentalSubmit  
+
+#####################################################
+#        serial DIRAC buildup with PGI+mkl
+#####################################################
+BUILD_PGI=build_pgi_mkl_i8
+echo -e "\n\n Running serial DIRAC buildup in $BUILD_PGI"
+cd $DIRAC
+if [[ -d "$BUILD_PGI" ]]; then
+  echo "deleting previous build directory $BUILD_PGI"
+  /bin/rm -rf $BUILD_PGI
+fi
+./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-BA_PGI_mkl_i8' -D DART_TESTING_TIMEOUT=99999" $BUILD_PGI
+cd $BUILD_PGI
+ctest -D ExperimentalUpdate 
+ctest -D ExperimentalConfigure  
+ctest -j2 -D ExperimentalBuild 
+ctest -j2 -D ExperimentalTest -R cosci_energy pcm 
+ctest -D ExperimentalSubmit 
+ 
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n All buildups finished at "$timestamp
+exit 0

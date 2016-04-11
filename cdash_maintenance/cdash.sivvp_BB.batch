@@ -1,0 +1,146 @@
+#!/bin/bash
+
+#PBS -S /bin/bash
+#PBS -N DIRACbuild
+### Declare myprogram non-rerunable
+#PBS -r n
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=4:00:00
+#PBS -l mem=10g
+#PBS -j oe
+#PBS -q batch
+
+echo "Working host is: "; hostname -f
+
+source /mnt/apps/intel/bin/compilervars.sh intel64
+echo "Intel Fortran/C/C++ noncommercial compilers with MKL library activated, PROD_DIR=$PROD_DIR."
+
+source /mnt/apps/pgi/environment.sh
+echo "Portlang Group compilers activated ! PGI=$PGI"
+
+# my cmake stuff
+#export PATH=/home/milias/bin/cmake/bin:$PATH
+#echo "My own CMake is in PATH."
+
+# my most recent python 2.7.1 #
+#export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
+
+# set scratch directory on nodes (~/.diracrc setting must be deactivated)
+export DIRAC_TMPDIR=/mnt/local/milias
+
+echo "My PATH=$PATH"
+echo "Running on host `hostname`"
+echo "Time is `date`"
+echo "Directory is `pwd`"
+echo "This jobs runs on the following processors:"
+echo `cat $PBS_NODEFILE`
+# Define number of processors
+NPROCS_PBS=`wc -l < $PBS_NODEFILE`
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs."
+echo "PBS_SERVER=$PBS_SERVER"
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
+
+# own cmake installation for nodes
+export PATH=/home/milias/bin/cmake/bin/:$PATH
+which cmake; cmake --version
+which ctest; ctest --version
+echo
+# own git installation for nodes
+export PATH=/home/milias/bin/git_cloned/bin:$PATH
+which git; git --version
+
+DIRAC=/home/milias/Work/qch/software/dirac/trunk
+
+export MATH_ROOT=/mnt/apps/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+export LC_ALL=C
+export MKL_NUM_THREADS=${NPROCS_PBS}
+export MKL_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+export DIRTIMEOUT="12m"
+
+
+###############################################
+#      serial DIRAC buildup, Intel MKL        #
+###############################################
+BUILD_SERIAL=build_intelmkl_i8_batch
+cd $DIRAC
+git submodule update --init --recursive
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_SERIAL"
+#
+if [[ -d "$BUILD_SERIAL" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL"
+  /bin/rm -rf $BUILD_SERIAL
+fi
+python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
+cd $BUILD_SERIAL
+ctest  --track Miro  -D ExperimentalUpdate 
+ctest  --track Miro  -D ExperimentalConfigure 
+ctest  --track Miro  -D ExperimentalBuild 
+ctest  --track Miro  -D ExperimentalTest -L short 
+ctest  --track Miro  -D ExperimentalSubmit 
+
+##############################################################################
+#          serial,static DIRAC buildup with Intel+MKL
+##############################################################################
+BUILD_SERIAL_STATIC=build_intelmkl_i8_static_batch
+echo -e "\n\n Running serial, static DIRAC buildup in $BUILD_SERIAL_STATIC"
+cd $DIRAC
+if [[ -d "$BUILD_SERIAL_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL_STATIC"
+  /bin/rm -rf $BUILD_SERIAL_STATIC
+fi
+python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D BUILDNAME='sivvp-UMB_Intel_mkl_i8_static-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
+cd $BUILD_SERIAL_STATIC
+ctest --track Grid  -D ExperimentalUpdate
+ctest --track Grid  -D ExperimentalConfigure
+ctest --track Grid  -D ExperimentalBuild
+#ctest --track Grid  -D ExperimentalTest -L short
+ctest --track Grid  -D ExperimentalTest -R cosci_energy
+ctest --track Grid  -D ExperimentalSubmit 
+
+#####################################################
+#        serial DIRAC buildup with GNU+mkl
+#####################################################
+BUILD_GNU=build_gnu_mkl_i8_batch
+echo -e "\n\n Running serial DIRAC buildup in $BUILD_GNU"
+cd $DIRAC
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++  --cmake-options="-D BUILDNAME='sivvp-UMB_GNU_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999"  $BUILD_GNU
+cd $BUILD_GNU
+ctest --track Miro  -D ExperimentalUpdate
+ctest --track Miro  -D ExperimentalConfigure 
+ctest --track Miro  -D ExperimentalBuild  
+ctest --track Miro  -D ExperimentalTest -R cosci_energy 
+ctest --track Miro  -D ExperimentalSubmit  
+
+#####################################################
+#        serial DIRAC buildup with PGI+mkl
+#####################################################
+BUILD_PGI=build_pgi_mkl_i8_batch
+echo -e "\n\n Running serial DIRAC buildup in $BUILD_PGI"
+cd $DIRAC
+if [[ -d "$BUILD_PGI" ]]; then
+  echo "deleting previous build directory $BUILD_PGI"
+  /bin/rm -rf $BUILD_PGI
+fi
+python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-UMB_PGI_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_PGI
+cd $BUILD_PGI
+ctest --track Miro  -D ExperimentalUpdate  
+ctest --track Miro  -D ExperimentalConfigure 
+ctest --track Miro  -D ExperimentalBuild   
+ctest --track Miro  -D ExperimentalTest -R cosci_energy  
+ctest --track Miro  -D ExperimentalSubmit 
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n All buildups finished at "$timestamp
+exit 0

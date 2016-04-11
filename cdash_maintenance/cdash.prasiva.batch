@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#OAR -n Buildujem
+#OAR -l nodes=1
+
+# set the environment !
+export PATH=/opt/intel/Compiler/11.0/084/bin/intel64:/prasiva/ilias/bin/cmake_install/cmake-3.0.0/bin:$PATH
+
+echo -e "\n PATH=\c $PATH"
+echo -e "cmake= \c";  which cmake
+echo -e "ifort= \c";  which ifort
+echo -e "icc -V \c";  icc -V
+echo -e "hostname= \c"; hostname
+set
+
+# the directory where your DIRAC sits #
+DIRAC=/prasiva/ilias/work/qch/software/dirac/trunk
+
+echo -e "\n location; PWD=$PWD"
+
+export DIRTIMEOUT="14m"
+
+NUM_OF_CPUS=$(cat /proc/cpuinfo | grep processor | wc -l)
+echo -e  'Number of all processors available per core, NUM_OF_CPUS='$NUM_OF_CPUS
+
+source /opt/intel/Compiler/11.0/084/bin/intel64/ifortvars_intel64.sh
+export MKL_NUM_THREADS=$NUM_OF_CPUS
+export MKL_DYNAMIC="FALSE"
+
+cd $DIRAC
+
+# remove old batch launches protocols
+git clean -f
+
+BUILD=build_ifort_icc_g++_mkl_i8_test
+if [[ -d "$BUILD" ]]; then
+  echo "deleting previous build directory $BUILD"
+  /bin/rm -rf $BUILD
+fi
+# configure step
+export MATH_ROOT=/opt/intel/Compiler/11.0/084/mkl
+./setup -D BUILDNAME="prasiva.ifort_icc_g++_mkl_i8" -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON --fc=ifort  --cc=icc  --cxx=g++  --int64  $BUILD
+cd $BUILD
+ctest  -D ExperimentalUpdate      --track Miro
+ctest  -D ExperimentalConfigure   --track Miro
+#ctest  -j$NUM_OF_CPUS  -D ExperimentalBuild    --track Miro
+ctest  -j4  -D ExperimentalBuild    --track Miro
+ctest  -D ExperimentalTest     --track Miro
+ctest  -D ExperimentalSubmit   --track Miro
+
+
+cd $DIRAC
+BUILD=build_gnu_mkl_i8_test
+if [[ -d "$BUILD" ]]; then
+  echo "deleting previous build directory $BUILD"
+  /bin/rm -rf $BUILD
+fi
+# configure step
+export MATH_ROOT=/opt/intel/Compiler/11.0/084/mkl
+./setup -D BUILDNAME="prasiva.gnumkl_i8" -D DART_TESTING_TIMEOUT=99999  -D ENABLE_PCMSOLVER=ON --fc=gfortran  --cc=gcc  --cxx=g++  --int64  $BUILD
+cd $BUILD
+ctest  -D ExperimentalUpdate --track Miro
+ctest  -D Experimental -L short --track Miro
+
+exit 0

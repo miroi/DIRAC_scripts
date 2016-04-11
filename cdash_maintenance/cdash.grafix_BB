@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# FYI:  crontab inscription:
+#30 00 * * 1,2,3,4,5,6,7 timestamp=`date +\%F_\%k-\%M-\%S`; DIRAC=/home/milias/work/qch/dirac_git/trunk; $DIRAC/maintenance/cdash/cdash.grafix_GPU_BanskaBystrica.linux.ompi_gfortran_gcc_ownmath_ilp64 > $DIRAC/maintenance/cdash_buildup_log_$timestamp
+
+# enviroment variables ...
+export PATH=/home/milias/bin/openmpi_ilp64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/cuda/bin
+export LD_LIBRARY_PATH=/home/milias/bin/openmpi_ilp64/lib:/usr/local/cuda/cudaprof/bin:/usr/local/cuda/lib64:/usr/local/lib
+
+####  server's Intel compilers  ####
+if [[ -z $PROD_DIR ]]; then
+  #source /home/ilias/intel/bin/compilervars.sh intel64
+  source /opt/intel/bin/compilervars.sh intel64
+  echo "Intel Fortran/C/C++ noncommercial compilers with MKL library activated."
+fi
+alias mkl='export MATH_ROOT=/opt/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"'
+
+# the directory where your DIRAC sits
+DIRAC=/home/milias/work/qch/dirac_git/trunk
+OMPI=/home/milias/bin/openmpi_ilp64/bin
+
+export DIRTIMEOUT="12m"
+export CTEST_PROJECT_NAME=DIRACext
+
+# utilize MKL threading
+export MKL_NUM_THREADS=2
+
+# go to the local DIRAC directory
+cd $DIRAC
+git submodule update --init --recursive 
+git clean -f -d -x
+
+cd $DIRAC
+BUILD_INTEL_STATIC=build_ifort_mkl_int64_static
+if [[ -d "$BUILD_INTEL_STATIC" ]]; then
+   echo "Deleting previous build ddirectory $BUILD_INTEL_STATIC."
+  /bin/rm -rf $BUILD_INTEL_STATIC
+fi
+export MATH_ROOT=/opt/intel/mkl
+unset DIRAC_NUM_MPI_PROCS
+./setup --fc=ifort --cc=icc --cxx=icpc --int64 --static --cmake-options='-D BUILDNAME="grafix_BB.Intel_mkl_i8_static" -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BOUNDS_CHECK=OFF' $BUILD_INTEL_STATIC
+cd $BUILD_INTEL_STATIC
+ctest -D ExperimentalUpdate
+ctest -D Experimental  
+
+#
+# now do the nightly build
+#
+TMP_DIR=/tmp/milias/dirac_build
+if [[ -d "$TMP_DIR" ]]; then
+  /bin/rm -rf $TMP_DIR
+  mkdir -p $TMP_DIR
+else
+  mkdir -p $TMP_DIR
+fi
+git clone --recursive git@repo.ctcc.no:dirac.git  $TMP_DIR
+cd $TMP_DIR
+export MATH_ROOT=/opt/intel/mkl
+./setup --fc=ifort --cc=icc --cxx=icpc --int64  --cmake-options='-D BUILDNAME="grafix_BB.Intel_MKL_i8" -D DART_TESTING_TIMEOUT=99999 -D ENABLE_TUTORIALS=ON -D ENABLE_BOUNDS_CHECK=OFF'
+cd build
+python binary_info.py
+make Nightly
+
+exit 0

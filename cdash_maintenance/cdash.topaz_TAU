@@ -1,0 +1,141 @@
+#!/bin/bash
+
+echo "Working host is: "; hostname -f
+
+source /home/miro/intel/bin/compilervars.sh intel64
+echo "Intel Fortran/C/C++ noncommercial compilers and the MKL library activated; MKLROOT=$MKLROOT"
+
+# my cmake stuff, plus git
+export PATH=/home/miro/bin/cmake_install/cmake-3.0.2-Linux-i386/bin:/opt/rocks/bin:$PATH
+echo "My own CMake is in PATH."
+
+echo "My PATH=$PATH"
+echo "Git ? `git --version`"
+echo "Running on host `hostname`"
+echo "Time is `date`"
+echo "Directory is `pwd`"
+# Define number of processors
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs."
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
+
+export LC_ALL=C
+export MKL_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+export DIRTIMEOUT="12m"
+
+###  DIRAC directory  ###
+DIRAC=/home/miro/work/qch/software/dirac/trunk
+
+###############################################
+#      serial DIRAC buildup, Intel MKL        #
+###############################################
+BUILD_SERIAL=build_intelmkl_i8
+cd $DIRAC
+
+git submodule update --init --recursive
+git submodule status
+
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_SERIAL"
+#
+if [[ -d "$BUILD_SERIAL" ]]; then
+  echo "deleting previous build directory $BUILD_SERIAL"
+  /bin/rm -rf $BUILD_SERIAL
+fi
+./setup --run-unit-tests  --int64 --fc=ifort --cc=icc --cxx=icpc -D BUILDNAME="topaz-TAU_Intel_mkl_i8"  -D DART_TESTING_TIMEOUT=99999 $BUILD_SERIAL
+cd $BUILD_SERIAL
+python binary_info.py
+ctest -D ExperimentalUpdate  --track Miro
+ctest -D ExperimentalConfigure --track Miro
+ctest -D ExperimentalBuild  --track Miro
+ctest -j2 -D ExperimentalTest -R cosci_energy  --track Miro
+ctest -D ExperimentalSubmit  --track Miro
+
+###############################################
+#  serial DIRAC buildup, Intel MKL static     #
+###############################################
+BUILD_INTEL_STATIC=build_intelmkl_i8_static
+cd $DIRAC
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_INTEL_STATIC"
+#
+if [[ -d "$BUILD_INTEL_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_INTEL_STATIC"
+  /bin/rm -rf $BUILD_INTEL_STATIC
+fi
+./setup --run-unit-tests --int64 --fc=ifort --cc=icc --cxx=icpc -D BUILDNAME="topaz-TAU_Intel_mkl_i8_static" --static -D DART_TESTING_TIMEOUT=99999 $BUILD_INTEL_STATIC
+cd $BUILD_INTEL_STATIC
+python binary_info.py
+ctest --track Grid -D ExperimentalUpdate
+ctest --track Grid -D ExperimentalConfigure
+ctest --track Grid -D ExperimentalBuild
+ctest --track Grid  -j2 -D ExperimentalTest -R cosci_energy
+ctest --track Grid  -D ExperimentalSubmit 
+
+###############################################
+#  serial DIRAC buildup, GNU+MKL dynamic      #
+###############################################
+BUILD_GNU_MKL=build_gnu_mkl_i8
+cd $DIRAC
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_GNU_MKL"
+#
+if [[ -d "$BUILD_GNU_MKL" ]]; then
+  echo "deleting previous build directory $BUILD_GNU_MKL"
+  /bin/rm -rf $BUILD_GNU_MKL
+fi
+./setup --run-unit-tests --int64 --fc=gfortran --cc=gcc --cxx=g++ -D BUILDNAME="topaz-TAU_gnu_mkl_i8" -D DART_TESTING_TIMEOUT=99999 $BUILD_GNU_MKL
+cd $BUILD_GNU_MKL
+python binary_info.py
+ctest -D ExperimentalUpdate  --track Miro
+ctest -D ExperimentalConfigure  --track Miro
+ctest -D ExperimentalBuild  --track Miro
+ctest -j2 -D ExperimentalTest -R cosci_energy  --track Miro
+ctest -D ExperimentalSubmit  --track Miro
+
+
+###############################################
+#  serial DIRAC buildup, GNU dynamic          #
+###############################################
+BUILD_GNU=build_gnu_i8
+cd $DIRAC
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_GNU"
+#
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+./setup --run-unit-tests --int64 --fc=gfortran --cc=gcc --cxx=g++ --blas=builtin --lapack=builtin -D BUILDNAME="topaz-TAU_gnu_ownmath_i8" -D DART_TESTING_TIMEOUT=99999 $BUILD_GNU
+cd $BUILD_GNU
+python binary_info.py
+ctest -D ExperimentalUpdate  --track Miro
+ctest -D ExperimentalConfigure  --track Miro
+ctest -D ExperimentalBuild  --track Miro
+ctest -j2 -D ExperimentalTest -R cosci_energy  --track Miro
+ctest -D ExperimentalSubmit  --track Miro
+
+###############################################
+#  serial DIRAC buildup, GNU static           #
+###############################################
+BUILD_GNU=build_gnu_i8_static
+cd $DIRAC
+echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_GNU"
+#
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+./setup --run-unit-tests --int64 --fc=gfortran --cc=gcc --cxx=g++ --blas=builtin --lapack=builtin --static -D BUILDNAME="topaz-TAU_gnu_ownmath_i8_static" -D DART_TESTING_TIMEOUT=99999 $BUILD_GNU
+cd $BUILD_GNU
+python binary_info.py
+ctest  --track Grid  -D ExperimentalUpdate
+ctest  --track Grid  -D ExperimentalConfigure
+ctest --track Grid  -D ExperimentalBuild
+ctest  --track Grid   -j2  -D ExperimentalTest -R cosci_energy
+ctest   --track Grid  -D ExperimentalSubmit 
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n\n All buildups finished at "$timestamp
+exit 0

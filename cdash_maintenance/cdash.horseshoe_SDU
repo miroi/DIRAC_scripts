@@ -1,0 +1,80 @@
+#!/bin/bash
+
+########################################################################
+#
+#   Interactive  buildup script for cluster at SDU, Odense, Denmark
+#
+########################################################################
+
+# My own Intel Fortran/C/C++ and MKL stuff
+source /people/disk2/ilias/intel/bin/compilervars.sh intel64
+export MATH_ROOT=/people/disk2/ilias/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+
+#machine installed Intel suite
+#source /opt/intel/bin/compilervars.sh intel64
+#export MATH_ROOT=/opt/intel/mkl
+
+# cmake stuff
+export PATH=/people/disk2/ilias/bin/cmake_install/bin:$PATH
+# my most recent python 2.7.1 #
+export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo "running dirac cdash buildup at "$timestamp
+
+which ifort
+which icc
+which icpc
+
+DIRAC=/people/disk2/ilias/QCH_Work/qch_progs/dirac_git/trunk
+#
+export DIRTIMEOUT="12m"
+export CTEST_PROJECT_NAME="DIRACext"
+
+cd $DIRAC
+#git clean -f -d -x
+git pull origin master
+git submodule update --init --recursive
+#
+BUILD_INTEL=build_intelmkl_i8
+if [[ -d "$BUILD_INTEL" ]]; then
+  echo "deleting previous build directory $BUILD_INTEL"
+  /bin/rm -rf $BUILD_INTEL
+fi
+python ./setup --run-unit-tests --fc=ifort  --cc=icc  --cxx=icpc --int64  --cmake-options='-D BUILDNAME="fe8_SDU.intel_mkl_i8" -D DART_TESTING_TIMEOUT=99999'  $BUILD_INTEL
+cd $BUILD_INTEL
+ctest -D ExperimentalConfigure
+ctest -D ExperimentalBuild  
+ctest -j2 -D ExperimentalTest -R cosci_energy pcm 
+ctest -D ExperimentalSubmit  
+
+cd $DIRAC
+BUILD_INTEL_STATIC=build_intelmkl_i8_static
+if [[ -d "$BUILD_INTEL_STATIC" ]]; then
+  echo "deleting previous build directory $BUILD_INTEL_STATIC"
+  /bin/rm -rf $BUILD_INTEL_STATIC
+fi
+python ./setup --run-unit-tests --fc=ifort  --cc=icc  --cxx=icpc --int64 --cmake-options='-D BUILDNAME="fe8_SDU.intel_mkl_i8_static" -D DART_TESTING_TIMEOUT=99999'  $BUILD_INTEL_STATIC
+cd $BUILD_INTEL_STATIC
+ctest -D ExperimentalConfigure 
+ctest -D ExperimentalBuild  
+ctest -j2 -D ExperimentalTest -R cosci_energy pcm 
+ctest -D ExperimentalSubmit 
+
+
+cd $DIRAC
+BUILD_GNU=build_gnu_i8
+if [[ -d "$BUILD_GNU" ]]; then
+  echo "deleting previous build directory $BUILD_GNU"
+  /bin/rm -rf $BUILD_GNU
+fi
+python ./setup --run-unit-tests  --fc=gfortran  --cc=gcc  --cxx=g++ --int64  --blas=off --lapack=off --cmake-options='-D BUILDNAME="fe8_SDU.gnu_i8_ownmath"  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=ON -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF'  $BUILD_GNU
+cd $BUILD_GNU
+ctest -D ExperimentalConfigure 
+ctest -D ExperimentalBuild  
+ctest -j2 -D ExperimentalTest -R cosci_energy pcm  
+ctest -D ExperimentalSubmit  
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo "buildup finished at "$timestamp
+exit 0

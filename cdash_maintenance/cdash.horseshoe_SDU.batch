@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#PBS -S /bin/bash
+#PBS -N DIRACbuildup
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -q workq
+
+# My own Intel Fortran/C/C++ and MKL stuff
+source /people/disk2/ilias/intel/bin/compilervars.sh intel64
+export MATH_ROOT=/people/disk2/ilias/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+
+#machine installed Intel suite
+#source /opt/intel/bin/compilervars.sh intel64
+#export MATH_ROOT=/opt/intel/mkl
+
+# cmake stuff
+export PATH=/people/disk2/ilias/bin/cmake_install/bin:$PATH
+# my most recent python 2.7.1 #
+export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo "running dirac cdash buildup at "$timestamp
+
+which ifort; ifort -V
+which icc
+which icpc
+
+git --version
+
+DIRAC=/people/disk2/ilias/QCH_Work/qch_progs/dirac_git/trunk
+#
+export DIRTIMEOUT="12m"
+export CTEST_PROJECT_NAME="DIRACext"
+
+cd $DIRAC
+
+#git clean -f -d -x
+git pull origin master
+git submodule update --init --recursive
+#
+# reset back to the launching directory and rerun setup command with new parameters
+#
+BUILD_INTEL=build_intelmkl_i8_batch
+if [[ -d "$BUILD_INTEL" ]]; then
+  echo "deleting previous build directory $BUILD_INTEL"
+  /bin/rm -rf $BUILD_INTEL
+fi
+./setup --fc=ifort  --cc=icc  --cxx=icpc --int64 --cmake-options='-D BUILDNAME="fe8_Odense.intel_mkl_i8-batch" -D DART_TESTING_TIMEOUT=99999'  $BUILD_INTEL
+cd $BUILD_INTEL
+ctest -D ExperimentalConfigure
+ctest -D ExperimentalBuild  
+ctest -D ExperimentalTest -R dft mp2
+ctest -D ExperimentalSubmit  
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo "buildup finished at "$timestamp
+exit 0

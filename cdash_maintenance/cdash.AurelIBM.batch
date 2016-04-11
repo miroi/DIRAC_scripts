@@ -1,0 +1,51 @@
+#@ job_type = parallel
+##@ job_type = serial
+
+#@ job_name = DIRACbuild
+#@ class = short 
+#@ error = $(job_name).err
+#@ output = $(job_name).out
+#@ network.MPI = sn_single,shared,US
+#@ network.LAPI = sn_single,shared,US
+#@ node = 1
+#@ total_tasks = 4
+#@ environment = MP_PULSE=0; MP_SHARED_MEMORY=yes
+#@ queue
+
+#export RT_GRQ=ON
+project=$LOADL_JOB_NAME
+#workdir=/gpfs/scratch/$USER/${project}_new
+home=$PWD
+#CMD=/gpfs/home/freeware/sources/nwchem-6.1.1-src/bin/LAPI64/nwchem
+
+export PATH="/gpfs/home/utils/python-2.7.10/bin:/gpfs/home/utils/git/git-2.6.3.368/bin:/gpfs/home/utils/cmake/bin:/opt/freeware/bin/:/opt/IBM/xlf/15.1.0/bin/:/opt/IBM/xlc/13.1.0/bin/:/opt/IBM/xlC/13.1.0/bin":$PATH
+
+echo "PATH=$PATH"
+
+which xlf90
+which xlc
+which xlC
+
+DIRAC=/gpfs/home/ilias/work/qch/software/dirac/trunk
+BUILD=build_xlf90_xlc_xlC_essl_i8_dbg_nopcm_nostie_batch
+#####################################################################################
+
+echo $PATH
+
+cd $DIRAC
+
+if [[ -d "$BUILD" ]]; then
+  echo "deleting previous build directory $BUILD"
+  /bin/rm -rf $BUILD
+fi
+
+python ./setup --fc=xlf90 --cc=xlc --cxx=xlC --lapack=off --int64 --cmake-options="-D BUILDNAME='Aurel-IBM_XL_i8_essl_nopcm_nostiel_batch' -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD
+cd $BUILD
+ctest  -D ExperimentalConfigure
+ctest -j4 -D ExperimentalBuild
+ctest -j4 -D ExperimentalTest -L short
+ctest -D ExperimentalSubmit 
+
+#cd $DIRAC/$BUILD
+#ctest -j4 -L short
+
