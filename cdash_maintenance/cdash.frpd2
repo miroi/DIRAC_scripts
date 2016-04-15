@@ -10,6 +10,9 @@ export DIRTIMEOUT="14m"
 
 export CTEST_PROJECT_NAME="DIRACext"
 
+export PATH=/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:$PATH
+echo -e "\n cmake --version ?"; cmake --version
+
 # go to the local DIRAC directory
 cd $DIRAC
 
