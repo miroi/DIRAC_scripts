@@ -4,14 +4,16 @@ DIRAC=/gpfs/home/ilias/work/qch/software/dirac/trunk
 
 #module load git/git-2.6.3.368
 #module load python-2.7.10
+#module load cmake/cmake-3.5.2
 
 echo "default PATH=$PATH"
-export PATH=/gpfs/home/utils/python-2.7.10/bin:/gpfs/home/utils/git/git-2.6.3.368/bin:/usr/vacpp/bin:/opt/freeware/bin/:/gpfs/home/utils/cmake/bin:/opt/IBM/xlf/15.1.0/bin/:/opt/IBM/xlc/13.1.0/bin/:/opt/IBM/xlC/13.1.0/bin:$PATH
+export PATH=/gpfs/home/utils/python-2.7.10/bin:/gpfs/home/utils/git/git-2.6.3.368/bin:/usr/vacpp/bin:/opt/freeware/bin/:/gpfs/home/utils/cmake-3.5.2/bin:/opt/IBM/xlf/15.1.0/bin/:/opt/IBM/xlc/13.1.0/bin/:/opt/IBM/xlC/13.1.0/bin:$PATH
 echo "extended PATH=$PATH"
 
 #xlf90 -V; xlc -V; xlC -V
 gfortran --version; gcc --version; g++ --version
 git --version
+cmake --version
 python -V
 
 export CTEST_PROJECT_NAME="DIRACext"
@@ -31,6 +33,7 @@ if [[ -d "$BUILD" ]]; then
   /bin/rm -rf $BUILD
 fi
 python ./setup --fc=xlf90 --cc=xlc --cxx=xlC --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_essl_nopcm_nostiel' -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD
+
 cd $BUILD
 ctest  -D ExperimentalConfigure
 ctest -j8 -D ExperimentalBuild
@@ -190,7 +193,6 @@ ctest  -D ExperimentalConfigure
 ctest -j8 -D ExperimentalBuild
 ctest -j4 -D ExperimentalTest -R cosci_energy
 ctest -D ExperimentalSubmit 
-
 
 date
 
