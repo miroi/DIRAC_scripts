@@ -8,7 +8,7 @@
 ##################################################
 # fill the PATH to be the same as in online mode
 ##################################################
-export PATH=/usr/lib64/qt-3.3/bin:/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
+export PATH=/usr/lib64/qt-3.3/bin:/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin
 
 #MiroD advice
 source $HOME/.bash_profile
