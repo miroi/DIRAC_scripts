@@ -8,7 +8,7 @@
 ##################################################
 # fill the PATH to be the same as in online mode
 ##################################################
-export PATH=/usr/lib64/qt-3.3/bin:/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin
+export PATH=/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:/usr/lib64/qt-3.3/bin:/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 
 #MiroD advice
 source $HOME/.bash_profile
@@ -29,6 +29,12 @@ module load pgi/13.10
 echo "PGI commercial compilers activated."
 module list
 
+echo "My PATH=$PATH"
+echo -e "cmake --version :\c"; cmake --version
+
+#echo "which make:"; which make
+#echo -e "\n set:"; set
+
 #
 # My own OpenMPI Intel static
 
@@ -44,10 +50,6 @@ module list
 
 # select my "private" CDash 
 export CTEST_PROJECT_NAME=DIRACext
-
-echo "My PATH=$PATH"
-#echo "which make:"; which make
-echo -e "\n set:"; set
 
 # very important - set running time for tests !
 export DIRTIMEOUT="8m"
