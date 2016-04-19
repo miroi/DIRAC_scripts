@@ -3,14 +3,15 @@
 #DIRAC=/gpfs/home/ilias/work/qch/software/dirac/trunk
 DIRAC=/gpfs/home/ilias/work/qch/software/dirac/trunk
 
-module load ibm/xlf-14.1
-module load ibm/vac-12.1
-module load cmake/cmake-3.5.2
-module load python-3.4.2
+#module load ibm/xlf-14.1
+#module load ibm/vac-12.1
+#module load cmake/cmake-3.5.2
+#module load python-3.4.2
 
-echo "PATH=$PATH"
-#export PATH=/gpfs/home/utils/python-2.7.10/bin:/gpfs/home/utils/git/git-2.6.3.368/bin:/usr/vacpp/bin:/opt/freeware/bin/:/gpfs/home/utils/cmake-3.5.2/bin:/opt/IBM/xlf/15.1.0/bin/:/opt/IBM/xlc/13.1.0/bin/:/opt/IBM/xlC/13.1.0/bin:$PATH
-#echo "extended PATH=$PATH"
+echo "default (original) PATH=$PATH"
+export PATH=/gpfs/home/utils/LINUX/python-3.4.2/bin:/gpfs/home/utils/LINUX/cmake/cmake-3.5.2/bin:/opt/ibmcmp/vac/12.1/bin:/opt/ibmcmp/vacpp/12.1/bin/:/opt/ibmcmp/xlf/14.1/bin/:/gpfs/home/ilias/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:.
+export LD_LIBRARY_PATH=/gpfs/home/utils/LINUX/python-3.4.2/lib
+echo "extended PATH=$PATH"
 
 #xlf90 -V; xlc -V; xlC -V
 gfortran --version; gcc --version; g++ --version
