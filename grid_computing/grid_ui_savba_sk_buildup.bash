@@ -8,6 +8,10 @@
 ##################################################
 # fill the PATH to be the same as in online mode
 ##################################################
+
+#  enable the newest GNU compilers
+scl enable devtoolset-3 bash
+
 export PATH=/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:/usr/lib64/qt-3.3/bin:/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 
 #MiroD advice
@@ -403,7 +407,7 @@ cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$
 /bin/rm -r test/*/compare
 
 packed_dirac=DIRAC_grid_suite.tgz
-echo -e "\n\n Packing slim DIRAC suite (executables,basis sets and tests) for grid computations ! \n"
+echo -e "\n\n Packing slim DIRAC suite (static dirac.x binaries, basis sets and test suite) for grid computations ! \n"
 #     
 tar czf $packed_dirac  test  basis  basis_dalton  basis_ecp \
 $BUILD_OMPI_INTEL/dirac.x $BUILD_OMPI_INTEL/pam $BUILD_OMPI_INTEL/etc $BUILD_OMPI_INTEL/share $BUILD_OMPI_INTEL/mpirun  \
@@ -421,7 +425,7 @@ maintenance/grid_computing/diracrc_grid
 
 echo -e "\n packing done, we have tar-ball file ready to be placed on SE for grid-computing : "
 ls -lt $packed_dirac
-echo -e "\n Done. Tarball with static execs ready."
+echo -e "\n Done. Tarball with static execs is ready."
 
 # exit here, don't do other stuff
 echo -e "\n Leaving here, you will have to upload the tarball manually onto your SE."
