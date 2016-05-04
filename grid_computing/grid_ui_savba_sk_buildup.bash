@@ -31,6 +31,13 @@ echo "Intel Fortran/C/C++ commercial compilers with MKL library activated."
 module unload pgi/13.10
 module load pgi/13.10
 echo "PGI commercial compilers activated."
+
+# newest GNU suite
+module unload devtoolset/4
+module load devtoolset/4
+
+
+echo -e "\n All loaded modules"
 module list
 
 echo "My PATH=$PATH"
