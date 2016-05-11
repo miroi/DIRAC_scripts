@@ -1,7 +1,11 @@
 #!/bin/bash
 #############################################################################
 #
-#      parametrized script for DIRAC buildup in the grid environment
+#   Script for static DIRAC buildups for the grid environment
+#
+#
+# Written by Miro Ilias, Matej Bel University, Slovakia
+#                        GSI, Germany
 #
 #############################################################################
 
@@ -85,6 +89,13 @@ echo -e  "\n Activated MATH_ROOT=$MATH_ROOT ! \n"
 #git pull
 
 ###################################################################################
+#
+# Intel-MPICH,MKL,i8,static
+#
+###################################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel-MPICH,MKL,i8,static - at $timestamp \n"
+
 cd $DIRAC
 # My own MPICH Intel static
 export PATH=/home/ilias/bin/mpich-3.2-intel-static/bin:$PATH
@@ -113,6 +124,14 @@ echo -e "\n build - Intel-MPICH,MKL,i8,static - finished at $timestamp \n"
 
 
 ###################################################################################
+##
+##  Intel-OpenMPI_1.10.1,MKL,i8,static
+##
+###################################################################################
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel-OpenMPI_1.10.1,MKL,i8,static - at $timestamp \n"
+
 cd $DIRAC
 BUILD_OMPI_INTEL=build_intelmkl_openmpi-1.10.1_i8_static
 # My own OpenMPI Intel static
@@ -152,9 +171,11 @@ echo -e "\n build - Intel-OpenMPI_1.10.1,MKL,i8,static - finished at $timestamp 
 
 sleep 30
 
-##
+##############################################################################
 ##  Intel + MKL + i8 + static
-##
+##############################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build- Intel,MKL,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_SERIAL_INTEL=build_intelmkl_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL" ]]; then
@@ -178,9 +199,11 @@ echo -e "\n build- Intel,MKL,i8,serial,static - finished at $timestamp \n"
 
 sleep 10
 
-##
+#######################################################################################
 ## Intel + ownmath + i8 + static
-##
+#######################################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel,ownmath,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_SERIAL_INTEL1=build_intel_ownmath_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL1" ]]; then
@@ -197,15 +220,20 @@ python ./setup --fc=ifort --cc=icc --cxx=icpc  --int64 --static --cmake-options=
 
  ls -lt $DIRAC/$BUILD_SERIAL_INTEL1/dirac.x
  ldd $DIRAC/$BUILD_SERIAL_INTEL1/dirac.x
+
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build - Intel,ownmath,i8,serial,static - finished at $timestamp \n"
 
 sleep 10
 
 
+#############################################################################
 ##
 ## Intel + OpenBLAS + i8 + static
 ##
+#############################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel,OpenBLAS,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_SERIAL_INTEL2=build_intel_openblas_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL2" ]]; then
@@ -222,6 +250,7 @@ python ./setup --static --fc=ifort --cc=icc --cxx=icpc --int64   --cmake-options
 
  ls -lt $DIRAC/$BUILD_SERIAL_INTEL2/dirac.x
  ldd $DIRAC/$BUILD_SERIAL_INTEL2/dirac.x
+
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build - Intel,OpenBLAS,i8,serial,static - finished at $timestamp \n"
 
@@ -231,6 +260,8 @@ sleep 10
 ######################
 # PGI + MKL - static #
 ######################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - PGI,MKL,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_PGI=build_pgi_mkl_i8_static
 if [[ -d "$BUILD_PGI" ]]; then
@@ -254,9 +285,11 @@ echo -e "\n build - PGI,MKL,i8,serial,static - finished at $timestamp \n"
 sleep 10
 
 
-#
+############################################################################
 # PGI + OWNMATH - static 
-#
+############################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build  - PGI,ownmath,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_PGI1=build_pgi_ownnath_i8_static
 if [[ -d "$BUILD_PGI1" ]]; then
@@ -273,14 +306,19 @@ python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --int64 --static  --cmake-option
 
  ls -lt $DIRAC/$BUILD_PGI1/dirac.x
  ldd $DIRAC/$BUILD_PGI1/dirac.x
+
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build  - PGI,ownmath,i8,serial,static - finished at $timestamp \n"
 
 sleep 10
 
+################################################################################
 #
 # PGI + OpenBLAS - static 
 #
+################################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build  - PGI,openblas,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_PGI2=build_pgi_openblas_static
 if [[ -d "$BUILD_PGI2" ]]; then
@@ -297,15 +335,20 @@ python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUI
 
  ls -lt $DIRAC/$BUILD_PGI2/dirac.x
  ldd $DIRAC/$BUILD_PGI2/dirac.x
+
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build  - PGI,openblas,serial,static - finished at $timestamp \n"
 
 sleep 10
 
 
-#
+####################################################################
+##
 # PGI + i8 + OpenBLAS - static 
-#
+##
+####################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build  - PGI,openblas,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_PGI3=build_pgi_openblas_i8_static
 if [[ -d "$BUILD_PGI2" ]]; then
@@ -322,6 +365,7 @@ python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options
 
  ls -lt $DIRAC/$BUILD_PGI3/dirac.x
  ldd $DIRAC/$BUILD_PGI3/dirac.x
+
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build  - PGI,openblas,i8,serial,static - finished at $timestamp \n"
 
@@ -331,6 +375,8 @@ sleep 10
 #####################
 ##  GNU+MKL STATIC ##
 #####################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - GNU,MKL,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_SERIAL_GNU=build_gnumkl_i8_static
 if [[ -d "$BUILD_SERIAL_GNU" ]]; then
@@ -356,6 +402,8 @@ sleep 10
 #########################
 ##  GNU+OWNMATH STATIC ##
 #########################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - GNU,ownmath,i8,serial,static - at $timestamp \n"
 cd $DIRAC
 BUILD_SERIAL_GNU1=build_gnu_ownmath_i8_static
 if [[ -d "$BUILD_SERIAL_GNU1" ]]; then
@@ -382,6 +430,8 @@ sleep 10
 ##########################
 ##  GNU+OPENBLAS STATIC ##
 ##########################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - GNU,OpenBLAS,serial,static at $timestamp \n"
 cd $DIRAC
 BUILD_SERIAL_GNU2=build_gnu_openblas_static
 if [[ -d "$BUILD_SERIAL_GNU2" ]]; then
@@ -405,8 +455,13 @@ echo -e "\n build - GNU,OpenBLAS,serial,static - finished at $timestamp \n"
 sleep 10
 
 #################################
+##                             ##
 ## OPENMPI GNU+OPENBLAS STATIC ##
+##                             ##
 #################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - GNU,OpenBLAS,serial,static - at $timestamp \n"
+
 # My own OpenMPI GNU static
 export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
 export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH
@@ -440,7 +495,7 @@ cp -R     /home/ilias/bin/openmpi-1.10.1_gnu_static/etc               $DIRAC/$BU
 # python binary_info.py  > VERSION_cmake  2>&1  # get version
 
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
-echo -e "\n build - GNU,OpenBLAS,serial,static - finished at $timestamp \n"
+echo -e "\n build - GNU,OpenBLAS,OpenMPI 1.10.1,static - finished at $timestamp \n"
 sleep 10
 
 
