@@ -124,6 +124,41 @@ echo -e "\n build - Intel-MPICH,MKL,i8,static - finished at $timestamp \n"
 
 
 ###################################################################################
+#
+#                     Intel-MPICH,OWNMATH,i8,static
+#
+###################################################################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel-MPICH,OWNMATH,i8,static - at $timestamp \n"
+
+cd $DIRAC
+# My own MPICH Intel static
+export PATH=/home/ilias/bin/mpich-3.2-intel-static/bin:$PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/mpich-3.2-intel-static/lib:$LD_LIBRARY_PATH
+#
+BUILD_MPICH_INTEL1=build_intelownmath_mpich_static
+if [[ -d "$BUILD_MPICH_INTEL1" ]]; then
+   echo "removing previous build directory $BUILD_MPICH_INTEL1"
+  /bin/rm -rf $BUILD_MPICH_INTEL1
+fi
+# deactivate interest module !
+python ./setup --mpi  --fc=/home/ilias/bin/mpich-3.2-intel-static/bin/mpif90 --cc=/home/ilias/bin/mpich-3.2-intel-static/bin/mpicc --cxx=/home/ilias/bin/mpich-3.2-intel-static/bin/mpicxx --static --int64 --cmake-options="-D BUILDNAME='grid_savba_mpich_intel_ownmath_i8_STATIC'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D ENABLE_BUILTIN_BLAS=ON -D ENABLE_BUILTIN_LAPACK=ON"  $BUILD_MPICH_INTEL1
+ cd $BUILD_MPICH_INTEL1
+ ctest -D ExperimentalUpdate   
+ ctest -D ExperimentalConfigure 
+ ctest -j4 -D ExperimentalBuild  
+ export DIRAC_MPI_COMMAND="/home/ilias/bin/mpich-3.2-intel-static/bin/mpirun -np 2"
+ ctest -j2 -D ExperimentalTest -R cc
+ ctest -D ExperimentalSubmit 
+
+ ls -lt $DIRAC/$BUILD_MPICH_INTEL1/dirac.x
+ ldd $DIRAC/$BUILD_MPICH_INTEL1/dirac.x
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n build - Intel-MPICH, OWNMATH, i8,static - finished at $timestamp \n"
+
+
+###################################################################################
 ##
 ##  Intel-OpenMPI_1.10.1,MKL,i8,static
 ##
@@ -169,7 +204,99 @@ cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build - Intel-OpenMPI_1.10.1,MKL,i8,static - finished at $timestamp \n"
 
-sleep 30
+sleep 10
+
+###################################################################################
+##
+##  Intel-OpenMPI_1.10.1,OWNMATH,i8,static
+##
+###################################################################################
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel-OpenMPI_1.10.1,OWNMATH,i8,static - at $timestamp \n"
+
+cd $DIRAC
+BUILD_OMPI_INTEL1=build_intel_ownmath_openmpi-1.10.1_i8_static
+# My own OpenMPI Intel static
+export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH
+#
+if [[ -d "$BUILD_OMPI_INTEL1" ]]; then
+   echo "removing previous build directory $BUILD_OMPI_INTEL1"
+  /bin/rm -rf $BUILD_OMPI_INTEL1
+fi
+# deactivate interest module !
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif90 --cc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicxx --static --int64 --cmake-options="-D BUILDNAME='grid_savba_ompi_intel_ownmath_i8_STATIC'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D ENABLE_BUILTIN_BLAS=ON -D ENABLE_BUILTIN_LAPACK=ON "  $BUILD_OMPI_INTEL1
+ cd $BUILD_OMPI_INTEL1
+ ctest -D ExperimentalUpdate   
+ ctest -D ExperimentalConfigure 
+ ctest -j4 -D ExperimentalBuild  
+ export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
+ ctest -j2 -D ExperimentalTest -R dft
+ ctest -D ExperimentalSubmit 
+
+#
+# copy there the mpirun static with related directories & files
+cp    /home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun            $DIRAC/$BUILD_OMPI_INTEL1/.
+/bin/rm -rf $BUILD_OMPI_INTEL1/share
+mkdir $BUILD_OMPI_INTEL1/share
+cp -R -P  /home/ilias/bin/openmpi-1.10.1_intel_static/share/openmpi     $DIRAC/$BUILD_OMPI_INTEL1/share/.
+cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$BUILD_OMPI_INTEL1/.
+# don't forget export OPAL_PREFIX=$PWD/$BUILD 
+
+ ls -lt $DIRAC/$BUILD_OMPI_INTEL1/dirac.x
+ ldd $DIRAC/$BUILD_OMPI_INTEL1/dirac.x
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n build - Intel-OpenMPI_1.10.1,OWNMATH,i8,static - finished at $timestamp \n"
+
+sleep 10
+
+###################################################################################
+##
+##                Intel-OpenMPI_1.10.1,OPENBLAS,i8,static
+##
+###################################################################################
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - Intel-OpenMPI_1.10.1,OPENBLAS,i8,static - at $timestamp \n"
+
+cd $DIRAC
+BUILD_OMPI_INTEL2=build_intel_openblas_openmpi-1.10.1_i8_static
+# My own OpenMPI Intel static
+export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH
+#
+if [[ -d "$BUILD_OMPI_INTEL2" ]]; then
+   echo "removing previous build directory $BUILD_OMPI_INTEL2"
+  /bin/rm -rf $BUILD_OMPI_INTEL2
+fi
+# deactivate interest module !
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif90 --cc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicxx --static --int64 --cmake-options="-D BUILDNAME='grid_savba_ompi_intel_openblas_i8_STATIC'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_OMPI_INTEL2
+ cd $BUILD_OMPI_INTEL2
+ ctest -D ExperimentalUpdate   
+ ctest -D ExperimentalConfigure 
+ ctest -j4 -D ExperimentalBuild  
+ export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
+ ctest -j2 -D ExperimentalTest -R dft
+ ctest -D ExperimentalSubmit 
+
+# copy there the mpirun static with related directories & files
+cp    /home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun            $DIRAC/$BUILD_OMPI_INTEL2/.
+/bin/rm -rf $BUILD_OMPI_INTEL2/share
+mkdir $BUILD_OMPI_INTEL2/share
+cp -R -P  /home/ilias/bin/openmpi-1.10.1_intel_static/share/openmpi     $DIRAC/$BUILD_OMPI_INTEL2/share/.
+cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$BUILD_OMPI_INTEL2/.
+# don't forget export OPAL_PREFIX=$PWD/$BUILD 
+#
+
+ ls -lt $DIRAC/$BUILD_OMPI_INTEL2/dirac.x
+ ldd $DIRAC/$BUILD_OMPI_INTEL2/dirac.x
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n build - Intel-OpenMPI_1.10.1,MKL,i8,static - finished at $timestamp \n"
+
+sleep 10
 
 ##############################################################################
 ##  Intel + MKL + i8 + static
@@ -454,13 +581,14 @@ timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n build - GNU,OpenBLAS,serial,static - finished at $timestamp \n"
 sleep 10
 
+
 #################################
 ##                             ##
 ## OPENMPI GNU+OPENBLAS STATIC ##
 ##                             ##
 #################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
-echo -e "\n Starting build - GNU,OpenBLAS,serial,static - at $timestamp \n"
+echo -e "\n Starting build - GNU,OpenBLAS,OpenMPI 1.10.1,static - at $timestamp \n"
 
 # My own OpenMPI GNU static
 export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
@@ -471,7 +599,7 @@ if [[ -d "$BUILD_OMPI_GNU3" ]]; then
    echo "removing previous build directory $BUILD_OMPI_GNU3"
   /bin/rm -rf $BUILD_OMPI_GNU3
 fi
-python ./setup  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' " --int64   $BUILD_OMPI_GNU3
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' " --int64   $BUILD_OMPI_GNU3
  cd $BUILD_OMPI_GNU3
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
@@ -499,6 +627,98 @@ echo -e "\n build - GNU,OpenBLAS,OpenMPI 1.10.1,static - finished at $timestamp 
 sleep 10
 
 
+#################################
+##                             ##
+## OPENMPI GNU+OWNMATH  STATIC ##
+##                             ##
+#################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - GNU,OWNMATH,OpenMPI,static - at $timestamp \n"
+
+# My own OpenMPI GNU static
+export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH
+cd $DIRAC
+BUILD_OMPI_GNU4=build_openmpi_gnu_ownmath_static
+if [[ -d "$BUILD_OMPI_GNU4" ]]; then
+   echo "removing previous build directory $BUILD_OMPI_GNU4"
+  /bin/rm -rf $BUILD_OMPI_GNU4
+fi
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_ownmath_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=ON -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF " --int64   $BUILD_OMPI_GNU4
+ cd $BUILD_OMPI_GNU4
+ ctest -D ExperimentalUpdate     
+ ctest -D ExperimentalConfigure  
+ ctest -j4 -D ExperimentalBuild  
+ export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun -np 2"
+ ctest -j2 -D ExperimentalTest -R cosci_energy    
+ ctest -D ExperimentalSubmit  
+#
+# copy there the mpirun static with related directories & files
+cp    /home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun            $DIRAC/$BUILD_OMPI_GNU4/.
+/bin/rm -rf $BUILD_OMPI_GNU4/share
+mkdir $BUILD_OMPI_GNU4/share
+cp -R -P  /home/ilias/bin/openmpi-1.10.1_gnu_static/share/openmpi     $DIRAC/$BUILD_OMPI_GNU4/share/.
+cp -R     /home/ilias/bin/openmpi-1.10.1_gnu_static/etc               $DIRAC/$BUILD_OMPI_GNU4/.
+#
+# don't forget export OPAL_PREFIX=$PWD/$BUILD  !
+#
+
+ ls -lt $DIRAC/$BUILD_OMPI_GNU4/dirac.x
+ ldd $DIRAC/$BUILD_OMPI_GNU4/dirac.x
+# python binary_info.py  > VERSION_cmake  2>&1  # get version
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n build - GNU,OWNMATH,OpenMPI 1.10.1,static - finished at $timestamp \n"
+sleep 10
+
+
+#################################
+##                             ##
+##  OPENMPI GNU+MKL STATIC     ##
+##                             ##
+#################################
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n Starting build - GNU,MKL,OpenMPI 1.10.1,static - at $timestamp \n"
+
+# My own OpenMPI GNU static
+export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH
+
+cd $DIRAC
+BUILD_OMPI_GNU5=build_openmpi_gnu_mkl_static
+if [[ -d "$BUILD_OMPI_GNU5" ]]; then
+   echo "removing previous build directory $BUILD_OMPI_GNU5"
+  /bin/rm -rf $BUILD_OMPI_GNU5
+fi
+#
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='MKL' " --int64   $BUILD_OMPI_GNU5
+ cd $BUILD_OMPI_GNU5
+ ctest -D ExperimentalUpdate     
+ ctest -D ExperimentalConfigure  
+ ctest -j4 -D ExperimentalBuild  
+ export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun -np 2"
+ ctest -j2 -D ExperimentalTest -R cosci_energy    
+ ctest -D ExperimentalSubmit  
+#
+# copy there the mpirun static with related directories & files
+cp    /home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun            $DIRAC/$BUILD_OMPI_GNU5/.
+/bin/rm -rf $BUILD_OMPI_GNU5/share
+mkdir $BUILD_OMPI_GNU5/share
+cp -R -P  /home/ilias/bin/openmpi-1.10.1_gnu_static/share/openmpi     $DIRAC/$BUILD_OMPI_GNU5/share/.
+cp -R     /home/ilias/bin/openmpi-1.10.1_gnu_static/etc               $DIRAC/$BUILD_OMPI_GNU5/.
+#
+# don't forget export OPAL_PREFIX=$PWD/$BUILD  !
+#
+
+ ls -lt $DIRAC/$BUILD_OMPI_GNU5/dirac.x
+ ldd $DIRAC/$BUILD_OMPI_GNU5/dirac.x
+# python binary_info.py  > VERSION_cmake  2>&1  # get version
+
+timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+echo -e "\n build - GNU,OpenBLAS,OpenMPI 1.10.1,static - finished at $timestamp \n"
+sleep 10
+
+
 #################################################
 ### continue with the packing for grid servers ##
 #################################################
@@ -515,13 +735,21 @@ echo -e "\n\n Packing slim DIRAC suite (static dirac.x binaries, basis sets and 
 #     
 tar czf $packed_dirac  test  basis  basis_dalton  basis_ecp \
 $BUILD_OMPI_INTEL/dirac.x $BUILD_OMPI_INTEL/pam $BUILD_OMPI_INTEL/etc $BUILD_OMPI_INTEL/share $BUILD_OMPI_INTEL/mpirun  \
+$BUILD_OMPI_INTEL1/dirac.x $BUILD_OMPI_INTEL1/pam $BUILD_OMPI_INTEL1/etc $BUILD_OMPI_INTEL1/share $BUILD_OMPI_INTEL1/mpirun  \
+$BUILD_OMPI_INTEL2/dirac.x $BUILD_OMPI_INTEL2/pam $BUILD_OMPI_INTEL2/etc $BUILD_OMPI_INTEL2/share $BUILD_OMPI_INTEL2/mpirun  \
+#
 $BUILD_SERIAL_INTEL/dirac.x $BUILD_SERIAL_INTEL/pam  \
 $BUILD_SERIAL_INTEL1/dirac.x $BUILD_SERIAL_INTEL1/pam  \
 $BUILD_SERIAL_INTEL2/dirac.x $BUILD_SERIAL_INTEL2/pam  \
+#
 $BUILD_SERIAL_GNU/dirac.x $BUILD_SERIAL_GNU/pam  \
 $BUILD_SERIAL_GNU1/dirac.x $BUILD_SERIAL_GNU1/pam  \
 $BUILD_SERIAL_GNU2/dirac.x $BUILD_SERIAL_GNU2/pam  \
+#
 $BUILD_OMPI_GNU3/dirac.x  $BUILD_OMPI_GNU3/pam  $BUILD_OMPI_GNU3/etc  $BUILD_OMPI_GNU3/share  $BUILD_OMPI_GNU3/mpirun  \
+$BUILD_OMPI_GNU4/dirac.x  $BUILD_OMPI_GNU4/pam  $BUILD_OMPI_GNU4/etc  $BUILD_OMPI_GNU4/share  $BUILD_OMPI_GNU4/mpirun  \
+$BUILD_OMPI_GNU5/dirac.x  $BUILD_OMPI_GNU5/pam  $BUILD_OMPI_GNU5/etc  $BUILD_OMPI_GNU5/share  $BUILD_OMPI_GNU5/mpirun  \
+#
 $BUILD_PGI/dirac.x $BUILD_PGI/pam \
 $BUILD_PGI1/dirac.x $BUILD_PGI1/pam \
 $BUILD_PGI2/dirac.x $BUILD_PGI2/pam \
