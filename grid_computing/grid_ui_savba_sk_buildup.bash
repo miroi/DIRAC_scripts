@@ -691,7 +691,7 @@ if [[ -d "$BUILD_OMPI_GNU5" ]]; then
   /bin/rm -rf $BUILD_OMPI_GNU5
 fi
 #
-python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='MKL' " --int64   $BUILD_OMPI_GNU5
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_mkl_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='MKL' " --int64   $BUILD_OMPI_GNU5
  cd $BUILD_OMPI_GNU5
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
