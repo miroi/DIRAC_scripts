@@ -113,7 +113,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/mpich-3.2-intel-static/bin/mpif90 --c
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
  export DIRAC_MPI_COMMAND="/home/ilias/bin/mpich-3.2-intel-static/bin/mpirun -np 2"
- ctest -j2 -D ExperimentalTest -R cc
+ ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_MPICH_INTEL/dirac.x
@@ -148,7 +148,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/mpich-3.2-intel-static/bin/mpif90 --c
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
  export DIRAC_MPI_COMMAND="/home/ilias/bin/mpich-3.2-intel-static/bin/mpirun -np 2"
- ctest -j2 -D ExperimentalTest -R cc
+ ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_MPICH_INTEL1/dirac.x
@@ -184,7 +184,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
- ctest -j2 -D ExperimentalTest -R dft
+ ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
 #
@@ -232,7 +232,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
- ctest -j2 -D ExperimentalTest -R dft
+ ctest -j2 -D ExperimentalTest -R  cosci_energy
  ctest -D ExperimentalSubmit 
 
 #
@@ -278,7 +278,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
- ctest -j2 -D ExperimentalTest -R dft
+ ctest -j2 -D ExperimentalTest -R  cosci_energy
  ctest -D ExperimentalSubmit 
 
 # copy there the mpirun static with related directories & files
@@ -315,7 +315,7 @@ python ./setup --fc=ifort --cc=icc --cxx=icpc --static --int64 --cmake-options="
  ctest -D ExperimentalUpdate  
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild   
- ctest -j4 -D ExperimentalTest -R cc
+ ctest -j4 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_SERIAL_INTEL/dirac.x
@@ -372,7 +372,7 @@ python ./setup --static --fc=ifort --cc=icc --cxx=icpc --int64   --cmake-options
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild   
- ctest -j4 -D ExperimentalTest -R cc
+ ctest -j4 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_SERIAL_INTEL2/dirac.x
@@ -401,7 +401,7 @@ python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --int64 --static --cmake-options
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild   
- ctest -j4 -D ExperimentalTest -R cc
+ ctest -j4 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_PGI/dirac.x
@@ -428,7 +428,7 @@ python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --int64 --static  --cmake-option
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild   
- ctest -j4 -D ExperimentalTest -R cc
+ ctest -j4 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_PGI1/dirac.x
@@ -457,7 +457,7 @@ python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUI
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild   
- ctest -j4 -D ExperimentalTest -R cc
+ ctest -j4 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_PGI2/dirac.x
@@ -487,7 +487,7 @@ python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild   
- ctest -j4 -D ExperimentalTest -R cc
+ ctest -j4 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_PGI3/dirac.x
@@ -515,7 +515,7 @@ python ./setup --fc=gfortran --cc=gcc --cxx=g++ --static --int64 --cmake-options
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure   
  ctest -j4 -D ExperimentalBuild    
- ctest -j4 -D ExperimentalTest -R  cc
+ ctest -j4 -D ExperimentalTest -R  cosci_energy
  ctest -D ExperimentalSubmit 
 
  ls -lt $DIRAC/$BUILD_SERIAL_GNU/dirac.x
