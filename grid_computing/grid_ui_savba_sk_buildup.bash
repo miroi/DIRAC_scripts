@@ -17,6 +17,8 @@
 scl enable devtoolset-3 bash
 
 export PATH=/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:/usr/lib64/qt-3.3/bin:/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
+# add i8-openblas
+export PATH=/scratch/milias/bin/openblas_i8:$PATH
 
 #MiroD advice
 source $HOME/.bash_profile
@@ -272,7 +274,7 @@ if [[ -d "$BUILD_OMPI_INTEL2" ]]; then
   /bin/rm -rf $BUILD_OMPI_INTEL2
 fi
 # deactivate interest module !
-python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif90 --cc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicxx --static --int64 --cmake-options="-D BUILDNAME='grid_savba_ompi_intel_openblas_i8_STATIC'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS'  -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON  "  $BUILD_OMPI_INTEL2
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif90 --cc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpicxx --static --int64 --cmake-options="-D BUILDNAME='grid_savba_ompi_intel_openblas_i8_STATIC'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS'  -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF  "  $BUILD_OMPI_INTEL2
  cd $BUILD_OMPI_INTEL2
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure 
@@ -367,7 +369,7 @@ if [[ -d "$BUILD_SERIAL_INTEL2" ]]; then
    echo "removing previous build directory $BUILD_SERIAL_INTEL2"
   /bin/rm -rf $BUILD_SERIAL_INTEL2
 fi
-python ./setup --static --fc=ifort --cc=icc --cxx=icpc --int64   --cmake-options="-D BUILDNAME='grid_savba_intel_openblas_i8_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_SERIAL_INTEL2
+python ./setup --static --fc=ifort --cc=icc --cxx=icpc --int64   --cmake-options="-D BUILDNAME='grid_savba_intel_openblas_i8_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_SERIAL_INTEL2
  cd $BUILD_SERIAL_INTEL2
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
@@ -452,7 +454,7 @@ if [[ -d "$BUILD_PGI2" ]]; then
    echo "removing previous build directory $BUILD_PGI2"
   /bin/rm -rf $BUILD_PGI2
 fi
-python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUILDNAME='grid_savba_pgi_openblas_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_PGI2
+python ./setup --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUILDNAME='grid_savba_pgi_openblas_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_PGI2
  cd $BUILD_PGI2
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
@@ -482,7 +484,7 @@ if [[ -d "$BUILD_PGI2" ]]; then
    echo "removing previous build directory $BUILD_PGI2"
   /bin/rm -rf $BUILD_PGI2
 fi
-python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUILDNAME='grid_savba_pgi_openblas_i8_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_PGI3
+python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC  --static --cmake-options="-D BUILDNAME='grid_savba_pgi_openblas_i8_STATIC' -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D DART_TESTING_TIMEOUT=99999 -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' "  $BUILD_PGI3
  cd $BUILD_PGI3
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure  
@@ -565,7 +567,7 @@ if [[ -d "$BUILD_SERIAL_GNU2" ]]; then
    echo "removing previous build directory $BUILD_SERIAL_GNU2"
   /bin/rm -rf $BUILD_SERIAL_GNU2
 fi
-python ./setup  --fc=gfortran --cc=gcc --cxx=g++ --static --cmake-options="-D BUILDNAME='grid_savba_serial_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' " --int64  $BUILD_SERIAL_GNU2
+python ./setup  --fc=gfortran --cc=gcc --cxx=g++ --static --cmake-options="-D BUILDNAME='grid_savba_serial_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' " --int64  $BUILD_SERIAL_GNU2
  cd $BUILD_SERIAL_GNU2
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
@@ -599,7 +601,7 @@ if [[ -d "$BUILD_OMPI_GNU3" ]]; then
    echo "removing previous build directory $BUILD_OMPI_GNU3"
   /bin/rm -rf $BUILD_OMPI_GNU3
 fi
-python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' " --int64   $BUILD_OMPI_GNU3
+python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90  --cc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicc --cxx=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpicxx --static --cmake-options="-D BUILDNAME='grid_savba_ompi_gnu_openblas_i8_STATIC' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BUILTIN_BLAS=OFF -D ENABLE_BUILTIN_LAPACK=OFF -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D MATH_LIB_SEARCH_ORDER='OPENBLAS' " --int64   $BUILD_OMPI_GNU3
  cd $BUILD_OMPI_GNU3
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
