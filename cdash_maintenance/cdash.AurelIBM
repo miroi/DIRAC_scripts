@@ -32,7 +32,7 @@ if [[ -d "$BUILD" ]]; then
   echo "deleting previous build directory $BUILD"
   /bin/rm -rf $BUILD
 fi
-python ./setup --fc=xlf90 --cc=xlc --cxx=xlC --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_essl_nopcm_nostiel' -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD
+python ./setup --fc=xlf90 --cc=xlc --cxx=xlC --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_essl_nopcm' -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=ON -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD
 
 cd $BUILD
 ctest  -D ExperimentalConfigure
@@ -47,7 +47,7 @@ if [[ -d "$BUILD" ]]; then
   echo "deleting previous build directory $BUILD"
   /bin/rm -rf $BUILD
 fi
-python ./setup --type=debug --fc=xlf90 --cc=xlc --cxx=xlC --blas=off --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_ownmath_nopcm_nostiel' -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_BUILTIN_BLAS=ON" $BUILD
+python ./setup --type=debug --fc=xlf90 --cc=xlc --cxx=xlC --blas=off --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_ownmath' -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=ON -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON -D ENABLE_BUILTIN_BLAS=ON" $BUILD
 cd $BUILD
 ctest  -D ExperimentalConfigure
 ctest -j8 -D ExperimentalBuild
@@ -61,7 +61,7 @@ if [[ -d "$BUILD" ]]; then
   echo "deleting previous build directory $BUILD"
   /bin/rm -rf $BUILD
 fi
-python ./setup --type=debug --fc=xlf90 --cc=xlc --cxx=g++ --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_g++_essl_nopcm_nostiel' -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD
+python ./setup --type=debug --fc=xlf90 --cc=xlc --cxx=g++ --lapack=off --cmake-options="-D BUILDNAME='Aurel-IBM_XL_g++_essl_nostiel' -D ENABLE_PCMSOLVER=ON -D ENABLE_STIELTJES=OFF -D ENABLE_XCFUN=ON -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_BUILTIN_LAPACK=ON" $BUILD
 cd $BUILD
 ctest  -D ExperimentalConfigure
 ctest -j8 -D ExperimentalBuild
