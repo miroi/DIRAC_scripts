@@ -7,7 +7,7 @@ DIRAC=/gpfs/home/ilias/work/qch/software/dirac/trunk
 #module load cmake/cmake-3.5.2
 
 echo "default PATH=$PATH"
-export PATH=/gpfs/home/utils/python-2.7.10/bin:/gpfs/home/utils/git/git-2.6.3.368/bin:/usr/vacpp/bin:/opt/freeware/bin/:/gpfs/home/utils/cmake-3.5.2/bin:/opt/IBM/xlf/15.1.0/bin/:/opt/IBM/xlc/13.1.0/bin/:/opt/IBM/xlC/13.1.0/bin:$PATH
+export PATH=/gpfs/home/utils/python-2.7.10/bin:/gpfs/home/utils/git/git-2.9.0.rc0.38.gf3913c2/bin:/usr/vacpp/bin:/opt/freeware/bin/:/gpfs/home/utils/cmake-3.5.2/bin:/opt/IBM/xlf/15.1.0/bin/:/opt/IBM/xlc/13.1.0/bin/:/opt/IBM/xlC/13.1.0/bin:$PATH
 echo "extended PATH=$PATH"
 
 #xlf90 -V; xlc -V; xlC -V
