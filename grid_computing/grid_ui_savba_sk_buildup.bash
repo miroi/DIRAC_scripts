@@ -728,37 +728,38 @@ sleep 10
 # create the reduced tar-file containing all important stuff ...
 cd $DIRAC
 
+echo -e "\n removing: /bin/rm    test/*/*.out; /bin/rm -r test/*/compare "
 # problems with "--exclude test/*/*.out"  - so remove them as such
 /bin/rm    test/*/*.out
 /bin/rm -r test/*/compare
 
 packed_dirac=DIRAC_grid_suite.tgz
+##
 echo -e "\n\n Packing slim DIRAC suite (static dirac.x binaries, basis sets and test suite) for grid computations ! \n"
-#     
+##     
+#
+# No empty lines between tar command parameters(lines) !
+#
+##
 tar czf $packed_dirac  test  basis  basis_dalton  basis_ecp \
 $BUILD_OMPI_INTEL/dirac.x $BUILD_OMPI_INTEL/pam $BUILD_OMPI_INTEL/etc $BUILD_OMPI_INTEL/share $BUILD_OMPI_INTEL/mpirun  \
 $BUILD_OMPI_INTEL1/dirac.x $BUILD_OMPI_INTEL1/pam $BUILD_OMPI_INTEL1/etc $BUILD_OMPI_INTEL1/share $BUILD_OMPI_INTEL1/mpirun  \
 $BUILD_OMPI_INTEL2/dirac.x $BUILD_OMPI_INTEL2/pam $BUILD_OMPI_INTEL2/etc $BUILD_OMPI_INTEL2/share $BUILD_OMPI_INTEL2/mpirun  \
-#
 $BUILD_SERIAL_INTEL/dirac.x $BUILD_SERIAL_INTEL/pam  \
 $BUILD_SERIAL_INTEL1/dirac.x $BUILD_SERIAL_INTEL1/pam  \
 $BUILD_SERIAL_INTEL2/dirac.x $BUILD_SERIAL_INTEL2/pam  \
-#
 $BUILD_SERIAL_GNU/dirac.x $BUILD_SERIAL_GNU/pam  \
 $BUILD_SERIAL_GNU1/dirac.x $BUILD_SERIAL_GNU1/pam  \
 $BUILD_SERIAL_GNU2/dirac.x $BUILD_SERIAL_GNU2/pam  \
-#
 $BUILD_OMPI_GNU3/dirac.x  $BUILD_OMPI_GNU3/pam  $BUILD_OMPI_GNU3/etc  $BUILD_OMPI_GNU3/share  $BUILD_OMPI_GNU3/mpirun  \
 $BUILD_OMPI_GNU4/dirac.x  $BUILD_OMPI_GNU4/pam  $BUILD_OMPI_GNU4/etc  $BUILD_OMPI_GNU4/share  $BUILD_OMPI_GNU4/mpirun  \
 $BUILD_OMPI_GNU5/dirac.x  $BUILD_OMPI_GNU5/pam  $BUILD_OMPI_GNU5/etc  $BUILD_OMPI_GNU5/share  $BUILD_OMPI_GNU5/mpirun  \
-#
 $BUILD_PGI/dirac.x $BUILD_PGI/pam \
 $BUILD_PGI1/dirac.x $BUILD_PGI1/pam \
 $BUILD_PGI2/dirac.x $BUILD_PGI2/pam \
-$BUILD_PGI3/dirac.x $BUILD_PGI3/pam \
-maintenance/grid_computing/diracrc_grid 
+$BUILD_PGI3/dirac.x $BUILD_PGI3/pam 
 
-echo -e "\n packing done, we have tar-ball file ready to be placed on SE for grid-computing : "
+echo -e "\n DIRAC-for-grid packing done, we have tar-ball file ready to be placed on SE for grid-computing : "
 ls -lt $packed_dirac
 echo -e "\n Done. Tarball with static execs is ready."
 
