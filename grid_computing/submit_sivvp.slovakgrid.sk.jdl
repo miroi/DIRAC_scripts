@@ -51,7 +51,7 @@ PerusalTimeInterval=10005;
 # RegExp("gridce.iihe.ac.be", other.GlueCEUniqueId) 
 #################
 # for VOCE can not be > 10000
-Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
+#Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
 #Requirements =
 # other.GlueCEPolicyMaxWallClockTime > 1200 && 
 # other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||

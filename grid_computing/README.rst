@@ -102,11 +102,13 @@ Verify your long-term certificate:
 List of all valid proxies:
 
 ::
+
  voms-proxy-info --all
 
 Destroy current proxies: 
 
 ::
+
   voms-proxy-destroy
   myproxy-destroy 
 
@@ -120,7 +122,7 @@ Accesible nodes/storage space:
 ::
 
   lcg-infosites -vo compchem se
-  lcg-infosites -vo compchem all
+  lcg-infosites -vo sivvp.slovakgrid.sk all
 
 Accesible computing elements:
 
@@ -130,7 +132,7 @@ Accesible computing elements:
   lcg-infosites -vo compchem ce
   lcg-infosites -vo sivvp.slovakgrid.sk ce
 
-What you have in your VO's lfn-space:
+What you have in your VO's lfn-space (must have active certificate for this VO):
 
 ::
 
@@ -139,7 +141,7 @@ What you have in your VO's lfn-space:
   lcg-ls -l  lfn://grid/sivvp.slovakgrid.sk/ilias
 
 
-Donwload files from SE into your server's current directory:
+Donwload files from distant SE into your current directory (must have active certificate for this VO):
 
 ::
 
@@ -148,7 +150,7 @@ Donwload files from SE into your server's current directory:
  lcg-cp  lfn://grid/compchem/ilias/dirac_current.tgz                 file://$PWD/dirac_current.tgz
 
 
-Delete selected data from your SE space:
+Delete selected data from your personal SE space:
 
 ::
 
@@ -157,15 +159,15 @@ Delete selected data from your SE space:
   lcg-del -a lfn://grid/sivvp.slovakgrid.sk/ilias/Dirac_grid_suite.tgz
 
  
-Put (upload) file to your VO's data storage space:
+Put (upload) a file to your VO's data storage space:
 
 :: 
 
-  lcg-cr file:$PWD/dirac_grid_suite.tgz       -l lfn://grid/voce/ilias/dirac_grid_suite.tgz
-  lcg-cr file:$PWD/dirac_grid_suite_slim.tgz  -l lfn://grid/voce/ilias/dirac_grid_suite_slim.tgz
+  lcg-cr file:$PWD/dirac_grid_suite.tgz  -l lfn://grid/voce/ilias/dirac_grid_suite.tgz
+  lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC_grid_suite.tgz
 
   lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/compchem/ilias/DIRAC_grid_suite.tgz
-  lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC_grid_suite.tgz
+
   lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz
 
 
@@ -180,6 +182,7 @@ and for compchem you have to use the command:
 ::
 
   lcg-cr -d se.grid.unipg.it  -l  lfn://grid/compchem/ilias/dirac_grid_suite.tgz --vo compchem  dirac_grid_suite.tgz
+
 
 Check ACL (access control list) attributes:
 
@@ -228,9 +231,10 @@ Submit job script:
 ::
 
  glite-wms-job-submit -o <JOB_ID_file> -a submit.jdl
+ glite-wms-job-submit -o  JOB_sivvp submit_sivvp.slovakgrid.sk.jdl 
 
 
-Get job status:
+Get job status (Python 2.7, not 3.3 )
 
 :: 
 
