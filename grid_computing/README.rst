@@ -1,5 +1,6 @@
-Launching DIRAC in the grid environment
-=======================================
+=====================================
+Running DIRAC in the grid environment
+=====================================
 
 Building up, launching and testing of the DIRAC program suite in the grid enviroment.
 
@@ -35,29 +36,51 @@ put "\*static\*" into Modules/Setup.dist and type ::
   $ make -i install
   $ make install
 
+-------------
+Available VOs
+-------------
+
+enmr.eu
+chem.vo.ibergrid.eu
+compchem
+gaussian
+sivvp.slovakgrid.sk
+vo.africa-grid.org
+voce
+
+
 ------------------------------
 Working with your certificate
 ------------------------------
 
 Simple initialization :
+
 ::
+
  voms-proxy-init --voms voce
  voms-proxy-init --voms sivvp.slovakgrid.sk
 
 
 More advanced initialization:
+
 ::
 
   voms-proxy-init --voms voce -hours 24 -vomslife 24:00 --out ~/voce_cert; export X509_USER_PROXY=~/voce_cert; voms-proxy-info --all
 
-  voms-proxy-init --voms sivvp.slovakgrid.sk -hours 24 -vomslife 24:00 --out ~/sivvp.slovakgrid.sk_cert; export X509_USER_PROXY=~/sivvp.slovakgrid.sk_cert; voms-proxy-info --all
+  voms-proxy-init --voms sivvp.slovakgrid.sk -hours 24 -vomslife 24:00 --out ~/sivvp_cert; export X509_USER_PROXY=~/sivvp_cert; voms-proxy-info --all
 
   voms-proxy-init --voms compchem -hours 24 -vomslife 24:00  --out ~/compchem_cert; export X509_USER_PROXY=~/compchem_cert
 
   voms-proxy-init --voms osg  -hours 24 -vomslife 24:00 --out ~/osg_cert; export X509_USER_PROXY=~/osg_cert; voms-proxy-info --all
 
+
+Long-term certificate
+----------------------
+
 Create and store a long-term proxy (default 7 days):
+
 ::
+
   myproxy-init  --pshost myproxy.cnaf.infn.it -d -n # compchem
   myproxy-init  --pshost px.ui.savba.sk  -d -n       # voce
 
@@ -70,15 +93,19 @@ and the -n option avoids the use of a passphrase to access the long-term proxy,
 so that the WMS renews the proxy automatically. 
 
 Verify your long-term certificate:
+
 ::
+
   myproxy-info -v -d --pshost px.ui.savba.sk
   myproxy-info -v -d --pshost myproxy.cnaf.infn.it
 
 List of all valid proxies:
+
 ::
  voms-proxy-info --all
 
 Destroy current proxies: 
+
 ::
   voms-proxy-destroy
   myproxy-destroy 
@@ -86,38 +113,54 @@ Destroy current proxies:
 
 ------------------
 VO Data management
--------------------
+------------------
 
 Accesible nodes/storage space:
+
 ::
 
   lcg-infosites -vo compchem se
   lcg-infosites -vo compchem all
 
 Accesible computing elements:
+
 ::
+
   lcg-infosites -vo voce ce
   lcg-infosites -vo compchem ce
   lcg-infosites -vo sivvp.slovakgrid.sk ce
 
 What you have in your VO's lfn-space:
+
 ::
 
   lcg-ls -l  lfn://grid/voce/ilias/
   lcg-ls -l  lfn://grid/compchem/ilias
   lcg-ls -l  lfn://grid/sivvp.slovakgrid.sk/ilias
 
-Delete selected data from your SE space:
-::
-
-  lcg-del -a lfn://grid/voce/ilias/dirac_grid_suite.tgz
-  lcg-del -a lfn://grid/compchem/ilias/dirac_grid_suite.tgz
-  lcg-del -a lfn://grid/sivvp.slovakgrid.sk/ilias/dirac_grid_suite.tgz
 
 Donwload files from SE into your server's current directory:
+
+::
+
+ lcg-cp  lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz   file://$PWD/DIRAC_grid_suite.tgz
+ lcg-cp  lfn://grid/voce/ilias/DIRAC_grid_suite.tgz                  file://$PWD/DIRAC_grid_suite.tgz
+ lcg-cp  lfn://grid/compchem/ilias/dirac_current.tgz                 file://$PWD/dirac_current.tgz
+
+
+Delete selected data from your SE space:
+
+::
+
+  lcg-del -a lfn://grid/voce/ilias/Dirac_grid_suite.tgz
+  lcg-del -a lfn://grid/compchem/ilias/Dirac_grid_suite.tgz
+  lcg-del -a lfn://grid/sivvp.slovakgrid.sk/ilias/Dirac_grid_suite.tgz
+
  
 Put (upload) file to your VO's data storage space:
+
 :: 
+
   lcg-cr file:$PWD/dirac_grid_suite.tgz       -l lfn://grid/voce/ilias/dirac_grid_suite.tgz
   lcg-cr file:$PWD/dirac_grid_suite_slim.tgz  -l lfn://grid/voce/ilias/dirac_grid_suite_slim.tgz
 
@@ -125,27 +168,32 @@ Put (upload) file to your VO's data storage space:
   lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC_grid_suite.tgz
   lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz
 
-  lcg-cr file:$PWD/dirac_grid_suite.tgz       -l lfn://grid/sivvp.slovakgrid.sk/ilias/dirac_grid_suite.tgz
-  lcg-cr file:$PWD/dirac_grid_suite_slim.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/dirac_grid_suite_slim.tgz
 
 And you get answer like:
+
 ::
+
   guid:1a4c183f-9335-47f4-af01-b358cc454f78
 
 and for compchem you have to use the command:
+
 ::
 
   lcg-cr -d se.grid.unipg.it  -l  lfn://grid/compchem/ilias/dirac_grid_suite.tgz --vo compchem  dirac_grid_suite.tgz
 
 Check ACL (access control list) attributes:
+
 ::
+
  lfc-getacl /grid/sivvp.slovakgrid.sk/ilias
  lfc-getacl /grid/voce/ilias
  lfc-getacl /grid/compchem/ilias
 
 Set ACL - only the user has all rights (remove them from group and others)
 (see also https://grid.sara.nl/wiki/index.php/Access_Control_Lists):
+
 ::
+
  lfc-setacl -m user::rwx,group::,other:: /grid/sivvp.slovakgrid.sk/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/voce/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/compchem/ilias
@@ -167,36 +215,57 @@ Some "gLite" howtos :
  http://iag.iucc.ac.il/workshop/complex_jobs.htm
 
 Retrieve the list computing elements that match your job:
+
 ::
+
   glite-wms-job-list-match -a submit_voce.jdl
   glite-wms-job-list-match -a submit_compchem.jdl
   glite-wms-job-list-match -a submit_sivvp.slovakgrid.sk.jdl
 
+
 Submit job script: 
+
 ::
 
  glite-wms-job-submit -o <JOB_ID_file> -a submit.jdl
 
+
 Get job status:
+
 :: 
 
  glite-wms-job-status  -i <JOB_ID_file>
 
 See intermediate results of your job:
 ---------------------------------------
-Add two lines to your jdl-file: ::
+
+Add two lines to your jdl-file: 
+
+::
+
  PerusalFileEnable=true;
  PerusalTimeInterval=30;
-Next, specify the files (here DIRAC_tests_std.out and DIRAC_tests_std.err) you want to view: ::  
+
+Next, specify the files (here DIRAC_tests_std.out and DIRAC_tests_std.err) you want to view: 
+
+::  
+
  glite-wms-job-perusal --set -f DIRAC_runs.stdout -f DIRAC_runs.stderr -i JOB_id
-And execute the following command to retrieve the current output: ::
+
+And execute the following command to retrieve the current output: 
+
+::
+
  glite-wms-job-perusal --get -f DIRAC_runs.stdout -i JOB_id
  
-Get job files back: ::
+Get job files back: 
+
+::
+
  glite-wms-job-output -i <JOB_ID_file>
 
+
 Querry computing elements on selected attributes:
---------------------------------------------------
 
 ::
 
@@ -223,6 +292,9 @@ Querry tag attributes :
  lcg-info --list-ce --query 'Tag=*GCC*'   --attrs 'CE' --vo voce
 
 Launch your bash-script with the help of the nohup command: 
+
 ::
+
  nohup grid3savba_cdash_grid_buildup.bash voce     > nohup_voce 2>&1 & 
  nohup grid3savba_cdash_grid_buildup.bash compchem > nohup_compchem 2>&1 & 
+
