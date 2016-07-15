@@ -193,8 +193,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
 #
 # copy there the mpirun static with related directories & files
 cp    /home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun            $DIRAC/$BUILD_OMPI_INTEL/.
-/bin/rm -rf $BUILD_OMPI_INTEL/share
-mkdir $BUILD_OMPI_INTEL/share
+/bin/rm -rf $DIRAC/$BUILD_OMPI_INTEL/share
+mkdir $DIRAC/$BUILD_OMPI_INTEL/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_intel_static/share/openmpi     $DIRAC/$BUILD_OMPI_INTEL/share/.
 cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$BUILD_OMPI_INTEL/.
 # don't forget export OPAL_PREFIX=$PWD/$BUILD 
@@ -240,8 +240,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
 #
 # copy there the mpirun static with related directories & files
 cp    /home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun            $DIRAC/$BUILD_OMPI_INTEL1/.
-/bin/rm -rf $BUILD_OMPI_INTEL1/share
-mkdir $BUILD_OMPI_INTEL1/share
+/bin/rm -rf $DIRAC/$BUILD_OMPI_INTEL1/share
+mkdir $DIRAC/$BUILD_OMPI_INTEL1/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_intel_static/share/openmpi     $DIRAC/$BUILD_OMPI_INTEL1/share/.
 cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$BUILD_OMPI_INTEL1/.
 # don't forget export OPAL_PREFIX=$PWD/$BUILD 
@@ -285,8 +285,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
 
 # copy there the mpirun static with related directories & files
 cp    /home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun            $DIRAC/$BUILD_OMPI_INTEL2/.
-/bin/rm -rf $BUILD_OMPI_INTEL2/share
-mkdir $BUILD_OMPI_INTEL2/share
+/bin/rm -rf $DIRAC/$BUILD_OMPI_INTEL2/share
+mkdir $DIRAC/$BUILD_OMPI_INTEL2/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_intel_static/share/openmpi     $DIRAC/$BUILD_OMPI_INTEL2/share/.
 cp -R     /home/ilias/bin/openmpi-1.10.1_intel_static/etc               $DIRAC/$BUILD_OMPI_INTEL2/.
 # don't forget export OPAL_PREFIX=$PWD/$BUILD 
@@ -612,8 +612,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90 
 #
 # copy there the mpirun static with related directories & files
 cp    /home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun            $DIRAC/$BUILD_OMPI_GNU3/.
-/bin/rm -rf $BUILD_OMPI_GNU3/share
-mkdir $BUILD_OMPI_GNU3/share
+/bin/rm -rf $DIRAC/$BUILD_OMPI_GNU3/share
+mkdir $DIRAC/$BUILD_OMPI_GNU3/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_gnu_static/share/openmpi     $DIRAC/$BUILD_OMPI_GNU3/share/.
 cp -R     /home/ilias/bin/openmpi-1.10.1_gnu_static/etc               $DIRAC/$BUILD_OMPI_GNU3/.
 #
@@ -657,8 +657,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90 
 #
 # copy there the mpirun static with related directories & files
 cp    /home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun            $DIRAC/$BUILD_OMPI_GNU4/.
-/bin/rm -rf $BUILD_OMPI_GNU4/share
-mkdir $BUILD_OMPI_GNU4/share
+/bin/rm -rf $DIRAC/$BUILD_OMPI_GNU4/share
+mkdir $DIRAC/$BUILD_OMPI_GNU4/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_gnu_static/share/openmpi     $DIRAC/$BUILD_OMPI_GNU4/share/.
 cp -R     /home/ilias/bin/openmpi-1.10.1_gnu_static/etc               $DIRAC/$BUILD_OMPI_GNU4/.
 #
@@ -704,8 +704,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90 
 #
 # copy there the mpirun static with related directories & files
 cp    /home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun            $DIRAC/$BUILD_OMPI_GNU5/.
-/bin/rm -rf $BUILD_OMPI_GNU5/share
-mkdir $BUILD_OMPI_GNU5/share
+/bin/rm -rf $DIRAC/$BUILD_OMPI_GNU5/share
+mkdir $DIRAC/$BUILD_OMPI_GNU5/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_gnu_static/share/openmpi     $DIRAC/$BUILD_OMPI_GNU5/share/.
 cp -R     /home/ilias/bin/openmpi-1.10.1_gnu_static/etc               $DIRAC/$BUILD_OMPI_GNU5/.
 #
