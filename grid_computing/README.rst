@@ -42,7 +42,7 @@ Available VOs
 
 enmr.eu
 chem.vo.ibergrid.eu
-compchem
+compchem(?)
 gaussian
 sivvp.slovakgrid.sk
 vo.africa-grid.org
@@ -74,15 +74,29 @@ More advanced initialization:
   voms-proxy-init --voms osg  -hours 24 -vomslife 24:00 --out ~/osg_cert; export X509_USER_PROXY=~/osg_cert; voms-proxy-info --all
 
 
+where you can point your environmental variable to given certificate:
+
+::
+
+ export X509_USER_PROXY=~/voce_cert
+ export X509_USER_PROXY=~/sivvp_cert
+ export X509_USER_PROXY=~/compchem_cert
+
+
 Long-term certificate
-----------------------
+---------------------
 
 Create and store a long-term proxy (default 7 days):
 
 ::
 
-  myproxy-init  --pshost myproxy.cnaf.infn.it -d -n # compchem
-  myproxy-init  --pshost px.ui.savba.sk  -d -n       # voce
+  myproxy-init  --pshost myproxy.cnaf.infn.it -d -n  # compchem
+  myproxy-init  --pshost px.ui.savba.sk  -d -n       # voce, sivvp
+
+
+Create certificate for longer time:
+
+::
 
   myproxy-init  --pshost px.ui.savba.sk        -d -n -c 4780       # voce, cca 198.1 days (maximum) 
   myproxy-init  --pshost myproxy.cnaf.infn.it  -d -n -c 4780       # compchem, cca 198.1 days (maximum) 
@@ -121,6 +135,7 @@ Accesible nodes/storage space:
 
 ::
 
+  lcg-infosites -vo voce all
   lcg-infosites -vo compchem se
   lcg-infosites -vo sivvp.slovakgrid.sk all
 
@@ -140,8 +155,23 @@ What you have in your VO's lfn-space (must have active certificate for this VO):
   lcg-ls -l  lfn://grid/compchem/ilias
   lcg-ls -l  lfn://grid/sivvp.slovakgrid.sk/ilias
 
+For the command above, you must activate the LFC_HOST variable:
 
-Donwload files from distant SE into your current directory (must have active certificate for this VO):
+::
+
+  export LFC_HOST=`lcg-infosites --vo sivvp.slovakgrid.sk lfc` 
+  export LFC_HOST=`lcg-infosites --vo voce lfc`
+
+
+Also, to deal with data, you must specify the VO_SE variable for each VO, pointing to your favorite SE:
+
+::
+
+  VO_SE="se.ui.savba.sk" # for sivvp.slovakgrid.sk, voce
+
+
+Donwload files from distant SE into your current directory 
+(must have active certificate, LFC_HOST and VO_SE variables for give VO):
 
 ::
 
@@ -150,25 +180,27 @@ Donwload files from distant SE into your current directory (must have active cer
  lcg-cp  lfn://grid/compchem/ilias/dirac_current.tgz                 file://$PWD/dirac_current.tgz
 
 
+
 Delete selected data from your personal SE space:
 
 ::
 
   lcg-del -a lfn://grid/voce/ilias/Dirac_grid_suite.tgz
+  lcg-del -a lfn://grid/voce/ilias/dirac_grid_suite.tgz
+
   lcg-del -a lfn://grid/compchem/ilias/Dirac_grid_suite.tgz
   lcg-del -a lfn://grid/sivvp.slovakgrid.sk/ilias/Dirac_grid_suite.tgz
 
  
-Put (upload) a file to your VO's data storage space:
+Put (upload) a file to your VO's data storage space. You must first set the VO_SE variable
 
 :: 
 
-  lcg-cr file:$PWD/dirac_grid_suite.tgz  -l lfn://grid/voce/ilias/dirac_grid_suite.tgz
-  lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC_grid_suite.tgz
+  lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC_grid_suite.tgz
 
-  lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/compchem/ilias/DIRAC_grid_suite.tgz
+  lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/compchem/ilias/DIRAC_grid_suite.tgz
 
-  lcg-cr file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz
+  lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz
 
 
 And you get answer like:
@@ -176,6 +208,7 @@ And you get answer like:
 ::
 
   guid:1a4c183f-9335-47f4-af01-b358cc454f78
+
 
 and for compchem you have to use the command:
 
@@ -231,7 +264,14 @@ Submit job script:
 ::
 
  glite-wms-job-submit -o <JOB_ID_file> -a submit.jdl
- glite-wms-job-submit -o  JOB_sivvp submit_sivvp.slovakgrid.sk.jdl 
+
+
+Submit job for the given VOs, with saving info file:
+
+::
+
+ glite-wms-job-submit -o  JOB_sivvp  -a submit_sivvp.slovakgrid.sk.jdl 
+ glite-wms-job-submit -o  JOB_voce   -a submit_voce.jdl 
 
 
 Get job status (Python 2.7, not 3.3 )
@@ -239,6 +279,7 @@ Get job status (Python 2.7, not 3.3 )
 :: 
 
  glite-wms-job-status  -i <JOB_ID_file>
+
 
 See intermediate results of your job:
 ---------------------------------------
@@ -250,17 +291,20 @@ Add two lines to your jdl-file:
  PerusalFileEnable=true;
  PerusalTimeInterval=30;
 
+
 Next, specify the files (here DIRAC_tests_std.out and DIRAC_tests_std.err) you want to view: 
 
 ::  
 
  glite-wms-job-perusal --set -f DIRAC_runs.stdout -f DIRAC_runs.stderr -i JOB_id
 
+
 And execute the following command to retrieve the current output: 
 
 ::
 
  glite-wms-job-perusal --get -f DIRAC_runs.stdout -i JOB_id
+
  
 Get job files back: 
 
