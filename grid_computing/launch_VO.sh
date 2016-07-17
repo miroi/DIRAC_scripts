@@ -75,13 +75,13 @@ echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
 #####################################################################
 
   echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL - with few tests  --- \n "; date 
-  export DIRAC_MPI_COMMAND="mpirun -np 2"
+  export DIRAC_MPI_COMMAND="mpirun -np 4"
   test/cosci_energy/test -b $PWD/$BUILD -d -v
 
   echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL - with few tests --- \n "; date 
   unset DIRAC_MPI_COMMAND
   unset OPAL_PREFIX
-  test/cosci_energy/test -b $PWD/$BUILD_SERIA -d -v
+  test/cosci_energy/test -b $PWD/$BUILD_SERIAL -d -v
 
 #
 # Individual runs

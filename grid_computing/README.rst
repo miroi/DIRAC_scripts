@@ -306,11 +306,30 @@ And execute the following command to retrieve the current output:
  glite-wms-job-perusal --get -f DIRAC_runs.stdout -i JOB_id
 
  
-Get job files back: 
+Get job files back (to default /tmp directory)
 
 ::
 
  glite-wms-job-output -i <JOB_ID_file>
+
+
+Get job files back to user selected directory
+
+::
+
+ glite-wms-job-output --dir $PWD  -i JOB_sivvp
+
+
+
+Attributes of computing elements
+--------------------------------
+
+Querry computing elements on list of avaiable attributes:
+
+::
+
+ lcg-info --list-attrs --vo sivvp.slovakgrid.sk
+
 
 
 Querry computing elements on selected attributes:
@@ -320,17 +339,21 @@ Querry computing elements on selected attributes:
  lcg-info  --list-ce  --query 'LRMS=pbs' --vo voce
  lcg-info  --list-ce  --query 'LRMS=pbs' --vo compchem
  lcg-info  --list-ce  --query 'LRMS=pbs' --vo osg
+
  lcg-info  --list-ce --query 'TotalCPUs>=8' --vo voce
  lcg-info  --list-ce --query 'TotalCPUs>=24,FreeCPUs>=5' --vo compchem
  lcg-info  --list-ce --query 'TotalCPUs>=24,FreeCPUs>=5,FreeJobSlots>=2' --vo voce
+
  lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,TotalCPUs,Memory,ClockSpeed,Cluster --vo voce
  lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,MaxCPUTime,TotalCPUs,Memory,ClockSpeed,MaxTotalJobs,Cluster  --vo voce
  lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,MaxCPUTime,TotalCPUs,Memory,ClockSpeed,Cluster,VMemory   --vo compchem
+
  lcg-info --list-ce --attrs MaxWCTime --vo voce
  lcg-info --list-ce --attrs RunningJobs,FreeCPUs,MaxWCTime,MaxCPUTime --vo voce
  lcg-info --list-ce --attrs Memory,VMemory  --vo voce
  lcg-info --list-ce --attrs PlatformArch --vo voce
  lcg-info --list-ce --query 'PlatformArch=x86_64' --vo voce
+
 
 Querry tag attributes :
 
@@ -338,6 +361,10 @@ Querry tag attributes :
 
  lcg-info --list-ce --query 'Tag=*MPICH*' --attrs 'CE' --vo voce
  lcg-info --list-ce --query 'Tag=*GCC*'   --attrs 'CE' --vo voce
+
+
+Miscel
+------
 
 Launch your bash-script with the help of the nohup command: 
 
