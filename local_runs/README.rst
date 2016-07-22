@@ -1,8 +1,9 @@
-=====================================
-Local runs of static Dirac-for-Grid
-=====================================
+===========================
+DIRAC runs on local servers
+===========================
 
 User is logged on his computing server/cluster and is running 
-imported static Dirac-for-Grid suite.
+his DIRAC installation.
 
-His jobs are launcher either interactively, or through a batch operating systems.
+His jobs are launcher either interactively, 
+or through a batch operating systems.
