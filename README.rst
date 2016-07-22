@@ -1,6 +1,13 @@
-=========================================
-Collection of DIRAC program suite scripts
-=========================================
+=======================================
+Collection of various launching scripts
+=======================================
 
-All scripts from the DIRAC repository, www.diracprogram.org,
-which can be used outside the DIRAC repo.
+This is personal collection of various software launching scripts,
+both for interactive, batch system and grid computing runs.
+
+Scripts are aimed at partial or comprehensive tests of given, including CDash
+web-reporting.
+
+Most of the scripts are related to the DIRAC software run, www.diracprogram.org.
+
+Everybody can copy and modify presented scripts.
