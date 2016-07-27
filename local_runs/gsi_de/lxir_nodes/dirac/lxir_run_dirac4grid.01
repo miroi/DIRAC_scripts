@@ -1,0 +1,84 @@
+#!/bin/bash
+
+#
+# script for interactive job runs on Valeria private GSI nodes
+#
+#  lxir022-lxir026
+#  lxir071-lxir074
+#
+# Launched as:
+# ~~~~~~~~~~~~
+# nohup lxir_run_gsi.01 &> log.lxir_run_gsi.01.std_err_out &
+#
+
+echo -e "\nRunning on host `hostname -f`"
+echo Time is `date`
+echo Directory is `pwd`
+
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo -e "\nThis node has $NPROCS CPUs."
+export MKL_NUM_THREADS=$NPROCS
+echo "Internal MKL library parallelization with MKL_NUM_THREADS=$MKL_NUM_THREADS"
+#export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
+
+echo -e "\nWorking server memory status"
+free -m -t -h
+
+echo -e "\n Loaded Modules"
+module list
+
+DIRAC=/u/milias/Work/qch/software/dirac/trunk
+BUILD_DIR=$DIRAC/build_intelmklpar_i8_xh_production
+BUILD_DIR_MPI=$DIRAC/build_openmpi_intelmkl_i8_xhost_prod
+
+# secure for running test
+export DIRTIMEOUT="10m"
+
+
+export DIRAC_TMPDIR="/data.local/milias/TEST1"
+echo -e "\n Pure OpenMP (MKL) run;  MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
+
+time $DIRAC/test/cc_linear/test -b $BUILD_DIR -w $DIRAC_TMPDIR -v -d
+
+#remove scratch space afterwards
+/bin/rm -r $DIRAC_TMPDIR
+
+export DIRAC_TMPDIR="/data.local/milias/TEST2"
+export MKL_NUM_THREADS=1
+export DIRAC_MPI_COMMAND="mpirun -np ${NPROCS}"
+echo -e "\n OpenMPI parallel run, MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
+
+time $DIRAC/test/cc_linear/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR  -v -d
+#remove scratch space aftrwards
+/bin/rm -r $DIRAC_TMPDIR
+
+
+export DIRAC_TMPDIR="/data.local/milias/TEST3"
+export MKL_NUM_THREADS=4
+export DIRAC_MPI_COMMAND="mpirun -np 2"
+echo -e "\n Mixed OpenMP(MKL) and OpenMPI parallel run, MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
+
+time $DIRAC/test/cc_linear/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR  -v -d
+#remove scratch space aftrwards
+/bin/rm -r $DIRAC_TMPDIR
+
+
+export DIRAC_TMPDIR="/data.local/milias/TEST4"
+export MKL_NUM_THREADS=2
+export DIRAC_MPI_COMMAND="mpirun -np 4"
+echo -e "\n Mixed OpenMP(MKL) and OpenMPI parallel run, MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
+
+time $DIRAC/test/cc_linear/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR  -v -d
+#remove scratch space aftrwards
+/bin/rm -r $DIRAC_TMPDIR
+
+
+# DIRAC_MPI_COMMAND, DIRAC_TMPDIR defined !
+#PAM=$BUILD_DIR_MPI/pam
+#$PAM  --noarch --mw=1200 --aw=3600 --mol=$DIRAC/test/cc_linear/N2.ccpVDZ.mol  --inp=$DIRAC/test/cc_linear/cc.inp 
+
+
+exit 0
