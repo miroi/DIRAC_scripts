@@ -8,7 +8,7 @@
 #
 # Launched as:
 # ~~~~~~~~~~~~
-# nohup lxir_run_gsi.01 &> log.lxir_run_gsi.01.std_err_out &
+# nohup script &> log &
 #
 
 echo -e "\nRunning on host `hostname -f`"
@@ -26,6 +26,8 @@ module list
 
 #DIRAC=/u/milias/Work/qch/software/dirac/trunk
 DIRAC=/u/milias/Work/qch/software/dirac/dirac_for_grid
+
+echo -e "\n Using installation DIRAC=$DIRAC \n"
 
 BUILD1=$DIRAC/build_gnumkl_i8_static
 PAM1=$BUILD1/pam
@@ -47,6 +49,9 @@ export BASDIR="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 #     Mixed parallel OpenMPI/OpenMP run on 1 node (8cpus)
 #
 #                Main cycle over np-MKL 
+#
+#          i-j: i - # for OpenMPI, j-# for OpenMP
+#
 #--------------------------------------------------------------
 for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2 8-1; do
 
@@ -79,8 +84,9 @@ for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2 8-1; do
 
   #$PAM_MPI1 --noarch --mol=$DIRAC/test/cosci_energy/F.mol --inp=$DIRAC/test/cosci_energy/ci.inp
   time $DIRAC/test/cc_linear/test -b $BUILD_MPI1 -w $DIRAC_TMPDIR 
-  #remove scratch space aftrwards
-  /bin/rm -r $DIRAC_TMPDIR
+
+  #remove scratch space afterwards
+  echo -e "Removing scratch dir, $DIRAC_TMPDIR"; /bin/rm -r $DIRAC_TMPDIR
 
 done # end cycle over OpenMPI-OpenMP number of threads
 
