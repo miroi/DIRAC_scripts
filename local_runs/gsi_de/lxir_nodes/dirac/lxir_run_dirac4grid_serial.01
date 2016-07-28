@@ -33,7 +33,6 @@ module list
 
 #DIRAC=/u/milias/Work/qch/software/dirac/trunk
 DIRAC=/u/milias/Work/qch/software/dirac/dirac_for_grid
-#DIRAC=/u/milias/Work/qch/software/dirac/trunk
 
 BUILD1=$DIRAC/build_gnumkl_i8_static
 #BUILD1=$DIRAC/build_intelmklpar_i8_dbg
@@ -49,18 +48,17 @@ BUILD_MPI2=$DIRAC/build_openmpi_gnu_i8_openblas_static
 export DIRTIMEOUT="12m"
 
 # set basis directory for test script - basis directories are no longer in build* directories
-export BASDIR=$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp
+export BASDIR="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 export DIRAC_TMPDIR="/data.local/milias/TEST1"
 
 echo -e "\n Pure serial OpenMP (MKL) run;  MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
 
 #$PAM1 --noarch --mol=$DIRAC/test/cosci_energy/F.mol --inp=$DIRAC/test/cosci_energy/ci.inp
-#$PAM1 --noarch --mol=$DIRAC/test/cc_linear/N2.ccpVDZ.mol --inp=$DIRAC/test/cc_linear/cc.inp --basis="$DIRAC:basis_dalton:basis"
-$PAM1 --noarch --mol=$DIRAC/test/cc_linear/N2.ccpVDZ.mol --inp=$DIRAC/test/cc_linear/cc.inp 
+#$PAM1 --noarch --mol=$DIRAC/test/cc_linear/N2.ccpVDZ.mol --inp=$DIRAC/test/cc_linear/cc.inp 
 
 # ... need basis set files :
-#time $DIRAC/test/cc_linear/test -b $BUILD1 -w $DIRAC_TMPDIR -v -d
+time $DIRAC/test/cc_linear/test -b $BUILD1 -w $DIRAC_TMPDIR -v -d
 
 #time $DIRAC/test/cosci_energy/test -b $BUILD1 -w $DIRAC_TMPDIR -v -d
 
