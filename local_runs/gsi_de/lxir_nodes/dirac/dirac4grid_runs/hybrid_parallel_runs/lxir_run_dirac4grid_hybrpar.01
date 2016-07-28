@@ -8,7 +8,7 @@
 #
 # Launched as:
 # ~~~~~~~~~~~~
-# nohup script &> log &
+# nohup lxir_run_dirac4grid_hybrpar.01 &> log &
 #
 
 echo -e "\nRunning on host `hostname -f`"
@@ -16,13 +16,17 @@ echo Time is `date`
 echo Directory is `pwd`
 
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
-echo -e "\nThis node has $NPROCS CPUs."
+echo -e "\n This node has $NPROCS CPUs."
 
-echo -e "\nWorking server memory status"
+echo -e "\n Working server memory status"
 free -m -t -h
 
 echo -e "\n Loaded Modules"
 module list
+
+# save your PATH for later use
+unset PATH_SAVED
+export PATH_SAVED=$PATH
 
 #DIRAC=/u/milias/Work/qch/software/dirac/trunk
 DIRAC=/u/milias/Work/qch/software/dirac/dirac_for_grid
@@ -42,7 +46,7 @@ PAM_MPI2=$BUILD_MPI2/pam
 # secure for running test
 export DIRTIMEOUT="12m"
 
-# basis directory environmental variable
+# Set the basis directory environmental variable for Dirac4Grid
 export BASDIR="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 #--------------------------------------------------------------
@@ -65,30 +69,41 @@ for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2 8-1; do
   export TSTDIR=DIRACtestdir.$ij.$timestamp
   export DIRAC_TMPDIR="/data.local/milias/TEST.$TSTDIR"
 
-  unset PATH_SAVED
-  export PATH_SAVED=$PATH
-  export PATH=$BUILD_MPI1:$PATH
+  unset PATH
+  export PATH=$BUILD_MPI1:$PATH_SAVED
   unset OPAL_PREFIX
   export OPAL_PREFIX=$BUILD_MPI1
-
+  unset MKL_NUM_THREADS
   export MKL_NUM_THREADS=$nmkl
   #echo "Internal MKL library parallelization with MKL_NUM_THREADS=$MKL_NUM_THREADS"
   export OMP_NUM_THREADS=1
   export MKL_DYNAMIC="FALSE"
   export OMP_DYNAMIC="FALSE"
-
+  unset DIRAC_MPI_COMMAND
   export DIRAC_MPI_COMMAND="mpirun -np ${np}"
-
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
+  $PAM_MPI1 --noarch --mol=$DIRAC/test/benchmark_cc_linear/N2.ccpVTZ.mol --inp=$DIRAC/test/benchmark_cc_linear/cc.inp --suffix=out_p-im.$ij
 
-  #$PAM_MPI1 --noarch --mol=$DIRAC/test/cosci_energy/F.mol --inp=$DIRAC/test/cosci_energy/ci.inp
-  time $DIRAC/test/cc_linear/test -b $BUILD_MPI1 -w $DIRAC_TMPDIR 
 
-  #remove scratch space afterwards
-  echo -e "Removing scratch dir, $DIRAC_TMPDIR"; /bin/rm -r $DIRAC_TMPDIR
+  unset PATH
+  export PATH=$BUILD_MPI2:$PATH_SAVED
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI2
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+  unset DIRAC_MPI_COMMAND
+  export DIRAC_MPI_COMMAND="mpirun -np ${np}"
+  echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; OpenBLAS-OpenMP: disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
+  echo -e "OpenMPI which mpirun ? \c"; which mpirun
+  $PAM_MPI2 --noarch --mol=$DIRAC/test/benchmark_cc_linear/N2.ccpVTZ.mol --inp=$DIRAC/test/benchmark_cc_linear/cc.inp --suffix=out_p-go.$ij
 
-done # end cycle over OpenMPI-OpenMP number of threads
+
+  #time $DIRAC/test/cc_linear/test -b $BUILD_MPI1 -w $DIRAC_TMPDIR 
+  #remove scratch space afterwards - for test run only !
+  #echo -e "Removing scratch dir, $DIRAC_TMPDIR"; /bin/rm -r $DIRAC_TMPDIR
+
+done # end of the cycle over OpenMPI-OpenMP number of threads
 
 
 exit 0
