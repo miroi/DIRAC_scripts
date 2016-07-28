@@ -46,7 +46,7 @@ BUILD_MPI2=$DIRAC/build_openmpi_gnu_i8_openblas_static
 # secure for running test
 export DIRTIMEOUT="12m"
 
-# basis directory
+# basis directory environmental variable
 export BASDIR="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 export DIRAC_TMPDIR="/data.local/milias/TEST1"
@@ -68,7 +68,7 @@ echo -e "\n OpenMPI parallel run, MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_MPI_
 echo -e "which mpirun ? \c"; which mpirun
 
 #$PAM_MPI1 --noarch --mol=$DIRAC/test/cosci_energy/F.mol --inp=$DIRAC/test/cosci_energy/ci.inp
-time $DIRAC/test/cc_linear/test -b $BUILD_MPI1 -w $DIRAC_TMPDIR  -v -d
+time $DIRAC/test/cc_linear/test -b $BUILD_MPI1 -w $DIRAC_TMPDIR  
 #remove scratch space aftrwards
 /bin/rm -r $DIRAC_TMPDIR
 
