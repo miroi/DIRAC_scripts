@@ -35,6 +35,7 @@ PAM2=$BUILD2/pam
 BUILD_MPI1=$DIRAC/build_intelmkl_openmpi-1.10.1_i8_static
 PAM_MPI1=$BUILD_MPI1/pam
 BUILD_MPI2=$DIRAC/build_openmpi_gnu_i8_openblas_static
+PAM_MPI2=$BUILD_MPI2/pam
 
 # secure for running test
 export DIRTIMEOUT="12m"
@@ -42,12 +43,12 @@ export DIRTIMEOUT="12m"
 # basis directory environmental variable
 export BASDIR="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
+#--------------------------------------------------------------
+#     Mixed parallel OpenMPI/OpenMP run on 1 node (8cpus)
 #
-# Mixed parallel OpenMPI/OpenMP run on 1 node (8cpus)
-#
-# Main cycle over np(#cpu), MKL number of threads
-#
-for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2; do
+#                Main cycle over np-MKL 
+#--------------------------------------------------------------
+for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2 8-1; do
 
   set -- ${ij//-/ }
   np=$1
@@ -73,7 +74,7 @@ for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2; do
 
   export DIRAC_MPI_COMMAND="mpirun -np ${np}"
 
-  echo -e "\n OpenMPI hybrid-parallel run, OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
+  echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
 
   #$PAM_MPI1 --noarch --mol=$DIRAC/test/cosci_energy/F.mol --inp=$DIRAC/test/cosci_energy/ci.inp
