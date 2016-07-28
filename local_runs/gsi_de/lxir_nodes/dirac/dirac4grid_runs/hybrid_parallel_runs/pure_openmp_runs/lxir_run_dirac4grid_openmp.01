@@ -34,7 +34,7 @@ DIRAC=/u/milias/Work/qch/software/dirac/dirac_for_grid
 echo -e "\n Using installation DIRAC=$DIRAC \n"
 
 BUILD1=$DIRAC/build_intelmkl_i8_static/
-PAM1=$BUILD2/pam
+PAM1=$BUILD1/pam
 #
 BUILD2=$DIRAC/build_gnumkl_i8_static
 PAM2=$BUILD2/pam
