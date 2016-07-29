@@ -96,8 +96,8 @@ cd $PBS_O_WORKDIR
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
-for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1 8-1 10-1; do
-#for ij in 1-1 2-1 4-1 6-1 8-1 10-1 12-1; do # 
+#for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1 8-1 10-1; do
+for ij in 3-1 9-1 11-1; do # 
 
   set -- ${ij//-/ }
   np=$1
@@ -124,7 +124,7 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1 8-1 10-1; do
   export DIRAC_MPI_COMMAND="mpirun -np ${np}"
 
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
-  echo -e "OpenMPI which mpirun ? \c"; which mpirun
+  echo -e "OpenMPI: which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
   $PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
