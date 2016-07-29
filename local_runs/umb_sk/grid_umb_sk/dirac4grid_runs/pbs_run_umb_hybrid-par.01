@@ -105,7 +105,6 @@ cd $PBS_O_WORKDIR
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
-#for nmkl in 1 6 12; do
 for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
 
   set -- ${ij//-/ }
