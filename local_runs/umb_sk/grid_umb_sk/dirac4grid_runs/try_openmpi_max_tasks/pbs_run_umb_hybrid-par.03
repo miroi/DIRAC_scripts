@@ -2,7 +2,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N D4g-6
+#PBS -N D4g-11
 ### Declare myprogram non-rerunable
 #PBS -r n
 
@@ -107,7 +107,8 @@ cd $PBS_O_WORKDIR
 #----------------------------------------------------------
 #for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
 #for ij in 12-1; do # repeat for np=12 ...
-for ij in 6-1; do # repeat for np=12 ...
+for ij in 11-1; do # repeat for np=12 ...
+#for ij in 6-1; do # repeat for np=12 ...
 
   set -- ${ij//-/ }
   np=$1
@@ -148,7 +149,11 @@ for ij in 6-1; do # repeat for np=12 ...
   #miro: try memory set up...
   #$PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
   #$PAM_MPI1 --noarch --mw=400 --nw=300 --aw=4200 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
-  $PAM_MPI1 --noarch --mw=400 --nw=300 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
+  #$PAM_MPI1 --noarch --mw=600 --nw=800 --aw=1800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
+
+  $PAM_MPI1 --noarch --mw=600 --nw=800 --aw=4200 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
+
+  #$PAM_MPI1 --noarch --mw=400 --nw=300 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
 
 #  unset PATH
 #  export PATH=$BUILD_MPI2:$PATH_SAVED
