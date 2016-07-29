@@ -89,9 +89,6 @@ export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
 #export DIRTIMEOUT="1h"
 export DIRTIMEOUT="40m"
 
-unset DIRAC_MPI_COMMAND
-export DIRAC_MPI_COMMAND="mpirun -np ${np}"
-
 cd $PBS_O_WORKDIR
 
 #----------------------------------------------------------
@@ -120,6 +117,9 @@ for ij in 1-1 2-1 4-1 6-1 8-1 10-1 12-1; do #
 
 # Passing your whole environment
 #PBS -V
+
+  unset DIRAC_MPI_COMMAND
+  export DIRAC_MPI_COMMAND="mpirun -np ${np}"
 
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
