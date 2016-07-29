@@ -2,7 +2,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N T1omp
+#PBS -N D4g_omp
 ### Declare myprogram non-rerunable
 #PBS -r n
 
@@ -59,16 +59,20 @@ export OMP_DYNAMIC="FALSE"
 #export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
 
 #DIRAC=/home/milias/Work/qch/software/dirac/trunk
-DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
-#DIRAC_BUILD=$DIRAC/build_ompi_intel_i8_dbg
-DIRAC_BUILD=$DIRAC/build_intel_mklpar_i8_xh_prod/
-PAM=$DIRAC_BUILD/pam
+#DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
+DIRAC=/home/milias/Work/qch/software/dirac/dirac_for_grid
 
-echo -e "\n The $DIRAC_BUILD/dirac.x attributes:"
-ls -lt $DIRAC_BUILD/dirac.x
-ldd $DIRAC_BUILD/dirac.x
+#BUILD=$DIRAC/build_intel_mklpar_i8_xh_prod/
+BUILD1=$DIRAC/build_intelmkl_i8_static
+PAM1=$BUILD1/pam
+BUILD2=$DIRAC/build_gnu_i8_openblas_static
+PAM2=$BUILD2/pam
 
-# set your test case
+echo -e "\n The $BUILD1/dirac.x and  $BUILD2/dirac.x  attributes:"
+ls -lt $BUILD1/dirac.x; ls -lt $BUILD2/dirac.x
+ldd $BUILD1/dirac.x; ldd $BUILD2/dirac.x
+
+#  set your test case
 #INP=$DIRAC/test/benchmark_cc_linear/cc.inp
 #MOL=$DIRAC/test/benchmark_cc_linear/N2.ccpVQZ.mol
 INP=$DIRAC/test/benchmark_cc/cc.inp
@@ -77,11 +81,14 @@ MOL=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2h.mol
 # set local scratch directory for your runs 
 export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
 
-#MPI command
+#  set BASIS directory for your runs - pam needs to see it
+export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
+
+#  MPI command
 #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 1 -x MKL_NUM_THREADS"
 #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 1"
 
-# secure maximum time for running test
+# secure maximum time for running Dirac job (for pam)
 #export DIRTIMEOUT="1h"
 export DIRTIMEOUT="40m"
 
@@ -93,22 +100,30 @@ cd $PBS_O_WORKDIR
 #---------------------------------------------
 for nmkl in 1 6 12; do
 
+  # set MKL envirovariables
+  unset MKL_NUM_THREADS
   export MKL_NUM_THREADS=$nmkl
   echo -e "\nUpdated MKL_NUM_THREADS=$MKL_NUM_THREADS"
   echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
   echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
   echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+  # set OpenBLAS envirovariables
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
 
+  
 # send MKL enviro-variables to nodes
 #PBS -v MKL_NUM_THREADS
 #PBS -v MKL_DYNAMIC
 #PBS -v OMP_NUM_THREADS
 #PBS -v OMP_DYNAMIC
+#PBS -v OPENBLAS_NUM_THREADS
 
-# Passing your environment
+# Passing your whole environment
 #PBS -V
 
-  $PAM --noarch --mw=400 --aw=2800 --inp=$INP  --mol=$MOL --suffix=out1n_omp.$nmkl
+  $PAM1 --noarch --mw=400 --aw=2800 --inp=$INP  --mol=$MOL --suffix=out1n_im_omp.$nmkl
+  $PAM2 --noarch --mw=400 --aw=2800 --inp=$INP  --mol=$MOL --suffix=out1n_go_omp.$nmkl
 
 done
 
