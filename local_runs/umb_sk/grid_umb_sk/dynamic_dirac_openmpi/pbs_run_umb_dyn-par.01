@@ -2,7 +2,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N Ddynpar1-12
+#PBS -N Ddynpar
 ### Declare myprogram non-rerunable
 #PBS -r n
 
@@ -94,8 +94,8 @@ cd $PBS_O_WORKDIR
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
-#for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
-for ij in 1-1 2-1 4-1 6-1 8-1 10-1 12-1; do # 
+for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1 8-1 10-1; do
+#for ij in 1-1 2-1 4-1 6-1 8-1 10-1 12-1; do # 
 
   set -- ${ij//-/ }
   np=$1
