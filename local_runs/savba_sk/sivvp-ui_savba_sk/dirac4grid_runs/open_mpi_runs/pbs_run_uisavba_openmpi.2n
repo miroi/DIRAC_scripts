@@ -90,6 +90,9 @@ PAM_MPI2=$BUILD_MPI2/pam
 PAM1=$BUILD1/pam
 PAM2=$BUILD2/pam
 
+# Basis set #
+export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
+
 #TEST=$DIRAC/test/benchmark_cc_linear
 #TEST=$DIRAC/test/cc_energy_and_mp2_dipole
 #MOL=$TEST/H2O.mol
