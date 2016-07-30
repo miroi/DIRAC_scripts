@@ -733,7 +733,7 @@ echo -e "\n removing: /bin/rm    test/*/*.out; /bin/rm -r test/*/compare "
 /bin/rm    test/*/*.out
 /bin/rm -r test/*/compare
 
-packed_dirac=DIRAC_grid_suite.tgz
+packed_dirac=DIRAC4Grid_suite.tgz
 ##
 echo -e "\n\n Packing slim DIRAC suite (static dirac.x binaries, basis sets and test suite) for grid computations ! \n"
 ##     
