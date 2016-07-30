@@ -41,10 +41,10 @@ UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
 UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
 echo "Unique nodes (processors) :  $UNIQUE_NODES"
 
-# load necessary modules
-module load intel/2015
-module load mkl/2015
-module load openmpi-intel/1.8.3
+# load necessary modules - ONLY for local-dynamic libs Dirac installation !
+#module load intel/2015
+#module load mkl/2015
+#module load openmpi-intel/1.8.3
 
 #export MKL_NUM_THREADS=${NCPUS}
 export MKL_NUM_THREADS=1
