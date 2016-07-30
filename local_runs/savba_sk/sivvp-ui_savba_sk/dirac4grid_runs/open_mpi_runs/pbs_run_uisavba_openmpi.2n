@@ -70,8 +70,11 @@ echo -e "\n Working space, pwd:"
 pwd
 df -h .
 
+export LD_LIBRARY_PATH=/shared/software/openmpi/1.8.3-intel/lib
 # save PATH
-PATH_SAVED=$PATH
+#PATH_SAVED=$PATH
+PATH_SAVED=/shared/software/openmpi/1.8.3-intel/bin:$PATH  # try to add OpenMPI path, together with the LD_LIBRARY_PATH
+
 echo -e "\n PATH=$PATH_SAVED"
 echo -e "\n LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 
@@ -136,6 +139,7 @@ for npn in 1  3  6  9  12; do
   unset OPAL_PREFIX
   export OPAL_PREFIX=$BUILD_MPI1
   echo -e "which mpirun ? \c"; which mpirun; mpirun --version
+  echo -e "\n PATH=$PATH"
   export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE}"
   #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH"
 
