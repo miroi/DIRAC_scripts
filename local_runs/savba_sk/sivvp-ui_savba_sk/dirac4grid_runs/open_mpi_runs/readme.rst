@@ -1,6 +1,6 @@
 
-OpenMPI dirac runs
-==================
+OpenMPI DIRAC4Grid runs
+=======================
 
 small test:
 -----------
@@ -17,3 +17,9 @@ cc_C2H4Cl2_sta_c2h.global-dsk_out1n.3:>>>> Total WALL time used in DIRAC: 12min2
 cc_C2H4Cl2_sta_c2h.global-dsk_out1n.6:>>>> Total WALL time used in DIRAC: 11min1s
 cc_C2H4Cl2_sta_c2h.global-dsk_out1n.9:>>>> Total WALL time used in DIRAC: 10min12s
 cc_C2H4Cl2_sta_c2h.global-dsk_out1n.12:>>>> Total WALL time used in DIRAC: 9min44s
+
+Problems on # > 1 nodes
+-----------------------
+ORTE was unable to reliably start one or more daemons.
+This usually is caused by:
+
