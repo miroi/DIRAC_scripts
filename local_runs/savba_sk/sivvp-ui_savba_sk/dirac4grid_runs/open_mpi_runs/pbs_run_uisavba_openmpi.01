@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### Set the job name
-#PBS -N D1g_mpi
+#PBS -N D4g_1n_mpi
 
 ### Declare myprogram non-rerunable
 #PBS -r n 
@@ -89,13 +89,16 @@ PAM1=$BUILD1/pam
 PAM2=$BUILD2/pam
 
 #TEST=$DIRAC/test/benchmark_cc_linear
-TEST=$DIRAC/test/cc_energy_and_mp2_dipole
-MOL=$TEST/H2O.mol
-INP=$TEST/ccsd.inp
+#TEST=$DIRAC/test/cc_energy_and_mp2_dipole
+TEST=$DIRAC/test/benchmark_cc
+#MOL=$TEST/H2O.mol
+#INP=$TEST/ccsd.inp
+MOL=$TEST/C2H4Cl2_sta_c2h.mol
+INP=$TEST/cc.inp
 
 # secure maximum time for running test
 #export DIRTIMEOUT="4h"
-export DIRTIMEOUT="12m"
+export DIRTIMEOUT="25m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 
@@ -104,7 +107,7 @@ export DIRTIMEOUT="12m"
 ############################################
 
 #
-# Main cycle ober npn, MKL number of threads
+# Main cycle ober npn-  number of MPI tasks
 #
 for npn in 1  3  6  9  12; do
 
