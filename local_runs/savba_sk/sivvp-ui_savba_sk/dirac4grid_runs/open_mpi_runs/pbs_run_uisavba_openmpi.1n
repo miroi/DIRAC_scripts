@@ -71,6 +71,8 @@ df -h .
 
 # save PATH
 PATH_SAVED=$PATH
+echo -e "\n PATH=$PATH_SAVED"
+echo -e "\n LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 
 #DIRAC=/shared/home/ilias/Work/software/dirac/trunk
 #BUILD_MPI=$DIRAC/build_openmpi_intelmkl_i8

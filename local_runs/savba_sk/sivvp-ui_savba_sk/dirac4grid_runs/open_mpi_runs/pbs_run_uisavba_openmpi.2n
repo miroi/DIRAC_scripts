@@ -71,6 +71,8 @@ df -h .
 
 # save PATH
 PATH_SAVED=$PATH
+echo -e "\n PATH=$PATH_SAVED"
+echo -e "\n LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 
 #DIRAC=/shared/home/ilias/Work/software/dirac/trunk
 #BUILD_MPI=$DIRAC/build_openmpi_intelmkl_i8
@@ -90,9 +92,9 @@ PAM2=$BUILD2/pam
 
 #TEST=$DIRAC/test/benchmark_cc_linear
 #TEST=$DIRAC/test/cc_energy_and_mp2_dipole
-TEST=$DIRAC/test/benchmark_cc
 #MOL=$TEST/H2O.mol
 #INP=$TEST/ccsd.inp
+TEST=$DIRAC/test/benchmark_cc
 MOL=$TEST/C2H4Cl2_sta_c2h.mol
 INP=$TEST/cc.inp
 
