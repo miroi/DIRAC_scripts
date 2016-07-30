@@ -112,6 +112,8 @@ export DIRTIMEOUT="25m"
 # Mixed parallel OpenMPI/OpenMP run on all nodes
 ############################################
 
+export LD_LIBRARY_PATH=/shared/software/openmpi/1.8.3-intel/lib
+
 #
 # Main cycle ober npn-  number of MPI tasks
 #
@@ -135,7 +137,7 @@ for npn in 1  3  6  9  12; do
   export OPAL_PREFIX=$BUILD_MPI1
   echo -e "which mpirun ? \c"; which mpirun; mpirun --version
   #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE}"
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH"
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH, LD_LIBRARY_PATH"
 
   echo -e "\n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, GLOBAL disk: DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
