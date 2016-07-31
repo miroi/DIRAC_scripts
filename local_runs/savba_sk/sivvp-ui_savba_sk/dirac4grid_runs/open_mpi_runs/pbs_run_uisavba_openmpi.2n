@@ -140,6 +140,8 @@ for npn in 3; do
   export PATH=$BUILD_MPI1/bin:$PATH_SAVED
   unset OPAL_PREFIX
   export OPAL_PREFIX=$BUILD_MPI1
+  unset LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$BUILD_MPI1/lib
 
   echo -e "which mpirun ? \c"; which mpirun; mpirun --version
   echo -e "\n PATH=$PATH"
