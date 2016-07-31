@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### Set the job name
-#PBS -N D4g_openmp
+#PBS -N D4g1n-openmp
 
 ### Declare myprogram non-rerunable
 #PBS -r n 
@@ -114,7 +114,7 @@ export DIRTIMEOUT="30m"
 #
 # Main cycle ober OpenMP(MKL) number of threads
 #
-for nmkl in 1 2 3 6 8 12; do
+for nmkl in 1 2 4 6 8 10 12; do
 
   export MKL_NUM_THREADS=$nmkl
 
