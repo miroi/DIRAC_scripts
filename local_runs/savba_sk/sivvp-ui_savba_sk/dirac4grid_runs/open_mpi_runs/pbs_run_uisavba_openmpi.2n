@@ -143,10 +143,11 @@ for npn in 3; do
   unset LD_LIBRARY_PATH
   export LD_LIBRARY_PATH=$BUILD_MPI1/lib
 
-  echo -e "which mpirun ? \c"; which mpirun; mpirun --version
   echo -e "\n PATH=$PATH"
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE}"
-  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH"
+  echo -e "which mpirun ? \c"; which mpirun; mpirun --version
+  echo -e " LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE}"
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH"
 
 #try export important variables, pointing to OpenMPI
 #PBS -v PATH
