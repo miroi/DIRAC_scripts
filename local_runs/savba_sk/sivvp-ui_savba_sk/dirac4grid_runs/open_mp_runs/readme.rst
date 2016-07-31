@@ -11,5 +11,14 @@ ccsd_H2O.global-dsk_out1n.6:>>>> Total WALL time used in DIRAC: 35s
 ccsd_H2O.global-dsk_out1n.8:>>>> Total WALL time used in DIRAC: 35s
 ccsd_H2O.global-dsk_out1n.12:>>>> Total WALL time used in DIRAC: 35s
 
+larger case
+-----------
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.1:>>>> Total WALL time used in DIRAC: 21min27s
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.2:>>>> Total WALL time used in DIRAC: 16min20s
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.4:>>>> Total WALL time used in DIRAC: 14min59s
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.6:>>>> Total WALL time used in DIRAC: 13min25s
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.8:>>>> Total WALL time used in DIRAC: 12min48s
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.10:>>>> Total WALL time used in DIRAC: 12min8s
+cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.12:>>>> Total WALL time used in DIRAC: 13min27s
 
 

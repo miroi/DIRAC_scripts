@@ -6,8 +6,8 @@
 ### Declare myprogram non-rerunable
 #PBS -r n 
 
-#PBS -q short
-##PBS -q long
+##PBS -q short
+#PBS -q long
 ##PBS -q mpi
 
 #PBS -j oe
@@ -15,8 +15,8 @@
 #PBS -l nodes=1:ppn=12
 #PBS -l mem=47g
 
-##PBS -l walltime=40:00:00
-#PBS -l walltime=6:00:00
+#PBS -l walltime=40:00:00
+##PBS -l walltime=6:00:00
 
 ### Switch to the working directory; by default Torque launches processes from your home directory.
 ### Jobs should only be run from /work; Torque returns results via NFS.
@@ -102,8 +102,8 @@ INP=$TEST/cc.inp
 export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 # secure maximum time for running test
-#export DIRTIMEOUT="4h"
-export DIRTIMEOUT="50m"
+export DIRTIMEOUT="1h"
+#export DIRTIMEOUT="50m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 
@@ -114,20 +114,20 @@ export DIRTIMEOUT="50m"
 #
 # Main cycle ober OpenMP(MKL) number of threads
 #
-#for nmkl in 1 2 4 6 8 10 12; do
-for nmkl in 12; do
+for nmkl in 1 2 4 6 8 10 12; do
+#for nmkl in 12; do
 
   export MKL_NUM_THREADS=$nmkl
 #PBS -v MKL_NUM_THREADS
 
   export DIRAC_TMPDIR="/shared/scratch" # global scratch disk
-  export GLBSCR=1
-#PBS -v GLBSCR
+  unset GLBSCR
+##PBS -v GLBSCR
   echo -e "\n  OpenMP(MKL) multithreaded run, GLOBAL disk: MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
   $PAM1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=global-dsk_out1n_openmp.$nmkl
 
   export DIRAC_TMPDIR="/scratch/tmp" # LOCAL scratch disk
-  export GLBSCR=0
+  export GLBSCR=1
 #PBS -v GLBSCR
  # export DIRAC_MPI_MACHFILE="$PBS_NODEFILE"
   echo -e "\n \n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, LOCAL disks DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR}, DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}"
