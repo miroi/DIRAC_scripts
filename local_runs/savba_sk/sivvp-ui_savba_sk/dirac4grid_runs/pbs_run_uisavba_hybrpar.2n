@@ -1,14 +1,14 @@
 #!/bin/sh
 
 ### Set the job name
-#PBS -N D4g_ij
+#PBS -N D4g_2n_ij
 
 ### Declare myprogram non-rerunable
 #PBS -r n 
 
 ##PBS -q short
-#PBS -q long
-##PBS -q mpi
+##PBS -q long
+#PBS -q mpi
 
 #PBS -j oe
  
@@ -89,9 +89,12 @@ PAM1=$BUILD1/pam
 PAM2=$BUILD2/pam
 
 #TEST=$DIRAC/test/benchmark_cc_linear
-TEST=$DIRAC/test/cc_energy_and_mp2_dipole
-MOL=$TEST/H2O.mol
-INP=$TEST/ccsd.inp
+#TEST=$DIRAC/test/cc_energy_and_mp2_dipole
+#MOL=$TEST/H2O.mol
+#INP=$TEST/ccsd.inp
+TEST=$DIRAC/test/benchmark_cc
+MOL=$TEST/C2H4Cl2_sta_c2h.mol
+INP=$TEST/cc.inp
 
 # secure maximum time for running test
 #export DIRTIMEOUT="4h"
@@ -106,7 +109,7 @@ export DIRTIMEOUT="12m"
 #
 # Main cycle ober npn, MKL number of threads
 #
-for ij in 1-12 2-1 2-6 3-1 3-4 4-3 4-1 6-2 6-1 12-1; do
+for ij in 1-1 1-6 1-12 2-1 2-6 3-1 3-4 4-1 4-3 6-1 6-2 12-1; do
 
   set -- ${ij//-/ }
   npn=$1
@@ -121,13 +124,20 @@ for ij in 1-12 2-1 2-6 3-1 3-4 4-3 4-1 6-2 6-1 12-1; do
   timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
   echo -e "\n\n Running DIRAC at "$timestamp ; echo -e "\n\n"
 
-  export TSTDIR=DIRACtestdir.$ij.$timestamp
-  export DIRAC_TMPDIR="/shared/scratch/$TSTDIR" # global scratch disk
+  export DIRAC_TMPDIR="/shared/scratch" # global scratch disk
 
   unset PATH
-  export PATH=$BUILD_MPI1:$PATH_SAVED
-  echo -e "which mpirun ? \c"; which mpirun
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE}"
+  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  unset LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$BUILD_MPI1/lib
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI1
+  echo -e "which mpirun ? \c"; which mpirun;mpirun --version
+
+  echo -e "\n PATH=$PATH"
+  echo -e " LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI1"
 
   echo -e "\n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, GLOBAL disk: DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
@@ -135,7 +145,7 @@ for ij in 1-12 2-1 2-6 3-1 3-4 4-3 4-1 6-2 6-1 12-1; do
 #sleep 40
 #/bin/rm -r ${DIRAC_TMPDIR}
 
-  $PAM_MPI1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=global-dsk_out1n.$ij
+  $PAM_MPI1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out2n.$ij
 
   #export DIRAC_TMPDIR="/scratch/tmp/$TSTDIR" # LOCAL scratch disk
   #export GLBSCR=1
