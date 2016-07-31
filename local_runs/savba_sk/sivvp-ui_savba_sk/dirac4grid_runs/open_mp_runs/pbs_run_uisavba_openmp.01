@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### Set the job name
-#PBS -N D4g_1n_i
+#PBS -N D4g_openmp
 
 ### Declare myprogram non-rerunable
 #PBS -r n 
@@ -90,13 +90,20 @@ PAM1=$BUILD1/pam
 PAM2=$BUILD2/pam
 
 #TEST=$DIRAC/test/benchmark_cc_linear
-TEST=$DIRAC/test/cc_energy_and_mp2_dipole
-MOL=$TEST/H2O.mol
-INP=$TEST/ccsd.inp
+#TEST=$DIRAC/test/cc_energy_and_mp2_dipole
+#MOL=$TEST/H2O.mol
+#INP=$TEST/ccsd.inp
+
+TEST=$DIRAC/test/benchmark_cc
+MOL=$TEST/C2H4Cl2_sta_c2h.mol
+INP=$TEST/cc.inp
+
+# Basis set #
+export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 # secure maximum time for running test
 #export DIRTIMEOUT="4h"
-export DIRTIMEOUT="12m"
+export DIRTIMEOUT="30m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 
