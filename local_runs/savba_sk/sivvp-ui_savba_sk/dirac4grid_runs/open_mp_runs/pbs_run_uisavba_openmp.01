@@ -103,7 +103,7 @@ export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 # secure maximum time for running test
 #export DIRTIMEOUT="4h"
-export DIRTIMEOUT="30m"
+export DIRTIMEOUT="50m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 
@@ -114,7 +114,8 @@ export DIRTIMEOUT="30m"
 #
 # Main cycle ober OpenMP(MKL) number of threads
 #
-for nmkl in 1 2 4 6 8 10 12; do
+#for nmkl in 1 2 4 6 8 10 12; do
+for nmkl in 12; do
 
   export MKL_NUM_THREADS=$nmkl
 #PBS -v MKL_NUM_THREADS

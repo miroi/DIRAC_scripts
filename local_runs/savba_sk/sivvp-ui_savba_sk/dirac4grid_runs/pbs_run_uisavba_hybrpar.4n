@@ -101,7 +101,8 @@ export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 # secure maximum time for running test
 #export DIRTIMEOUT="4h"
-export DIRTIMEOUT="30m"
+export DIRTIMEOUT="1h"
+#export DIRTIMEOUT="30m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 

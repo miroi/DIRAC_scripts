@@ -7,16 +7,16 @@
 #PBS -r n 
 
 ##PBS -q short
-##PBS -q long
-#PBS -q mpi
+#PBS -q long
+##PBS -q mpi
 
 #PBS -j oe
  
 #PBS -l nodes=2:ppn=12
 #PBS -l mem=47g
 
-##PBS -l walltime=40:00:00
-#PBS -l walltime=6:00:00
+#PBS -l walltime=40:00:00
+##PBS -l walltime=6:00:00
 
 ### Switch to the working directory; by default Torque launches processes from your home directory.
 ### Jobs should only be run from /work; Torque returns results via NFS.
@@ -100,8 +100,8 @@ INP=$TEST/cc.inp
 export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 # secure maximum time for running test
-#export DIRTIMEOUT="4h"
-export DIRTIMEOUT="30m"
+export DIRTIMEOUT="4h"
+#export DIRTIMEOUT="30m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 
