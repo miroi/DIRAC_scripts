@@ -1,0 +1,146 @@
+#!/bin/sh
+
+### Set the job name
+#PBS -N D4g_1n_i
+
+### Declare myprogram non-rerunable
+#PBS -r n 
+
+#PBS -q short
+##PBS -q long
+##PBS -q mpi
+
+#PBS -j oe
+ 
+#PBS -l nodes=1:ppn=12
+#PBS -l mem=47g
+
+##PBS -l walltime=40:00:00
+#PBS -l walltime=6:00:00
+
+### Switch to the working directory; by default Torque launches processes from your home directory.
+### Jobs should only be run from /work; Torque returns results via NFS.
+echo Working directory is $PBS_O_WORKDIR
+cd $PBS_O_WORKDIR
+ 
+### Run some informational commands.
+echo "Running on host `hostname`"
+echo "Time is `date`"
+echo "Directory is `pwd`"
+echo "This jobs runs on the following nodes processors (PBS_NODEFILE):"
+echo "`cat $PBS_NODEFILE`"
+echo "Unique nodes (processors), from PBS_NODEFILE:"
+echo `cat $PBS_NODEFILE | sort | uniq `
+ 
+### Define number of processors
+NPROCS=`wc -l < $PBS_NODEFILE`
+echo -e "This job has allocated $NPROCS cpus."
+NCPUS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo -e "The host (main) node has $NCPUS cpus."
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo "Unique nodes (processors) :  $UNIQUE_NODES"
+
+# load necessary modules
+# ... not necessary for static dirac binaries !
+#module load intel/2015
+#module load mkl/2015
+#module load openmpi-intel/1.8.3
+
+#export MKL_NUM_THREADS=${NCPUS}
+export MKL_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+echo -e "\n Initialization of MKL threading:"
+echo -e "MKL_NUM_THREADS=$MKL_NUM_THREADS"
+echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+echo -e "--------------------------------------------\n"
+
+#export PATH=/shared/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:$PATH
+#export LD_LIBRARY_PATH=/shared/software/openmpi/1.8.3-intel/lib:$LD_LIBRARY_PATH
+
+echo -e "\n Scratch space, local, /scratch/tmp :"
+df -h /scratch/tmp
+echo -e "\n Scratch space, global, /shared/scratch :"
+df -h /shared/scratch
+
+echo -e "\n Working space, pwd:"
+pwd
+df -h .
+
+# save PATH
+PATH_SAVED=$PATH
+
+#DIRAC=/shared/home/ilias/Work/software/dirac/trunk
+#BUILD_MPI=$DIRAC/build_openmpi_intelmkl_i8
+#BUILD=$DIRAC/build_intelmkl_i8
+#PAM=$BUILD/pam
+
+DIRAC=/shared/home/ilias/Work/software/dirac/trunk4grid
+BUILD_MPI1=$DIRAC/build_intelmkl_openmpi-1.10.1_i8_static
+BUILD_MPI2=$DIRAC/build_openmpi_gnu_i8_openblas_static
+BUILD1=$DIRAC/build_intelmkl_i8_static
+BUILD2=$DIRAC/build_gnu_i8_openblas_static
+
+PAM_MPI1=$BUILD_MPI1/pam
+PAM_MPI2=$BUILD_MPI2/pam
+PAM1=$BUILD1/pam
+PAM2=$BUILD2/pam
+
+#TEST=$DIRAC/test/benchmark_cc_linear
+TEST=$DIRAC/test/cc_energy_and_mp2_dipole
+MOL=$TEST/H2O.mol
+INP=$TEST/ccsd.inp
+
+# secure maximum time for running test
+#export DIRTIMEOUT="4h"
+export DIRTIMEOUT="12m"
+
+#export MKL_NUM_THREADS=${NPROCS}
+
+############################################
+# Mixed parallel OpenMPI/OpenMP run on all nodes
+############################################
+
+#
+# Main cycle ober OpenMP(MKL) number of threads
+#
+for nmkl in 1 2 3 6 8 12; do
+
+  export MKL_NUM_THREADS=$nmkl
+
+#PBS -v MKL_NUM_THREADS=${MKL_NUM_THREADS}
+
+# we have unique string of time !
+  timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+  echo -e "\n\n Running DIRAC at "$timestamp ; echo -e "\n\n"
+
+  export TSTDIR=DIRACtestdir.$ij.$timestamp
+  export DIRAC_TMPDIR="/shared/scratch/$TSTDIR" # global scratch disk
+
+
+  echo -e "\n  OpenMP(MKL) multithreaded run, GLOBAL disk: MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
+
+#$TEST/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR -d -v
+#sleep 40
+#/bin/rm -r ${DIRAC_TMPDIR}
+
+  $PAM1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=global-dsk_out1n.$nmkl
+
+  #export DIRAC_TMPDIR="/scratch/tmp/$TSTDIR" # LOCAL scratch disk
+  #export GLBSCR=1
+#PBS -v GLBSCR=1
+ # export DIRAC_MPI_MACHFILE="$PBS_NODEFILE"
+ # echo -e "\n \n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, LOCAL disks DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR}, DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}"
+ # $PAM --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=local-dsk_out4.$ij
+
+#$TEST/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR -d -v
+#sleep 40
+#/bin/rm -r ${DIRAC_TMPDIR}
+
+done # end cycle over OpenMPI-OpenMP number of threads
+
+
+exit 0
