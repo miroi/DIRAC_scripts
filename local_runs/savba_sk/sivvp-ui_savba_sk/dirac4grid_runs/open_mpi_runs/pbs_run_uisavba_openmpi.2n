@@ -133,11 +133,10 @@ for npn in 3; do
   timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
   echo -e "\n\n Running DIRAC at "$timestamp ; echo -e "\n\n"
 
-  export TSTDIR=DIRACtestdir.$ij.$timestamp
-  export DIRAC_TMPDIR="/shared/scratch/$TSTDIR" # global scratch disk
+  export DIRAC_TMPDIR="/shared/scratch" # global scratch disk
 
   unset PATH
-  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  export PATH=$BUILD_MPI1/bin:$PATH_SAVED  # path to OpenMPI 
   unset OPAL_PREFIX
   export OPAL_PREFIX=$BUILD_MPI1
   unset LD_LIBRARY_PATH
@@ -147,7 +146,8 @@ for npn in 3; do
   echo -e "which mpirun ? \c"; which mpirun; mpirun --version
   echo -e " LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
   #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE}"
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH"
+  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH"
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI1"
 
 #try export important variables, pointing to OpenMPI
 #PBS -v PATH
