@@ -118,14 +118,13 @@ for nmkl in 1 2 3 6 8 12; do
 
   export MKL_NUM_THREADS=$nmkl
 
-#PBS -v MKL_NUM_THREADS=${MKL_NUM_THREADS}
+#PBS -v MKL_NUM_THREADS
 
 # we have unique string of time !
   timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
   echo -e "\n\n Running DIRAC at "$timestamp ; echo -e "\n\n"
 
-  export TSTDIR=DIRACtestdir.$ij.$timestamp
-  export DIRAC_TMPDIR="/shared/scratch/$TSTDIR" # global scratch disk
+  export DIRAC_TMPDIR="/shared/scratch" # global scratch disk
 
 
   echo -e "\n  OpenMP(MKL) multithreaded run, GLOBAL disk: MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
@@ -134,7 +133,7 @@ for nmkl in 1 2 3 6 8 12; do
 #sleep 40
 #/bin/rm -r ${DIRAC_TMPDIR}
 
-  $PAM1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=global-dsk_out1n.$nmkl
+  $PAM1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_openmp.$nmkl
 
   #export DIRAC_TMPDIR="/scratch/tmp/$TSTDIR" # LOCAL scratch disk
   #export GLBSCR=1
