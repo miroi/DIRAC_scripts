@@ -157,7 +157,7 @@ for ij in 1-1 1-6 1-12 2-1 2-6 3-1 3-4 4-1 4-3 6-1 6-2 12-1; do
   export DIRAC_TMPDIR="/scratch/tmp" # LOCAL scratch disk
   export GLBSCR=0
 #PBS -v GLBSCR
- # export DIRAC_MPI_MACHFILE="$PBS_NODEFILE"
+  export DIRAC_MPI_MACHFILE="$PBS_NODEFILE"
   echo -e "\n \n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, LOCAL disks DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR}, DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}"
 
   $PAM_MPI1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=locdsk_out2n.$ij
