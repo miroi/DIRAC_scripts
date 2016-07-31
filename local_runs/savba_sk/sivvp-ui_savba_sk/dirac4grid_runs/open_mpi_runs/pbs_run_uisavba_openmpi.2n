@@ -121,8 +121,7 @@ export LD_LIBRARY_PATH=/shared/software/openmpi/1.8.3-intel/lib
 #
 # Main cycle ober npn-  number of MPI tasks
 #
-#for npn in 1  3  6  9  12; do
-for npn in 3; do
+for npn in 1  3  6  9  12; do
 
   export NPERNODE=$npn
   export MKL_NUM_THREADS=1
@@ -150,9 +149,9 @@ for npn in 3; do
   export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI1"
 
 #try export important variables, pointing to OpenMPI
-#PBS -v PATH
-#PBS -v LD_LIBRARY_PATH
-#PBS -v OPAL_PREFIX
+###PBS -v PATH
+###PBS -v LD_LIBRARY_PATH
+###PBS -v OPAL_PREFIX
 
   echo -e "\n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, GLOBAL disk: DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
