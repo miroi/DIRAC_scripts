@@ -21,3 +21,5 @@ ccsd_H2O.global-dsk_out1n.6-2:>>>> Total WALL time used in DIRAC: 52s
 ccsd_H2O.global-dsk_out1n.12-1:>>>> Total WALL time used in DIRAC: 1min9s
 
 
+larger test
+-----------
