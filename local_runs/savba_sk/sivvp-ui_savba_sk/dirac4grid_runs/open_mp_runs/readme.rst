@@ -22,3 +22,8 @@ cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.10:>>>> Total WALL time used in DIRAC
 cc_C2H4Cl2_sta_c2h.global-dsk_out1n_openmp.12:>>>> Total WALL time used in DIRAC: 13min27s
 
 
+with no swapping (vmem=47g)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+

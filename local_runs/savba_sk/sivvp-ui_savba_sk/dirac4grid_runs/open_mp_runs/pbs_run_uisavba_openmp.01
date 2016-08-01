@@ -14,6 +14,8 @@
  
 #PBS -l nodes=1:ppn=12
 #PBS -l mem=47g
+## prevent swapping !
+#PBS -l vmem=47g
 
 #PBS -l walltime=40:00:00
 ##PBS -l walltime=6:00:00
@@ -102,8 +104,8 @@ INP=$TEST/cc.inp
 export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 # secure maximum time for running test
-export DIRTIMEOUT="1h"
-#export DIRTIMEOUT="50m"
+#export DIRTIMEOUT="1h"
+export DIRTIMEOUT="40m"
 
 #export MKL_NUM_THREADS=${NPROCS}
 
@@ -112,10 +114,9 @@ export DIRTIMEOUT="1h"
 ############################################
 
 #
-# Main cycle ober OpenMP(MKL) number of threads
+# Main cycle over OpenMP(MKL) number of threads
 #
-for nmkl in 1 2 4 6 8 10 12; do
-#for nmkl in 12; do
+for nmkl in 1 2 3 4 5 6 7 8 9 10 11 12; do
 
   export MKL_NUM_THREADS=$nmkl
 #PBS -v MKL_NUM_THREADS
@@ -124,14 +125,7 @@ for nmkl in 1 2 4 6 8 10 12; do
   unset GLBSCR
 ##PBS -v GLBSCR
   echo -e "\n  OpenMP(MKL) multithreaded run, GLOBAL disk: MKL_NUM_THREADS=${MKL_NUM_THREADS};  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
-  $PAM1 --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=global-dsk_out1n_openmp.$nmkl
-
-  export DIRAC_TMPDIR="/scratch/tmp" # LOCAL scratch disk
-  export GLBSCR=1
-#PBS -v GLBSCR
- # export DIRAC_MPI_MACHFILE="$PBS_NODEFILE"
-  echo -e "\n \n Mixed (hybrid) OpenMP(MKL) + OpenMPI(DIRAC) parallel run, LOCAL disks DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR}, DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}"
-  $PAM --noarch --mw=1200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=local-dsk_out1n_openmp.$nmkl
+  $PAM1 --noarch --mw=1200 --aw=3900 --inp=$INP  --mol=$MOL --suffix=out1n_openmp.$nmkl
 
 #$TEST/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR -d -v
 #sleep 40
