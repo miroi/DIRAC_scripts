@@ -28,3 +28,10 @@ cc_C2H4Cl2_sta_c2h.global-dsk_out2n.3:>>>> Total WALL time used in DIRAC: 11min3
 cc_C2H4Cl2_sta_c2h.global-dsk_out2n.6:>>>> Total WALL time used in DIRAC: 11min36s
 cc_C2H4Cl2_sta_c2h.global-dsk_out2n.9:>>>> Total WALL time used in DIRAC: 12min2s
 cc_C2H4Cl2_sta_c2h.global-dsk_out2n.12:>>>> Total WALL time used in DIRAC: 12min21s
+
+
+cc_C2H4Cl2_sta_c2h.glob-dsk_out2n.1:>>>> Total WALL time used in DIRAC: 18min31s
+cc_C2H4Cl2_sta_c2h.glob-dsk_out2n.3:>>>> Total WALL time used in DIRAC: 11min27s
+cc_C2H4Cl2_sta_c2h.glob-dsk_out2n.6:>>>> Total WALL time used in DIRAC: 12min12s
+cc_C2H4Cl2_sta_c2h.glob-dsk_out2n.9:>>>> Total WALL time used in DIRAC: 12min39s
+cc_C2H4Cl2_sta_c2h.glob-dsk_out2n.12:>>>> Total WALL time used in DIRAC: 12min30s
