@@ -148,13 +148,13 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
   #export DIRAC_MPI_COMMAND="mpirun -np ${np}"
   export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI1"
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}; OpenMPI:npernode=${NPERNODE}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} "
-  echo -e "OpenMPI which mpirun ? \c"; which mpirun
+  echo -e "OpenMPI which mpirun ? \c"; which mpirun; mpirun --version
 
   #miro: try memory set up...
   $PAM_MPI1 --noarch --mw=300 --nw=200 --aw=4400 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
 
   unset PATH
-  export PATH=$BUILD_MPI2:$PATH_SAVED
+  export PATH=$BUILD_MPI2/bin:$PATH_SAVED
   unset LD_LIBRARY_PATH
   export LD_LIBRARY_PATH=$BUILD_MPI2/lib
   unset OPAL_PREFIX
@@ -167,7 +167,7 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
   export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI2"
 
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}; OpenMPI:npernode=${NPERNODE}; OpenBLAS-OpenMP: OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR}"
-  echo -e "OpenMPI which mpirun ? \c"; which mpirun
+  echo -e "OpenMPI which mpirun ? \c"; which mpirun; mpirun --version
 
   $PAM_MPI2 --noarch  --mw=300 --nw=200 --aw=4400 --inp=$INP  --mol=$MOL --suffix=out1n_p-go.$ij
 
