@@ -2,35 +2,29 @@
 #######################################################################################################
 #
 #
-#           Script for copying and launching the DIRAC suite on grid CE
+#   Script for downloading, upacking and launching the DIRAC4Grid suite on some grid CE of given VO.
 #
 #
 #######################################################################################################
 
-# check the parameter - VO name
-if [[ $1 != "voce" && $1 != "compchem" && $1 != "isragrid" && $1 != "osg" && $1 != "sivvp.slovakgrid.sk" ]]; then
- echo -e "\n wrong parameter - VO name : $1 "
- exit 12
+# include all external functions - directory on ilias-et-grid.ui.savba.sk
+RoutinesDir=/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines
+if [ -e "$RoutinesDir/UtilsCE.sh" ]
+then
+  source $RoutinesDir/UtilsCE.sh
 else
- VO=$1
- echo -e "OK, you specified properly the VO=$VO, continuing \n"
+  echo -e "\n Source file $RoutinesDir/UtilsCE not found! Error exit 13 ! \n"
+  exit 13
 fi
 
-# include all external functions
-if [ -e "UtilsCE.sh" ]
-then
-  source ./UtilsCE.sh
-  #declare -F # list function
-else
-  echo "Source file UtilsCE not found! Error exit !"
-  exit 333
-fi
+# name of Dirac package distributed over grid clusters
+package="DIRAC4Grid_suite.tgz"
 
 print_CE_info
 querry_CE_attributes $VO
-check_file_on_SE $VO "DIRAC_grid_suite.tgz"
+check_file_on_SE $VO $package
 # download & unpack tar-file onto CE - MUST be successfull or exit
-download_from_SE $VO "DIRAC_grid_suite.tgz"
+download_from_SE $VO $package
 
 # get number of procs #
 unset nprocs
@@ -41,17 +35,18 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 #
 # Unpack the downloaded DIRAC tar-ball
 #
-unpack_DIRAC "DIRAC_grid_suite.tgz"
+unpack_DIRAC $package
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
 
-# specify scratch space for DIRAC runs #
+# specify the scratch space for DIRAC runs #
 echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
 echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 
 ##########################################
 #      set build dirs and paths          #
 ##########################################
-# directory with all static executables - dirac.x, mpirun - and related directories
+
+# directories with all static executables - dirac.x and OpenMPI
 export BUILD=build_intelmkl_openmpi-1.10.1_i8_static
 export BUILD_SERIAL=build_intelmkl_i8_static
 
