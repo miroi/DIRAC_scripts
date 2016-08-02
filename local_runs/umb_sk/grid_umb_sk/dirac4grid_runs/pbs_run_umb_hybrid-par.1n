@@ -19,13 +19,13 @@
 #PBS -M Miroslav.Ilias@umb.sk
 
 echo "Working host is: "; hostname -f
-source /mnt/apps/intel/bin/compilervars.sh intel64
+#source /mnt/apps/intel/bin/compilervars.sh intel64
 #source /mnt/apps/pgi/environment.sh
 
 # libnumma for PGI
 #export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
 
-echo "My PATH=$PATH"
+echo "My path, PATH_SAVED=$PATH_SAVED"
 echo "Running on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
@@ -120,7 +120,7 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
   echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
   echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
   echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
-  # set OpenBLAS envirovariables
+  # set OpenBLAS enviro-variables
   unset OPENBLAS_NUM_THREADS
   export OPENBLAS_NUM_THREADS=$nmkl
   
@@ -170,7 +170,6 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
 
   $PAM_MPI2 --noarch  --mw=300 --nw=200 --aw=4400 --inp=$INP  --mol=$MOL --suffix=out1n_p-go.$ij
-
 
 done
 

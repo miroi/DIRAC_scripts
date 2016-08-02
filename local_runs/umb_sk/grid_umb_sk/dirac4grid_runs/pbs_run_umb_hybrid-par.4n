@@ -19,7 +19,7 @@
 #PBS -M Miroslav.Ilias@umb.sk
 
 echo "Working host is: "; hostname -f
-source /mnt/apps/intel/bin/compilervars.sh intel64
+#source /mnt/apps/intel/bin/compilervars.sh intel64
 #source /mnt/apps/pgi/environment.sh
 
 # libnumma for PGI
@@ -144,7 +144,6 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
 #PBS -v LD_LIBRARY_PATH
 
   unset DIRAC_MPI_COMMAND
-  #export DIRAC_MPI_COMMAND="mpirun -np ${np}"
   export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI1"
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}; OpenMPI:npernode=${NPERNODE}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} "
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
@@ -169,7 +168,6 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
 
   $PAM_MPI2 --noarch  --mw=300 --nw=200 --aw=4400 --inp=$INP  --mol=$MOL --suffix=out4n_p-go.$ij
-
 
 done
 
