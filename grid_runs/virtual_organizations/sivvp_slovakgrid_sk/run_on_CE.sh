@@ -38,7 +38,9 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 unpack_DIRAC $package
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
 
+#
 # specify the scratch space for DIRAC runs #
+#
 echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
 echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 
@@ -47,36 +49,45 @@ echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 ##########################################
 
 # directories with all static executables - dirac.x and OpenMPI
-export BUILD=build_intelmkl_openmpi-1.10.1_i8_static
-export BUILD_SERIAL=build_intelmkl_i8_static
+export PATH_SAVED=$PATH
+export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
-unset OPAL_PREFIX
-export OPAL_PREFIX=$PWD/$BUILD
-echo -e "Variable OPAL_PREFIX=$OPAL_PREFIX"
-export PATH=$PWD/$BUILD:$PATH
-#export PATH=$PWD/$BUILD_SERIAL:$PWD/$BUILD:$PATH
+# Dirac basis set library
+export BASDIR_PATH=$PWD
+
+export BUILD_MPI1=$PWD/build_intelmkl_openmpi-1.10.1_i8_static
+export BUILD_MPI2=$PWD/build_openmpi_gnu_i8_openblas_static
+
+export BUILD1=$PWD/build_intelmkl_i8_static
+export BUILD2=$PWD/build_gnu_i8_openblas_static
+
+export PAM_MPI1=$BUILD_MPI1/pam
+export PAM_MPI2=$BUILD_MPI2/pam
+export PAM1=$BUILD1/pam
+export PAM2=$BUILD2/pam
+
+#unset OPAL_PREFIX
+#export OPAL_PREFIX=$PWD/$BUILD
+#echo -e "Variable OPAL_PREFIX=$OPAL_PREFIX"
+
+export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
 echo -e "Modified PATH=$PATH"
-#echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-
-#############################################################
-#               check own static mpirun stuff               #
-#############################################################
-echo -e "\n\n"
+echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
-
 
 #####################################################################
 #                    Run few control tests
 #####################################################################
 
-  echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL - with few tests  --- \n "; date 
+  echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
   export DIRAC_MPI_COMMAND="mpirun -np 4"
-  test/cosci_energy/test -b $PWD/$BUILD -d -v
+  test/cosci_energy/test -b $BUILD_MPI1 -d -v
 
-  echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL - with few tests --- \n "; date 
+  echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL+i8 - with few tests --- \n "; date 
   unset DIRAC_MPI_COMMAND
-  unset OPAL_PREFIX
-  test/cosci_energy/test -b $PWD/$BUILD_SERIAL -d -v
+  #unset OPAL_PREFIX
+  test/cosci_energy/test -b $BUILD1 -d -v
 
 #
 # Individual runs
