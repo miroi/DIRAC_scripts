@@ -1,0 +1,176 @@
+#!/bin/bash
+
+#PBS -S /bin/bash
+#PBS -A UMB-ITMS-26110230082
+#PBS -N D4g_4n_hybr
+### Declare myprogram non-rerunable
+#PBS -r n
+
+#PBS -l nodes=4:ppn=12:old
+
+#PBS -l walltime=80:00:00
+#PBS -l mem=47g
+#PBS -l vmem=47g
+#PBS -j oe
+
+#PBS -q batch
+##PBS -q debug
+
+#PBS -M Miroslav.Ilias@umb.sk
+
+echo "Working host is: "; hostname -f
+source /mnt/apps/intel/bin/compilervars.sh intel64
+#source /mnt/apps/pgi/environment.sh
+
+# libnumma for PGI
+#export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
+
+echo "My PATH=$PATH"
+echo "Running on host `hostname`"
+echo "Time is `date`"
+echo "Directory is `pwd`"
+echo "This jobs runs on the following processors:"
+echo `cat $PBS_NODEFILE`
+
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo "Unique nodes for parallel run:  $UNIQUE_NODES"
+
+# Extract number of processors
+NPROCS_PBS=`wc -l < $PBS_NODEFILE`
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs."
+echo "This node has $NPROCS_PBS CPUs allocated for PBS calculations."
+
+#echo "PBS_SERVER=$PBS_SERVER"
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+#
+
+#export MKL_NUM_THREADS=$NPROCS
+#echo "MKL_NUM_THREADS=$MKL_NUM_THREADS"
+#export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
+
+# provide OpenMPI-Intel - local installation
+#export PATH=/home/milias/bin/openmpi-1.8.4-intel/bin:$PATH
+#export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
+
+#DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
+DIRAC=/home/milias/Work/qch/software/dirac/trun4grid_imported
+
+BUILD1=$DIRAC/build_intelmkl_i8_static
+PAM1=$BUILD1/pam
+BUILD2=$DIRAC/build_gnu_i8_openblas_static
+PAM2=$BUILD2/pam
+
+BUILD_MPI1=$DIRAC/build_intelmkl_openmpi-1.10.1_i8_static
+PAM_MPI1=$BUILD_MPI1/pam
+BUILD_MPI2=$DIRAC/build_openmpi_gnu_i8_openblas_static
+PAM_MPI2=$BUILD_MPI2/pam
+
+# save your PATH for later use
+unset  PATH_SAVED
+export PATH_SAVED=$PATH
+
+#  set your test case
+#INP=$DIRAC/test/benchmark_cc_linear/cc.inp
+#MOL=$DIRAC/test/benchmark_cc_linear/N2.ccpVQZ.mol
+INP=$DIRAC/test/benchmark_cc/cc.inp
+MOL=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2h.mol
+
+# set local scratch directory for your runs (ordered on UMB cluster)
+export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
+# tell pam to distribute working files over nodes
+export LOCAL_SCRATCH_BOOL=1
+# machine file with workers(master, slaves) for DIRAC run 
+export DIRAC_MPI_MACHFILE="$PBS_NODEFILE"
+
+#  set BASIS directory for your runs - pam needs to see it
+export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
+
+# secure maximum time for running Dirac job (for pam)
+#export DIRTIMEOUT="1h"
+export DIRTIMEOUT="40m"
+
+
+cd $PBS_O_WORKDIR
+
+#----------------------------------------------------------
+#   Main cycle over OpenMPI-OpenMP number of tasks/threads
+#----------------------------------------------------------
+for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
+
+  set -- ${ij//-/ }
+  npn=$1
+  nmkl=$2
+
+  unset NPERNODE
+  export NPERNODE=$npn
+
+  # set MKL envirovariables
+  unset MKL_NUM_THREADS
+  export MKL_NUM_THREADS=$nmkl
+  
+  echo -e "\nUpdated MKL_NUM_THREADS=$MKL_NUM_THREADS"
+  echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+  echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+  echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+  # set OpenBLAS envirovariables
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+  
+# send MKL/OpenBLAS enviro-variables to nodes
+#PBS -v MKL_NUM_THREADS
+#PBS -v MKL_DYNAMIC
+#PBS -v OMP_NUM_THREADS
+#PBS -v OMP_DYNAMIC
+#PBS -v OPENBLAS_NUM_THREADS
+
+# Passing your whole environment
+#PBS -V
+
+  ### OpenMPI variables ###
+  unset PATH
+  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  unset LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$BUILD_MPI1/lib
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI1
+#PBS -v PATH
+#PBS -v LD_LIBRARY_PATH
+
+  unset DIRAC_MPI_COMMAND
+  #export DIRAC_MPI_COMMAND="mpirun -np ${np}"
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI1"
+  echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}; OpenMPI:npernode=${NPERNODE}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} "
+  echo -e "OpenMPI which mpirun ? \c"; which mpirun
+
+  #miro: try memory set up...
+  $PAM_MPI1 --noarch --mw=300 --nw=200 --aw=4400 --inp=$INP  --mol=$MOL --suffix=out4n_p-im.$ij
+
+  unset PATH
+  export PATH=$BUILD_MPI2:$PATH_SAVED
+  unset LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$BUILD_MPI2/lib
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI2
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+#PBS -v PATH
+#PBS -v LD_LIBRARY_PATH
+  unset DIRAC_MPI_COMMAND
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} --prefix $BUILD_MPI2"
+
+  echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; DIRAC_MPI_MACHFILE=${DIRAC_MPI_MACHFILE}; OpenMPI:npernode=${NPERNODE}; OpenBLAS-OpenMP: OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR}"
+  echo -e "OpenMPI which mpirun ? \c"; which mpirun
+
+  $PAM_MPI2 --noarch  --mw=300 --nw=200 --aw=4400 --inp=$INP  --mol=$MOL --suffix=out4n_p-go.$ij
+
+
+done
+
+exit 0
