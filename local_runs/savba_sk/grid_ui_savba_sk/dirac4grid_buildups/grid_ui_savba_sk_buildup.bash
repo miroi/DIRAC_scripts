@@ -285,8 +285,8 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalSubmit 
 
 # copy there related OpenMPI directories
-cp    /home/ilias/bin/openmpi-1.10.1_intel_static/bin            $DIRAC/$BUILD_OMPI_INTEL2/.
-cp    /home/ilias/bin/openmpi-1.10.1_intel_static/lib            $DIRAC/$BUILD_OMPI_INTEL2/.
+cp -R /home/ilias/bin/openmpi-1.10.1_intel_static/bin            $DIRAC/$BUILD_OMPI_INTEL2/.
+cp -R /home/ilias/bin/openmpi-1.10.1_intel_static/lib            $DIRAC/$BUILD_OMPI_INTEL2/.
 /bin/rm -rf $DIRAC/$BUILD_OMPI_INTEL2/share
 mkdir $DIRAC/$BUILD_OMPI_INTEL2/share
 cp -R -P  /home/ilias/bin/openmpi-1.10.1_intel_static/share/openmpi     $DIRAC/$BUILD_OMPI_INTEL2/share/.
@@ -747,19 +747,19 @@ echo -e "\n\n Packing slim DIRAC suite (static dirac.x binaries, basis sets and 
 #
 ##
 tar czf $packed_dirac  test  basis  basis_dalton  basis_ecp \
-$BUILD_OMPI_INTEL/dirac.x a   $BUILD_OMPI_INTEL/pam  $BUILD_OMPI_INTEL/etc  $BUILD_OMPI_INTEL/share  $BUILD_OMPI_INTEL/bin  $BUILD_OMPI_INTEL/lib  \
+$BUILD_OMPI_INTEL/dirac.x a   $BUILD_OMPI_INTEL/pam  $BUILD_OMPI_INTEL/etc  $BUILD_OMPI_INTEL/share  $BUILD_OMPI_INTEL/bin  $BUILD_OMPI_INTEL/lib   \
 $BUILD_OMPI_INTEL1/dirac.x   $BUILD_OMPI_INTEL1/pam $BUILD_OMPI_INTEL1/etc $BUILD_OMPI_INTEL1/share $BUILD_OMPI_INTEL1/bin  $BUILD_OMPI_INTEL1/lib  \
 $BUILD_OMPI_INTEL2/dirac.x   $BUILD_OMPI_INTEL2/pam $BUILD_OMPI_INTEL2/etc $BUILD_OMPI_INTEL2/share $BUILD_OMPI_INTEL2/bin  $BUILD_OMPI_INTEL2/lib  \
-$BUILD_SERIAL_INTEL/dirac.x  $BUILD_SERIAL_INTEL/pam  \
+$BUILD_SERIAL_INTEL/dirac.x  $BUILD_SERIAL_INTEL/pam   \
 $BUILD_SERIAL_INTEL1/dirac.x $BUILD_SERIAL_INTEL1/pam  \
 $BUILD_SERIAL_INTEL2/dirac.x $BUILD_SERIAL_INTEL2/pam  \
-$BUILD_SERIAL_GNU/dirac.x $BUILD_SERIAL_GNU/pam  \
+$BUILD_SERIAL_GNU/dirac.x $BUILD_SERIAL_GNU/pam    \
 $BUILD_SERIAL_GNU1/dirac.x $BUILD_SERIAL_GNU1/pam  \
 $BUILD_SERIAL_GNU2/dirac.x $BUILD_SERIAL_GNU2/pam  \
 $BUILD_OMPI_GNU3/dirac.x  $BUILD_OMPI_GNU3/pam  $BUILD_OMPI_GNU3/etc  $BUILD_OMPI_GNU3/share  $BUILD_OMPI_GNU3/bin  $BUILD_OMPI_GNU3/lib  \
 $BUILD_OMPI_GNU4/dirac.x  $BUILD_OMPI_GNU4/pam  $BUILD_OMPI_GNU4/etc  $BUILD_OMPI_GNU4/share  $BUILD_OMPI_GNU4/bin  $BUILD_OMPI_GNU4/lib  \
-$BUILD_OMPI_GNU5/dirac.x  $BUILD_OMPI_GNU5/pam  $BUILD_OMPI_GNU5/etc  $BUILD_OMPI_GNU5/share  $BUILD_OMPI_GNU5/bin  $BUILD_OMPI_GNU5/lib \
-$BUILD_PGI/dirac.x $BUILD_PGI/pam \
+$BUILD_OMPI_GNU5/dirac.x  $BUILD_OMPI_GNU5/pam  $BUILD_OMPI_GNU5/etc  $BUILD_OMPI_GNU5/share  $BUILD_OMPI_GNU5/bin  $BUILD_OMPI_GNU5/lib  \
+$BUILD_PGI/dirac.x $BUILD_PGI/pam   \
 $BUILD_PGI1/dirac.x $BUILD_PGI1/pam \
 $BUILD_PGI2/dirac.x $BUILD_PGI2/pam \
 $BUILD_PGI3/dirac.x $BUILD_PGI3/pam 
