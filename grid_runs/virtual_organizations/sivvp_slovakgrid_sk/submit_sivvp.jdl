@@ -6,9 +6,10 @@
 #
 ##############################################################
 
-Executable   = "launch_VO.sh";
-InputSandbox = {"launch_VO.sh","UtilsCE.sh"};
-Arguments    = "sivvp.slovakgrid.sk";
+Executable   = "run_on_CE.sh";
+InputSandbox = {"run_on_CE.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+#InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
+#Arguments    = "sivvp.slovakgrid.sk";
 #Arguments    = "voce";
 #Arguments = "compchem";
 #Arguments = "osg";
