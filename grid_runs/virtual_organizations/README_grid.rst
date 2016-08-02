@@ -4,7 +4,7 @@ Running DIRAC in the grid environment
 
 Building up, launching and testing of the DIRAC program suite in the grid enviroment.
 
-The aim of this folder is to provide user with some teplates for the so-called 
+The aim of this folder is to provide user with some teplates for the 
 grid-computing.
 
 DIRAC is packed and the tar-ball is copied onto chosen VO location - storage
@@ -40,18 +40,22 @@ put "\*static\*" into Modules/Setup.dist and type ::
 Available VOs
 -------------
 
-enmr.eu
-chem.vo.ibergrid.eu
-compchem(?)
-gaussian
-sivvp.slovakgrid.sk
-vo.africa-grid.org
-voce
+So far I got membership in those virtual organizations:
+
+::
+
+ enmr.eu
+ chem.vo.ibergrid.eu
+ compchem(?)
+ gaussian
+ sivvp.slovakgrid.sk
+ vo.africa-grid.org
+ voce
 
 
-------------------------------
+-----------------------------
 Working with your certificate
-------------------------------
+-----------------------------
 
 Simple initialization :
 
