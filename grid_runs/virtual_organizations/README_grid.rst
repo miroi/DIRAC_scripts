@@ -308,10 +308,10 @@ Get job status (Python 2.7, not 3.3 )
  glite-wms-job-status  -i <JOB_ID_file>
 
 
-See intermediate results of your job:
----------------------------------------
+Intermediate results of your job
+--------------------------------
 
-Add two lines to your jdl-file: 
+First, add two lines to your jdl-file: 
 
 ::
 
@@ -326,21 +326,25 @@ Next, specify the files (here DIRAC_tests_std.out and DIRAC_tests_std.err) you w
  glite-wms-job-perusal --set -f DIRAC_runs.stdout -f DIRAC_runs.stderr -i JOB_id
 
 
-And execute the following command to retrieve the current output: 
+Execute the following command to retrieve the current output: 
 
 ::
 
  glite-wms-job-perusal --get -f DIRAC_runs.stdout -i JOB_id
 
+
+Obtaining grid run files
+------------------------
+
  
-Get job files back (to default /tmp directory)
+Get grid job files back (to default /tmp directory)
 
 ::
 
  glite-wms-job-output -i <JOB_ID_file>
 
 
-Get job files back to user's current directory directory
+Get job files back to user's current directory
 
 ::
 

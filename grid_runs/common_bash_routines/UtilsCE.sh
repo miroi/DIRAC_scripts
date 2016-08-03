@@ -180,7 +180,7 @@ if [[ -z $LFC_HOST ]];  then
 fi
 echo -e  "\n Files in my vo=$VO SE space, lcg-ls -l lfn://grid/$VO/ilias:"
 lcg-ls -l lfn://grid/$VO/ilias || { echo -e "...previous command failed, once again... "; lcg-ls -l lfn://grid/$VO/ilias; }
-echo -e "\n File attributes lcg-lr lfn://grid/$VO/ilias/dirac_grid_suite.tgz:"
+echo -e "\n File attributes lcg-lr lfn://grid/$VO/ilias/$DIRACpack:"
 lcg-lr lfn://grid/$VO/ilias/$DIRACpack || { echo -e "...previous command failed, once again... "; lcg-lr  lfn://grid/$VO/ilias/$DIRACpack; }
 echo " ------------------------------------------------------------------------- "
 # for these commands we need the LFC_HOST variable
