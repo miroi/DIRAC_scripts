@@ -7,18 +7,19 @@
 #
 #######################################################################################################
 
-# include all external functions - directory on ilias-et-grid.ui.savba.sk
-RoutinesDir=/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines
-if [ -e "$RoutinesDir/UtilsCE.sh" ]
+# include all external functions from  file copied onto current CE
+if [ -e "UtilsCE.sh" ]
 then
-  source $RoutinesDir/UtilsCE.sh
+  source ./UtilsCE.sh
 else
-  echo -e "\n Source file $RoutinesDir/UtilsCE not found! Error exit 13 ! \n"
+  echo -e "\n Source file UtilsCE not found! Error exit 13 ! \n"
   exit 13
 fi
 
 # name of Dirac package distributed over grid clusters
 package="DIRAC4Grid_suite.tgz"
+# set the name of the virtual organization
+VO="sivvp.slovakgrid.sk"
 
 print_CE_info
 querry_CE_attributes $VO
@@ -38,9 +39,9 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 unpack_DIRAC $package
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
 
-#
-# specify the scratch space for DIRAC runs #
-#
+#-----------------------------------------------
+#  specify the scratch space for DIRAC runs    #
+#-----------------------------------------------
 echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
 echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 

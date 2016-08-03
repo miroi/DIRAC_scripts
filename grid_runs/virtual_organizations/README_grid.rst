@@ -40,7 +40,7 @@ put "\*static\*" into Modules/Setup.dist and type ::
 Available VOs
 -------------
 
-So far I got membership in those virtual organizations:
+So far I got membership in these virtual organizations:
 
 ::
 
@@ -71,6 +71,8 @@ More advanced initialization:
 
   voms-proxy-init --voms voce -hours 24 -vomslife 24:00 --out ~/voce_cert; export X509_USER_PROXY=~/voce_cert; voms-proxy-info --all
 
+  voms-proxy-init --voms enmr.eu -hours 24 -vomslife 24:00 --out ~/enmr_eu_cert; export X509_USER_PROXY=~/enmr_eu_cert; voms-proxy-info --all
+
   voms-proxy-init --voms sivvp.slovakgrid.sk -hours 24 -vomslife 24:00 --out ~/sivvp_cert; export X509_USER_PROXY=~/sivvp_cert; voms-proxy-info --all
 
   voms-proxy-init --voms compchem -hours 24 -vomslife 24:00  --out ~/compchem_cert; export X509_USER_PROXY=~/compchem_cert
@@ -85,6 +87,7 @@ where you can point your environmental variable to given certificate:
  export X509_USER_PROXY=~/voce_cert
  export X509_USER_PROXY=~/sivvp_cert
  export X509_USER_PROXY=~/compchem_cert
+ export X509_USER_PROXY=~/enmr_eu_cert
 
 
 Long-term certificate
@@ -142,6 +145,7 @@ Accesible nodes/storage space:
   lcg-infosites -vo voce all
   lcg-infosites -vo compchem se
   lcg-infosites -vo sivvp.slovakgrid.sk all
+  lcg-infosites -vo enmr.eu se
 
 Accesible computing elements:
 
@@ -150,6 +154,14 @@ Accesible computing elements:
   lcg-infosites -vo voce ce
   lcg-infosites -vo compchem ce
   lcg-infosites -vo sivvp.slovakgrid.sk ce
+  lcg-infosites -vo enmr.eu ce
+
+Create directory in  VO's lfn-space 
+
+::
+
+  lfc-mkdir /grid/enmr.eu/ilias
+
 
 What you have in your VO's lfn-space (must have active certificate for this VO):
 
@@ -158,6 +170,7 @@ What you have in your VO's lfn-space (must have active certificate for this VO):
   lcg-ls -l  lfn://grid/voce/ilias/
   lcg-ls -l  lfn://grid/compchem/ilias
   lcg-ls -l  lfn://grid/sivvp.slovakgrid.sk/ilias
+  lcg-ls -l  lfn://grid/enmr.eu/ilias
 
 For the command above, you must activate the LFC_HOST variable:
 
@@ -165,6 +178,7 @@ For the command above, you must activate the LFC_HOST variable:
 
   export LFC_HOST=`lcg-infosites --vo sivvp.slovakgrid.sk lfc` 
   export LFC_HOST=`lcg-infosites --vo voce lfc`
+  export LFC_HOST=`lcg-infosites --vo enmr.eu lfc`
 
 
 Also, to deal with data, you must specify the VO_SE variable for each VO, pointing to your favorite SE:
@@ -172,6 +186,7 @@ Also, to deal with data, you must specify the VO_SE variable for each VO, pointi
 ::
 
   VO_SE="se.ui.savba.sk" # for sivvp.slovakgrid.sk, voce
+  VO_SE="gb-se-amc.amc.nl" for enmr.eu
 
 
 Donwload files from distant SE into your current directory 
@@ -179,7 +194,7 @@ Donwload files from distant SE into your current directory
 
 ::
 
- lcg-cp  lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz   file://$PWD/DIRAC_grid_suite.tgz
+ lcg-cp  lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC4Grid_suite.tgz   file://$PWD/DIRAC4Grid_suite.tgz
  lcg-cp  lfn://grid/voce/ilias/DIRAC_grid_suite.tgz                  file://$PWD/DIRAC_grid_suite.tgz
  lcg-cp  lfn://grid/compchem/ilias/dirac_current.tgz                 file://$PWD/dirac_current.tgz
 
@@ -190,21 +205,25 @@ Delete selected data from your personal SE space:
 ::
 
   lcg-del -a lfn://grid/voce/ilias/Dirac_grid_suite.tgz
-  lcg-del -a lfn://grid/voce/ilias/dirac_grid_suite.tgz
 
   lcg-del -a lfn://grid/compchem/ilias/Dirac_grid_suite.tgz
+
   lcg-del -a lfn://grid/sivvp.slovakgrid.sk/ilias/Dirac_grid_suite.tgz
+
+  lcg-del -a lfn://grid/enmr.eu/ilias/DIRAC4Grid_suite.tgz
 
  
 Put (upload) a file to your VO's data storage space. You must first set the VO_SE variable
 
 :: 
 
-  lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC_grid_suite.tgz
+  lcg-cr -d $VO_SE file:$PWD/DIRAC4Grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC4Grid_suite.tgz
 
   lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/compchem/ilias/DIRAC_grid_suite.tgz
 
-  lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC_grid_suite.tgz
+  lcg-cr -d $VO_SE file:$PWD/DIRAC4Grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC4Grid_suite.tgz
+
+  lcg-cr -d $VO_SE file:$PWD/DIRAC4Grid_suite.tgz  -l lfn://grid/enmr.eu/ilias/DIRAC4Grid_suite.tgz
 
 
 And you get answer like:
@@ -221,13 +240,15 @@ and for compchem you have to use the command:
   lcg-cr -d se.grid.unipg.it  -l  lfn://grid/compchem/ilias/dirac_grid_suite.tgz --vo compchem  dirac_grid_suite.tgz
 
 
-Check ACL (access control list) attributes:
+Check ACL (access control list) attributes (you must have the LFC_HOST variable for given VO ) :
 
 ::
 
  lfc-getacl /grid/sivvp.slovakgrid.sk/ilias
  lfc-getacl /grid/voce/ilias
  lfc-getacl /grid/compchem/ilias
+ lfc-getacl /grid/enmr.eu/ilias
+
 
 Set ACL - only the user has all rights (remove them from group and others)
 (see also https://grid.sara.nl/wiki/index.php/Access_Control_Lists):
@@ -237,13 +258,14 @@ Set ACL - only the user has all rights (remove them from group and others)
  lfc-setacl -m user::rwx,group::,other:: /grid/sivvp.slovakgrid.sk/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/voce/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/compchem/ilias
+ lfc-setacl -m user::rwx,group::,other:: /grid/enmr.eu/ilias
 
 Donwload files from SE into your server's current directory:
 
 :: 
 
- lcg-cp  lfn://grid/voce/ilias/dirac_grid_suite.tgz             file://$PWD/dirac_grid_suite.tgz
- lcg-cp  lfn://grid/voce/ilias/dirac_grid_suite_slim.tgz        file://$PWD/dirac_grid_suite_slim.tgz
+ lcg-cp  lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC4Grid_suite.tgz             file://$PWD/DIRAC4Grid_suite.tgz
+ lcg-cp  lfn://grid/voce/ilias/DIRAC4Grid_suite.tgz                            file://$PWD/DIRAC4Grid_suite.tgz
 
 
 -----------------------------------
@@ -274,8 +296,9 @@ Submit job for the given VOs, with saving info file:
 
 ::
 
- glite-wms-job-submit -o  JOB_sivvp  -a submit_sivvp.slovakgrid.sk.jdl 
+ glite-wms-job-submit -o  JOB_sivvp  -a submit_sivvp.jdl 
  glite-wms-job-submit -o  JOB_voce   -a submit_voce.jdl 
+ glite-wms-job-submit -o JOB_enmr_eu -a  submit_enmr_eu.jdl
 
 
 Get job status (Python 2.7, not 3.3 )
@@ -317,7 +340,7 @@ Get job files back (to default /tmp directory)
  glite-wms-job-output -i <JOB_ID_file>
 
 
-Get job files back to user selected directory
+Get job files back to user's current directory directory
 
 ::
 
@@ -333,6 +356,7 @@ Querry computing elements on list of avaiable attributes:
 ::
 
  lcg-info --list-attrs --vo sivvp.slovakgrid.sk
+ lcg-info --list-attrs --vo enmr.eu
 
 
 
