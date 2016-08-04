@@ -282,10 +282,11 @@ Retrieve the list computing elements that match your job:
 
   glite-wms-job-list-match -a submit_voce.jdl
   glite-wms-job-list-match -a submit_compchem.jdl
-  glite-wms-job-list-match -a submit_sivvp.slovakgrid.sk.jdl
+  glite-wms-job-list-match -a submit_sivvp.jdl
+  glite-wms-job-list-match -a submit_enmr_eu.jdl
 
 
-Submit job script: 
+Submit your job script: 
 
 ::
 
@@ -306,6 +307,15 @@ Get job status (Python 2.7, not 3.3 )
 :: 
 
  glite-wms-job-status  -i <JOB_ID_file>
+
+
+Calncel your job (i.e. runs too long, maybe hanged)
+
+::
+
+ glite-wms-job-cancel -i JOB_enmr_eu
+ glite-wms-job-cancel -i JOB_sivvp
+
 
 
 Intermediate results of your job
@@ -349,6 +359,7 @@ Get job files back to user's current directory
 ::
 
  glite-wms-job-output --dir $PWD  -i JOB_sivvp
+ glite-wms-job-output --dir $PWD  -i JOB_enmr_eu
 
 
 

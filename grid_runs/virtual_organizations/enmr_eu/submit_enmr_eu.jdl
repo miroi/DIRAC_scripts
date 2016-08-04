@@ -21,7 +21,7 @@ VirtualOrganisation="enmr.eu";
 
 # whether whole nodes should be used exclusively or not - sets according to the GlueHostArchitectureSMPSize parameter
 WholeNodes = True;
-# maximum number of nodes 
+# number of allocated nodes 
 HostNumber = 1;
 # maximum number of accessible CPU's (on one or also on more nodes!) 
 #CpuNumber = 8;
@@ -40,7 +40,6 @@ HostNumber = 1;
 
 StdOutput = "DIRAC_runs.std_oe.log";
 StdError = "DIRAC_runs.std_oe.log";
-#OutputSandbox = {"DIRAC_runs.std_oe.log", "dirac_grid_suite_back.tgz"};
 OutputSandbox = {"DIRAC_runs.std_oe.log"};
 
 ## to be able to reach intermediate results of your job

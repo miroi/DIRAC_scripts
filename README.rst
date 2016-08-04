@@ -13,8 +13,9 @@ Most of the scripts are related to the DIRAC software runs, www.diracprogram.org
 Grid computing with DIRAC
 -------------------------
 
-Portion of scripts is dedicated to grid-computing with the Dirac software.
-If you use some of scripts, please cite our publication https://link.springer.com/article/10.1007/s10723-014-9309-4 .
+Substantial portion of the scripts is dedicated to the grid-computing with the Dirac software.
+
+If you use some of the scripts for grid computing, please cite our publication https://link.springer.com/article/10.1007/s10723-014-9309-4 .
 
 
 
