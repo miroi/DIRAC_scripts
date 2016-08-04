@@ -77,10 +77,9 @@ echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
 #                    Run few control tests
 #####################################################################
 
-  export DIRTIMEOUT="15m"
+  export DIRTIMEOUT="25m"
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
-
 
   echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
   export DIRAC_MPI_COMMAND="mpirun -np 4"
@@ -89,11 +88,10 @@ echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
   time test/fscc/test -b $BUILD_MPI1 
   time test/fscc_highspin/test -b $BUILD_MPI1 
 
-  echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL+i8 - with few tests --- \n "; date 
-  unset DIRAC_MPI_COMMAND
-  export MKL_DOMAIN_NUM_THREADS=4
-  #test/cosci_energy/test -b $BUILD1 -d -v
-  time test/cc_linear/test -b $BUILD1 
+  #echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL+i8 - with few tests --- \n "; date 
+  #unset DIRAC_MPI_COMMAND
+  #export MKL_DOMAIN_NUM_THREADS=4
+  #time test/cc_linear/test -b $BUILD1 
 
 #
 # Individual runs

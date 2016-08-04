@@ -6,8 +6,8 @@
 #
 ##############################################################
 
-Executable   = "run_on_CE_1n.sh";
-InputSandbox = {"run_on_CE_1n.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+Executable   = "run_on_CE_4n.sh";
+InputSandbox = {"run_on_CE_4n.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
 #InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
 #Arguments    = "sivvp.slovakgrid.sk";
 #Arguments    = "voce";
@@ -22,9 +22,9 @@ VirtualOrganisation="sivvp.slovakgrid.sk";
 WholeNodes = True;
 #WholeNodes = False;
 # maximum number of nodes 
-HostNumber = 1;
+HostNumber = 4;
 # maximum number of accessible CPU's (on one or also on more nodes!) 
-CpuNumber = 4;
+#CpuNumber = 4;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";
