@@ -6,8 +6,8 @@
 #
 ##############################################################
 
-Executable   = "run_on_CE.sh";
-InputSandbox = {"run_on_CE.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+Executable   = "run_on_CE_1n.sh";
+InputSandbox = {"run_on_CE_1n.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
 #InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
 #Arguments    = "sivvp.slovakgrid.sk";
 #Arguments    = "voce";
@@ -19,11 +19,12 @@ VirtualOrganisation="sivvp.slovakgrid.sk";
 #VirtualOrganisation="osg";
 
 # whether whole nodes should be used exclusively or not - sets according to the GlueHostArchitectureSMPSize parameter
-WholeNodes = True;
+#WholeNodes = True;
+WholeNodes = Fasle;
 # maximum number of nodes 
 HostNumber = 1;
 # maximum number of accessible CPU's (on one or also on more nodes!) 
-#CpuNumber = 8;
+CpuNumber = 8;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";
@@ -39,7 +40,8 @@ MyProxyServer = "px.ui.savba.sk";
 
 StdOutput = "DIRAC_runs.std_oe.log";
 StdError = "DIRAC_runs.std_oe.log";
-OutputSandbox = {"DIRAC_runs.std_oe.log", "dirac_grid_suite_back.tgz"};
+OutputSandbox = { "DIRAC_runs.std_oe.log" };
+#OutputSandbox = {"DIRAC_runs.std_oe.log", "dirac_grid_suite_back.tgz"};
 
 ## to be able to reach intermediate results of your job
 # see http://goc.grid.auth.gr/wiki/bin/view/Groups/ALL/MonitoringTheOutputOfYourJob

@@ -53,8 +53,8 @@ echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 export PATH_SAVED=$PATH
 export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
-# Dirac basis set library
-export BASDIR_PATH=$PWD
+# set the Dirac basis set library path for pam
+export BASDIR_PATH=$PWD/basis:$PWD:basis_dalton:$PWD:basis_ecp
 
 export BUILD_MPI1=$PWD/build_intelmkl_openmpi-1.10.1_i8_static
 export BUILD_MPI2=$PWD/build_openmpi_gnu_i8_openblas_static
@@ -66,10 +66,6 @@ export PAM_MPI1=$BUILD_MPI1/pam
 export PAM_MPI2=$BUILD_MPI2/pam
 export PAM1=$BUILD1/pam
 export PAM2=$BUILD2/pam
-
-#unset OPAL_PREFIX
-#export OPAL_PREFIX=$PWD/$BUILD
-#echo -e "Variable OPAL_PREFIX=$OPAL_PREFIX"
 
 export PATH=$BUILD_MPI1/bin:$PATH_SAVED
 export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
@@ -83,12 +79,16 @@ echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
 
   echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
   export DIRAC_MPI_COMMAND="mpirun -np 4"
-  test/cosci_energy/test -b $BUILD_MPI1 -d -v
+  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 
+  time test/fscc/test -b $BUILD_MPI1 
+  time test/fscc_highspin/test -b $BUILD_MPI1 
 
   echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL+i8 - with few tests --- \n "; date 
   unset DIRAC_MPI_COMMAND
-  #unset OPAL_PREFIX
-  test/cosci_energy/test -b $BUILD1 -d -v
+  export MKL_DOMAIN_NUM_THREADS=4
+  #test/cosci_energy/test -b $BUILD1 -d -v
+  time test/cc_linear/test -b $BUILD1 
 
 #
 # Individual runs
