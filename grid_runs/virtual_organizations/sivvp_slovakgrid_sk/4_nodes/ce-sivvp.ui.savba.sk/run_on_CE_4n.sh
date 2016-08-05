@@ -42,8 +42,8 @@ unpack_DIRAC $package
 #-----------------------------------------------
 #  specify the scratch space for DIRAC runs    #
 #-----------------------------------------------
-echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
-echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
+#echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
+#echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 
 ##########################################
 #      set build dirs and paths          #
@@ -97,11 +97,16 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
   echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
+# use global disk for the CE
+# node: for local scratch we need permission to copy file onto nodes !!!
+  export DIRAC_TMPDIR=/shared/scratch
+  echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
+
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
   #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
-  echo -e "\n The DIRAC_MPI_COMAND=${DIRAC_MPI_COMAND} \n"
+  echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
 
   time test/cosci_energy/test -b $BUILD_MPI1 -d -v
   time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
