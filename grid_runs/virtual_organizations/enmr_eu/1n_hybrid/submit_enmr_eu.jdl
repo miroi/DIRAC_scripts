@@ -27,7 +27,7 @@ WholeNodes = False;
 HostNumber = 1;
 #  request # of cores on 1 node
 CpuNumber = 24;
-SMPgranularity = 24;
+#SMPgranularity = 24;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";
