@@ -25,7 +25,7 @@ WholeNodes = False;
 # number of allocated nodes 
 HostNumber = 1;
 # maximum number of accessible CPU's (on one or also on more nodes!) 
-CpuNumber = 8;
+#CpuNumber = 8;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";

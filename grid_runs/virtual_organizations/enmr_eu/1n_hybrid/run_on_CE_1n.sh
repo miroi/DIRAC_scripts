@@ -19,8 +19,7 @@ fi
 # name of Dirac package distributed over grid clusters
 package="DIRAC4Grid_suite.tgz"
 # set the name of the virtual organization
-#VO="sivvp.slovakgrid.sk"
-VO="enmr.eu"
+VO="sivvp.slovakgrid.sk"
 
 print_CE_info
 querry_CE_attributes $VO
@@ -43,8 +42,8 @@ unpack_DIRAC $package
 #-----------------------------------------------
 #  specify the scratch space for DIRAC runs    #
 #-----------------------------------------------
-echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
-echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
+#echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
+#echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 
 ##########################################
 #      set build dirs and paths          #
@@ -54,8 +53,8 @@ echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 export PATH_SAVED=$PATH
 export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
-# specifiy Dirac basis set libraries
-export BASDIR_PATH=$PWD/basis:$PWD:basis_dalton:$PWD:basis_ecp
+# set the Dirac basis set library path for pam
+export BASDIR_PATH=$PWD/basis:$PWD/basis_dalton:$PWD/basis_ecp
 
 export BUILD_MPI1=$PWD/build_intelmkl_openmpi-1.10.1_i8_static
 export BUILD_MPI2=$PWD/build_openmpi_gnu_i8_openblas_static
@@ -68,40 +67,93 @@ export PAM_MPI2=$BUILD_MPI2/pam
 export PAM1=$BUILD1/pam
 export PAM2=$BUILD2/pam
 
-export PATH=$BUILD_MPI1/bin:$PATH_SAVED
-export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
-echo -e "OpenMPI modified PATH=$PATH"
-echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-echo -e "Own mpirun in PATH ?\c"; which mpirun; mpirun --version
+# take care of unique nodes ...
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo -e "\n Unique nodes for parallel run (from PBS_NODEFILE):  $UNIQUE_NODES"
+
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+
 
 #####################################################################
 #                    Run few control tests
 #####################################################################
 
-  export DIRTIMEOUT="15m"
+  export DIRTIMEOUT="25m"
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
-  echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
-  export DIRAC_MPI_COMMAND="mpirun -np 4"
-  #export DIRAC_MPI_COMMAND="mpirun -np $nprocs"
+  echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
-  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
-  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 
-  time test/fscc/test -b $BUILD_MPI1 
-  time test/fscc_highspin/test -b $BUILD_MPI1 
+#----------------------------------------------------------
+#   Main cycle over OpenMPI-OpenMP number of tasks/threads
+#----------------------------------------------------------
+for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
 
-  echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL+i8 - with few tests --- \n "; date 
-  unset DIRAC_MPI_COMMAND
-  export MKL_DOMAIN_NUM_THREADS=4
-  #time test/cosci_energy/test -b $BUILD1 -d -v
-  time test/cc_linear/test -b $BUILD1 
+  set -- ${ij//-/ }
+  npn=$1
+  nmkl=$2
+  
+  echo -e "\n \n ==========   Hybrid OpenMPI-OpenMP run on 1 node ======== #OpenMPI=$npn #OpenMP=$nmkl "
+
+  # set MKL envirovariables
+  unset MKL_NUM_THREADS
+  export MKL_NUM_THREADS=$nmkl
+  echo -e "\n Updated MKL_NUM_THREADS=$MKL_NUM_THREADS"
+  echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+  echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+  echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+  # set OpenMPI variables 
+  unset PATH
+  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI1
+  echo -e "\n The modified PATH=$PATH"
+  echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+  echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode $npn --prefix $BUILD_MPI1"
+  echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
+
+  #time test/cosci_energy/test -b $BUILD_MPI1 -d -v
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
+  time test/cc_linear/test -b $BUILD_MPI1 -d -v
+  time test/fscc/test -b $BUILD_MPI1  -d -v
+  #time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
+
+  # set OpenBLAS enviro-variables
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+  echo -e "\n Updated OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS}"
+  # set OpenMPI variables
+  unset PATH
+  export PATH=$BUILD_MPI2/bin:$PATH_SAVED
+  export LD_LIBRARY_PATH=$BUILD_MPI2/lib:$LD_LIBRARY_PATH_SAVED
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI2
+  echo -e "\n The modified PATH=$PATH"
+  echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+  echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode $npn --prefix $BUILD_MPI2"
+  echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
+
+  #time test/cosci_energy/test -b $BUILD_MPI2 -d -v
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI2 -d -v
+  time test/cc_linear/test -b $BUILD_MPI2 -d -v
+  time test/fscc/test -b $BUILD_MPI2  -d -v
+  #time test/fscc_highspin/test -b $BUILD_MPI2 -d -v
+
+done
 
 #
 # Individual runs
 #
 #echo -e "\n --- Launching simple parallel pam test  --- \n "; 
-#python $PAM_MPI --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs --dirac=$BUILD/dirac.x
+#python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs --dirac=$BUILD/dirac.x
 
 
 ##############################################################
