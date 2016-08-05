@@ -26,7 +26,9 @@ WholeNodes = False;
 # number of allocated nodes 
 HostNumber = 1;
 #  request # of cores on 1 node
-CpuNumber = 24;
+#CpuNumber = 48;
+CpuNumber = 64;
+#CpuNumber = 128;
 #SMPgranularity = 24;
 
 # myproxy server for automatix renewal of proxy
@@ -56,8 +58,8 @@ PerusalTimeInterval=10005;
 #################
 Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
 # PBS jobs only
-Requirements =
-other.GlueCEInfoLRMSType == "lsf";
+#Requirements =
+#other.GlueCEInfoLRMSType == "lsf";
 #other.GlueCEInfoLRMSType == "pbs";
 # other.GlueCEPolicyMaxWallClockTime > 1200 && 
 # other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
