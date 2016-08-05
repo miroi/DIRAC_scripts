@@ -67,16 +67,6 @@ export PAM_MPI2=$BUILD_MPI2/pam
 export PAM1=$BUILD1/pam
 export PAM2=$BUILD2/pam
 
-unset PATH
-export PATH=$BUILD_MPI1/bin:$PATH_SAVED
-export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
-unset OPAL_PREFIX
-export OPAL_PREFIX=$BUILD_MPI1
-echo -e "\n The modified PATH=$PATH"
-echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
-echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
-
 # take care of unique nodes ...
 UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
 UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
@@ -97,26 +87,67 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
   echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
-# use global disk for the CE
-# node: for local scratch we need permission to copy file onto nodes !!!
-  #export DIRAC_TMPDIR=/shared/scratch
-  #echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
+#----------------------------------------------------------
+#   Main cycle over OpenMPI-OpenMP number of tasks/threads
+#----------------------------------------------------------
+for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
 
-  #export DIRAC_MPI_COMMAND="mpirun -np 4"
-  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
-  #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
+  set -- ${ij//-/ }
+  npn=$1
+  nmkl=$2
+  
+  echo -e "\n \n ==========   Hybrid OpenMPI-OpenMP run on 1 node ======== #OpenMPI=$npn #OpenMP=$nmkl "
+
+  # set MKL envirovariables
+  unset MKL_NUM_THREADS
+  export MKL_NUM_THREADS=$nmkl
+  echo -e "\n Updated MKL_NUM_THREADS=$MKL_NUM_THREADS"
+  echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+  echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+  echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+  # set OpenMPI variables 
+  unset PATH
+  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI1
+  echo -e "\n The modified PATH=$PATH"
+  echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+  echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode $npn --prefix $BUILD_MPI1"
   echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
 
-  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
+  #time test/cosci_energy/test -b $BUILD_MPI1 -d -v
   time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
- # time test/fscc/test -b $BUILD_MPI1  -d -v
- # time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
+  time test/cc_linear/test -b $BUILD_MPI1 -d -v
+  time test/fscc/test -b $BUILD_MPI1  -d -v
+  #time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
 
-  echo -e "\n\n --- Going to launching serial Dirac - Intel+MKL+i8 - with few tests --- \n "; date 
-  unset DIRAC_MPI_COMMAND
-  export MKL_DOMAIN_NUM_THREADS=4
-  time test/cc_linear/test -b $BUILD1 
+  # set OpenBLAS enviro-variables
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+  echo -e "\n Updated OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS}"
+  # set OpenMPI variables
+  unset PATH
+  export PATH=$BUILD_MPI2/bin:$PATH_SAVED
+  export LD_LIBRARY_PATH=$BUILD_MPI2/lib:$LD_LIBRARY_PATH_SAVED
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI2
+  echo -e "\n The modified PATH=$PATH"
+  echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+  echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode $npn --prefix $BUILD_MPI2"
+  echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
+
+  #time test/cosci_energy/test -b $BUILD_MPI2 -d -v
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI2 -d -v
+  time test/cc_linear/test -b $BUILD_MPI2 -d -v
+  time test/fscc/test -b $BUILD_MPI2  -d -v
+  #time test/fscc_highspin/test -b $BUILD_MPI2 -d -v
+
+done
 
 #
 # Individual runs
