@@ -13,6 +13,7 @@ InputSandbox = {"run_on_CE_1n.sh","/scratch/milias/Work/qch/software/My_scripts/
 #Arguments    = "voce";
 #Arguments = "compchem";
 #Arguments = "osg";
+Arguments = "enmr.eu";
 #VirtualOrganisation="sivvp.slovakgrid.sk";
 #VirtualOrganisation="voce";
 #VirtualOrganisation="compchem";
@@ -24,8 +25,9 @@ VirtualOrganisation="enmr.eu";
 WholeNodes = False;
 # number of allocated nodes 
 HostNumber = 1;
-# maximum number of accessible CPU's (on one or also on more nodes!) 
-#CpuNumber = 8;
+#  request # of cores on 1 node
+CpuNumber = 24;
+SMPgranularity = 24;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";

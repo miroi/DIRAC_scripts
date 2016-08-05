@@ -7,6 +7,16 @@
 #
 #######################################################################################################
 
+# check the parameter - VO name
+if [[ $1 != "voce" && $1 != "compchem" && $1 != "isragrid" && $1 != "osg" && $1 != "sivvp.slovakgrid.sk"  && $1 != "enmr.eu"]]; then
+ echo -e "\n wrong parameter - VO name : $1 "
+ exit 12
+else
+ VO=$1
+ echo -e "\n OK, you specified properly the VO=$VO, continuing \n"
+fi
+
+
 # include all external functions from  file copied onto current CE
 if [ -e "UtilsCE.sh" ]
 then
@@ -18,8 +28,6 @@ fi
 
 # name of Dirac package distributed over grid clusters
 package="DIRAC4Grid_suite.tgz"
-# set the name of the virtual organization
-VO="sivvp.slovakgrid.sk"
 
 print_CE_info
 querry_CE_attributes $VO
@@ -90,7 +98,8 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
-for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
+#for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
+for ij in 1-1 1-6 1-12 1-24 2-1 2-6 2-12 6-1 6-2 6-4 12-1 12-2 24-1; do
 
   set -- ${ij//-/ }
   npn=$1
