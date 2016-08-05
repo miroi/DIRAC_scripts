@@ -99,8 +99,8 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
 # use global disk for the CE
 # node: for local scratch we need permission to copy file onto nodes !!!
-  export DIRAC_TMPDIR=/shared/scratch
-  echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
+  #export DIRAC_TMPDIR=/shared/scratch
+  #echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
   #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
