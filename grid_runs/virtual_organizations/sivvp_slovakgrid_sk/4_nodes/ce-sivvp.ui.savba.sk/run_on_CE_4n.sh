@@ -54,7 +54,7 @@ export PATH_SAVED=$PATH
 export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
 # set the Dirac basis set library path for pam
-export BASDIR_PATH=$PWD/basis:$PWD:basis_dalton:$PWD:basis_ecp
+export BASDIR_PATH=$PWD/basis:$PWD/basis_dalton:$PWD/basis_ecp
 
 export BUILD_MPI1=$PWD/build_intelmkl_openmpi-1.10.1_i8_static
 export BUILD_MPI2=$PWD/build_openmpi_gnu_i8_openblas_static
@@ -67,11 +67,25 @@ export PAM_MPI2=$BUILD_MPI2/pam
 export PAM1=$BUILD1/pam
 export PAM2=$BUILD2/pam
 
+unset PATH
 export PATH=$BUILD_MPI1/bin:$PATH_SAVED
 export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
-echo -e "Modified PATH=$PATH"
-echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
+unset OPAL_PREFIX
+export OPAL_PREFIX=$BUILD_MPI1
+echo -e "\n The modified PATH=$PATH"
+echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+
+# take care of unique nodes ...
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo -e "\n Unique nodes for parallel run (from PBS_NODEFILE):  $UNIQUE_NODES"
+
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+
 
 #####################################################################
 #                    Run few control tests
@@ -81,17 +95,23 @@ echo -e "own mpirun in PATH ?\c"; which mpirun; mpirun --version
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
-  echo -e "\n\n --- Going to launch parallel runtest - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
-  export DIRAC_MPI_COMMAND="mpirun -np 4"
-  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
-  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 
-  time test/fscc/test -b $BUILD_MPI1 
-  time test/fscc_highspin/test -b $BUILD_MPI1 
+  echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
-  #echo -e "\n\n --- Going to launching selected serial runtest - Intel+MKL+i8 - with few tests --- \n "; date 
-  #unset DIRAC_MPI_COMMAND
-  #export MKL_DOMAIN_NUM_THREADS=4
-  #time test/cc_linear/test -b $BUILD1 
+  #export DIRAC_MPI_COMMAND="mpirun -np 4"
+  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
+  #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
+  echo -e "\n The DIRAC_MPI_COMAND=${DIRAC_MPI_COMAND} \n"
+
+  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
+ # time test/fscc/test -b $BUILD_MPI1  -d -v
+ # time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
+
+  echo -e "\n\n --- Going to launching serial Dirac - Intel+MKL+i8 - with few tests --- \n "; date 
+  unset DIRAC_MPI_COMMAND
+  export MKL_DOMAIN_NUM_THREADS=4
+  time test/cc_linear/test -b $BUILD1 
 
 #
 # Individual runs

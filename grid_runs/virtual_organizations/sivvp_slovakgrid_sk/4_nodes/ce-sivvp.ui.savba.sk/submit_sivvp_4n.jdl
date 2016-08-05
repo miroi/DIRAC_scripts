@@ -55,8 +55,9 @@ PerusalTimeInterval=10005;
 #################
 # for VOCE can not be > 10000
 #Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
-#Requirements =
+Requirements =
 # other.GlueCEPolicyMaxWallClockTime > 1200 && 
 # other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
 # other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"
-#;
+other.GlueCEUniqueID == "ce-sivvp.ui.savba.sk:8443/cream-pbs-sivvp"
+;

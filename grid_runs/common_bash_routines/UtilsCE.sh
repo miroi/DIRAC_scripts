@@ -196,7 +196,10 @@ return 0
 # Simply unpack and check the freshly downloaded DIRAC tarball
 #
 function unpack_DIRAC()
-{ 
+{
+# 
+# argument: name of the tarball file
+#
 local DIRACpack=$1
 echo -e "\n\n ---- Unpacking dowloaded DIRAC suite, tar program  : \c "
 which tar;  tar --version
@@ -204,6 +207,8 @@ echo -e "Performing tar xfz $DIRACpack ...\c"
 tar xfz $DIRACpack || { echo "some problems with tarball unpacking, error exit !"; exit 113; }
 echo -e "\n Unpacking done; see the content of $PWD :"; ls -lt 
 echo -e "\n Content of build* directories: "; ls -lt build*
+echo -e "\n After unpacking, removing the file $DIRACpack ..."
+/bin/rm $DIRACpack
 return 0
 }
 
