@@ -91,38 +91,45 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 #                    Run few control tests
 #####################################################################
 
-  export DIRTIMEOUT="25m"
+  unset DIRAC_MPI_COMMAND
+  export DIRTIMEOUT="30m"
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
-  echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
-
 # use global disk for the CE
 # node: for local scratch we need permission to copy file onto nodes !!!
-  export DIRAC_TMPDIR=/shared/scratch
-  echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
-
-  #export DIRAC_MPI_COMMAND="mpirun -np 4"
-  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
-  #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
-  echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
-
-  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
-  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
- # time test/fscc/test -b $BUILD_MPI1  -d -v
- # time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
+ # export DIRAC_TMPDIR=/shared/scratch
+ # echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
   echo -e "\n\n --- Going to launching serial Dirac - Intel+MKL+i8 - with few tests --- \n "; date 
-  unset DIRAC_MPI_COMMAND
-  export MKL_DOMAIN_NUM_THREADS=4
-  time test/cc_linear/test -b $BUILD1 
 
-#
-# Individual runs
-#
-#echo -e "\n --- Launching simple parallel pam test  --- \n "; 
-#python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs --dirac=$BUILD/dirac.x
+for nmkl in 1 3 6 9 12; do
+
+  # set MKL envirovariables
+  unset MKL_NUM_THREADS
+  export MKL_NUM_THREADS=$nmkl
+  echo -e "\n====  Updated MKL_NUM_THREADS=$MKL_NUM_THREADS"
+  echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+  echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+  echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+
+  time test/cc_linear/test -b $BUILD1 -d -v
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD1 
+  time test/fscc/test -b $BUILD1  
+  time test/fscc_highspin/test -b $BUILD1  
+
+  # set OpenBLAS envirovariables
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+  echo -e "\n ====  OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS}"
+  time test/cc_linear/test -b $BUILD2 
+  time test/cc_energy_and_mp2_dipole/test -b $BUILD2
+  time test/fscc/test -b $BUILD2 -d -v
+  time test/fscc_highspin/test -b $BUILD2
+
+  echo -e "\n \n \n"
+
+done
 
 
 ##############################################################

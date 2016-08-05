@@ -22,7 +22,7 @@ VirtualOrganisation="sivvp.slovakgrid.sk";
 WholeNodes = True;
 #WholeNodes = False;
 # maximum number of nodes 
-HostNumber = 4;
+HostNumber = 1;
 # maximum number of accessible CPU's (on one or also on more nodes!) 
 #CpuNumber = 4;
 
