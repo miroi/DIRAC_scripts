@@ -8,7 +8,7 @@
 #######################################################################################################
 
 # check the parameter - VO name
-if [[ $1 != "voce" && $1 != "compchem" && $1 != "isragrid" && $1 != "osg" && $1 != "sivvp.slovakgrid.sk"  && $1 != "enmr.eu"]]; then
+if [[ $1 != "voce" && $1 != "compchem" && $1 != "isragrid" && $1 != "osg" && $1 != "sivvp.slovakgrid.sk"  && $1 != "enmr.eu" ]]; then
  echo -e "\n wrong parameter - VO name : $1 "
  exit 12
 else
