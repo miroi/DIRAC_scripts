@@ -73,11 +73,17 @@ More advanced initialization:
 
   voms-proxy-init --voms enmr.eu -hours 24 -vomslife 24:00 --out ~/enmr_eu_cert; export X509_USER_PROXY=~/enmr_eu_cert; voms-proxy-info --all
 
+  voms-proxy-init --voms chem.vo.ibergrid.eu -hours 24 -vomslife 24:00 --out ~/ibergrid_eu_cert; export X509_USER_PROXY=~/ibergrid_eu_cert; voms-proxy-info --all
+
   voms-proxy-init --voms sivvp.slovakgrid.sk -hours 24 -vomslife 24:00 --out ~/sivvp_cert; export X509_USER_PROXY=~/sivvp_cert; voms-proxy-info --all
 
   voms-proxy-init --voms compchem -hours 24 -vomslife 24:00  --out ~/compchem_cert; export X509_USER_PROXY=~/compchem_cert
 
   voms-proxy-init --voms osg  -hours 24 -vomslife 24:00 --out ~/osg_cert; export X509_USER_PROXY=~/osg_cert; voms-proxy-info --all
+
+  voms-proxy-init --voms gaussian  -hours 24 -vomslife 24:00 --out ~/gaussian_cert; export X509_USER_PROXY=~/gaussian_cert; voms-proxy-info --all
+
+  voms-proxy-init --voms vo.africa-grid.org  -hours 24 -vomslife 24:00 --out ~/africa-grid_cert; export X509_USER_PROXY=~/africa-grid_cert; voms-proxy-info --all
 
 
 where you can point your environmental variable to given certificate:
@@ -146,6 +152,9 @@ Accesible nodes/storage space:
   lcg-infosites -vo compchem se
   lcg-infosites -vo sivvp.slovakgrid.sk all
   lcg-infosites -vo enmr.eu se
+  lcg-infosites -vo gaussian all
+  lcg-infosites -vo vo.africa-grid.org all
+  lcg-infosites -vo chem.vo.ibergrid.eu all
 
 Accesible computing elements:
 
