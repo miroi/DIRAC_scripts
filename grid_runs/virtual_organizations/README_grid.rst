@@ -399,6 +399,7 @@ Querry computing elements on selected attributes:
  lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,TotalCPUs,Memory,ClockSpeed,Cluster --vo voce
  lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,MaxCPUTime,TotalCPUs,Memory,ClockSpeed,MaxTotalJobs,Cluster  --vo voce
  lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,MaxCPUTime,TotalCPUs,Memory,ClockSpeed,Cluster,VMemory   --vo compchem
+ lcg-info --list-ce  --query 'CE=*' --attrs EstRespTime,MaxCPUTime,MaxWCTime,TotalCPUs,Memory,ClockSpeed,Cluster,VMemory   --vo enmr.eu
 
  lcg-info --list-ce --attrs MaxWCTime --vo voce
  lcg-info --list-ce --attrs RunningJobs,FreeCPUs,MaxWCTime,MaxCPUTime --vo voce
