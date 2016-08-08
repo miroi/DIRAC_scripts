@@ -103,7 +103,7 @@ Create and store a long-term proxy (default 7 days):
 
 ::
 
-  myproxy-init  --pshost myproxy.cnaf.infn.it -d -n  # compchem
+  myproxy-init  --pshost myproxy.cnaf.infn.it -d -n  # compchem, enmr.eu
   myproxy-init  --pshost px.ui.savba.sk  -d -n       # voce, sivvp
 
 
@@ -124,7 +124,7 @@ Verify your long-term certificate:
 ::
 
   myproxy-info -v -d --pshost px.ui.savba.sk
-  myproxy-info -v -d --pshost myproxy.cnaf.infn.it
+  myproxy-info -v -d --pshost myproxy.cnaf.infn.it # enrm.eu
 
 List of all valid proxies:
 
