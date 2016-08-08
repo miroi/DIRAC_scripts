@@ -113,10 +113,10 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
  # time test/fscc/test -b $BUILD_MPI1  -d -v
  # time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
 
-  echo -e "\n\n --- Going to launching serial Dirac - Intel+MKL+i8 - with few tests --- \n "; date 
-  unset DIRAC_MPI_COMMAND
-  export MKL_DOMAIN_NUM_THREADS=4
-  time test/cc_linear/test -b $BUILD1 
+ # echo -e "\n\n --- Going to launching serial Dirac - Intel+MKL+i8 - with few tests --- \n "; date 
+ # unset DIRAC_MPI_COMMAND
+ # export MKL_DOMAIN_NUM_THREADS=4
+ # time test/cc_linear/test -b $BUILD1 
 
 #
 # Individual runs

@@ -25,6 +25,8 @@ WholeNodes = True;
 HostNumber = 4;
 # maximum number of accessible CPU's (on one or also on more nodes!) 
 #CpuNumber = 4;
+# 2CPU per node
+SmpGranularity = 2;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";
