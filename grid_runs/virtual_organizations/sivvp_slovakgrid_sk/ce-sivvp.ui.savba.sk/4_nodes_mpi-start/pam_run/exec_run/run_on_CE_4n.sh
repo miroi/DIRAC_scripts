@@ -113,7 +113,10 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 # node: for local scratch we need permission to copy file onto nodes !!!
   #export DIRAC_TMPDIR=/shared/scratch
 
-  export DIRAC_TMPDIR=$BUILD_MPI1
+  export DIRAC_TMPDIR=${MPI_SHARED_HOME_PATH}/DiracRun
+  mkdir ${DIRAC_TMPDIR}
+
+  cp  $BUILD_MPI1/dirac.x        ${DIRAC_TMPDIR}/.
   cp  test/cosci_energy/ci.inp   ${DIRAC_TMPDIR}/DIRAC.INP
   cp  test/cosci_energy/F.mol    ${DIRAC_TMPDIR}/MOLECULE.MOL
 
@@ -133,8 +136,13 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
  #export I2G_MPI_PRE_RUN_HOOK=mpi-hooks.sh
  #export I2G_MPI_POST_RUN_HOOK=mpi-hooks.sh
 
-  export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -- ${DIRAC_TMPDIR}/dirac.x"
- echo -e "\n command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
+  # set variables for dirac.x
+  export DIRPAR=1
+  export GLBSCR=1
+  export BASDIR=${BASDIR_PATH}
+
+  export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -x DIRPAR -x GLBSCR -x BASDIR  -- ${DIRAC_TMPDIR}/dirac.x"
+  echo -e "\n Launching command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
 
   # run parallel job !
   $DIRAC_MPI_COMMAND
