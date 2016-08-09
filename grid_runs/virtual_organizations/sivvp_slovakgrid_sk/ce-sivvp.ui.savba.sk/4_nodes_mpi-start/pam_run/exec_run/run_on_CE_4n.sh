@@ -114,17 +114,17 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   #export DIRAC_TMPDIR=/shared/scratch
 
   export DIRAC_TMPDIR=$BUILD_MPI1
-  cp  test/cosci_energy/ci.inp ${DIRAC_TMPDIR}/DIRAC.INP
-  cp  test/cosci_energy/F.mol ${DIRAC_TMPDIR}/MOLECULE.MOL
+  cp  test/cosci_energy/ci.inp   ${DIRAC_TMPDIR}/DIRAC.INP
+  cp  test/cosci_energy/F.mol    ${DIRAC_TMPDIR}/MOLECULE.MOL
 
   echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
   echo -e "Content of DIRAC_TMPDIR directory, ls -l DIRAC_TMPDIR \c"; ls -l ${DIRAC_TMPDIR}
   echo -e "I am in pwd=$PWD  ls -l=\c";ls -l
 
 # If these are set then you will get more debugging information.
- export I2G_MPI_START_VERBOSE=1
- export I2G_MPI_START_DEBUG=1
- export I2G_MPI_START_TRACE=1
+ #export I2G_MPI_START_VERBOSE=1
+ #export I2G_MPI_START_DEBUG=1
+ #export I2G_MPI_START_TRACE=1
  
 
  #export I2G_MPI_APPLICATION=${DIRAC_TMPDIR}/dirac.x
@@ -134,6 +134,7 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
  #export I2G_MPI_POST_RUN_HOOK=mpi-hooks.sh
 
   export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -- ${DIRAC_TMPDIR}/dirac.x"
+ echo -e "\n command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
 
   # run parallel job !
   $DIRAC_MPI_COMMAND
