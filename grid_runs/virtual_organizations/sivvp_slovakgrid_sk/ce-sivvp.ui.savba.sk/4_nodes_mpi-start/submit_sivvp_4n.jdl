@@ -63,6 +63,6 @@ Requirements =
 # other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"
 other.GlueCEUniqueID == "ce-sivvp.ui.savba.sk:8443/cream-pbs-sivvp" &&
 other.GlueHostArchitectureSMPSize >= SMPGranularity &&
-Member("OPENMPI", other.GlueHostApplicationSoftwareRunTimeEnvironment) &&
+#Member("OPENMPI", other.GlueHostApplicationSoftwareRunTimeEnvironment) &&
 Member("MPI-START", other.GlueHostApplicationSoftwareRunTimeEnvironment)
 ;

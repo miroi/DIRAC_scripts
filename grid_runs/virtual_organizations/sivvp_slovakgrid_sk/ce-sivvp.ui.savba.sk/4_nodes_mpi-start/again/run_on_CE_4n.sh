@@ -91,7 +91,7 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 #                    Run few control tests
 #####################################################################
 
-  export DIRTIMEOUT="25m"
+  export DIRTIMEOUT="20m"
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
@@ -103,13 +103,18 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
-  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
-  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
+  #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
+  ##export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
+
+  #export DIRAC_MPI_COMMAND="mpi-start mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
 
-  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
-  time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
+  # try with MPI-Start ?
+  time mpi-start test/cosci_energy/test -b $BUILD_MPI1 -d -v
+  time mpi-start test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
+
  # time test/fscc/test -b $BUILD_MPI1  -d -v
  # time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
 
