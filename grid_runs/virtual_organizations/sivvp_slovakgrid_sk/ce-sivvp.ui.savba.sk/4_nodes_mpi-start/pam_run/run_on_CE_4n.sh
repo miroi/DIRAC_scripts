@@ -102,6 +102,8 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
+  echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
+
   echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
 # use global disk for the CE
@@ -113,30 +115,14 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
   #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode ${NPERNODE} -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   ##export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
-
   #export DIRAC_MPI_COMMAND="mpi-start -npnode 2 -x PATH -x LD_LIBRARY_PATH"  # this is crashing
   #export DIRAC_MPI_COMMAND="mpi-start  -t openmpi -npnode 2 -x PATH -x LD_LIBRARY_PATH"
-  export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1 -v  -npnode 2 -np 4 -x PATH -x LD_LIBRARY_PATH"
+
+  export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH --"
 
   echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
 
-  # try with MPI-Start ? does not work !
-  time test/cosci_energy/test -b $BUILD_MPI1 -d -v
-  #time test/cc_energy_and_mp2_dipole/test -b $BUILD_MPI1 -d -v
-
- # time test/fscc/test -b $BUILD_MPI1  -d -v
- # time test/fscc_highspin/test -b $BUILD_MPI1  -d -v
-
- # echo -e "\n\n --- Going to launching serial Dirac - Intel+MKL+i8 - with few tests --- \n "; date 
- # unset DIRAC_MPI_COMMAND
- # export MKL_DOMAIN_NUM_THREADS=4
- # time test/cc_linear/test -b $BUILD1 
-
-#
-# Individual runs
-#
-#echo -e "\n --- Launching simple parallel pam test  --- \n "; 
-#python ./pam --inp=test/fscc/fsccsd_IH.inp --mol=test/fscc/Mg.mol  --mw=92 --outcmo --mpi=$nprocs --dirac=$BUILD/dirac.x
+  $PAM_MPI1 --inp=test/cosci_energy/ci.inp --mol=test/cosci_energy/F.mol  --mw=120 
 
 
 ##############################################################
