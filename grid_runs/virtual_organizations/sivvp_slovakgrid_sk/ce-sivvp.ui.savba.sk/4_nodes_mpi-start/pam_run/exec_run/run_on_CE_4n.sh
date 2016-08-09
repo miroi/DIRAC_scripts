@@ -118,10 +118,25 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   cp  test/cosci_energy/F.mol ${DIRAC_TMPDIR}/MOLECULE.MOL
 
   echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
-  ls -l ${DIRAC_TMPDIR}
+  echo -e "Content of DIRAC_TMPDIR directory, ls -l DIRAC_TMPDIR \c"; ls -l ${DIRAC_TMPDIR}
   echo -e "I am in pwd=$PWD  ls -l=\c";ls -l
 
+# If these are set then you will get more debugging information.
+ export I2G_MPI_START_VERBOSE=1
+ export I2G_MPI_START_DEBUG=1
+ export I2G_MPI_START_TRACE=1
+ 
+
+ #export I2G_MPI_APPLICATION=${DIRAC_TMPDIR}/dirac.x
+ #export I2G_MPI_APPLICATION_ARGS=
+ #export I2G_MPI_TYPE=$MPI_FLAVOR_LOWER
+ #export I2G_MPI_PRE_RUN_HOOK=mpi-hooks.sh
+ #export I2G_MPI_POST_RUN_HOOK=mpi-hooks.sh
+
   export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -- ${DIRAC_TMPDIR}/dirac.x"
+
+  # run parallel job !
+  $DIRAC_MPI_COMMAND
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
