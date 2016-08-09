@@ -19,7 +19,8 @@ fi
 # name of Dirac package distributed over grid clusters
 package="DIRAC4Grid_suite.tgz"
 # set the name of the virtual organization
-VO="sivvp.slovakgrid.sk"
+#VO="sivvp.slovakgrid.sk"
+VO="enmr.eu"
 
 print_CE_info
 querry_CE_attributes $VO
@@ -82,9 +83,9 @@ UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
 UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
 echo -e "\n Unique nodes for parallel run (from PBS_NODEFILE):  $UNIQUE_NODES"
 
-echo "PBS_NODEFILE=$PBS_NODEFILE"
-echo "PBS_O_QUEUE=$PBS_O_QUEUE"
-echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+#echo "PBS_NODEFILE=$PBS_NODEFILE"
+#echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+#echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
 # mpi-start params !
 #export I2G_OPENMPI_PREFIX=$BUILD_MPI1
