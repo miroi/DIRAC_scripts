@@ -1,0 +1,65 @@
+##############################################################
+#
+#
+#                 ***  gLite script  ***
+#
+#
+##############################################################
+
+Executable   = "run_on_CE_4n.sh";
+InputSandbox = {"run_on_CE_4n.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+#InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
+#Arguments    = "sivvp.slovakgrid.sk";
+#Arguments    = "voce";
+#Arguments = "compchem";
+#Arguments = "osg";
+Arguments = "enmr.eu";
+#VirtualOrganisation="sivvp.slovakgrid.sk";
+#VirtualOrganisation="voce";
+#VirtualOrganisation="compchem";
+#VirtualOrganisation="osg";
+VirtualOrganisation="enmr.eu";
+
+# whether whole nodes should be used exclusively or not - sets according to the GlueHostArchitectureSMPSize parameter
+WholeNodes = True;
+#WholeNodes = False;
+# number of allocated nodes 
+HostNumber = 4;
+#  request # of cores on 1 node
+#CpuNumber = 24;
+SMPgranularity = 2;
+
+# myproxy server for automatix renewal of proxy
+#MyProxyServer = "myproxy.cern.ch";
+MyProxyServer = "myproxy.cnaf.infn.it";
+#MyProxyServer = "px.ui.savba.sk";
+
+##############################################
+# stdout,stderr output & other working files
+##############################################
+#StdOutput = "DIRAC_runs.stdout";
+#StdError  = "DIRAC_runs.stderr";
+#OutputSandbox = {"DIRAC_runs.stdout", "DIRAC_runs.stderr", "dirac_grid_suite_back.tgz"};
+
+StdOutput = "DIRAC_runs.std_oe.log";
+StdError = "DIRAC_runs.std_oe.log";
+OutputSandbox = {"DIRAC_runs.std_oe.log"};
+
+## to be able to reach intermediate results of your job
+# see http://goc.grid.auth.gr/wiki/bin/view/Groups/ALL/MonitoringTheOutputOfYourJob
+PerusalFileEnable=true;
+# for VOCE this limit must be > 10000 sec (cca 17 min)
+PerusalTimeInterval=10005; 
+
+#################
+# Demands on CE #
+#################
+Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
+# PBS jobs only
+Requirements =
+Member("MPI-START", other.GlueHostApplicationSoftwareRunTimeEnvironment )
+#other.GlueCEInfoLRMSType == "pbs";
+# other.GlueCEPolicyMaxWallClockTime > 1200 && 
+# other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
+# other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"
+;
