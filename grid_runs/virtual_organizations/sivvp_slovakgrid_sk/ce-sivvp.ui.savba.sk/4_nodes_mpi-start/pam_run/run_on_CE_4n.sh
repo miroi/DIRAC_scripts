@@ -21,11 +21,16 @@ package="DIRAC4Grid_suite.tgz"
 # set the name of the virtual organization
 VO="sivvp.slovakgrid.sk"
 
+cd ${MPI_SHARED_HOME_PATH}
+/bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
+echo -e "\n Global scratch space, pwd=$PWD,  df -h . \c"; df -h $PWD
+
 print_CE_info
 querry_CE_attributes $VO
 check_file_on_SE $VO $package
 # download & unpack tar-file onto CE - MUST be successfull or exit
-download_from_SE $VO $package ${MPI_SHARED_HOME_PATH}
+#download_from_SE $VO $package ${MPI_SHARED_HOME_PATH}
+download_from_SE $VO $package
 
 # get number of procs #
 unset nprocs
@@ -36,8 +41,6 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 #
 # Unpack the downloaded DIRAC tar-ball
 #
-cd ${MPI_SHARED_HOME_PATH}
-echo -e "\n Global scratch space, pwd=$PWD,  df -h . \c"; df -h $PWD
 unpack_DIRAC $package
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
 
@@ -99,7 +102,6 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 # use global disk for the CE
 # node: for local scratch we need permission to copy file onto nodes !!!
   #export DIRAC_TMPDIR=/shared/scratch
-
   export DIRAC_TMPDIR=${MPI_SHARED_HOME_PATH}
   echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
@@ -145,5 +147,9 @@ echo -e "\n --------------------------------- \n ";
 #### flush out some good-bye message ... ####
 #############################################
 final_message
+
+/bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
+echo -e "\n Clean spece ? pwd=$PWD, ls -l \c"a ;ls -l
+
 
 exit 0
