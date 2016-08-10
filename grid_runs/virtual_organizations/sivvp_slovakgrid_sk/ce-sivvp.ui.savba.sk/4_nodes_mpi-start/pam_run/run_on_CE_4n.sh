@@ -25,7 +25,7 @@ print_CE_info
 querry_CE_attributes $VO
 check_file_on_SE $VO $package
 # download & unpack tar-file onto CE - MUST be successfull or exit
-download_from_SE $VO $package
+download_from_SE $VO $package ${MPI_SHARED_HOME_PATH}
 
 # get number of procs #
 unset nprocs
@@ -36,14 +36,11 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 #
 # Unpack the downloaded DIRAC tar-ball
 #
+cd ${MPI_SHARED_HOME_PATH}
+echo -e "\n Global scratch space, pwd=$PWD,  df -h . \c"; df -h $PWD
 unpack_DIRAC $package
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
 
-#-----------------------------------------------
-#  specify the scratch space for DIRAC runs    #
-#-----------------------------------------------
-#echo "--scratch=\$PWD/DIRAC_scratch" >  ~/.diracrc
-#echo -e "\n\n The ~/.diracrc file was created, containing: "; cat ~/.diracrc
 
 ##########################################
 #      set build dirs and paths          #
@@ -86,13 +83,6 @@ echo "PBS_NODEFILE=$PBS_NODEFILE"
 echo "PBS_O_QUEUE=$PBS_O_QUEUE"
 echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
-# mpi-start params !
-#export I2G_OPENMPI_PREFIX=$BUILD_MPI1
-#export I2G_MPI_START_VERBOSE=1
-#export I2G_MPI_START_DEBUG=1
-#export I2G_MPI_START_TRACE=1
- 
-
 
 #####################################################################
 #                    Run few control tests
@@ -108,7 +98,9 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
 # use global disk for the CE
 # node: for local scratch we need permission to copy file onto nodes !!!
-  export DIRAC_TMPDIR=/shared/scratch
+  #export DIRAC_TMPDIR=/shared/scratch
+
+  export DIRAC_TMPDIR=${MPI_SHARED_HOME_PATH}
   echo -e "\n The global scratch of this CE accessible to all workers,  DIRAC_TMPDIR=${DIRAC_TMPDIR} \n"
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
@@ -117,9 +109,9 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   ##export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   #export DIRAC_MPI_COMMAND="mpi-start -npnode 2 -x PATH -x LD_LIBRARY_PATH"  # this is crashing
   #export DIRAC_MPI_COMMAND="mpi-start  -t openmpi -npnode 2 -x PATH -x LD_LIBRARY_PATH"
+  #export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH --"
 
-  export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH --"
-
+  export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH --prefix $BUILD_MPI1"
   echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
 
   $PAM_MPI1 --inp=test/cosci_energy/ci.inp --mol=test/cosci_energy/F.mol  --mw=120 
