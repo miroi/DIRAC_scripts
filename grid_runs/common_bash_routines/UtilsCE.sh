@@ -107,22 +107,40 @@ return 0
 }
 
 function download_from_SE()
-{ # download file from SE to the current CE local directory, parameter - name of VO
-local VO=$1
-#local DownlFile="dirac_grid_suite.tgz"
-local DownlFile=$2
+{ # download file from SE to the current CE local directory 
+#  1st parameter - name of VO
+#  2nd parameter - downloadable file name
+#  3rd parameter (optional) - directory name where to download
+
+if [ "$1" ]; then
+  local VO=$1
+else
+  echo -e "\n\nNo 1st argument for function download_from_SE(), exit 18 !"; exit 18;
+fi
 #
-local getcmd="lcg-cp -v lfn://grid/$VO/ilias/$DownlFile file://$PWD/$DownlFile"
-echo -e "\n Going to download file $DownlFile from SE, 1st attempt, $getcmd "
+if [ "$2" ]; then
+  local DownlFile=$2
+else
+  echo -e "\n\nNo 2nd argument for function download_from_SE(), exit 19 !"; exit 19;
+fi
+#
+if [ "$3" ]; then
+  local DownlDir=$3
+else # if no 3rd argument, download DIRAC to current directory, $PWD
+  local DownlDir=$PWD
+fi
+
+local getcmd="lcg-cp -v lfn://grid/$VO/ilias/$DownlFile file://$DownlDir/$DownlFile"
+echo -e "\n Going to download file from SE, 1st attempt, $getcmd "
 $getcmd
 RETVAL=$?
 echo -e "FYI: downloading ended with code $RETVAL"
 # this command works ... don't forget ";" and spaces between "{","}" and commands
 #$getcmd || { echo "once again"; { $getcm || { echo -e "Download failed second time ! Exit !!! "; exit 41; } } }
 #
-echo -e "\nDownloaded file attributes (ls -lt $DownlFile) :"
-ls -lt $DownlFile || { echo -e "\n\nNo dowloaded file found in CE's current directory, exit 32 !"; exit 32; }
-echo -e " -------------------------------------------------------------------------------------\n"
+echo -e "\nDownloaded file attributes (ls -lt $DownlDir/$DownlFile) :"
+ls -lt $DownlDir/$DownlFile || { echo -e "\n\nNo dowloaded file found in given CE's directory, exit 20 !"; exit 20; }
+echo -e " --------------------------------------------------------------------------------------------------\n"
 return 0
 }
 
@@ -199,6 +217,8 @@ function unpack_DIRAC()
 {
 # 
 # argument: name of the tarball file
+#
+# you must be in the same directory where sits $DIRACpack
 #
 local DIRACpack=$1
 echo -e "\n\n ---- Unpacking dowloaded DIRAC suite, tar program  : \c "
