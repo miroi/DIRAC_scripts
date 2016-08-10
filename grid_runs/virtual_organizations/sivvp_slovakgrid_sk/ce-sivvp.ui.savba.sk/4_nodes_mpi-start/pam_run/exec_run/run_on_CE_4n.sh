@@ -21,6 +21,11 @@ package="DIRAC4Grid_suite.tgz"
 # set the name of the virtual organization
 VO="sivvp.slovakgrid.sk"
 
+  echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
+  echo -e "\n MPI_SHARED_HOME_PATH=${MPI_SHARED_HOME_PATH}"
+
+cd ${MPI_SHARED_HOME_PATH}
+
 print_CE_info
 querry_CE_attributes $VO
 check_file_on_SE $VO $package
@@ -91,8 +96,6 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 #export I2G_MPI_START_VERBOSE=1
 #export I2G_MPI_START_DEBUG=1
 #export I2G_MPI_START_TRACE=1
- 
-
 
 #####################################################################
 #                    Run few control tests
@@ -103,9 +106,18 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
  # echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
   echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
-  echo -e "\n MPI_SHARED_HOME_PATH=${MPI_SHARED_HOME_PATH}"
+  echo -e "  MPI_SHARED_HOME_PATH=${MPI_SHARED_HOME_PATH}"
+  echo -e "  MPI_OPENMPI_ENABLE=${MPI_OPENMPI_ENABLE}"
+  echo -e "  MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
+
+  export MPI_SSH_HOST_BASED_AUTH="yes"
+  echo -e "  Updated MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
+  export MPI_OPENMPI_ENABLE="yes"
 
   export MPI_OPENMPI_PATH=$BUILD_MPI1
+  echo -e "  MPI_OPENMPI_PATH=${MPI_OPENMPI_PATH}"
+  export MPI_OPENMPI_MPIEXEC=$BUILD_MPI1/bin/mpirun
+  echo -e "  MPI_OPENMPI_EXEC=${MPI_OPENMPI_EXEC}"
   export MPI_OPENMPI_VERSION=1.10
 
  # echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
@@ -125,26 +137,28 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "I am in pwd=$PWD  ls -l=\c";ls -l
 
 # If these are set then you will get more debugging information.
- #export I2G_MPI_START_VERBOSE=1
+ export I2G_MPI_START_VERBOSE=1
  #export I2G_MPI_START_DEBUG=1
  #export I2G_MPI_START_TRACE=1
- 
-
- #export I2G_MPI_APPLICATION=${DIRAC_TMPDIR}/dirac.x
- #export I2G_MPI_APPLICATION_ARGS=
- #export I2G_MPI_TYPE=$MPI_FLAVOR_LOWER
- #export I2G_MPI_PRE_RUN_HOOK=mpi-hooks.sh
- #export I2G_MPI_POST_RUN_HOOK=mpi-hooks.sh
 
   # set variables for dirac.x
   export DIRPAR=1
   export GLBSCR=1
   export BASDIR=${BASDIR_PATH}
 
-  export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -x DIRPAR -x GLBSCR -x BASDIR  -- ${DIRAC_TMPDIR}/dirac.x"
+  #export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -x DIRPAR -x GLBSCR -x BASDIR  -- ${DIRAC_TMPDIR}/dirac.x"
+
+  export I2G_MPI_APPLICATION=${DIRAC_TMPDIR}/dirac.x
+  export I2G_MPI_TYPE=openmpi
+  #export I2G_MPI_NP=2
+  export I2G_MPI_PER_NODE=2
+
+  which mpi-start; mpi-start --help
+ 
+  export DIRAC_MPI_COMMAND="mpi-start -d DIRPAR=1 -d GLBSCR=1 -d BASDIR=${BASDIR_PATH}"
   echo -e "\n Launching command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
 
-  # run parallel job !
+  # run own parallel job
   $DIRAC_MPI_COMMAND
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
@@ -188,5 +202,11 @@ echo -e "\n --------------------------------- \n ";
 #### flush out some good-bye message ... ####
 #############################################
 final_message
+
+
+echo -e "\n Cleaned space ? pwd=$PWD, ls -l \c"a ;ls -l ${PWD}
+/bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
+echo -e "\n Now cleaned space ? pwd=$PWD, ls -l \c"a ;ls -l ${PWD}
+
 
 exit 0

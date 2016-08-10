@@ -123,7 +123,7 @@ Verify your long-term certificate:
 
 ::
 
-  myproxy-info -v -d --pshost px.ui.savba.sk
+  myproxy-info -v -d --pshost px.ui.savba.sk # voce, gaussian
   myproxy-info -v -d --pshost myproxy.cnaf.infn.it # enrm.eu
 
 List of all valid proxies:
@@ -170,6 +170,7 @@ Create directory in  VO's lfn-space
 ::
 
   lfc-mkdir /grid/enmr.eu/ilias
+  lfc-mkdir /grid/gaussian/ilias
 
 
 What you have in your VO's lfn-space (must have active certificate for this VO):
@@ -177,6 +178,7 @@ What you have in your VO's lfn-space (must have active certificate for this VO):
 ::
 
   lcg-ls -l  lfn://grid/voce/ilias/
+  lcg-ls -l  lfn://grid/gaussian/ilias/
   lcg-ls -l  lfn://grid/compchem/ilias
   lcg-ls -l  lfn://grid/sivvp.slovakgrid.sk/ilias
   lcg-ls -l  lfn://grid/enmr.eu/ilias
@@ -226,13 +228,15 @@ Put (upload) a file to your VO's data storage space. You must first set the VO_S
 
 :: 
 
-  lcg-cr -d $VO_SE file:$PWD/DIRAC4Grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC4Grid_suite.tgz
+  lcg-cr -d $VO_SE file:/scratch/milias/Work/qch/software/trunk/DIRAC4Grid_suite.tgz  -l lfn://grid/voce/ilias/DIRAC4Grid_suite.tgz
+
+  lcg-cr -d $VO_SE file:/scratch/milias/Work/qch/software/trunk/DIRAC4Grid_suite.tgz  -l lfn://grid/gaussian/ilias/DIRAC4Grid_suite.tgz
 
   lcg-cr -d $VO_SE file:$PWD/DIRAC_grid_suite.tgz  -l lfn://grid/compchem/ilias/DIRAC_grid_suite.tgz
 
   lcg-cr -d $VO_SE file:$PWD/DIRAC4Grid_suite.tgz  -l lfn://grid/sivvp.slovakgrid.sk/ilias/DIRAC4Grid_suite.tgz
 
-  lcg-cr -d $VO_SE file:$PWD/DIRAC4Grid_suite.tgz  -l lfn://grid/enmr.eu/ilias/DIRAC4Grid_suite.tgz
+  lcg-cr -d $VO_SE file:/scratch/milias/Work/qch/software/trunk/DIRAC4Grid_suite.tgz  -l lfn://grid/enmr.eu/ilias/DIRAC4Grid_suite.tgz
 
 
 And you get answer like:
@@ -255,6 +259,7 @@ Check ACL (access control list) attributes (you must have the LFC_HOST variable 
 
  lfc-getacl /grid/sivvp.slovakgrid.sk/ilias
  lfc-getacl /grid/voce/ilias
+ lfc-getacl /grid/gaussian/ilias
  lfc-getacl /grid/compchem/ilias
  lfc-getacl /grid/enmr.eu/ilias
 
@@ -266,6 +271,7 @@ Set ACL - only the user has all rights (remove them from group and others)
 
  lfc-setacl -m user::rwx,group::,other:: /grid/sivvp.slovakgrid.sk/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/voce/ilias
+ lfc-setacl -m user::rwx,group::,other:: /grid/gaussian/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/compchem/ilias
  lfc-setacl -m user::rwx,group::,other:: /grid/enmr.eu/ilias
 

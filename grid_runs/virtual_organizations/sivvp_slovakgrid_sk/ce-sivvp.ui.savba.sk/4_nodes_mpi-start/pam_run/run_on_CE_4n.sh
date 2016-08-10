@@ -96,6 +96,11 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
 
   echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
+  echo -e "  MPI_OPENMPI_ENABLE=${MPI_OPENMPI_ENABLE}"
+  echo -e "  MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
+  export MPI_SSH_HOST_BASED_AUTH="yes"
+  echo -e "  Updated MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
+
 
   echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
@@ -148,8 +153,9 @@ echo -e "\n --------------------------------- \n ";
 #############################################
 final_message
 
+echo -e "\n Cleaned space ? pwd=$PWD, ls -l \c"; ls -l
 /bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
-echo -e "\n Clean spece ? pwd=$PWD, ls -l \c"a ;ls -l
+echo -e "\n Clean space ? pwd=$PWD, ls -l \c"; ls -l
 
 
 exit 0

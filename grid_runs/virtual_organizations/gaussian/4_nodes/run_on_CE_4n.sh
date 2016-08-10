@@ -20,7 +20,8 @@ fi
 package="DIRAC4Grid_suite.tgz"
 # set the name of the virtual organization
 #VO="sivvp.slovakgrid.sk"
-VO=voce
+#VO=voce
+VO=gaussian
 
   echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
   echo -e "\n MPI_SHARED_HOME_PATH=${MPI_SHARED_HOME_PATH}"
@@ -203,7 +204,6 @@ echo -e "\n --------------------------------- \n ";
 #### flush out some good-bye message ... ####
 #############################################
 final_message
-
 
 echo -e "\n Cleaned space ? pwd=$PWD, ls -l \c"a ;ls -l ${PWD}
 /bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
