@@ -1,4 +1,4 @@
-4 nodes, mpi-start run
+4 nodes,  VO=gaussian
 ======================
 
-trying on VO=gaussian, 1 CE available: creamce.reef.man.poznan.pl:8443/cream-pbs-gaussian
+no mpi-start, only own mpirun
