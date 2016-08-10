@@ -42,7 +42,7 @@ MyProxyServer = "px.ui.savba.sk";
 
 StdOutput = "DIRAC_runs.std_oe.log";
 StdError = "DIRAC_runs.std_oe.log";
-OutputSandbox = { "DIRAC_runs.std_oe.log" };
+OutputSandbox = { "DIRAC_runs.std_oe.log", "ci_F.out" };
 #OutputSandbox = {"DIRAC_runs.std_oe.log", "dirac_grid_suite_back.tgz"};
 
 ## to be able to reach intermediate results of your job
