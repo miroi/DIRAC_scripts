@@ -19,7 +19,12 @@ fi
 # name of Dirac package distributed over grid clusters
 package="DIRAC4Grid_suite.tgz"
 # set the name of the virtual organization
-VO="sivvp.slovakgrid.sk"
+#VO="sivvp.slovakgrid.sk"
+VO="enmr.eu"
+
+ echo -e "\n\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
+ echo -e "MPI_SHARED_HOME_PATH=${MPI_SHARED_HOME_PATH}"
+ echo -e "MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
 
 cd ${MPI_SHARED_HOME_PATH}
 /bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
@@ -94,13 +99,6 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   export DIRTIMEOUT="20m"
   echo -e "\n Time limit for running DIRAC tests, DIRTIMEOUT=$DIRTIMEOUT "
   echo -e "When you finish running tests, set it to other value, according to size of your jobs !"
-
-  echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
-  echo -e "  MPI_OPENMPI_ENABLE=${MPI_OPENMPI_ENABLE}"
-  echo -e "  MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
-  export MPI_SSH_HOST_BASED_AUTH="yes"
-  echo -e "  Updated MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
-
 
   echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 
