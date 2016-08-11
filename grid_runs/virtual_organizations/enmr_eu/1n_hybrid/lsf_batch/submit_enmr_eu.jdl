@@ -26,8 +26,9 @@ WholeNodes = False;
 # number of allocated nodes 
 HostNumber = 1;
 #  request # of cores on 1 node
-CpuNumber = 24;
-#SMPgranularity = 24;
+#CpuNumber = 24;
+CpuNumber = 12;
+#SMPgranularity = 12;
 
 # myproxy server for automatix renewal of proxy
 #MyProxyServer = "myproxy.cern.ch";
