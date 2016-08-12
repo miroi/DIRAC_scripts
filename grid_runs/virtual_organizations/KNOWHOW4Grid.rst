@@ -323,8 +323,14 @@ Get job status (Python 2.7, not 3.3 )
 
  glite-wms-job-status  -i <JOB_ID_file>
 
+Get detailed job status
 
-Calncel your job (i.e. runs too long, maybe hanged)
+::
+
+ glite-wms-job-logging-info -v 2 -i <JOB_ID_file>
+
+
+Cancel your job (i.e. runs too long, maybe hanged)
 
 ::
 
