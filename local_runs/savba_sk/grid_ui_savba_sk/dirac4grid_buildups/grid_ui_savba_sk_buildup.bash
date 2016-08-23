@@ -20,6 +20,9 @@ export PATH=/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:/usr/lib64/qt-3.3
 # add i8-openblas
 export PATH=/scratch/milias/bin/openblas_i8:$PATH
 
+export PATH_SAVED=$PATH
+export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
+
 #MiroD advice
 source $HOME/.bash_profile
 
@@ -100,8 +103,10 @@ echo -e "\n Starting build - Intel-MPICH,MKL,i8,static - at $timestamp \n"
 
 cd $DIRAC
 # My own MPICH Intel static
-export PATH=/home/ilias/bin/mpich-3.2-intel-static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/mpich-3.2-intel-static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/mpich-3.2-intel-static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/mpich-3.2-intel-static/lib:$LD_LIBRARY_PATH_SAVED
 #
 BUILD_MPICH_INTEL=build_intelmkl_mpich_static
 if [[ -d "$BUILD_MPICH_INTEL" ]]; then
@@ -114,6 +119,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/mpich-3.2-intel-static/bin/mpif90 --c
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/mpich-3.2-intel-static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
@@ -135,8 +141,10 @@ echo -e "\n Starting build - Intel-MPICH,OWNMATH,i8,static - at $timestamp \n"
 
 cd $DIRAC
 # My own MPICH Intel static
-export PATH=/home/ilias/bin/mpich-3.2-intel-static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/mpich-3.2-intel-static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/mpich-3.2-intel-static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/mpich-3.2-intel-static/lib:$LD_LIBRARY_PATH_SAVED
 #
 BUILD_MPICH_INTEL1=build_intelownmath_mpich_static
 if [[ -d "$BUILD_MPICH_INTEL1" ]]; then
@@ -149,6 +157,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/mpich-3.2-intel-static/bin/mpif90 --c
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/mpich-3.2-intel-static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
@@ -172,8 +181,10 @@ echo -e "\n Starting build - Intel-OpenMPI_1.10.1,MKL,i8,static - at $timestamp 
 cd $DIRAC
 BUILD_OMPI_INTEL=build_intelmkl_openmpi-1.10.1_i8_static
 # My own OpenMPI Intel static
-export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH_SAVED
 #
 if [[ -d "$BUILD_OMPI_INTEL" ]]; then
    echo "removing previous build directory $BUILD_OMPI_INTEL"
@@ -185,6 +196,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
@@ -220,8 +232,10 @@ echo -e "\n Starting build - Intel-OpenMPI_1.10.1,OWNMATH,i8,static - at $timest
 cd $DIRAC
 BUILD_OMPI_INTEL1=build_intel_ownmath_openmpi-1.10.1_i8_static
 # My own OpenMPI Intel static
-export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH_SAVED
 #
 if [[ -d "$BUILD_OMPI_INTEL1" ]]; then
    echo "removing previous build directory $BUILD_OMPI_INTEL1"
@@ -233,6 +247,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R  cosci_energy
  ctest -D ExperimentalSubmit 
@@ -267,8 +282,10 @@ echo -e "\n Starting build - Intel-OpenMPI_1.10.1,OPENBLAS,i8,static - at $times
 cd $DIRAC
 BUILD_OMPI_INTEL2=build_intel_openblas_openmpi-1.10.1_i8_static
 # My own OpenMPI Intel static
-export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_intel_static/lib:$LD_LIBRARY_PATH_SAVED
 #
 if [[ -d "$BUILD_OMPI_INTEL2" ]]; then
    echo "removing previous build directory $BUILD_OMPI_INTEL2"
@@ -280,6 +297,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalUpdate   
  ctest -D ExperimentalConfigure 
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R  cosci_energy
  ctest -D ExperimentalSubmit 
@@ -307,6 +325,10 @@ sleep 10
 ##############################################################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build- Intel,MKL,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_SERIAL_INTEL=build_intelmkl_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL" ]]; then
@@ -335,6 +357,10 @@ sleep 10
 #######################################################################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - Intel,ownmath,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_SERIAL_INTEL1=build_intel_ownmath_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL1" ]]; then
@@ -365,6 +391,10 @@ sleep 10
 #############################################################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - Intel,OpenBLAS,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_SERIAL_INTEL2=build_intel_openblas_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL2" ]]; then
@@ -393,6 +423,10 @@ sleep 10
 ######################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - PGI,MKL,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_PGI=build_pgi_mkl_i8_static
 if [[ -d "$BUILD_PGI" ]]; then
@@ -421,6 +455,10 @@ sleep 10
 ############################################################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build  - PGI,ownmath,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_PGI1=build_pgi_ownnath_i8_static
 if [[ -d "$BUILD_PGI1" ]]; then
@@ -450,6 +488,10 @@ sleep 10
 ################################################################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build  - PGI,i8,openblas,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_PGI2=build_pgi_openblas_static
 if [[ -d "$BUILD_PGI2" ]]; then
@@ -480,6 +522,10 @@ sleep 10
 ####################################################################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build  - PGI,openblas,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_PGI3=build_pgi_openblas_i8_static
 if [[ -d "$BUILD_PGI2" ]]; then
@@ -508,6 +554,10 @@ sleep 10
 #####################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - GNU,MKL,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_SERIAL_GNU=build_gnumkl_i8_static
 if [[ -d "$BUILD_SERIAL_GNU" ]]; then
@@ -535,6 +585,10 @@ sleep 10
 #########################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - GNU,ownmath,i8,serial,static - at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_SERIAL_GNU1=build_gnu_ownmath_i8_static
 if [[ -d "$BUILD_SERIAL_GNU1" ]]; then
@@ -563,6 +617,10 @@ sleep 10
 ##########################
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - GNU,i8,OpenBLAS,serial,static at $timestamp \n"
+unset PATH
+export PATH=$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_SERIAL_GNU2=build_gnu_i8_openblas_static
 if [[ -d "$BUILD_SERIAL_GNU2" ]]; then
@@ -595,8 +653,10 @@ timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - GNU,i8,OpenBLAS,OpenMPI 1.10.1,static - at $timestamp \n"
 
 # My own OpenMPI GNU static
-export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_OMPI_GNU3=build_openmpi_gnu_i8_openblas_static
 if [[ -d "$BUILD_OMPI_GNU3" ]]; then
@@ -608,6 +668,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90 
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R cosci_energy    
  ctest -D ExperimentalSubmit  
@@ -641,8 +702,10 @@ timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - GNU,OWNMATH,OpenMPI,static - at $timestamp \n"
 
 # My own OpenMPI GNU static
-export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH_SAVED
 cd $DIRAC
 BUILD_OMPI_GNU4=build_openmpi_gnu_ownmath_static
 if [[ -d "$BUILD_OMPI_GNU4" ]]; then
@@ -654,6 +717,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90 
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R cosci_energy    
  ctest -D ExperimentalSubmit  
@@ -687,8 +751,10 @@ timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n Starting build - GNU,i8,MKL,OpenMPI 1.10.1,static - at $timestamp \n"
 
 # My own OpenMPI GNU static
-export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH
-export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH
+unset PATH
+export PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin:$PATH_SAVED
+unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/ilias/bin/openmpi-1.10.1_gnu_static/lib:$LD_LIBRARY_PATH_SAVED
 
 cd $DIRAC
 BUILD_OMPI_GNU5=build_openmpi_gnu_mkl_static
@@ -702,6 +768,7 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpif90 
  ctest -D ExperimentalUpdate     
  ctest -D ExperimentalConfigure  
  ctest -j4 -D ExperimentalBuild  
+ unset DIRAC_MPI_COMMAND
  export DIRAC_MPI_COMMAND="/home/ilias/bin/openmpi-1.10.1_gnu_static/bin/mpirun -np 2"
  ctest -j2 -D ExperimentalTest -R cosci_energy    
  ctest -D ExperimentalSubmit  
@@ -747,18 +814,18 @@ echo -e "\n\n Packing slim DIRAC suite (static dirac.x binaries, basis sets and 
 #
 ##
 tar czf $packed_dirac  test  basis  basis_dalton  basis_ecp \
-$BUILD_OMPI_INTEL/dirac.x a   $BUILD_OMPI_INTEL/pam  $BUILD_OMPI_INTEL/etc  $BUILD_OMPI_INTEL/share  $BUILD_OMPI_INTEL/bin  $BUILD_OMPI_INTEL/lib   \
-$BUILD_OMPI_INTEL1/dirac.x   $BUILD_OMPI_INTEL1/pam $BUILD_OMPI_INTEL1/etc $BUILD_OMPI_INTEL1/share $BUILD_OMPI_INTEL1/bin  $BUILD_OMPI_INTEL1/lib  \
-$BUILD_OMPI_INTEL2/dirac.x   $BUILD_OMPI_INTEL2/pam $BUILD_OMPI_INTEL2/etc $BUILD_OMPI_INTEL2/share $BUILD_OMPI_INTEL2/bin  $BUILD_OMPI_INTEL2/lib  \
-$BUILD_SERIAL_INTEL/dirac.x  $BUILD_SERIAL_INTEL/pam   \
-$BUILD_SERIAL_INTEL1/dirac.x $BUILD_SERIAL_INTEL1/pam  \
-$BUILD_SERIAL_INTEL2/dirac.x $BUILD_SERIAL_INTEL2/pam  \
-$BUILD_SERIAL_GNU/dirac.x $BUILD_SERIAL_GNU/pam    \
-$BUILD_SERIAL_GNU1/dirac.x $BUILD_SERIAL_GNU1/pam  \
-$BUILD_SERIAL_GNU2/dirac.x $BUILD_SERIAL_GNU2/pam  \
-$BUILD_OMPI_GNU3/dirac.x  $BUILD_OMPI_GNU3/pam  $BUILD_OMPI_GNU3/etc  $BUILD_OMPI_GNU3/share  $BUILD_OMPI_GNU3/bin  $BUILD_OMPI_GNU3/lib  \
-$BUILD_OMPI_GNU4/dirac.x  $BUILD_OMPI_GNU4/pam  $BUILD_OMPI_GNU4/etc  $BUILD_OMPI_GNU4/share  $BUILD_OMPI_GNU4/bin  $BUILD_OMPI_GNU4/lib  \
-$BUILD_OMPI_GNU5/dirac.x  $BUILD_OMPI_GNU5/pam  $BUILD_OMPI_GNU5/etc  $BUILD_OMPI_GNU5/share  $BUILD_OMPI_GNU5/bin  $BUILD_OMPI_GNU5/lib  \
+$BUILD_OMPI_INTEL/dirac.x     $BUILD_OMPI_INTEL/pam  $BUILD_OMPI_INTEL/etc  $BUILD_OMPI_INTEL/share  $BUILD_OMPI_INTEL/bin  $BUILD_OMPI_INTEL/lib   \
+$BUILD_OMPI_INTEL1/dirac.x    $BUILD_OMPI_INTEL1/pam $BUILD_OMPI_INTEL1/etc $BUILD_OMPI_INTEL1/share $BUILD_OMPI_INTEL1/bin  $BUILD_OMPI_INTEL1/lib  \
+$BUILD_OMPI_INTEL2/dirac.x    $BUILD_OMPI_INTEL2/pam $BUILD_OMPI_INTEL2/etc $BUILD_OMPI_INTEL2/share $BUILD_OMPI_INTEL2/bin  $BUILD_OMPI_INTEL2/lib  \
+$BUILD_SERIAL_INTEL/dirac.x   $BUILD_SERIAL_INTEL/pam   \
+$BUILD_SERIAL_INTEL1/dirac.x  $BUILD_SERIAL_INTEL1/pam  \
+$BUILD_SERIAL_INTEL2/dirac.x  $BUILD_SERIAL_INTEL2/pam  \
+$BUILD_SERIAL_GNU/dirac.x     $BUILD_SERIAL_GNU/pam    \
+$BUILD_SERIAL_GNU1/dirac.x    $BUILD_SERIAL_GNU1/pam  \
+$BUILD_SERIAL_GNU2/dirac.x    $BUILD_SERIAL_GNU2/pam  \
+$BUILD_OMPI_GNU3/dirac.x      $BUILD_OMPI_GNU3/pam  $BUILD_OMPI_GNU3/etc  $BUILD_OMPI_GNU3/share  $BUILD_OMPI_GNU3/bin  $BUILD_OMPI_GNU3/lib  \
+$BUILD_OMPI_GNU4/dirac.x      $BUILD_OMPI_GNU4/pam  $BUILD_OMPI_GNU4/etc  $BUILD_OMPI_GNU4/share  $BUILD_OMPI_GNU4/bin  $BUILD_OMPI_GNU4/lib  \
+$BUILD_OMPI_GNU5/dirac.x      $BUILD_OMPI_GNU5/pam  $BUILD_OMPI_GNU5/etc  $BUILD_OMPI_GNU5/share  $BUILD_OMPI_GNU5/bin  $BUILD_OMPI_GNU5/lib  \
 $BUILD_PGI/dirac.x $BUILD_PGI/pam   \
 $BUILD_PGI1/dirac.x $BUILD_PGI1/pam \
 $BUILD_PGI2/dirac.x $BUILD_PGI2/pam \
