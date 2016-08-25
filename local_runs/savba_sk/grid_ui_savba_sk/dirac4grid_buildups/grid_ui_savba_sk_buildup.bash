@@ -329,6 +329,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_SERIAL_INTEL=build_intelmkl_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL" ]]; then
@@ -361,6 +362,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_SERIAL_INTEL1=build_intel_ownmath_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL1" ]]; then
@@ -395,6 +397,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_SERIAL_INTEL2=build_intel_openblas_i8_static
 if [[ -d "$BUILD_SERIAL_INTEL2" ]]; then
@@ -427,6 +430,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_PGI=build_pgi_mkl_i8_static
 if [[ -d "$BUILD_PGI" ]]; then
@@ -459,6 +463,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_PGI1=build_pgi_ownnath_i8_static
 if [[ -d "$BUILD_PGI1" ]]; then
@@ -492,6 +497,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_PGI2=build_pgi_openblas_static
 if [[ -d "$BUILD_PGI2" ]]; then
@@ -526,6 +532,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_PGI3=build_pgi_openblas_i8_static
 if [[ -d "$BUILD_PGI2" ]]; then
@@ -558,6 +565,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_SERIAL_GNU=build_gnumkl_i8_static
 if [[ -d "$BUILD_SERIAL_GNU" ]]; then
@@ -589,6 +597,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_SERIAL_GNU1=build_gnu_ownmath_i8_static
 if [[ -d "$BUILD_SERIAL_GNU1" ]]; then
@@ -621,6 +630,7 @@ unset PATH
 export PATH=$PATH_SAVED
 unset LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH_SAVED
+unset DIRAC_MPI_COMMAND
 cd $DIRAC
 BUILD_SERIAL_GNU2=build_gnu_i8_openblas_static
 if [[ -d "$BUILD_SERIAL_GNU2" ]]; then
