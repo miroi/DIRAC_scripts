@@ -20,16 +20,11 @@ export PATH=/home/ilias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:/usr/lib64/qt-3.3
 # add i8-openblas
 export PATH=/scratch/milias/bin/openblas_i8:$PATH
 
-export PATH_SAVED=$PATH
-export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
-
 #MiroD advice
 source $HOME/.bash_profile
-
 source /usr/share/Modules/init/bash
 
 module avail
-
 # Intel compilers
 #source $HOME/intel/bin/compilervars.sh intel64
 module unload intel/2015
@@ -45,9 +40,15 @@ echo "PGI commercial compilers activated."
 module unload devtoolset/4
 module load devtoolset/4
 
-
 echo -e "\n All loaded modules"
 module list
+
+#
+# save PATH with all modules for later modifications
+#
+
+export PATH_SAVED=$PATH
+export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
 echo "My PATH=$PATH"
 echo -e "cmake --version :\c"; cmake --version
