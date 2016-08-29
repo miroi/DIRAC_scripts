@@ -79,13 +79,10 @@ jobtype="serial"
 #workdir=/scr/$USER 
 workdir=/mnt/local/$USER/$PBS_JOBID
 mkdir -p $workdir   # create the workdir
-ls -lt $workdir   # check
-ls -lt  /mnt/local/$USER  # check
 
 global_workdisk=no
 #outdir=out
 outdir=$workdir/out # 
-ls -l $workdir
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
@@ -111,7 +108,9 @@ gather -maxsize 10000
 
 finalize_job
 
+echo -e "\n $outdir content:"
 ls -lt $outdir/*
+echo -e " $outdir file space occupation:"
 du -h -s $outdir
 
 ###------ END  ------###
