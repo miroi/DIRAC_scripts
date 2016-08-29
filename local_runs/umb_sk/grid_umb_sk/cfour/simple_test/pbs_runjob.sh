@@ -9,7 +9,8 @@
 #PBS -N C4_H2O
 ### Declare myprogram non-rerunable
 #PBS -r n
-#PBS -l nodes=1:ppn=12:old
+##PBS -l nodes=1:ppn=12:old
+#PBS -l nodes=1:ppn=4
 #PBS -l walltime=900:00:00
 #PBS -l mem=47g
 #PBS -j oe
