@@ -62,7 +62,8 @@ export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
 DIRAC=/home/milias/Work/qch/software/dirac/trunk
 #DIRAC=/home/milias/Work/qch/software/dirac/dirac_for_grid
 
-BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
+#BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
+BUILD_MPI1=$DIRAC/build_ompi_intelmkl_dbg
 PAM_MPI1=$BUILD_MPI1/pam
 
 echo -e "\n The $BUILD_MPI1/dirac.x attributes:"
@@ -97,7 +98,7 @@ cd $PBS_O_WORKDIR
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
 #for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1 8-1 10-1; do
-for ij in 3-1 9-1 11-1; do # 
+for ij in 1-1 2-1 6-1 12-1; do # 
 
   set -- ${ij//-/ }
   np=$1
@@ -127,7 +128,7 @@ for ij in 3-1 9-1 11-1; do #
   echo -e "OpenMPI: which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
-  $PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
+  $PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_i4_p-im.$ij
 
   #$PAM_MPI1 --noarch --mw=400 --nw=300 --aw=4200 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
   #$PAM_MPI1 --noarch --mw=600 --nw=800 --aw=1800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
