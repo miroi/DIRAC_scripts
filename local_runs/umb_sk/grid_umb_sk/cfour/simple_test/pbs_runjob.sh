@@ -6,7 +6,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N CFOUR
+#PBS -N CFOURtest
 ### Declare myprogram non-rerunable
 #PBS -r n
 #PBS -l nodes=1:ppn=12:old
@@ -79,7 +79,8 @@ jobtype="serial"
 #workdir=/scr/$USER 
 workdir=/mnt/local/$USER/$PBS_JOBID
 global_workdisk=no
-outdir=out
+#outdir=out
+outdir=$workdir/out
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
@@ -104,5 +105,9 @@ xcfour
 gather -maxsize 10000
 
 finalize_job
+
+ls -lt $outdir/*
+du -h -s $outdir
+
 ###------ END  ------###
 # vim:syntax=sh:filetype=sh
