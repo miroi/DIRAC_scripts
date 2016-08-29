@@ -1,0 +1,107 @@
+#!/bin/bash
+#SBATCH -J DIRAC
+
+## max. execution time
+#SBATCH -t 0-2:30:00
+
+## Requesting Specific Nodes
+##SBATCH --nodelist=lxbk[0051,0052]
+##SBATCH --nodelist=lxbk[0051-0096]
+## explicitly exclude certain nodes 
+#SBATCH --exclude=lxbk[0001-0009,0010-0050]
+
+## Node count - take only one node for OpenMP-MKL
+#SBATCH -N 1
+## CPU count  - max. 40 per node
+#SBATCH -n 20
+
+## memory
+#SBATCH --mem=32G
+
+## stdout/stderr output file
+#SBATCH -o log_slurm_job.%j.%N.std_out_err
+
+## mail
+#SBATCH --mail-user=m.ilias@gsi.de 
+
+ 
+echo Job user is $SLURM_JOB_USER and his job $SLURM_JOB_NAME has assigned ID $SLURM_JOBID
+echo This job was submitted from the computer $SLURM_SUBMIT_HOST
+echo and from the home directory:
+echo $SLURM_SUBMIT_DIR
+echo
+echo It is running on the cluster compute node:
+echo $SLURM_CLUSTER_NAME
+echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
+echo $SLURM_JOB_NODELIST
+echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
+
+module use /cvmfs/it.gsi.de/modulefiles/
+echo "modules at disposal:"
+module avail
+echo
+module unload compiler/intel/12.1
+module unload compiler/intel/15.0
+module load compiler/intel/15.0
+echo "loaded modules:"
+module list
+
+echo -e "\nRunning on host `hostname`"
+echo -e "Time is `date` \n"
+echo -e "\nMy PATH=$PATH\n"
+
+# CPU model, total numer of CPUs, number of allocated CPUs
+echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs available."
+echo "This node has $SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+
+echo -e "\n the memory at the node (in GB)"
+free -t -g
+echo
+
+## set internal OpenMP parallelization for MKL - Slurm CPU count
+#export MKL_NUM_THREADS=$SLURM_CPUS_ON_NODE
+export MKL_NUM_THREADS=2
+echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
+
+export DIRAC_ROOTDIR=/lustre/nyx/ukt/milias/work/software/dirac/trunk
+export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmkl_i8_xhost_prod
+#export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmkl_i8_prod
+export PAM=$DIRAC_BUILDDIR/pam
+export BASDIR=$DIRAC_ROOTDIR/basis_dalton:$DIRAC_ROOTDIR/basis
+
+echo -e "\nldd $DIRAC_BUILDDIR/dirac.x:"
+ldd $DIRAC_BUILDDIR/dirac.x
+echo
+
+echo -e "Python -v :\c"; python -V
+echo -e "cmake ? which cmake = \c"; which cmake
+echo -e "ctest ? which ctest = \c"; which ctest
+echo -e "ctest --version \c"; ctest --version
+echo
+
+export DIRAC_TMPDIR=/lustre/nyx/ukt/milias/scratch
+echo -e "\nDIRAC scratch directory space, $DIRAC_TMPDIR"
+df -h $DIRAC_TMPDIR/.
+echo
+
+cd $SLURM_SUBMIT_DIR
+#cd $DIRAC_BUILDDIR
+
+echo -e "\n Current directory where this SLURM job is running `pwd`"
+echo " It has the disk space of (df -h) :"
+df -h .
+echo
+
+#$PAM --mw=220 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
+
+$PAM --mw=220 --aw=1200 --noarch  --inp=$DIRAC_ROOTDIR/test/geo_opt_xyz/geopt.levyle.scf_sto3g_skb_nosym.inp  --mol=$DIRAC_ROOTDIR/test/geo_opt_xyz/acetone.xyz
+
+#ctest -j $SLURM_CPUS_ON_NODE 
+#ctest -j 10
+
+exit
