@@ -4,14 +4,16 @@
 ##   extended by Michael Harding <harding@uni-mainz.de> 
 ##
 
-###-------- PBS parameters ----------
-#PBS -o run.out -e qsub.out
-#PBS -q itanium
-#PBS -lnodes=2
-#PBS -lwalltime=00:10:00
-#PBS -lpmem=300MB
-##PBS -m abe
-###-------- end PBS parameters ----------
+#PBS -S /bin/bash
+#PBS -A UMB-ITMS-26110230082
+#PBS -N CFOUR
+### Declare myprogram non-rerunable
+#PBS -r n
+#PBS -l nodes=1:ppn=12:old
+#PBS -l walltime=900:00:00
+#PBS -l mem=47g
+#PBS -j oe
+#PBS -q batch
 
 #CFOUR=/scrcluster/harding/aces2.par
 CFOUR=home/milias/Work/qch/software/cfour
@@ -26,7 +28,7 @@ fi
 
 # if NOTIFY is set an e-mail notification is sent to that adress at the start
 # and end of the job
-NOTIFY=
+NOTIFY=Miroslav.Ilias@umb.sk
 
 ###------ JOB SPECIFIC ENVIRONMENT --###
 
@@ -44,7 +46,7 @@ jobtype="serial"
 
 # a job id is automatically added to the workdir
 #workdir=/scr/$USER 
-workdir=/scr/$USER 
+workdir=/mnt/local/$USER/$PBS_JOBID
 global_workdisk=no
 outdir=out
 
