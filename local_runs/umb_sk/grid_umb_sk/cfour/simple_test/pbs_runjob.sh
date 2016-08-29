@@ -6,7 +6,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N CFOURtest
+#PBS -N C4_H2O
 ### Declare myprogram non-rerunable
 #PBS -r n
 #PBS -l nodes=1:ppn=12:old
@@ -78,9 +78,14 @@ jobtype="serial"
 # a job id is automatically added to the workdir
 #workdir=/scr/$USER 
 workdir=/mnt/local/$USER/$PBS_JOBID
+mkdir -p $workdir   # create the workdir
+ls -lt $workdir   # check
+ls -lt  /mnt/local/$USER  # check
+
 global_workdisk=no
 #outdir=out
-outdir=$workdir/out
+outdir=$workdir/out # 
+ls -l $workdir
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
