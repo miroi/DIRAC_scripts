@@ -70,14 +70,11 @@ export CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_li
 export PATH=$CFOUR/bin:$PATH
 cd $CFOUR/testsuite
 
-xtester --help
-xtester --testcase 001
-xtester --testcase 002
-
-
+#xtester --help
+#xtester --testcase 001
+xtester --all
 
 # for running jobs from your homedir
 #cd $SLURM_SUBMIT_DIR
-
 
 exit
