@@ -1,9 +1,10 @@
-===========================
-DIRAC runs on local servers
-===========================
+==============================
+Software runs on local servers
+==============================
 
 User is logged on his computing server/cluster and is running 
-his DIRAC installation.
+his own software installation.
 
-His jobs are launcher either interactively, 
-or through a batch operating systems.
+Jobs are launcher either interactively, 
+or through a batch operating system.
+
