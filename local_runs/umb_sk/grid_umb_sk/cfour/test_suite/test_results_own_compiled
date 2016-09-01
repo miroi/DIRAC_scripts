@@ -1,0 +1,1742 @@
+Working host is: 
+comp25.grid.umb.sk
+My PATH=/mnt/apps/pgi/linux86-64/13.10/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/mpirt/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64_mic/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64_mic:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gui/intel64:/usr/lib64/qt-3.3/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
+Running on host comp25
+Time is Thu Sep  1 15:31:56 CEST 2016
+Directory is /home/milias
+This jobs runs on the following processors:
+comp25 comp25 comp25 comp25 comp25 comp25 comp25 comp25
+This node has 32 CPUs.
+This node has 8 CPUs allocated for PBS calculations.
+PBS_SERVER=
+PBS_NODEFILE=/var/lib/torque/aux//113021.batch.grid.umb.sk
+PBS_O_QUEUE=batch
+PBS_O_WORKDIR=/home/milias/Work/qch/software/My_scripts/local_runs/umb_sk/grid_umb_sk/cfour/test_suite
+MKL_NUM_THREADS=8
+pwd=/mnt/local/milias/113021.batch.grid.umb.sk
+total 20
+drwxrwxr-x 2 milias milias 4096 Sep  1 15:31 share
+drwxrwxr-x 2 milias milias 4096 Sep  1 15:31 lib
+drwxrwxr-x 2 milias milias 4096 Sep  1 15:31 bin
+drwxrwxr-x 2 milias milias 4096 Sep  1 15:31 basis
+drwxr-xr-x 3 milias milias 4096 Sep  1 15:31 testsuite
+
+ PATH=.:/mnt/apps/pgi/linux86-64/13.10/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/mpirt/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64_mic/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64_mic:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gui/intel64:/usr/lib64/qt-3.3/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/mnt/local/milias/113021.batch.grid.umb.sk/bin
+********************************************************************************
+Number   Species Model                  Feature
+********************************************************************************
+TEST.001 H2O    RHF/6-31G**            GEOMETRY                                 
+ ... PASSED ... 
+TEST.002 NH2    UHF/DZP                GEOMETRY                                 
+ ... PASSED ... 
+TEST.003 NH2    ROHF/TZ2P(5D)          GEOMETRY                                 
+ ... PASSED ... 
+TEST.004 H2O    RHF/6-31G**            ANALYTIC 2ND DERIVATIVES                 
+ ... PASSED ... 
+TEST.005 NH2    UHF/DZP                ANALYTIC 2ND DERIVATIVES                 
+ ... PASSED ... 
+TEST.006 NH2    ROHF/TZ2P              ANALYTIC 2ND DERIVATIVES USING 5D FUNCTIO
+ ... PASSED ... 
+TEST.007 H2O    RHF-MP2/DZP            GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.008 NH2    UHF-MP2/DZP            GEOMETRY OPTIMIZATION                    
+ difference found in GEOMETRY             of   0.39E-06 ref  0.10E-09
+ difference found in GEOMETRY             of   0.66E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.27E-05 ref  0.10E-09
+ difference found in GEOMETRY             of   0.66E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.27E-05 ref  0.10E-09
+ difference found in ROTCONST             of   0.48E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.12E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.11E-02 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.10E-05 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.30E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.009 NH2    ROHF-MP2/TZ2P          GEOMETRY OPTIMIZATION USING 5D           
+ difference found in GEOMETRY             of   0.41E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.19E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.29E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.19E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.29E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.30E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.13E-01 ref  0.10E-09
+ difference found in ROTCONST             of   0.32E-02 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.26E-05 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.35E-04 ref  0.10E-09
+ difference found in THETA                of   0.50E-03 ref  0.10E-03
+ difference found in THETA                of   0.40E-03 ref  0.10E-03
+ difference found in EFG                  of   0.30E-03 ref  0.10E-03
+ difference found in EFG                  of   0.40E-03 ref  0.10E-03
+ difference found in EFG                  of   0.80E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.010 H2O    RHF-MP2/DZP            ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.13E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.13E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.011 H2O    RHF-MP2/DZP            ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.14E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.14E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.012 NH2    UHF-MP2/DZP            ANAL. 2ND DER. WITH CART. COORD. IN A.U. 
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.31E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.29E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.30E-01 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.35E+00 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.58E-05 ref  0.10E-08
+ difference found in DIPOL                of   0.30E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.013 H2O    RHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.014 H2O    RHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.13E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.015 NH2    UHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+ difference found in GEOMETRY             of   0.25E-05 ref  0.10E-09
+ difference found in GEOMETRY             of   0.48E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.17E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.48E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.17E-04 ref  0.10E-09
+ difference found in ROTCONST             of   0.43E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.74E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.82E-03 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.14E-05 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.29E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.27E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.016 NH2    UHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+ difference found in GEOMETRY             of   0.95E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.15E-05 ref  0.10E-09
+ difference found in GEOMETRY             of   0.66E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.15E-05 ref  0.10E-09
+ difference found in GEOMETRY             of   0.66E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.37E-02 ref  0.10E-09
+ difference found in ROTCONST             of   0.28E-01 ref  0.10E-09
+ difference found in ROTCONST             of   0.26E-04 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.17E-04 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.47E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.28E-03 ref  0.10E-09
+ difference found in DIPOL                of   0.18E-02 ref  0.10E-03
+ difference found in THETA                of   0.50E-03 ref  0.10E-03
+ difference found in THETA                of   0.27E-02 ref  0.10E-03
+ difference found in THETA                of   0.21E-02 ref  0.10E-03
+ difference found in EFG                  of   0.40E-03 ref  0.10E-03
+ difference found in EFG                  of   0.20E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.017 NH2    ROHF-CCSD/TZ2P         GEOMETRY OPTIMIZATION USING 5D           
+ difference found in GEOMETRY             of   0.31E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.12E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.21E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.12E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.21E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.39E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.96E-02 ref  0.10E-09
+ difference found in ROTCONST             of   0.20E-02 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.26E-05 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.21E-04 ref  0.10E-09
+ difference found in THETA                of   0.30E-03 ref  0.10E-03
+ difference found in THETA                of   0.20E-03 ref  0.10E-03
+ difference found in EFG                  of   0.20E-03 ref  0.10E-03
+ difference found in EFG                  of   0.30E-03 ref  0.10E-03
+ difference found in EFG                  of   0.60E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.018 H2O    RHF-CCSD(T)/DZP        GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.019 NH2    UHF-CCSD(T)/DZP        GEOMETRY OPTIMIZATION                    
+ difference found in GEOMETRY             of   0.24E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.72E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.17E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.72E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.17E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.44E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.71E-02 ref  0.10E-09
+ difference found in ROTCONST             of   0.12E-02 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.31E-05 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.29E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.29E-04 ref  0.10E-09
+ difference found in THETA                of   0.40E-03 ref  0.10E-03
+ difference found in THETA                of   0.40E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.020 NH2    ROHF-CCSD(T)/DZP       GEOMETRY OPTIMIZATION                    
+ difference found in GEOMETRY             of   0.23E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.69E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.16E-03 ref  0.10E-09
+ difference found in GEOMETRY             of   0.69E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.16E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.42E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.68E-02 ref  0.10E-09
+ difference found in ROTCONST             of   0.12E-02 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.31E-05 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.28E-04 ref  0.10E-09
+ difference found in DIPOL                of   0.20E-03 ref  0.10E-03
+ difference found in THETA                of   0.20E-03 ref  0.10E-03
+ difference found in THETA                of   0.40E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.021 NH2    RHF-MP2/DZP            2ND DERIVATIVES FROM ANALYTIC GRADIENTS  
+ difference found in MP2_ENERGY           of   0.55E-05 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.55E-05 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.022 H2O    RHF-MP2/DZP            NMR SHIFTS USING THE GIAO METHOD         
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.023 H2O    B-CCD/DZP              ENERGY USING BRUECKNER ORBITALS          
+ difference found in MP2_ENERGY           of   0.33E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.024 NH2    ROHF-MP4/DZP           ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.25E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.025 H2O    RHF-UCCSD(4)/DZP       ENERGY                                   
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.026 H2O    RHF-CCSDT-1b/DZP       ENERGY                                   
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.027 H2O    RHF-CCSDT-2/DZP        ENERGY                                   
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.028 H2O    RHF-CCSDT-3/DZP        ENERGY                                   
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.029 H2O    RHF-CCSDT/DZP          SINGLE POINT CALCULATION                 
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.030 (H2O)2 RHF/DZP                TEST OF BSSE COMPUTATIONS                
+ ... PASSED ... 
+TEST.031 H2O    RHF/qzp(tzp)           INPUT OF NON-STANDARD BASIS SETS         
+ ... PASSED ... 
+TEST.032 H2O    RHF/WMR                WMR-ANO BASIS SETS                       
+ ... PASSED ... 
+TEST.033 HNC    RHF/3-21G              TS SEARCH: HCN ISOMERIZATION PART A      
+ ... PASSED ... 
+TEST.034 HNC    RHF/3-21G              TS SEARCH: HCN ISOMERIZATION PART B      
+ ... PASSED ... 
+TEST.035 N2     RHF-MP2/DZP            ENERGY CALCULATION WITH DROPPED ORBITALS 
+ difference found in MP2_ENERGY           of   0.80E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.80E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.036 H2O    HF/6-31G*              OPT_MAXCYC and % cards                   
+ ... PASSED ... 
+TEST.037 H2O    HF/6-31G*              restart of a geometry optimization       
+ ... PASSED ... 
+TEST.038 H2O    RHF-CCSD/DZP           ENERGY (AOBASED)                         
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.039 H2O    RHF-CCSD/DZP           ENERGY (MOBASED)                         
+ difference found in MP2_ENERGY           of   0.31E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.040 NH2    UHF-CCSD/DZP           ENERGY (AOBASED)                         
+ difference found in MP2_ENERGY           of   0.29E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.25E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.041 NH2    ROHF/DZP               ENERGY (AOBASED)                         
+ difference found in CORRELATION_ENERGY   of   0.24E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.042 NH2    ROHF-CCSD/DZP          ENERGY (MOBASED)                         
+ difference found in CORRELATION_ENERGY   of   0.24E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.043 H2O    ROHF-CCSD/DZP          gradients semicanonical orbitals         
+ difference found in CORRELATION_ENERGY   of   0.39E-03 ref  0.10E-09
+ difference found in DIPOL                of   0.17E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.044 H2O    ROHF-CCSD/DZP          gradients, STANDARD ORBITALS  MOBASIS    
+ difference found in CORRELATION_ENERGY   of   0.39E-03 ref  0.10E-09
+ difference found in DIPOL                of   0.17E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.045 H2O    ROHF-CCSD              GEOMETRY (SEMICANONICAL, AOBASIS)        
+ difference found in CORRELATION_ENERGY   of   0.39E-03 ref  0.10E-09
+ difference found in DIPOL                of   0.17E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.046 H2O    ROHF-CCSD/DZP          GEOMETRY, (STANDARD ORB., AOBASIS)       
+ difference found in CORRELATION_ENERGY   of   0.39E-03 ref  0.10E-09
+ difference found in DIPOL                of   0.17E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.047 HI     RHF-CCSD(T)/CLARKSEN   ENERGY, ECP                              
+ difference found in MP2_ENERGY           of   0.34E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.048 CH3F   RHF-MP2/dz(p)          GIAO-NMR SHIFTS                          
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.68E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.049 CH3F   MP2/dz(p)              GIAO NMR shifts, FULL MO BASED           
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.68E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.050 CH3F   MP3/dz(p)              GIAO-NMR SHIELDINGS                      
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.71E-04 ref  0.10E-09
+ difference found in NMR_SHIELDINGS       of   0.30E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.30E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.17E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.20E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.051 CH3F   SDQ-MP4/dz(p)          GIAO NMR SHIELDINGS                      
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.66E-04 ref  0.10E-09
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.10E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.052 CH3F   SDQ-MP4/dz(p)          GIAO NMR SHIELDINGS (AOBASED)            
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.66E-04 ref  0.10E-09
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.10E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.053 CH3F   SDQ-MP4/dz(p)          GIAO NMR SGIELDINGS                      
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.71E-04 ref  0.10E-09
+ difference found in NMR_SHIELDINGS       of   0.10E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.40E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.40E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.12E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.93E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.10E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.20E-01 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.054 CH3F   RHF-CCD/dz(p)          GIAO NMR SHIELDINGS                      
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.055 CH3F   RHF-QCISD/dz(p)        GIAO NMR SHIELDINGS                      
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.056 CH3F   RHF-CCSD/dz(p)         GIAO NMR SHIELDINGS                      
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.057 CH3F   GIAO-CCSD/dz(p)        NMR (AOBASIS)                            
+ difference found in MP2_ENERGY           of   0.68E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.058 CH2O   CCSD(T)/qz2p           NMR shifts (MOBASED)                     
+ difference found in MP2_ENERGY           of   0.17E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.059 CH2O   CCSD(T)/qz2p           GIAO NMR shifts (AOBASED)                
+ difference found in MP2_ENERGY           of   0.17E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.060 HF     UHF-CCSD/dzp           FC contribution                          
+ difference found in MP2_ENERGY           of   0.30E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.16E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.061 HF     UHF-CCSD/dzp           FC contribution (UNRELAXED)              
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.062 HF     UHF-CCSD/dzp           FC contribution to J                     
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.063 HF     RHF-CCSD/dzp           J_SD                                     
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.064 HF     CCSD/dzp               J_SD (UNRELAXED)                         
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.065 HF     CCSD/dzp               J_SD (UNRELAXED, AOBASIS)                
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.066 HF     CCSD/dzp               J_SD (UNRELAXED, AOBASIS)                
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.067 HF     CCSD/dzp               J_SO (MOBASED)                           
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.068 HF     CCSD/dzp               J_SO (UNRELAXED, MOBASED)                
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.069 HF     CCSD/dzp               J_SO (AOBASED)                           
+ difference found in MP2_ENERGY           of   0.30E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.070 HF     CCSD/dzp               J_SO (UNRELAXED, AOBASED)                
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.071 NH2    MP2/dz(p)              POLARIZABILITIES                         
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.87E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.50E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.34E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.22E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.072 NH2    UHF-MP3/dz(p)          POLARIZABILITIES                         
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.56E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.47E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.36E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.43E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.073 NH2    SDQ-MBPT(4)            POLARIZABILITIES                         
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.54E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.44E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.36E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.39E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.074 NH2    CCD/dz(p)              POLARIZABILITIES                         
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.51E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.44E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.38E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.38E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.075 NH2    RHF-QCISD/dz(p)        POLARIZABILITIES                         
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.53E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.43E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.35E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.46E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.076 NH2    CCSD                   static polarizabilities                  
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.53E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.43E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.40E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.49E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.077 NH2    CCSD/dz(p)             static polarizabilities (AOBASED)        
+ difference found in MP2_ENERGY           of   0.87E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.53E-03 ref  0.10E-09
+ difference found in POLARIZABILITIES     of   0.43E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.40E-02 ref  0.10E-03
+ difference found in POLARIZABILITIES     of   0.49E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.078 Ni     SCF/ECP                ENERGY                                   
+ ... PASSED ... 
+TEST.079 CH+    TD-HF/OLSEN            FREQUENCY-DEP. POLARIZABILITIES USING    
+ ... PASSED ... 
+TEST.080 CH+    CCSD/OLSEN             STATIC POLARIZABILITIES USING CCLR       
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.081 CH+    CCSD/OLSEN             STATIC POLARIZABILITIES USING CCLR       
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.082 CH+    CCSD/OLSEN             FREQUENCY-DEP. POLARIZABILITIES CCLR     
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.083 CH+    CCSD/OLSEN             FREQUENCY-DEP. POLARIZABILITIES CCLR     
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.084 CH+    RHF-CCSD/OLSEN         STATIC POLARIZABILITIES USING CCLR       
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.085 CH+    RHF-CCSD/OLSEN         FREQUENCY-DEP. POLARIZABILITIES (CCLR)   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.086 CH+    RHF-CCSD/OLSEN         FREQUENCY-DEP. POLARIZABILITIES (CCLR)   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.087 CH+    RHF-CCSD/OLSEN         FREQUENCY-DEP. POLARIZABILITIES (CCLR)   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.088 H2O    EOMIP-CCSD/DZ          EXCITATTION ENERGY                       
+ difference found in MP2_ENERGY           of   0.98E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.089 H2O    EOMIP-MP2/DZ           EXCITATION ENERGY                        
+ difference found in MP2_ENERGY           of   0.98E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.98E-03 ref  0.10E-09
+ difference found in TOTAL_ENERGY         of   0.98E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.090 H2O    EOMIP-CCSD/DZ          GEOMETRTY OPTIMIZATION                   
+ difference found in ROTCONST             of   0.12E-08 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.82E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.091 H2O    EOMIP-CCSD(2)/DZ       ENERGY                                   
+ difference found in MP2_ENERGY           of   0.78E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.78E-03 ref  0.10E-09
+ difference found in TOTAL_ENERGY         of   0.78E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.092 H2O    EOMEE-CCSD/DZP         ENERGY                                   
+ difference found in MP2_ENERGY           of   0.17E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.093 H2O    EOMEE-CCSD/DZP         ENERGY                                   
+ difference found in MP2_ENERGY           of   0.17E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.17E-02 ref  0.10E-09
+ difference found in TOTAL_ENERGY         of   0.17E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.094 H2O    CIS/DZP                ENERGY                                   
+ ... PASSED ... 
+TEST.095 H2O    EOMEE-CC2/DZP          EXCITATION-ENERGY                        
+ difference found in MP2_ENERGY           of   0.17E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.096 H2O    RHF-CCSD/DZP           EOMEE GEOMETRY OPTIMIZATION              
+ difference found in MP2_ENERGY           of   0.37E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.097 H2O    RHF-MP2/DZP            EOMEE GEOMETRY OPTIMIZATION              
+ difference found in GEOMETRY             of   0.26E-04 ref  0.10E-09
+ difference found in GEOMETRY             of   0.26E-04 ref  0.10E-09
+ difference found in ROTCONST             of   0.11E-03 ref  0.10E-09
+ difference found in ROTCONST             of   0.11E-03 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.79E-05 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.37E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.37E-02 ref  0.10E-09
+ difference found in TOTAL_ENERGY         of   0.37E-02 ref  0.10E-09
+ difference found in THETA                of   0.20E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.098 H2O    RHF-MP2/DZP            CIS GEOMETRY OPTIMIZATION                
+ ... PASSED ... 
+TEST.099 H2O    RHF-CC2/DZP            EOMEE GEOMETRY OPTIMIZATION              
+ difference found in MP2_ENERGY           of   0.37E-02 ref  0.10E-09
+ difference found in THETA                of   0.14E+01 ref  0.10E-03
+ difference found in THETA                of   0.14E+01 ref  0.10E-03
+ difference found in EFG                  of   0.48E+01 ref  0.10E-03
+ difference found in EFG                  of   0.48E+01 ref  0.10E-03
+ difference found in EFG                  of   0.34E-01 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.100 H2O    RHF-CCSD/DZP           HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.101 H2O    RHF-CCSD/DZP           HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.13E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.102 H2O    RHF-CCSD(T)/DZP        HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.103 H2O    RHF-CCSD(T)/DZP        HARMONIC FREQUENCIES (AOBASED)           
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.104 H2O    RHF-CCSD(T)/DZP        HARMONIC FREQUENCIES (FINDIF)            
+ difference found in MP2_ENERGY           of   0.57E-05 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.105 NH2    UHF-CCSD/DZP           HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.30E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.26E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.12E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.23E+00 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.78E-06 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.106 NH2    UHF-CCSD/DZP           HARMONIC FREQUENCIES (AOBASED)           
+ difference found in MP2_ENERGY           of   0.47E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.27E-03 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.39E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.20E+01 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.20E+01 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.83E-05 ref  0.10E-08
+ difference found in DIPOL                of   0.18E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.107 NH2    UHF-CCSD/DZP           HARMONIC FREQUENCIES (FINDIF)            
+ difference found in MP2_ENERGY           of   0.22E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.25E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.18E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.19E+01 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.49E-05 ref  0.10E-08
+ difference found in DIPOL                of   0.30E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.108 NH2    CCSD(T)/DZP            HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.30E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.26E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.17E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.43E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.39E+00 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.23E-05 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.109 NH2    UHF-CCSD(T)/DZP        HARMONIC FREQUENCIES (AOBASED)           
+ difference found in MP2_ENERGY           of   0.30E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.26E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.17E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.43E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.39E+00 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.23E-05 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.110 NH2    CCSD(T)/DZP            HARMONIC FREQUENCIES (FINDIF)            
+ difference found in MP2_ENERGY           of   0.22E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.30E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.14E+01 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.27E+00 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.18E+02 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.46E-04 ref  0.10E-08
+ difference found in DIPOL                of   0.50E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.111 CH+    RHF-CCSD/OLSEN         ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.112 CH+    RHF-CCSD(T)/OLSEN      ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.113 H2O    RHF-CCSDT-1/DZ(P)      GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.114 CH+    RHF-CCSDT-1b/OLSEN     ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.115 CH+    RHF-CCSDT-2/OLSEN      ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.116 H2O    RHF-CCSDT-3/DZ(P)      GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.117 H2O    RHF-CC3/DZ(P)          ENERGY                                   
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.118 H2O    RHF-CC2/DZ(P)          NMR                                      
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.119 NH2    UHF-CCSD/3-21G         NMR (NMR_SWITCH)                         
+ difference found in MP2_ENERGY           of   0.85E-03 ref  0.10E-12
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-12
+ difference found in NMR_SHIELDINGS       of   0.41E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.76E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.30E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.33E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.59E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.33E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.59E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in MAGNETIZABILITY      of   0.40E-02 ref  0.10E-02
+ difference found in ROTGTENSOR           of   0.70E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.120 CH+    RHF-CCSD/OLSEN         ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.121 H2O    RHF-CCSD(T)/DZ(P)      GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.122 H2O    RHF-CCSDT-1/DZ(P)      HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.123 CH+    RHF-CCSDT-1b/OLSEN     ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.124 H2O    RHF-CCSDT-2/DZ(P)      GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.125 H2O    RHF-CCSDT-3/DZ(P)      HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.126 CH+    RHF-CCSDT/OLSEN        ENERGY (ECC)                             
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.127 N2     RHF-CC2/dzp            PROP=SECOND_ORDER,DIFF=UNRELAXED         
+ difference found in MP2_ENERGY           of   0.14E-02 ref  0.10E-06
+ ... DIFFERED ... 
+TEST.128 H2O    RHF-CC3/3-21G          NMR (CONVENTIONAL)                       
+ difference found in MP2_ENERGY           of   0.23E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.129 H2O    RHF-CCSD/DZ(P)         GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.130 H2O    RHF-CCSD(T)/DZ(P)      ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.131 H2O    RHF-CCSDT-1/DZ(P)      HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.132 H2O    RHF-CCSDT-1b/DZ(P)     GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.133 H2O    RHF-CCSDT-2/DZ(P)      ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.134 H2O    RHF-CCSDT-3/DZ(P)      GIAO-NMR                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.135 CH+    RHF-CCSDT/OLSEN        ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.136 NH2    UHF-CCSD/3-21G         conventional NMR chemical shifts         
+ difference found in MP2_ENERGY           of   0.85E-03 ref  0.10E-12
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-12
+ difference found in NMR_SHIELDINGS       of   0.69E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.80E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.27E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.14E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.57E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.23E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.40E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.14E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.57E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.23E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.40E-02 ref  0.10E-02
+ difference found in MAGNETIZABILITY      of   0.30E-02 ref  0.10E-02
+ difference found in ROTGTENSOR           of   0.60E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.137 H2O    CC3/3-21G              conventional NMR (UNRELAXED)             
+ difference found in MP2_ENERGY           of   0.23E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.138 H2O    RHF-CCSD/DZ(P)         ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.139 H2O    RHF-CCSD(T)/DZ(P)      GIAO-NMR                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.140 HF     CCSDT-1/DZ(P)          conventional NMR                         
+ difference found in MP2_ENERGY           of   0.28E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.141 H2O    RHF-CCSDT-1b/DZ(P)     GEOMETRY                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.142 H2O    RHF-CCSDT-2/DZ(P)      GIAO NMR                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.143 CH+    RHF-CC3/OLSEN          ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.144 CH+    RHF-CCSDT/OLSEN        ENERGY                                   
+ difference found in MP2_ENERGY           of   0.92E-05 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.145 NH2    UHF-CCSD/3-21G         CONVENTIONAL NMR via NMR_SWITCH          
+ difference found in MP2_ENERGY           of   0.85E-03 ref  0.10E-12
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-12
+ difference found in NMR_SHIELDINGS       of   0.48E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.82E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.34E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.13E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.57E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.22E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.40E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.13E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.57E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.22E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.40E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.147 H2O    RHF-CCSD/DZ(P)         GIAO NMR                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.148 CH+    RHF-CCSDT-1/OLSEN      ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.149 HF     RHF-CCSDT-1/DZ(P)      GIAO NMR                                 
+ difference found in MP2_ENERGY           of   0.28E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.150 H2O    RHF-CCSDT-1b/DZ(P)     GEOMETRY OPTIMIZATION                    
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.151 CH+    RHF-CCSDT-3/OLSEN      ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.152 H2O    RHF-CC3/DZ(P)          GEOMETRY                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.153 H2O    RHF-CC2/DZ(P)          GEOMETRY                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.154 NH2    UHF-CCSD/3-21G         conventional NMR (UNRELAXED)             
+ difference found in MP2_ENERGY           of   0.85E-03 ref  0.10E-12
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-12
+ difference found in NMR_SHIELDINGS       of   0.41E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.76E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.30E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.33E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.59E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.33E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.59E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in MAGNETIZABILITY      of   0.40E-02 ref  0.10E-02
+ difference found in ROTGTENSOR           of   0.70E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.156 CH+    CCSD(T)/OLSEN          ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.157 CH+    CCSDT-1/OLSEN          ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.158 H2O    CCSDT-1/DZ(P)          GIAO NMR                                 
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.159 CH+    CCSDT-2/OLSEN          ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.160 CH+    CCSDT-3/OLSEN          ENERGY                                   
+ difference found in MP2_ENERGY           of   0.11E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.161 H2O    RHF-CC3/DZ(P)          HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.162 H2O    CC2/DZ(P)              HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.19E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.163 NH2    UHF-CCSD/3-21G         NMR (UNRELAXED)                          
+ difference found in MP2_ENERGY           of   0.85E-03 ref  0.10E-12
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-12
+ difference found in NMR_SHIELDINGS       of   0.41E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.76E+00 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.30E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.33E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.59E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.33E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.59E-01 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.90E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.60E-02 ref  0.10E-02
+ difference found in NMR_SHIELDINGS       of   0.50E-02 ref  0.10E-02
+ ... DIFFERED ... 
+TEST.165 CN     PSA-CCSD/cc-pVTZ       ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.21E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.166 CN     SR-CCSD/cc-pVTZ        ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.22E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.167 CN     SA-CISD/cc-pVTZ        ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.12E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.168 O2     PSA-CCSD/cc-pVTZ       ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.16E-03 ref  0.10E-06
+ ... DIFFERED ... 
+TEST.169 O2     SR-CCSD/cc-pVTZ        ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.16E-03 ref  0.10E-06
+ ... DIFFERED ... 
+TEST.170 CN     SR-CCSD/DZ             GEOMETRY OPTIMIZATION                    
+ difference found in GEOMETRY             of   0.92E-05 ref  0.10E-09
+ difference found in GEOMETRY             of   0.79E-05 ref  0.10E-09
+ difference found in ROTCONST             of   0.27E-04 ref  0.10E-09
+ difference found in ROTCONST             of   0.27E-04 ref  0.10E-09
+ difference found in REFERENCE_ENERGY     of   0.19E-05 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.12E-02 ref  0.10E-09
+ difference found in DIPOL                of   0.28E-01 ref  0.10E-03
+ difference found in THETA                of   0.11E-02 ref  0.10E-03
+ difference found in THETA                of   0.43E-02 ref  0.10E-03
+ difference found in THETA                of   0.31E-02 ref  0.10E-03
+ difference found in EFG                  of   0.50E-03 ref  0.10E-03
+ difference found in EFG                  of   0.42E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.172 NH2    ROHF-CCD/3-21G         ENERGY with optimized orbitals           
+ difference found in REFERENCE_ENERGY     of   0.83E-05 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.89E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.63E-03 ref  0.10E-09
+ difference found in DIPOL                of   0.20E-02 ref  0.10E-03
+ difference found in THETA                of   0.18E-02 ref  0.10E-03
+ difference found in THETA                of   0.16E-02 ref  0.10E-03
+ difference found in THETA                of   0.20E-03 ref  0.10E-03
+ difference found in EFG                  of   0.20E-03 ref  0.10E-03
+ difference found in EFG                  of   0.20E-03 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.176 HE     RHF-CCSD/PVTZ          ENERGY                                   
+ ... PASSED ... 
+TEST.177 HE     RHF-CCSD/PVQZ          ENERGY                                   
+ ... PASSED ... 
+TEST.178 HE     RHF-CCSD/PV5Z          ENERGY                                   
+ ... PASSED ... 
+TEST.179 HE     RHF-CCSD/PV6Z          ENERGY                                   
+ ... PASSED ... 
+TEST.180 C      ROHF-FC-CCSD/PVDZ      ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.56E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.181 C      ROHF-FC-CCSD/PVTZ      ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.58E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.182 C      ROHF-FC-CCSD/PVQZ      ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.43E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.183 C      ROHF-FC-CCSD/PV5Z      ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.25E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.184 C      ROHF-FC-CCSD/PV6Z      ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.78E-08 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.185 HI     CCSD(T)/CALRKSEN       ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.57E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.186 HI     CCSD(T)/CLARKSON       NUMERICAL 2ND DERIVATIVES                
+ difference found in MP2_ENERGY           of   0.34E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.187 HI     SO-CCSD(T)             GEOMETRY                                 
+ difference found in MP2_ENERGY           of   0.23E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.23E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.188 H2S    RHF/aug-cc-pVDZ        PROP=MAGNETIC                            
+ ... PASSED ... 
+TEST.189 H2S    RHF-CCSD/dzp           PROP=MAGNETIC                            
+ difference found in MP2_ENERGY           of   0.20E-03 ref  0.10E-12
+ ... DIFFERED ... 
+TEST.190 H2O    RHF/cc-pVTZ            DBOC                                     
+ ... PASSED ... 
+TEST.191 CH     RHF/aug-cc-pVTZ        RPA/TDHF FREQ. DEP. POL.                 
+ ... PASSED ... 
+TEST.192 CH+    CCSD/aug-cc-pVTZ       FREQ. DEP. POL. (CCSD-LR)                
+ difference found in MP2_ENERGY           of   0.22E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.193 CH+    CC3/aug-cc-pVTZ        FREQ. DEP. POL. (CCSD-LR)                
+ difference found in MP2_ENERGY           of   0.22E-04 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.194 NI     RHF/ECP-10-MDF         ENERGY                                   
+ ... PASSED ... 
+TEST.197 CN     PSA-CCSD/PVTZ          ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.21E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.198 CN     SR-CCSD/PVTZ           ENERGY                                   
+ difference found in CORRELATION_ENERGY   of   0.22E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.199 CF2    TCSCF/6-31G*           ENERGY                                   
+ ... PASSED ... 
+TEST.200 H2O    UCC(4)/qz2p            ENERGY (AOBASED)                         
+ difference found in MP2_ENERGY           of   0.72E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.201 H2O    EOM-CCSDT/3-21G        PROP=EXCITATION                          
+ difference found in MP2_ENERGY           of   0.23E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.202 CO     EOM-CCSDT/3-21G        GEOMETRY OPTIMIZATION                    
+ difference found in ROTCONST             of   0.30E-09 ref  0.10E-09
+ difference found in ROTCONST             of   0.30E-09 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.61E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.203 H2O    EOMIP-CCSD/tzp         ENERGY                                   
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.204 H2O    EOMIP-CCSD/tzp         ENERGIES                                 
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.205 H2O    EOMIP-CCSD(2)/tzp      ENERGIES                                 
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.12E-02 ref  0.10E-09
+ difference found in TOTAL_ENERGY         of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.206 HF     HF-SCF/AUG-PVTZ        ENERGY ZFIELD=10000                      
+ ... PASSED ... 
+TEST.207 HF     HF-SCF/AUG-PVTZ        ENERGY ZFIELD=10000,YFIELD=10000         
+ ... PASSED ... 
+TEST.208 HF     CCSD/AUG-PVTZ          ENERGY ZFIELD=10000                      
+ difference found in MP2_ENERGY           of   0.61E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.208 HF     CCSD/AUG-PVTZ          ENERGY ZFIELD=10000 (UNRELAXED)          
+ difference found in MP2_ENERGY           of   0.46E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.210 H2O    HF-SCF/dzp             FC perturbation                          
+ ... PASSED ... 
+TEST.211 H2O    HF-SCF/dzp             FC perturbations                         
+ ... PASSED ... 
+TEST.212 H2O    UHF-CCSD/dzp           FC perturbations                         
+ difference found in MP2_ENERGY           of   0.50E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.32E-03 ref  0.10E-06
+ ... DIFFERED ... 
+TEST.213 H2O    UHF-CCSD/dzp           FC perturbations                         
+ difference found in MP2_ENERGY           of   0.50E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.32E-03 ref  0.10E-06
+ ... DIFFERED ... 
+TEST.214 NH     UHF/AUG-PVTZ           PROP=G_TENSOR,GIAO=OFF                   
+ ... PASSED ... 
+TEST.215 NH     UHF/AUG-PVTZ           PROP=G_TENSOR,GIAO=ON                    
+ ... PASSED ... 
+TEST.216 N2     HF-SCF/PVTZ            HF STABILITY CLOSED-SHELL                
+ ... PASSED ... 
+TEST.217 N2     HF-SCF/PVTZ            HFSTABILITY=FOLLOW                       
+ ... PASSED ... 
+TEST.218 N2     UHF-CCSD/cc-pVTZ       HFSTABILITY=FOLLOW                       
+ difference found in MP2_ENERGY           of   0.20E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.19E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.219 HF     UHF-CCSD/dzp           J_FC (UNRELAXED)                         
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.220 HF     RHF-CCSD/dzp           J_SD (UNRELAXED)                         
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.59E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.221 HF     RHF-CCSD/dzp           J_SO: J_DSO and J_PSO                    
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.222 H2O    LMP2/cc-pVDZ           POLARIZABILITIES                         
+ difference found in MP2_ENERGY           of   0.72E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.223 H2O2   RHF-CCSD/cc-pVDZ       HARMONIC FREQUENCIES (%masses)           
+ difference found in MP2_ENERGY           of   0.37E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.224 H2O2   RHF-CCSD/cc-pVDZ       HARMONIC FREQUENCIES (%isotopes)         
+ difference found in MP2_ENERGY           of   0.37E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.225 H2O2   RHF/cc-pVTZ            PROP=FIRST_ORDER                         
+ ... PASSED ... 
+TEST.226 H2O2   RHF-MP2/cc-pVTZ        PROP=FIRST_ORDER                         
+ difference found in MP2_ENERGY           of   0.21E-03 ref  0.10E-11
+ difference found in CORRELATION_ENERGY   of   0.21E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.227 H2O2   RHF-CCSD/cc-pVTZ       PROP=FIRST_ORDER (UNRELAXED)             
+ difference found in MP2_ENERGY           of   0.21E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.228 H2O2   RHF-CCSD(T)/cc-pVTZ    PROP=FIRST_ORDER                         
+ difference found in MP2_ENERGY           of   0.21E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.230 HF     HF/tzp                 NMR SHIELDINGS                           
+ ... PASSED ... 
+TEST.231 HCL    Calculation of nuclear spin-rotation constants at CCSD(T) level 
+ difference found in MP2_ENERGY           of   0.11E-03 ref  0.10E-13
+ ... DIFFERED ... 
+TEST.232 H2O2   RHF/PVDZ               HARMONIC FREQUENCIES                     
+ ... PASSED ... 
+TEST.233 HO2    UHF/PVDZ               HARMONIC FREQUENCIES                     
+ ... PASSED ... 
+TEST.234 H2O2   RHF-MP2/PVDZ           HARMONIC FREQUENCIES                     
+ difference found in MP2_ENERGY           of   0.36E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.36E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.235 H2O2   RHF/cc-pVDZ            ANALYTIC 2ND DERIVATIVES                 
+ ... PASSED ... 
+TEST.236 H2O2   RHF-CCSD/PVDZ          ANALYTIC 2ND DERIVATIVES (MOBASED)       
+ difference found in MP2_ENERGY           of   0.37E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.237 H2O2   RHF-CCSD/PVDZ          ANALYTIC 2ND DERIVATIVES (AOBASIS)       
+ difference found in MP2_ENERGY           of   0.37E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.238 H2O2   RHF-CCSD(T)            ANALYTIC 2ND DERIVATIVES                 
+ difference found in MP2_ENERGY           of   0.37E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.239 H3CF   HF/DZP                 VPT2                                     
+ ... PASSED ... 
+TEST.240 NH3    RHF/DZP                VPT2                                     
+ ... PASSED ... 
+TEST.241 H2O    RHF/DZP                VPT2                                     
+ ... PASSED ... 
+TEST.242 H2O    RHF-MP2/ANO0           VPT2                                     
+ difference found in MP2_ENERGY           of   0.15E-02 ref  0.10E-07
+ difference found in CORRELATION_ENERGY   of   0.15E-02 ref  0.10E-07
+ ... DIFFERED ... 
+TEST.243 HCN    RHF/DZ                 VPT2                                     
+ ... PASSED ... 
+TEST.244 HCN    RHF/TZ2P               VPT2                                     
+ ... PASSED ... 
+TEST.245 H2CO   RHF/DZ                 VPT2                                     
+ ... PASSED ... 
+TEST.246 NH3    RHF-MP2/DZP            VPT2                                     
+ difference found in MP2_ENERGY           of   0.20E-04 ref  0.10E-07
+ difference found in CORRELATION_ENERGY   of   0.20E-04 ref  0.10E-07
+ ... DIFFERED ... 
+TEST.248 HF     SFX2c-1e-CCSD(T)/cc-pVTZ electrical properties                  
+ difference found in MP2_ENERGY           of   0.60E-04 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.249 HF     SFX2c-1e-CCSD(T)/cc-pVTZ geometry optimization                  
+ difference found in ROTCONST             of   0.15E-08 ref  0.10E-09
+ difference found in ROTCONST             of   0.15E-08 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.60E-04 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.251 HCL    fc-CCSD(T)/cc-pVTZ    Geometry optimization with 5 core orbitals
+ difference found in GEOMETRY             of   0.37E-08 ref  0.10E-09
+ difference found in ROTCONST             of   0.34E-07 ref  0.10E-09
+ difference found in ROTCONST             of   0.34E-07 ref  0.10E-09
+ difference found in MP2_ENERGY           of   0.16E-03 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.252 HCL    SFX2C-1e Frozen-core gradients                                  
+ difference found in MP2_ENERGY           of   0.36E-04 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.253 HCL    SFX2c-1e frozen-core electrical properties                      
+ difference found in MP2_ENERGY           of   0.34E-04 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.257 HCl    frozen core gradient fcgradnew=on                               
+ difference found in MP2_ENERGY           of   0.33E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.258 HCl    frozen core gradient fcgradnew=new                              
+ difference found in MP2_ENERGY           of   0.33E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.259 HCL    EOMCC gradient FCGRADNEW=OFF ABCD=MOBASIS                       
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.260 HCL    EOMCC GRADIENT FCGRADNEW=ON ABCD=MOBASIS                        
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.261 HCL    EOMCC GRADIENT FCGRADNEW=NEW ABCD=MOBASIS                       
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.262 HCL    EOMCC GRADIENT FCGRADNEW=OFF ABCD=AOBASIS                       
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.263 HCL    EOMCC GRADIENT FCGRADNEW=ON ABCD=AOBASIS                        
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.264 HCL    EOMCC GRADIENT FCGRADNEW=NEW ABCD=AOBASIS                       
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.265 HCL    EOMCC GRADIENT FCGRADNEW=OFF NONTOTALLY SYMMETRIC EXCITATION    
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.266 HCL    RHF-EOM-CCSD/PVDZ      GEOMETRY FCGRADNEW=ON NONTOTALLY SYMMETRI
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.267 HCL    RHF-EOM-CCSD/PVDZ      GEOMETRY FCGRADNEW=NEW NONTOTALLY SYMMETR
+ difference found in MP2_ENERGY           of   0.12E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.268 CH2    TCSCF/6-31G*           GEOMETRY OPTIMIZATION                    
+ ... PASSED ... 
+TEST.269 MgO    TCSCF/6-31G*           GEOMETRY OPTIMIZATION                    
+ ... PASSED ... 
+TEST.270 CH2    ROHF/6-31G*            GEOMETRY OPTIMIZATION                    
+ ... PASSED ... 
+TEST.271 CH2    TCSCF/6-31G*           ANALYTIC 2ND DERIVATIVES                 
+ ... PASSED ... 
+TEST.272 MgO    TCSCF/6-31G*           ANALYTIC 2ND DERIVATIVES                 
+ ... PASSED ... 
+TEST.273 CH2    TCSCF-MkMRCCSD/6-31G*  GEOMETRY OPTIMIZATION                    
+ ... PASSED ... 
+TEST.274 CH2    ROHF-MkMRCCSD/6-31G*   GEOMETRY OPTIMIZATION                    
+forrtl: severe (174): SIGSEGV, segmentation fault occurred
+Image              PC                Routine            Line        Source             
+xlcc               0000000000A91D59  Unknown               Unknown  Unknown
+xlcc               0000000000A906D0  Unknown               Unknown  Unknown
+xlcc               0000000000A4E3D2  Unknown               Unknown  Unknown
+xlcc               0000000000A02F28  Unknown               Unknown  Unknown
+xlcc               0000000000A0902B  Unknown               Unknown  Unknown
+libpthread.so.0    00007F6B99A317E0  Unknown               Unknown  Unknown
+xlcc               0000000000412D74  Unknown               Unknown  Unknown
+xlcc               0000000000468184  Unknown               Unknown  Unknown
+xlcc               000000000045C7C0  Unknown               Unknown  Unknown
+xlcc               000000000040E936  Unknown               Unknown  Unknown
+libc.so.6          00007F6B98F09D5D  Unknown               Unknown  Unknown
+xlcc               000000000040E829  Unknown               Unknown  Unknown
+ ... FAILED ... 
+TEST.275 CH2    TCSCF-MkMRCCSDT/6-31G* GEOMETRY OPTIMIZATION                    
+ ... PASSED ... 
+TEST.276 CH2    RHF-MkMRCCSD/6-31G*    ENERGY (FROZEN CORE)                     
+ ... PASSED ... 
+TEST.277 MgO    TCSCF-MkMRCCSD/3-21G   GEOMETRY OPTIMIZATION                    
+ ... PASSED ... 
+TEST.278 HCL+   UHF-CCSD(T)            GRADIENT FCGRADNEW=OFF                   
+ difference found in MP2_ENERGY           of   0.53E-03 ref  0.10E-10
+ difference found in CORRELATION_ENERGY   of   0.49E-03 ref  0.10E-10
+ difference found in DIPOL                of   0.20E-03 ref  0.10E-03
+ difference found in THETA                of   0.12E-02 ref  0.10E-03
+ difference found in THETA                of   0.15E-02 ref  0.10E-03
+ difference found in THETA                of   0.28E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.279 HCL+   UHF-CCSD(T)            GRADIENT FCGRADNEW=ON                    
+ difference found in MP2_ENERGY           of   0.53E-03 ref  0.10E-10
+ difference found in CORRELATION_ENERGY   of   0.49E-03 ref  0.10E-10
+ difference found in DIPOL                of   0.20E-03 ref  0.10E-03
+ difference found in THETA                of   0.12E-02 ref  0.10E-03
+ difference found in THETA                of   0.15E-02 ref  0.10E-03
+ difference found in THETA                of   0.28E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.280 HCL+   ROHF-CCSD(T)           GRADIENT FCGRADNEW=OFF                   
+ difference found in CORRELATION_ENERGY   of   0.49E-03 ref  0.10E-10
+ difference found in THETA                of   0.10E-02 ref  0.10E-03
+ difference found in THETA                of   0.15E-02 ref  0.10E-03
+ difference found in THETA                of   0.26E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.281 HCL+   ROHF-CCSD(T)           GRADIENT FCGRADNEW=ON                    
+ difference found in CORRELATION_ENERGY   of   0.49E-03 ref  0.10E-10
+ difference found in THETA                of   0.10E-02 ref  0.10E-03
+ difference found in THETA                of   0.15E-02 ref  0.10E-03
+ difference found in THETA                of   0.26E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.282 HCL+   ROHF-CCSD(T)           GRADIENT FCGRADNEW=OFF AOBASIS           
+ difference found in CORRELATION_ENERGY   of   0.49E-03 ref  0.10E-10
+ difference found in THETA                of   0.10E-02 ref  0.10E-03
+ difference found in THETA                of   0.15E-02 ref  0.10E-03
+ difference found in THETA                of   0.26E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.283 HCL+   ROHF-CCSD(T)           GEOMETRY FCGRADNEW=ON AOBASIS            
+ difference found in CORRELATION_ENERGY   of   0.49E-03 ref  0.10E-10
+ difference found in THETA                of   0.10E-02 ref  0.10E-03
+ difference found in THETA                of   0.15E-02 ref  0.10E-03
+ difference found in THETA                of   0.26E-02 ref  0.10E-03
+ ... DIFFERED ... 
+TEST.284 HCL    HF/3-21G(unc)          DPT2 energy                              
+ ... PASSED ... 
+TEST.285 HCL    HF/3-21G(unc)          DPT4 energy                              
+ ... PASSED ... 
+TEST.286 HCL    RHF/3-21G(unc)         SF-DPT4 energy                           
+ ... PASSED ... 
+TEST.287 HCL    RHF/3-21G(unc)         MVD1 energy                              
+ ... PASSED ... 
+TEST.288 H+     UHF/AUG-PVTZ           DBOC                                     
+ ... PASSED ... 
+TEST.289 H+     UHF-CCSD/AUG-PVTZ      DBOC                                     
+ ... PASSED ... 
+TEST.290 H      UHF/AUG-PVTZ           DBOC                                     
+ ... PASSED ... 
+TEST.291 H      ROHF/AUG-PVTZ          DBOC                                     
+ ... PASSED ... 
+TEST.292 H      UHF-CCSD/AUG-PVTZ      DBOC                                     
+ ... PASSED ... 
+TEST.293 LI     UHF/AUG-PCVTZ          DBOC                                     
+ ... PASSED ... 
+TEST.294 LI     ROHF/AUG-PCVTZ         DBOC                                     
+ ... PASSED ... 
+TEST.295 LI     UHF-CCSD/AUG-PCVTZ     DBOC                                     
+ difference found in MP2_ENERGY           of   0.25E-07 ref  0.10E-10
+ difference found in CORRELATION_ENERGY   of   0.37E-07 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.296 LI     UHF-CCSD/AUG-PCVTZ     DBOC      VCC AOBASIS                    
+ difference found in MP2_ENERGY           of   0.25E-07 ref  0.10E-10
+ difference found in CORRELATION_ENERGY   of   0.37E-07 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.297 LI     UHF-CCSD/AUG-PCVTZ     DBOC      ECC AOBASIS                    
+ difference found in MP2_ENERGY           of   0.25E-07 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.298 H2     RHF-CCSD/AUG-PCVTZ     DBOC      VCC MOBASIS                    
+ ... PASSED ... 
+TEST.299 H2     RHF-CCSD/AUG-PCVTZ     DBOC      VCC AOBASIS                    
+ ... PASSED ... 
+TEST.299 H2     RHF-CCSD/AUG-PCVTZ     DBOC      ECC AOBASIS                    
+ ... PASSED ... 
+TEST.301 F2     RHF-CCSD/ANO0          DBOC      ECC AOBASIS                    
+ difference found in MP2_ENERGY           of   0.82E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.302 H2     RHF/AUG-PVTZ           DBOC      GEOMETRY OPTIMIZATION          
+ ... PASSED ... 
+TEST.308 H2O    RHF-CCSD/3-21G         VERDET CONSTANTS                         
+ difference found in MP2_ENERGY           of   0.23E-02 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.309 CH2    RHF/3-21G              RAMAN INTENSITY                          
+ ... PASSED ... 
+TEST.312 HI     SO-HF/DZP              GEOMETRY                                 
+ ... PASSED ... 
+TEST.313 H2O    RHF-CCSD/DZP    EOMEE DERIV. AO_LADDERS=2 (SPARSE_AO)           
+ difference found in MP2_ENERGY           of   0.26E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.314 H2O    ANALYTIC UHF-CCSD freq. calc. AO_LADDERS=2 (SPARSE_AO)          
+ difference found in MP2_ENERGY           of   0.32E-04 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.15E-04 ref  0.10E-09
+ difference found in HARMONIC_FREQUENCIES of   0.60E-01 ref  0.10E-01
+ difference found in HARMONIC_FREQUENCIES of   0.14E+00 ref  0.10E-01
+ difference found in HARMONIC_ZPE         of   0.52E-06 ref  0.10E-08
+ ... DIFFERED ... 
+TEST.315 H2O    RHF-CCSD/DZP  DERIV. CC_PROG=ECC, AO_LADDERS=2 (SPARSE_AO)      
+ difference found in MP2_ENERGY           of   0.26E-02 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.317 CH2    EOMEA-CCSD/STO-3G      GRADIENT WITH EOMEE (CONTINUUM)          
+ difference found in MP2_ENERGY           of   0.27E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.318 CH2    EOMEA-CCSD/STO-3G      GRADIENT                                 
+ difference found in MP2_ENERGY           of   0.27E-03 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.319 CH2    EOMEA-CCSD(2)/STO-3G   GRADIENT WITH EOMEE (CONTINUUM)          
+ difference found in MP2_ENERGY           of   0.27E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.27E-03 ref  0.10E-07
+ difference found in TOTAL_ENERGY         of   0.27E-03 ref  0.10E-07
+ ... DIFFERED ... 
+TEST.320 CH2    EOMEA-CCSD(2)/STO-3G   GRADIENT                                 
+ difference found in MP2_ENERGY           of   0.27E-03 ref  0.10E-09
+ difference found in CORRELATION_ENERGY   of   0.27E-03 ref  0.10E-07
+ difference found in TOTAL_ENERGY         of   0.27E-03 ref  0.10E-07
+ ... DIFFERED ... 
+TEST.321 H      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.322 H      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.323 H      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.324 H      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.325 C      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.12E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.326 C      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.25E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.327 C      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.17E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.328 C      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.82E-05 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.329 N      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.88E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.330 N      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.25E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.331 N      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.33E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.332 N      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.61E-05 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.333 O      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.27E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.334 O      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.95E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.335 O      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.78E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.336 O      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.50E-05 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.337 F      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.36E-03 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.338 F      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.82E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.339 F      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.72E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.340 F      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.20E-04 ref  0.10E-11
+ ... DIFFERED ... 
+TEST.341 F      ROHF-CCSD(T)/AUG-PVDZ  ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.342 F      ROHF-CCSD(T)/AUG-PVTZ  ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.343 F      ROHF-CCSD(T)/AUG-PVQZ  ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.344 F      ROHF-CCSD(T)/AUG-PV5Z  ENERGY (ECC, AOBASIS)                    
+ ... PASSED ... 
+TEST.345 NO2    EOMIP-CCSD/cc-pVDZ     EOM_NONIT=ON                             
+ difference found in MP2_ENERGY           of   0.44E-04 ref  0.10E-10
+ difference found in CORRELATION_ENERGY   of   0.93E-05 ref  0.10E-09
+ difference found in TOTAL_ENERGY         of   0.69E-05 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.346 NO2    EOMIP-CCSD/cc-pVDZ     EOM_NONIT=ON (CONTIUUM)                  
+ difference found in MP2_ENERGY           of   0.13E-01 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.347 CN     EOMIP-CCSDT/DZ         (CONTINUUM)                              
+ difference found in MP2_ENERGY           of   0.13E-02 ref  0.10E-06
+ ... DIFFERED ... 
+TEST.348 CN     EOMIP-CCSDT/DZ         EXCITATION ENERGY                        
+ difference found in MP2_ENERGY           of   0.36E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.349 C2     RHF-EOMDIP-CCSDT/PVDZ  EXCITATION ENERGY                        
+ difference found in MP2_ENERGY           of   0.14E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.350 C2     RHF-EOMDIP-CCSDT/PVDZ  EXCITATION ENERGY (NONSYM. ROOT)         
+ difference found in MP2_ENERGY           of   0.14E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.351 C2     RHF-EOMDIP-CCSDT/PVDZ  EXCITATION ENERGY (NONSTD. INPUT)        
+ difference found in MP2_ENERGY           of   0.14E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.352 CN     EOMIP-CCSDT/DZ         EXCITATION ENERGY (NONSYM. ROOT)         
+ difference found in MP2_ENERGY           of   0.36E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.353 CN     EOMIP-CCSDT/DZ         EXCITATION ENERGY (NONSTD. INPUT)        
+ difference found in MP2_ENERGY           of   0.36E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.354 H2O    CCSD/AUG-PVTZ          ENERGY (NCC, INCORE)                     
+ difference found in MP2_ENERGY           of   0.21E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.355 H2O    CCSD/AUG-PVTZ          ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.21E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.356 H2O    CCSD(T)/AUG-PVDZ       ENERGY (NCC, INCORE)                     
+ difference found in MP2_ENERGY           of   0.55E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.357 H2O    CCSD(T)/AUG-PVTZ       ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.21E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.358 H2O    CCSDT/DZ               ENERGY (NCC, INCORE)                     
+ difference found in MP2_ENERGY           of   0.92E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.359 HF     CCSDT/AUG-PVTZ         ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.67E-04 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.360 H2O    CC3/PVTZ               ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.12E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.361 H2O    CCSDT-1a/PVTZ          ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.12E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.362 H2O    CCSDT-1b/PVTZ          ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.12E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.363 H2O    CCSDT-2/PVTZ           ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.12E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.364 H2O    CCSDT-3/PVTZ           ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.12E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.365 H2O    CCSDT(Q)/PVDZ          ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.13E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.366 H2O    CCSDT[Q]/PVDZ          ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.13E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.367 H2O    CCSDTQ/DZ              ENERGY (NCC, INCORE)                     
+ difference found in MP2_ENERGY           of   0.92E-03 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.368 HF     CCSDTQ/PVDZ            ENERGY (NCC)                             
+ difference found in MP2_ENERGY           of   0.16E-02 ref  0.10E-10
+ ... DIFFERED ... 
+TEST.369 H2O    CCSD/ANO0/FC           VPT2 (GUINEA)                            
+ ... PASSED ... 
+TEST.370 H2O    CCSD/ANO0/FC           VPT2 (GUINEA, DARLING-DENNISON)          
+ ... PASSED ... 
+TEST.371 H2O    CCSD/ANO0/FC           HARMONIC DERIVATIVES                     
+ ... PASSED ... 
+TEST.372 H2CO   CCSD/ANO0/FC           VPT2 (GUINEA, FERMI)                     
+ ... PASSED ... 
+TEST.373 H2O    CCSD(T)/AUG-PVTZ       ENERGY (NCC, AOBASIS)                    
+ difference found in MP2_ENERGY           of   0.21E-04 ref  0.10E-10
+ difference found in CORRELATION_ENERGY   of   0.30E+00 ref  0.10E-09
+ ... DIFFERED ... 
+TEST.374 XE     use of contracted basis sets for SFX2C-1e calculations          
+ ... PASSED ... 
+TEST.375 AU     Gaussian nuclear model for SFX2C-1e calculation                 
+ ... PASSED ... 
+TEST.376 AU     Point nuclear model for a SFX2C-1e calculation                  
+ ... PASSED ... 
+********************************************************************************
+ SUMMARY
+********************************************************************************
+ The following testcases passed:
+TEST.001 H2O    RHF/6-31G**            GEOMETRY                                 
+TEST.002 NH2    UHF/DZP                GEOMETRY                                 
+TEST.003 NH2    ROHF/TZ2P(5D)          GEOMETRY                                 
+TEST.004 H2O    RHF/6-31G**            ANALYTIC 2ND DERIVATIVES                 
+TEST.005 NH2    UHF/DZP                ANALYTIC 2ND DERIVATIVES                 
+TEST.006 NH2    ROHF/TZ2P              ANALYTIC 2ND DERIVATIVES USING 5D FUNCTIO
+TEST.030 (H2O)2 RHF/DZP                TEST OF BSSE COMPUTATIONS                
+TEST.031 H2O    RHF/qzp(tzp)           INPUT OF NON-STANDARD BASIS SETS         
+TEST.032 H2O    RHF/WMR                WMR-ANO BASIS SETS                       
+TEST.033 HNC    RHF/3-21G              TS SEARCH: HCN ISOMERIZATION PART A      
+TEST.034 HNC    RHF/3-21G              TS SEARCH: HCN ISOMERIZATION PART B      
+TEST.036 H2O    HF/6-31G*              OPT_MAXCYC and % cards                   
+TEST.037 H2O    HF/6-31G*              restart of a geometry optimization       
+TEST.078 Ni     SCF/ECP                ENERGY                                   
+TEST.079 CH+    TD-HF/OLSEN            FREQUENCY-DEP. POLARIZABILITIES USING    
+TEST.094 H2O    CIS/DZP                ENERGY                                   
+TEST.098 H2O    RHF-MP2/DZP            CIS GEOMETRY OPTIMIZATION                
+TEST.176 HE     RHF-CCSD/PVTZ          ENERGY                                   
+TEST.177 HE     RHF-CCSD/PVQZ          ENERGY                                   
+TEST.178 HE     RHF-CCSD/PV5Z          ENERGY                                   
+TEST.179 HE     RHF-CCSD/PV6Z          ENERGY                                   
+TEST.188 H2S    RHF/aug-cc-pVDZ        PROP=MAGNETIC                            
+TEST.190 H2O    RHF/cc-pVTZ            DBOC                                     
+TEST.191 CH     RHF/aug-cc-pVTZ        RPA/TDHF FREQ. DEP. POL.                 
+TEST.194 NI     RHF/ECP-10-MDF         ENERGY                                   
+TEST.199 CF2    TCSCF/6-31G*           ENERGY                                   
+TEST.206 HF     HF-SCF/AUG-PVTZ        ENERGY ZFIELD=10000                      
+TEST.207 HF     HF-SCF/AUG-PVTZ        ENERGY ZFIELD=10000,YFIELD=10000         
+TEST.210 H2O    HF-SCF/dzp             FC perturbation                          
+TEST.211 H2O    HF-SCF/dzp             FC perturbations                         
+TEST.214 NH     UHF/AUG-PVTZ           PROP=G_TENSOR,GIAO=OFF                   
+TEST.215 NH     UHF/AUG-PVTZ           PROP=G_TENSOR,GIAO=ON                    
+TEST.216 N2     HF-SCF/PVTZ            HF STABILITY CLOSED-SHELL                
+TEST.217 N2     HF-SCF/PVTZ            HFSTABILITY=FOLLOW                       
+TEST.225 H2O2   RHF/cc-pVTZ            PROP=FIRST_ORDER                         
+TEST.230 HF     HF/tzp                 NMR SHIELDINGS                           
+TEST.232 H2O2   RHF/PVDZ               HARMONIC FREQUENCIES                     
+TEST.233 HO2    UHF/PVDZ               HARMONIC FREQUENCIES                     
+TEST.235 H2O2   RHF/cc-pVDZ            ANALYTIC 2ND DERIVATIVES                 
+TEST.239 H3CF   HF/DZP                 VPT2                                     
+TEST.240 NH3    RHF/DZP                VPT2                                     
+TEST.241 H2O    RHF/DZP                VPT2                                     
+TEST.243 HCN    RHF/DZ                 VPT2                                     
+TEST.244 HCN    RHF/TZ2P               VPT2                                     
+TEST.245 H2CO   RHF/DZ                 VPT2                                     
+TEST.268 CH2    TCSCF/6-31G*           GEOMETRY OPTIMIZATION                    
+TEST.269 MgO    TCSCF/6-31G*           GEOMETRY OPTIMIZATION                    
+TEST.270 CH2    ROHF/6-31G*            GEOMETRY OPTIMIZATION                    
+TEST.271 CH2    TCSCF/6-31G*           ANALYTIC 2ND DERIVATIVES                 
+TEST.272 MgO    TCSCF/6-31G*           ANALYTIC 2ND DERIVATIVES                 
+TEST.273 CH2    TCSCF-MkMRCCSD/6-31G*  GEOMETRY OPTIMIZATION                    
+TEST.275 CH2    TCSCF-MkMRCCSDT/6-31G* GEOMETRY OPTIMIZATION                    
+TEST.276 CH2    RHF-MkMRCCSD/6-31G*    ENERGY (FROZEN CORE)                     
+TEST.277 MgO    TCSCF-MkMRCCSD/3-21G   GEOMETRY OPTIMIZATION                    
+TEST.284 HCL    HF/3-21G(unc)          DPT2 energy                              
+TEST.285 HCL    HF/3-21G(unc)          DPT4 energy                              
+TEST.286 HCL    RHF/3-21G(unc)         SF-DPT4 energy                           
+TEST.287 HCL    RHF/3-21G(unc)         MVD1 energy                              
+TEST.288 H+     UHF/AUG-PVTZ           DBOC                                     
+TEST.289 H+     UHF-CCSD/AUG-PVTZ      DBOC                                     
+TEST.290 H      UHF/AUG-PVTZ           DBOC                                     
+TEST.291 H      ROHF/AUG-PVTZ          DBOC                                     
+TEST.292 H      UHF-CCSD/AUG-PVTZ      DBOC                                     
+TEST.293 LI     UHF/AUG-PCVTZ          DBOC                                     
+TEST.294 LI     ROHF/AUG-PCVTZ         DBOC                                     
+TEST.298 H2     RHF-CCSD/AUG-PCVTZ     DBOC      VCC MOBASIS                    
+TEST.299 H2     RHF-CCSD/AUG-PCVTZ     DBOC      VCC AOBASIS                    
+TEST.299 H2     RHF-CCSD/AUG-PCVTZ     DBOC      ECC AOBASIS                    
+TEST.302 H2     RHF/AUG-PVTZ           DBOC      GEOMETRY OPTIMIZATION          
+TEST.309 CH2    RHF/3-21G              RAMAN INTENSITY                          
+TEST.312 HI     SO-HF/DZP              GEOMETRY                                 
+TEST.321 H      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+TEST.322 H      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+TEST.323 H      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+TEST.324 H      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+TEST.341 F      ROHF-CCSD(T)/AUG-PVDZ  ENERGY (ECC, AOBASIS)                    
+TEST.342 F      ROHF-CCSD(T)/AUG-PVTZ  ENERGY (ECC, AOBASIS)                    
+TEST.343 F      ROHF-CCSD(T)/AUG-PVQZ  ENERGY (ECC, AOBASIS)                    
+TEST.344 F      ROHF-CCSD(T)/AUG-PV5Z  ENERGY (ECC, AOBASIS)                    
+TEST.369 H2O    CCSD/ANO0/FC           VPT2 (GUINEA)                            
+TEST.370 H2O    CCSD/ANO0/FC           VPT2 (GUINEA, DARLING-DENNISON)          
+TEST.371 H2O    CCSD/ANO0/FC           HARMONIC DERIVATIVES                     
+TEST.372 H2CO   CCSD/ANO0/FC           VPT2 (GUINEA, FERMI)                     
+TEST.374 XE     use of contracted basis sets for SFX2C-1e calculations          
+TEST.375 AU     Gaussian nuclear model for SFX2C-1e calculation                 
+TEST.376 AU     Point nuclear model for a SFX2C-1e calculation                  
+ 
+ The following testcases differed:
+TEST.007 H2O    RHF-MP2/DZP            GEOMETRY OPTIMIZATION                    
+TEST.008 NH2    UHF-MP2/DZP            GEOMETRY OPTIMIZATION                    
+TEST.009 NH2    ROHF-MP2/TZ2P          GEOMETRY OPTIMIZATION USING 5D           
+TEST.010 H2O    RHF-MP2/DZP            ANALYTIC 2ND DERIVATIVES                 
+TEST.011 H2O    RHF-MP2/DZP            ANALYTIC 2ND DERIVATIVES                 
+TEST.012 NH2    UHF-MP2/DZP            ANAL. 2ND DER. WITH CART. COORD. IN A.U. 
+TEST.013 H2O    RHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+TEST.014 H2O    RHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+TEST.015 NH2    UHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+TEST.016 NH2    UHF-CCSD/DZP           GEOMETRY OPTIMIZATION                    
+TEST.017 NH2    ROHF-CCSD/TZ2P         GEOMETRY OPTIMIZATION USING 5D           
+TEST.018 H2O    RHF-CCSD(T)/DZP        GEOMETRY OPTIMIZATION                    
+TEST.019 NH2    UHF-CCSD(T)/DZP        GEOMETRY OPTIMIZATION                    
+TEST.020 NH2    ROHF-CCSD(T)/DZP       GEOMETRY OPTIMIZATION                    
+TEST.021 NH2    RHF-MP2/DZP            2ND DERIVATIVES FROM ANALYTIC GRADIENTS  
+TEST.022 H2O    RHF-MP2/DZP            NMR SHIFTS USING THE GIAO METHOD         
+TEST.023 H2O    B-CCD/DZP              ENERGY USING BRUECKNER ORBITALS          
+TEST.024 NH2    ROHF-MP4/DZP           ENERGY                                   
+TEST.025 H2O    RHF-UCCSD(4)/DZP       ENERGY                                   
+TEST.026 H2O    RHF-CCSDT-1b/DZP       ENERGY                                   
+TEST.027 H2O    RHF-CCSDT-2/DZP        ENERGY                                   
+TEST.028 H2O    RHF-CCSDT-3/DZP        ENERGY                                   
+TEST.029 H2O    RHF-CCSDT/DZP          SINGLE POINT CALCULATION                 
+TEST.035 N2     RHF-MP2/DZP            ENERGY CALCULATION WITH DROPPED ORBITALS 
+TEST.038 H2O    RHF-CCSD/DZP           ENERGY (AOBASED)                         
+TEST.039 H2O    RHF-CCSD/DZP           ENERGY (MOBASED)                         
+TEST.040 NH2    UHF-CCSD/DZP           ENERGY (AOBASED)                         
+TEST.041 NH2    ROHF/DZP               ENERGY (AOBASED)                         
+TEST.042 NH2    ROHF-CCSD/DZP          ENERGY (MOBASED)                         
+TEST.043 H2O    ROHF-CCSD/DZP          gradients semicanonical orbitals         
+TEST.044 H2O    ROHF-CCSD/DZP          gradients, STANDARD ORBITALS  MOBASIS    
+TEST.045 H2O    ROHF-CCSD              GEOMETRY (SEMICANONICAL, AOBASIS)        
+TEST.046 H2O    ROHF-CCSD/DZP          GEOMETRY, (STANDARD ORB., AOBASIS)       
+TEST.047 HI     RHF-CCSD(T)/CLARKSEN   ENERGY, ECP                              
+TEST.048 CH3F   RHF-MP2/dz(p)          GIAO-NMR SHIFTS                          
+TEST.049 CH3F   MP2/dz(p)              GIAO NMR shifts, FULL MO BASED           
+TEST.050 CH3F   MP3/dz(p)              GIAO-NMR SHIELDINGS                      
+TEST.051 CH3F   SDQ-MP4/dz(p)          GIAO NMR SHIELDINGS                      
+TEST.052 CH3F   SDQ-MP4/dz(p)          GIAO NMR SHIELDINGS (AOBASED)            
+TEST.053 CH3F   SDQ-MP4/dz(p)          GIAO NMR SGIELDINGS                      
+TEST.054 CH3F   RHF-CCD/dz(p)          GIAO NMR SHIELDINGS                      
+TEST.055 CH3F   RHF-QCISD/dz(p)        GIAO NMR SHIELDINGS                      
+TEST.056 CH3F   RHF-CCSD/dz(p)         GIAO NMR SHIELDINGS                      
+TEST.057 CH3F   GIAO-CCSD/dz(p)        NMR (AOBASIS)                            
+TEST.058 CH2O   CCSD(T)/qz2p           NMR shifts (MOBASED)                     
+TEST.059 CH2O   CCSD(T)/qz2p           GIAO NMR shifts (AOBASED)                
+TEST.060 HF     UHF-CCSD/dzp           FC contribution                          
+TEST.061 HF     UHF-CCSD/dzp           FC contribution (UNRELAXED)              
+TEST.062 HF     UHF-CCSD/dzp           FC contribution to J                     
+TEST.063 HF     RHF-CCSD/dzp           J_SD                                     
+TEST.064 HF     CCSD/dzp               J_SD (UNRELAXED)                         
+TEST.065 HF     CCSD/dzp               J_SD (UNRELAXED, AOBASIS)                
+TEST.066 HF     CCSD/dzp               J_SD (UNRELAXED, AOBASIS)                
+TEST.067 HF     CCSD/dzp               J_SO (MOBASED)                           
+TEST.068 HF     CCSD/dzp               J_SO (UNRELAXED, MOBASED)                
+TEST.069 HF     CCSD/dzp               J_SO (AOBASED)                           
+TEST.070 HF     CCSD/dzp               J_SO (UNRELAXED, AOBASED)                
+TEST.071 NH2    MP2/dz(p)              POLARIZABILITIES                         
+TEST.072 NH2    UHF-MP3/dz(p)          POLARIZABILITIES                         
+TEST.073 NH2    SDQ-MBPT(4)            POLARIZABILITIES                         
+TEST.074 NH2    CCD/dz(p)              POLARIZABILITIES                         
+TEST.075 NH2    RHF-QCISD/dz(p)        POLARIZABILITIES                         
+TEST.076 NH2    CCSD                   static polarizabilities                  
+TEST.077 NH2    CCSD/dz(p)             static polarizabilities (AOBASED)        
+TEST.080 CH+    CCSD/OLSEN             STATIC POLARIZABILITIES USING CCLR       
+TEST.081 CH+    CCSD/OLSEN             STATIC POLARIZABILITIES USING CCLR       
+TEST.082 CH+    CCSD/OLSEN             FREQUENCY-DEP. POLARIZABILITIES CCLR     
+TEST.083 CH+    CCSD/OLSEN             FREQUENCY-DEP. POLARIZABILITIES CCLR     
+TEST.084 CH+    RHF-CCSD/OLSEN         STATIC POLARIZABILITIES USING CCLR       
+TEST.085 CH+    RHF-CCSD/OLSEN         FREQUENCY-DEP. POLARIZABILITIES (CCLR)   
+TEST.086 CH+    RHF-CCSD/OLSEN         FREQUENCY-DEP. POLARIZABILITIES (CCLR)   
+TEST.087 CH+    RHF-CCSD/OLSEN         FREQUENCY-DEP. POLARIZABILITIES (CCLR)   
+TEST.088 H2O    EOMIP-CCSD/DZ          EXCITATTION ENERGY                       
+TEST.089 H2O    EOMIP-MP2/DZ           EXCITATION ENERGY                        
+TEST.090 H2O    EOMIP-CCSD/DZ          GEOMETRTY OPTIMIZATION                   
+TEST.091 H2O    EOMIP-CCSD(2)/DZ       ENERGY                                   
+TEST.092 H2O    EOMEE-CCSD/DZP         ENERGY                                   
+TEST.093 H2O    EOMEE-CCSD/DZP         ENERGY                                   
+TEST.095 H2O    EOMEE-CC2/DZP          EXCITATION-ENERGY                        
+TEST.096 H2O    RHF-CCSD/DZP           EOMEE GEOMETRY OPTIMIZATION              
+TEST.097 H2O    RHF-MP2/DZP            EOMEE GEOMETRY OPTIMIZATION              
+TEST.099 H2O    RHF-CC2/DZP            EOMEE GEOMETRY OPTIMIZATION              
+TEST.100 H2O    RHF-CCSD/DZP           HARMONIC FREQUENCIES                     
+TEST.101 H2O    RHF-CCSD/DZP           HARMONIC FREQUENCIES                     
+TEST.102 H2O    RHF-CCSD(T)/DZP        HARMONIC FREQUENCIES                     
+TEST.103 H2O    RHF-CCSD(T)/DZP        HARMONIC FREQUENCIES (AOBASED)           
+TEST.104 H2O    RHF-CCSD(T)/DZP        HARMONIC FREQUENCIES (FINDIF)            
+TEST.105 NH2    UHF-CCSD/DZP           HARMONIC FREQUENCIES                     
+TEST.106 NH2    UHF-CCSD/DZP           HARMONIC FREQUENCIES (AOBASED)           
+TEST.107 NH2    UHF-CCSD/DZP           HARMONIC FREQUENCIES (FINDIF)            
+TEST.108 NH2    CCSD(T)/DZP            HARMONIC FREQUENCIES                     
+TEST.109 NH2    UHF-CCSD(T)/DZP        HARMONIC FREQUENCIES (AOBASED)           
+TEST.110 NH2    CCSD(T)/DZP            HARMONIC FREQUENCIES (FINDIF)            
+TEST.111 CH+    RHF-CCSD/OLSEN         ENERGY                                   
+TEST.112 CH+    RHF-CCSD(T)/OLSEN      ENERGY                                   
+TEST.113 H2O    RHF-CCSDT-1/DZ(P)      GEOMETRY OPTIMIZATION                    
+TEST.114 CH+    RHF-CCSDT-1b/OLSEN     ENERGY                                   
+TEST.115 CH+    RHF-CCSDT-2/OLSEN      ENERGY                                   
+TEST.116 H2O    RHF-CCSDT-3/DZ(P)      GEOMETRY OPTIMIZATION                    
+TEST.117 H2O    RHF-CC3/DZ(P)          ENERGY                                   
+TEST.118 H2O    RHF-CC2/DZ(P)          NMR                                      
+TEST.119 NH2    UHF-CCSD/3-21G         NMR (NMR_SWITCH)                         
+TEST.120 CH+    RHF-CCSD/OLSEN         ENERGY                                   
+TEST.121 H2O    RHF-CCSD(T)/DZ(P)      GEOMETRY OPTIMIZATION                    
+TEST.122 H2O    RHF-CCSDT-1/DZ(P)      HARMONIC FREQUENCIES                     
+TEST.123 CH+    RHF-CCSDT-1b/OLSEN     ENERGY                                   
+TEST.124 H2O    RHF-CCSDT-2/DZ(P)      GEOMETRY OPTIMIZATION                    
+TEST.125 H2O    RHF-CCSDT-3/DZ(P)      HARMONIC FREQUENCIES                     
+TEST.126 CH+    RHF-CCSDT/OLSEN        ENERGY (ECC)                             
+TEST.127 N2     RHF-CC2/dzp            PROP=SECOND_ORDER,DIFF=UNRELAXED         
+TEST.128 H2O    RHF-CC3/3-21G          NMR (CONVENTIONAL)                       
+TEST.129 H2O    RHF-CCSD/DZ(P)         GEOMETRY OPTIMIZATION                    
+TEST.130 H2O    RHF-CCSD(T)/DZ(P)      ANALYTIC 2ND DERIVATIVES                 
+TEST.131 H2O    RHF-CCSDT-1/DZ(P)      HARMONIC FREQUENCIES                     
+TEST.132 H2O    RHF-CCSDT-1b/DZ(P)     GEOMETRY OPTIMIZATION                    
+TEST.133 H2O    RHF-CCSDT-2/DZ(P)      ANALYTIC 2ND DERIVATIVES                 
+TEST.134 H2O    RHF-CCSDT-3/DZ(P)      GIAO-NMR                                 
+TEST.135 CH+    RHF-CCSDT/OLSEN        ENERGY                                   
+TEST.136 NH2    UHF-CCSD/3-21G         conventional NMR chemical shifts         
+TEST.137 H2O    CC3/3-21G              conventional NMR (UNRELAXED)             
+TEST.138 H2O    RHF-CCSD/DZ(P)         ANALYTIC 2ND DERIVATIVES                 
+TEST.139 H2O    RHF-CCSD(T)/DZ(P)      GIAO-NMR                                 
+TEST.140 HF     CCSDT-1/DZ(P)          conventional NMR                         
+TEST.141 H2O    RHF-CCSDT-1b/DZ(P)     GEOMETRY                                 
+TEST.142 H2O    RHF-CCSDT-2/DZ(P)      GIAO NMR                                 
+TEST.143 CH+    RHF-CC3/OLSEN          ENERGY                                   
+TEST.144 CH+    RHF-CCSDT/OLSEN        ENERGY                                   
+TEST.145 NH2    UHF-CCSD/3-21G         CONVENTIONAL NMR via NMR_SWITCH          
+TEST.147 H2O    RHF-CCSD/DZ(P)         GIAO NMR                                 
+TEST.148 CH+    RHF-CCSDT-1/OLSEN      ENERGY                                   
+TEST.149 HF     RHF-CCSDT-1/DZ(P)      GIAO NMR                                 
+TEST.150 H2O    RHF-CCSDT-1b/DZ(P)     GEOMETRY OPTIMIZATION                    
+TEST.151 CH+    RHF-CCSDT-3/OLSEN      ENERGY                                   
+TEST.152 H2O    RHF-CC3/DZ(P)          GEOMETRY                                 
+TEST.153 H2O    RHF-CC2/DZ(P)          GEOMETRY                                 
+TEST.154 NH2    UHF-CCSD/3-21G         conventional NMR (UNRELAXED)             
+TEST.156 CH+    CCSD(T)/OLSEN          ENERGY                                   
+TEST.157 CH+    CCSDT-1/OLSEN          ENERGY                                   
+TEST.158 H2O    CCSDT-1/DZ(P)          GIAO NMR                                 
+TEST.159 CH+    CCSDT-2/OLSEN          ENERGY                                   
+TEST.160 CH+    CCSDT-3/OLSEN          ENERGY                                   
+TEST.161 H2O    RHF-CC3/DZ(P)          HARMONIC FREQUENCIES                     
+TEST.162 H2O    CC2/DZ(P)              HARMONIC FREQUENCIES                     
+TEST.163 NH2    UHF-CCSD/3-21G         NMR (UNRELAXED)                          
+TEST.165 CN     PSA-CCSD/cc-pVTZ       ENERGY                                   
+TEST.166 CN     SR-CCSD/cc-pVTZ        ENERGY                                   
+TEST.167 CN     SA-CISD/cc-pVTZ        ENERGY                                   
+TEST.168 O2     PSA-CCSD/cc-pVTZ       ENERGY                                   
+TEST.169 O2     SR-CCSD/cc-pVTZ        ENERGY                                   
+TEST.170 CN     SR-CCSD/DZ             GEOMETRY OPTIMIZATION                    
+TEST.172 NH2    ROHF-CCD/3-21G         ENERGY with optimized orbitals           
+TEST.180 C      ROHF-FC-CCSD/PVDZ      ENERGY                                   
+TEST.181 C      ROHF-FC-CCSD/PVTZ      ENERGY                                   
+TEST.182 C      ROHF-FC-CCSD/PVQZ      ENERGY                                   
+TEST.183 C      ROHF-FC-CCSD/PV5Z      ENERGY                                   
+TEST.184 C      ROHF-FC-CCSD/PV6Z      ENERGY                                   
+TEST.185 HI     CCSD(T)/CALRKSEN       ANALYTIC 2ND DERIVATIVES                 
+TEST.186 HI     CCSD(T)/CLARKSON       NUMERICAL 2ND DERIVATIVES                
+TEST.187 HI     SO-CCSD(T)             GEOMETRY                                 
+TEST.189 H2S    RHF-CCSD/dzp           PROP=MAGNETIC                            
+TEST.192 CH+    CCSD/aug-cc-pVTZ       FREQ. DEP. POL. (CCSD-LR)                
+TEST.193 CH+    CC3/aug-cc-pVTZ        FREQ. DEP. POL. (CCSD-LR)                
+TEST.197 CN     PSA-CCSD/PVTZ          ENERGY                                   
+TEST.198 CN     SR-CCSD/PVTZ           ENERGY                                   
+TEST.200 H2O    UCC(4)/qz2p            ENERGY (AOBASED)                         
+TEST.201 H2O    EOM-CCSDT/3-21G        PROP=EXCITATION                          
+TEST.202 CO     EOM-CCSDT/3-21G        GEOMETRY OPTIMIZATION                    
+TEST.203 H2O    EOMIP-CCSD/tzp         ENERGY                                   
+TEST.204 H2O    EOMIP-CCSD/tzp         ENERGIES                                 
+TEST.205 H2O    EOMIP-CCSD(2)/tzp      ENERGIES                                 
+TEST.208 HF     CCSD/AUG-PVTZ          ENERGY ZFIELD=10000                      
+TEST.208 HF     CCSD/AUG-PVTZ          ENERGY ZFIELD=10000 (UNRELAXED)          
+TEST.212 H2O    UHF-CCSD/dzp           FC perturbations                         
+TEST.213 H2O    UHF-CCSD/dzp           FC perturbations                         
+TEST.218 N2     UHF-CCSD/cc-pVTZ       HFSTABILITY=FOLLOW                       
+TEST.219 HF     UHF-CCSD/dzp           J_FC (UNRELAXED)                         
+TEST.220 HF     RHF-CCSD/dzp           J_SD (UNRELAXED)                         
+TEST.221 HF     RHF-CCSD/dzp           J_SO: J_DSO and J_PSO                    
+TEST.222 H2O    LMP2/cc-pVDZ           POLARIZABILITIES                         
+TEST.223 H2O2   RHF-CCSD/cc-pVDZ       HARMONIC FREQUENCIES (%masses)           
+TEST.224 H2O2   RHF-CCSD/cc-pVDZ       HARMONIC FREQUENCIES (%isotopes)         
+TEST.226 H2O2   RHF-MP2/cc-pVTZ        PROP=FIRST_ORDER                         
+TEST.227 H2O2   RHF-CCSD/cc-pVTZ       PROP=FIRST_ORDER (UNRELAXED)             
+TEST.228 H2O2   RHF-CCSD(T)/cc-pVTZ    PROP=FIRST_ORDER                         
+TEST.231 HCL    Calculation of nuclear spin-rotation constants at CCSD(T) level 
+TEST.234 H2O2   RHF-MP2/PVDZ           HARMONIC FREQUENCIES                     
+TEST.236 H2O2   RHF-CCSD/PVDZ          ANALYTIC 2ND DERIVATIVES (MOBASED)       
+TEST.237 H2O2   RHF-CCSD/PVDZ          ANALYTIC 2ND DERIVATIVES (AOBASIS)       
+TEST.238 H2O2   RHF-CCSD(T)            ANALYTIC 2ND DERIVATIVES                 
+TEST.242 H2O    RHF-MP2/ANO0           VPT2                                     
+TEST.246 NH3    RHF-MP2/DZP            VPT2                                     
+TEST.248 HF     SFX2c-1e-CCSD(T)/cc-pVTZ electrical properties                  
+TEST.249 HF     SFX2c-1e-CCSD(T)/cc-pVTZ geometry optimization                  
+TEST.251 HCL    fc-CCSD(T)/cc-pVTZ    Geometry optimization with 5 core orbitals
+TEST.252 HCL    SFX2C-1e Frozen-core gradients                                  
+TEST.253 HCL    SFX2c-1e frozen-core electrical properties                      
+TEST.257 HCl    frozen core gradient fcgradnew=on                               
+TEST.258 HCl    frozen core gradient fcgradnew=new                              
+TEST.259 HCL    EOMCC gradient FCGRADNEW=OFF ABCD=MOBASIS                       
+TEST.260 HCL    EOMCC GRADIENT FCGRADNEW=ON ABCD=MOBASIS                        
+TEST.261 HCL    EOMCC GRADIENT FCGRADNEW=NEW ABCD=MOBASIS                       
+TEST.262 HCL    EOMCC GRADIENT FCGRADNEW=OFF ABCD=AOBASIS                       
+TEST.263 HCL    EOMCC GRADIENT FCGRADNEW=ON ABCD=AOBASIS                        
+TEST.264 HCL    EOMCC GRADIENT FCGRADNEW=NEW ABCD=AOBASIS                       
+TEST.265 HCL    EOMCC GRADIENT FCGRADNEW=OFF NONTOTALLY SYMMETRIC EXCITATION    
+TEST.266 HCL    RHF-EOM-CCSD/PVDZ      GEOMETRY FCGRADNEW=ON NONTOTALLY SYMMETRI
+TEST.267 HCL    RHF-EOM-CCSD/PVDZ      GEOMETRY FCGRADNEW=NEW NONTOTALLY SYMMETR
+TEST.278 HCL+   UHF-CCSD(T)            GRADIENT FCGRADNEW=OFF                   
+TEST.279 HCL+   UHF-CCSD(T)            GRADIENT FCGRADNEW=ON                    
+TEST.280 HCL+   ROHF-CCSD(T)           GRADIENT FCGRADNEW=OFF                   
+TEST.281 HCL+   ROHF-CCSD(T)           GRADIENT FCGRADNEW=ON                    
+TEST.282 HCL+   ROHF-CCSD(T)           GRADIENT FCGRADNEW=OFF AOBASIS           
+TEST.283 HCL+   ROHF-CCSD(T)           GEOMETRY FCGRADNEW=ON AOBASIS            
+TEST.295 LI     UHF-CCSD/AUG-PCVTZ     DBOC                                     
+TEST.296 LI     UHF-CCSD/AUG-PCVTZ     DBOC      VCC AOBASIS                    
+TEST.297 LI     UHF-CCSD/AUG-PCVTZ     DBOC      ECC AOBASIS                    
+TEST.301 F2     RHF-CCSD/ANO0          DBOC      ECC AOBASIS                    
+TEST.308 H2O    RHF-CCSD/3-21G         VERDET CONSTANTS                         
+TEST.313 H2O    RHF-CCSD/DZP    EOMEE DERIV. AO_LADDERS=2 (SPARSE_AO)           
+TEST.314 H2O    ANALYTIC UHF-CCSD freq. calc. AO_LADDERS=2 (SPARSE_AO)          
+TEST.315 H2O    RHF-CCSD/DZP  DERIV. CC_PROG=ECC, AO_LADDERS=2 (SPARSE_AO)      
+TEST.317 CH2    EOMEA-CCSD/STO-3G      GRADIENT WITH EOMEE (CONTINUUM)          
+TEST.318 CH2    EOMEA-CCSD/STO-3G      GRADIENT                                 
+TEST.319 CH2    EOMEA-CCSD(2)/STO-3G   GRADIENT WITH EOMEE (CONTINUUM)          
+TEST.320 CH2    EOMEA-CCSD(2)/STO-3G   GRADIENT                                 
+TEST.325 C      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+TEST.326 C      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+TEST.327 C      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+TEST.328 C      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+TEST.329 N      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+TEST.330 N      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+TEST.331 N      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+TEST.332 N      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+TEST.333 O      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+TEST.334 O      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+TEST.335 O      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+TEST.336 O      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+TEST.337 F      UHF-CCSD(T)/AUG-PVDZ   ENERGY (ECC, AOBASIS)                    
+TEST.338 F      UHF-CCSD(T)/AUG-PVTZ   ENERGY (ECC, AOBASIS)                    
+TEST.339 F      UHF-CCSD(T)/AUG-PVQZ   ENERGY (ECC, AOBASIS)                    
+TEST.340 F      UHF-CCSD(T)/AUG-PV5Z   ENERGY (ECC, AOBASIS)                    
+TEST.345 NO2    EOMIP-CCSD/cc-pVDZ     EOM_NONIT=ON                             
+TEST.346 NO2    EOMIP-CCSD/cc-pVDZ     EOM_NONIT=ON (CONTIUUM)                  
+TEST.347 CN     EOMIP-CCSDT/DZ         (CONTINUUM)                              
+TEST.348 CN     EOMIP-CCSDT/DZ         EXCITATION ENERGY                        
+TEST.349 C2     RHF-EOMDIP-CCSDT/PVDZ  EXCITATION ENERGY                        
+TEST.350 C2     RHF-EOMDIP-CCSDT/PVDZ  EXCITATION ENERGY (NONSYM. ROOT)         
+TEST.351 C2     RHF-EOMDIP-CCSDT/PVDZ  EXCITATION ENERGY (NONSTD. INPUT)        
+TEST.352 CN     EOMIP-CCSDT/DZ         EXCITATION ENERGY (NONSYM. ROOT)         
+TEST.353 CN     EOMIP-CCSDT/DZ         EXCITATION ENERGY (NONSTD. INPUT)        
+TEST.354 H2O    CCSD/AUG-PVTZ          ENERGY (NCC, INCORE)                     
+TEST.355 H2O    CCSD/AUG-PVTZ          ENERGY (NCC)                             
+TEST.356 H2O    CCSD(T)/AUG-PVDZ       ENERGY (NCC, INCORE)                     
+TEST.357 H2O    CCSD(T)/AUG-PVTZ       ENERGY (NCC)                             
+TEST.358 H2O    CCSDT/DZ               ENERGY (NCC, INCORE)                     
+TEST.359 HF     CCSDT/AUG-PVTZ         ENERGY (NCC)                             
+TEST.360 H2O    CC3/PVTZ               ENERGY (NCC)                             
+TEST.361 H2O    CCSDT-1a/PVTZ          ENERGY (NCC)                             
+TEST.362 H2O    CCSDT-1b/PVTZ          ENERGY (NCC)                             
+TEST.363 H2O    CCSDT-2/PVTZ           ENERGY (NCC)                             
+TEST.364 H2O    CCSDT-3/PVTZ           ENERGY (NCC)                             
+TEST.365 H2O    CCSDT(Q)/PVDZ          ENERGY (NCC)                             
+TEST.366 H2O    CCSDT[Q]/PVDZ          ENERGY (NCC)                             
+TEST.367 H2O    CCSDTQ/DZ              ENERGY (NCC, INCORE)                     
+TEST.368 HF     CCSDTQ/PVDZ            ENERGY (NCC)                             
+TEST.373 H2O    CCSD(T)/AUG-PVTZ       ENERGY (NCC, AOBASIS)                    
+ 
+ The following testcases failed:
+TEST.274 CH2    ROHF-MkMRCCSD/6-31G*   GEOMETRY OPTIMIZATION                    
+********************************************************************************
+             2808.92 seconds walltime passed
