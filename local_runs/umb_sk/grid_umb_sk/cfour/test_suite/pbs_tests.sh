@@ -1,6 +1,5 @@
 #!/bin/sh
 ##
-##
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
@@ -57,10 +56,11 @@ cd $workdir
 echo -e "pwd=\c"; pwd
 
 cp -R $CFOUR/testsuite .
-cp -R $CFOURBUILD  .
+cp -R $CFOURBUILD/*  .
 ls -lt
 
-PATH=".:$PATH:$PWD/intelmklpar/bin"
+#PATH=".:$PATH:$PWD/intelmklpar/bin"
+PATH=".:$PATH:$PWD/bin"  # add executable to PATH
 echo -e "\n PATH=$PATH"
 
 cd testsuite
@@ -70,4 +70,4 @@ xtester --list
 #xtester --all
 xtester --testcase 001
 
-
+exit 0
