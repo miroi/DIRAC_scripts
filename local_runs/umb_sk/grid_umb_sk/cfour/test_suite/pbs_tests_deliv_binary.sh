@@ -49,15 +49,15 @@ export OMP_DYNAMIC="FALSE"
 CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_64bit_linux_serial/cfour_v2.00beta_64bit_linux_serial
 
 workdir=/mnt/local/$USER/$PBS_JOBID/CFOURrun
-mkdir $workdir
+mkdir -p $workdir
 
 cd $workdir
 echo -e "pwd=\c"; pwd
 
 cp -R $CFOUR/testsuite .
-cp -R $CFOURBUILD/bin  .
-cp -R $CFOURBUILD/share  .
-cp -R $CFOURBUILD/basis  .
+cp -R $CFOUR/bin  .
+cp -R $CFOUR/share  .
+cp -R $CFOUR/basis  .
 ls -lt
 
 #PATH=".:$PATH:$PWD/intelmklpar/bin"
