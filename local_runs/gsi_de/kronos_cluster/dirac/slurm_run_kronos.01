@@ -72,7 +72,7 @@ export DIRAC_ROOTDIR=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
 export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmklpar_i8_xh
 #export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmkl_i8_prod
 export PAM=$DIRAC_BUILDDIR/pam
-export BASDIR=$DIRAC_ROOTDIR/basis_dalton:$DIRAC_ROOTDIR/basis
+export BASDIR=$DIRAC_ROOTDIR/basis_dalton:$DIRAC_ROOTDIR/basis:$DIRAC_ROOTDIR/basis_ecp
 
 echo -e "\nldd $DIRAC_BUILDDIR/dirac.x:"
 ldd $DIRAC_BUILDDIR/dirac.x
@@ -104,6 +104,6 @@ echo
 #$PAM --mw=220 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 #ctest -j $SLURM_CPUS_ON_NODE 
 #ctest -j 10
-ctest 
+ctest -L short
 
 exit
