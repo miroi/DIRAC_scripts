@@ -6,8 +6,8 @@
 #PBS -N C4_tests
 ### Declare myprogram non-rerunable
 #PBS -r n
-##PBS -l nodes=1:ppn=12:old
-#PBS -l nodes=1:ppn=8
+#PBS -l nodes=1:ppn=12:old
+##PBS -l nodes=1:ppn=8
 #PBS -l walltime=20:00:00
 ##PBS -l mem=47g
 #PBS -l mem=16g
@@ -67,10 +67,8 @@ echo -e "\n PATH=$PATH"
 # Run tests
 #
 cd testsuite
-#xtester --whatistested
-#xtester --help
-#xtester --list
-xtester --all
-#xtester --testcase 001
+#xtester --all
+xtester --testcase 007
+xtester --testcase 354
 
 exit 0
