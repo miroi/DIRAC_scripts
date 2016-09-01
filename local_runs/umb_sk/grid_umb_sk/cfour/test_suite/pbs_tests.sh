@@ -7,7 +7,7 @@
 ### Declare myprogram non-rerunable
 #PBS -r n
 ##PBS -l nodes=1:ppn=12:old
-#PBS -l nodes=1:ppn=4
+#PBS -l nodes=1:ppn=8
 #PBS -l walltime=20:00:00
 ##PBS -l mem=47g
 #PBS -l mem=16g
@@ -63,11 +63,14 @@ ls -lt
 PATH=".:$PATH:$PWD/bin"  # add executable to PATH
 echo -e "\n PATH=$PATH"
 
+#
+# Run tests
+#
 cd testsuite
 #xtester --whatistested
-xtester --help
-xtester --list
-#xtester --all
-xtester --testcase 001
+#xtester --help
+#xtester --list
+xtester --all
+#xtester --testcase 001
 
 exit 0
