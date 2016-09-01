@@ -63,8 +63,11 @@ ls -lt
 PATH=".:$PATH:$PWD/intelmklpar/bin"
 echo -e "\n PATH=$PATH"
 
+cd testsuite/tests
 #xtester --whatistested
 xtester --help
 xtester --list
 #xtester --all
+xtester --testcase 001
+
 
