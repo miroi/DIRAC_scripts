@@ -60,7 +60,7 @@ cp -R $CFOUR/testsuite .
 cp -R $CFOURBUILD  .
 ls -lt
 
-PATH=".:$PATH:$PWD/intelmkl/bin"
+PATH=".:$PATH:$PWD/intelmklpar/bin"
 echo -e "\n PATH=$PATH"
 
 #xtester --whatistested
