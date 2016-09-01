@@ -6,7 +6,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N C4_H2O
+#PBS -N C4_tests
 ### Declare myprogram non-rerunable
 #PBS -r n
 ##PBS -l nodes=1:ppn=12:old
@@ -49,7 +49,8 @@ export OMP_DYNAMIC="FALSE"
 
 
 #CFOUR=/scrcluster/harding/aces2.par
-CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta/build/intelmklpar
+CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta
+CFOURBUILD=$CFOUR/build/intelmklpar
 QUESYS=$CFOUR/share/quesys.sh
 
 if [ -f $QUESYS ]; then
@@ -89,9 +90,10 @@ outdir=$workdir
 
 ###--- JOB SPECIFICATION ---###
 #input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
-#initialize_job
+input="$CFOURBUILD/basis/GENBAS $CFOURBUILD/bin/x* $CFOUR/testsuite"
+initialize_job
 ## distribute input files to all nodes
-#distribute $input
+distribute $input
 
 # exenodes executes non MPI commands on every node. If the '-all' flag is
 # given it will execute the command for every allocated CPU on every node.
