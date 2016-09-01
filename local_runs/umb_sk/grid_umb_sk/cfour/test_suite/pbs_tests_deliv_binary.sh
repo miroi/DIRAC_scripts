@@ -6,11 +6,11 @@
 #PBS -N C4_tests
 ### Declare myprogram non-rerunable
 #PBS -r n
-##PBS -l nodes=1:ppn=12:old
-#PBS -l nodes=1:ppn=8
+#PBS -l nodes=1:ppn=12:old
+##PBS -l nodes=1:ppn=8
 #PBS -l walltime=20:00:00
-##PBS -l mem=47g
-#PBS -l mem=16g
+#PBS -l mem=47g
+##PBS -l mem=16g
 #PBS -j oe
 #PBS -q batch
 
@@ -47,10 +47,8 @@ export OMP_DYNAMIC="FALSE"
 
 #CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta
 CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_64bit_linux_serial/cfour_v2.00beta_64bit_linux_serial
-#CFOURBUILD=$CFOUR/build/intelmklpar
 
-
-workdir=/mnt/local/$USER/$PBS_JOBID
+workdir=/mnt/local/$USER/$PBS_JOBID/CFOURrun
 mkdir $workdir
 
 cd $workdir
