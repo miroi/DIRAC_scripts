@@ -60,52 +60,23 @@ else
     exit 1
 fi
 
-# if NOTIFY is set an e-mail notification is sent to that adress at the start
-# and end of the job
-NOTIFY=Miroslav.Ilias@umb.sk
-
-###------ JOB SPECIFIC ENVIRONMENT --###
-
-#export P4_GLOBMEMSIZE=120000000
-#export PATH=/tc/tcusers/harding/qtest:$PATH
-#LAMRSH="ssh -x"; export LAMRSH
-#export OMP_NUM_THREADS=4
-PATH=".:$PATH:$CFOUR/bin"
-###------ JOB SPECIFIC DEFNITIONS ------###
-
-
-#stop_on_crash=no
-# possible jobs types are: mpich, lam, scali, mvapich or serial
 jobtype="serial" 
-
 # a job id is automatically added to the workdir
-#workdir=/scr/$USER 
 workdir=/mnt/local/$USER/$PBS_JOBID
-#mkdir -p $workdir   # create the workdir
 
-global_workdisk=no
-#outdir=out
-#outdir=$workdir/out # 
-outdir=$workdir
-
-###--- JOB SPECIFICATION ---###
-#input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
-input="$CFOURBUILD/basis/GENBAS $CFOURBUILD/bin/x* $CFOUR/testsuite"
-initialize_job
-## distribute input files to all nodes
-distribute $input
-
-# exenodes executes non MPI commands on every node. If the '-all' flag is
-# given it will execute the command for every allocated CPU on every node.
-#exenodes mycomand files foobar
-
-# run job either in parallel (if appropriate)
-#run xcfour.sh 
 cd $workdir
-#xcfour
+cp -R $CFOUR/testsuite .
+cp -R $CFOURBUILD  .
+ls -lt
 
-xtester --whatistested
+PATH=".:$PATH:$PWD/intelmkl/bin"
+echo -e "PATH=$PATH"
+
+#xtester --whatistested
+xtester --help
 xtester --list
+
+xtester --all
 
 
 # gather files from all nodes. gather accepts the follwing flags:
