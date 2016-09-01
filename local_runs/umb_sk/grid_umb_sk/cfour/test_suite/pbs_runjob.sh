@@ -88,11 +88,10 @@ global_workdisk=no
 outdir=$workdir
 
 ###--- JOB SPECIFICATION ---###
-input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
-initialize_job
-
-# distribute input files to all nodes
-distribute $input
+#input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
+#initialize_job
+## distribute input files to all nodes
+#distribute $input
 
 # exenodes executes non MPI commands on every node. If the '-all' flag is
 # given it will execute the command for every allocated CPU on every node.

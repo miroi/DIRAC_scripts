@@ -49,7 +49,7 @@ export OMP_DYNAMIC="FALSE"
 
 
 #CFOUR=/scrcluster/harding/aces2.par
-CFOUR=/home/milias/Work/qch/software/cfour
+CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta/build/intelmklpar
 QUESYS=$CFOUR/share/quesys.sh
 
 if [ -f $QUESYS ]; then
@@ -80,11 +80,12 @@ jobtype="serial"
 # a job id is automatically added to the workdir
 #workdir=/scr/$USER 
 workdir=/mnt/local/$USER/$PBS_JOBID
-mkdir -p $workdir   # create the workdir
+#mkdir -p $workdir   # create the workdir
 
 global_workdisk=no
 #outdir=out
-outdir=$workdir/out # 
+#outdir=$workdir/out # 
+outdir=$workdir
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
