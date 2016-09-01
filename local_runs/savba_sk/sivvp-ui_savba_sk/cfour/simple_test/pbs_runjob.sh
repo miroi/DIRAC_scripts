@@ -9,7 +9,7 @@
 ### Declare myprogram non-rerunable
 #PBS -r n
 #PBS -l nodes=1:ppn=12
-#PBS -l walltime=20:00:00
+#PBS -l walltime=6:00:00
 #PBS -l mem=47g
 #PBS -j oe
 #PBS -q short
