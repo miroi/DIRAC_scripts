@@ -1,7 +1,5 @@
 #!/bin/sh
 ##
-##   Written by Jonas Juselius <jonas@iki.fi>
-##   extended by Michael Harding <harding@uni-mainz.de> 
 ##
 
 #PBS -S /bin/bash
@@ -48,48 +46,25 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 
-#CFOUR=/scrcluster/harding/aces2.par
 CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta
 CFOURBUILD=$CFOUR/build/intelmklpar
-QUESYS=$CFOUR/share/quesys.sh
 
-if [ -f $QUESYS ]; then
-    .   $QUESYS
-else
-    echo "$QUESYS not found!"
-    exit 1
-fi
 
-jobtype="serial" 
-# a job id is automatically added to the workdir
 workdir=/mnt/local/$USER/$PBS_JOBID
+mkdir $workdir
 
 cd $workdir
+echo -e "pwd=\c"; pwd
+
 cp -R $CFOUR/testsuite .
 cp -R $CFOURBUILD  .
 ls -lt
 
 PATH=".:$PATH:$PWD/intelmkl/bin"
-echo -e "PATH=$PATH"
+echo -e "\n PATH=$PATH"
 
 #xtester --whatistested
 xtester --help
 xtester --list
+#xtester --all
 
-xtester --all
-
-
-# gather files from all nodes. gather accepts the follwing flags:
-#  -tag      append the nodename to every file 
-#  -maxsize  maximum size (kB) of files to copy back
-gather -maxsize 10000
-
-finalize_job
-
-echo -e "\n $outdir content:"
-ls -lt $outdir/*
-echo -e " $outdir file space occupation:"
-du -h -s $outdir
-
-###------ END  ------###
-# vim:syntax=sh:filetype=sh
