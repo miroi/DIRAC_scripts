@@ -40,22 +40,22 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 # distributed binaries
-CFOURbin=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta_64bit_linux_serial
+CFOUR=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta_64bit_linux_serial
 workdir=/scratch/tmp/$USER/$PBS_JOBID/CFOURrun_bin
 mkdir -p $workdir
 
 cd $workdir
 echo -e "pwd=\c"; pwd
 
-cp -R $CFOURown/testsuite $workdir/.
-cp -R $CFOURown/bin       $workdir/.
-cp -R $CFOURown/share     $workdir/.
-cp -R $CFOURown/basis     $workdir/.
+cp -R $CFOUR/testsuite $workdir/.
+cp -R $CFOUR/bin       $workdir/.
+cp -R $CFOUR/share     $workdir/.
+cp -R $CFOUR/basis     $workdir/.
 
 #
 echo -e "\n \n Distributed CFOUR with binaries"
 cd $workdir
-export PATH=$CFOURown/bin:$PATH
+export PATH=$CFOUR/bin:$PATH
 echo -e "\n PATH=$PATH"
 cd testsuite
 xtester --all
