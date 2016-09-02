@@ -31,6 +31,10 @@ export MKL_NUM_THREADS=${NPROCS}
 export MKL_DYNAMIC="FALSE"
 export OMP_NUM_THREADS=1
 #
+
+module load intel/composerxe_2013
+module load Python/2.7.8
+
 echo -e "\nMKL_NUM_THREADS=$MKL_NUM_THREADS"
 echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
 echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
