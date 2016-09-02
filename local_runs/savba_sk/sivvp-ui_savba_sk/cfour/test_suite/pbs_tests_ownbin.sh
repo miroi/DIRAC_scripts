@@ -62,5 +62,6 @@ echo -e "\n PATH=$PATH"
 cd testsuite
 xtester --all
 
+/bin/rm -rd  $workdir
 
 exit 0
