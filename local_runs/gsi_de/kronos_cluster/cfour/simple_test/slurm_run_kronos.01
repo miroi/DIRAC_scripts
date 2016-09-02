@@ -80,7 +80,6 @@ export PATH=$CFOUR/bin:$PATH
 # for running jobs from your homedir
 #cd $SLURM_SUBMIT_DIR
 
-
 #stop_on_crash=no
 # possible jobs types are: mpich, lam, scali, mvapich or serial
 jobtype="serial" 
@@ -88,7 +87,8 @@ jobtype="serial"
 # a job id is automatically added to the workdir
 workdir=/lustre/nyx/ukt/milias/scratch
 global_workdisk=no
-outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
+#outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
+outdir=$workdir/CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
@@ -110,7 +110,7 @@ xcfour
 # gather files from all nodes. gather accepts the follwing flags:
 #  -tag      append the nodename to every file 
 #  -maxsize  maximum size (kB) of files to copy back
-gather -maxsize 10000
+#gather -maxsize 10000
 
 finalize_job
 
