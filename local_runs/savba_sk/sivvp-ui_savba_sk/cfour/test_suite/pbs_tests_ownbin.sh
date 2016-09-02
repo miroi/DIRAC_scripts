@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #PBS -S /bin/bash
-#PBS -N CFOURtests
+#PBS -N CFOURtestsown
 ### Declare myprogram non-rerunable
 #PBS -r n
 #PBS -l nodes=1:ppn=12
@@ -49,7 +49,7 @@ mkdir -p $workdir
 cd $workdir
 echo -e "pwd=\c"; pwd
 
-cp -R $CFOUR/testsuite $workdir/.
+cp -R $CFOUR/testsuite    $workdir/.
 
 cp -R $CFOURown/bin       $workdir/.
 cp -R $CFOURown/share     $workdir/.
