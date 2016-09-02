@@ -1,47 +1,44 @@
 #!/bin/sh
 
-#PBS -S /bin/bash
-#PBS -N CFOURtests
-### Declare myprogram non-rerunable
-#PBS -r n
-#PBS -l nodes=1:ppn=12
-#PBS -l walltime=6:00:00
-#PBS -l mem=47g
+### Set the job name
+#PBS -N cfour
+#PBS -r n 
+#PBS -q parallel
 #PBS -j oe
-#PBS -q long
+#PBS -l nodes=1:ppn=12
+#PBS -l mem=47g
+#PBS -l walltime=200:00:00
 
-echo "Working host is: "; hostname -f
-
-# load necessary modules
-module load intel/2015
-module load mkl/2015
-#module load openmpi-intel/1.8.3
-echo "My PATH=$PATH"
-echo "Running on host `hostname`"
-echo "Time is `date`"
-echo "Directory is `pwd`"
-echo "This jobs runs on the following processors:"
+### Run some informational commands.
+echo Running on host `hostname`
+echo Time is `date`
+echo Directory is `pwd`
+echo This jobs runs on the following processors:
 echo `cat $PBS_NODEFILE`
-# Extract number of processors
-NPROCS_PBS=`wc -l < $PBS_NODEFILE`
-NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
-echo "This node has $NPROCS CPUs."
-echo "This node has $NPROCS_PBS CPUs allocated for PBS calculations."
-echo "PBS_SERVER=$PBS_SERVER"
-echo "PBS_NODEFILE=$PBS_NODEFILE"
-echo "PBS_O_QUEUE=$PBS_O_QUEUE"
-echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
-# ...
-export MKL_NUM_THREADS=$NPROCS_PBS
-echo "MKL_NUM_THREADS=$MKL_NUM_THREADS"
-#export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
-export OMP_NUM_THREADS=1
+echo "Unique nodes (processors), from PBS_NODEFILE:"
+echo `cat $PBS_NODEFILE | sort | uniq `
+ 
+### Define number of processors for the job
+NPROCS=`wc -l < $PBS_NODEFILE`
+echo This job has allocated $NPROCS cpus
+echo -e "# of processors in node: \c"; cat /proc/cpuinfo | grep processor | wc -l
+echo -e "The host (main) node has $NCPUS cpus."
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo "Unique nodes (processors) :  $UNIQUE_NODES"
+
+export MKL_NUM_THREADS=${NPROCS}
 export MKL_DYNAMIC="FALSE"
-export OMP_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+echo -e "\nMKL_NUM_THREADS=$MKL_NUM_THREADS"
+echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+echo -e "--------------------------------------------\n"
 
 # distributed binaries
-CFOUR=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta_64bit_linux_serial
-workdir=/scratch/tmp/$USER/$PBS_JOBID/CFOURrun_bin
+CFOUR=/work/umbilias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
+workdir=/localscratch/$PBS_JOBID/$USER/CFOURrun_bin
 mkdir -p $workdir
 
 cd $workdir
