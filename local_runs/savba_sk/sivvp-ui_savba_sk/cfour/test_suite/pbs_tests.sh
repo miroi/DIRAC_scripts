@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #PBS -S /bin/bash
-#PBS -N C4_H2O
+#PBS -N CFOURtests
 ### Declare myprogram non-rerunable
 #PBS -r n
 #PBS -l nodes=1:ppn=12
@@ -40,7 +40,7 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 # distributed binaries
-CFOURbin=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_64bit_linux_serial
+CFOURbin=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta_64bit_linux_serial
 # own compiled version
 CFOURown=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta/build/intel_mklpar_i8
 
@@ -66,9 +66,9 @@ cp -R $CFOURbin/basis     $workdir2/.
 #
 #
 #
-echo -e "\n \n Distributed CFOUR"
+echo -e "\n \n Distributed CFOUR with binaries"
 cd $workdir1
-PATH=".:$PATH:$PWD/bin"  # add executable to PATH
+export PATH=$CFOURown/bin:$PATH
 echo -e "\n PATH=$PATH"
 cd testsuite
 xtester --all
@@ -76,9 +76,9 @@ xtester --all
 #
 #
 #
-echo -e "\n \n Own compiled CFOUR"
+echo -e "\n \n Own compiled CFOUR !"
 cd $workdir2
-PATH=".:$PATH:$PWD/bin"  # add executable to PATH
+export PATH=$CFOURbin/bin:$PATH
 echo -e "\n PATH=$PATH"
 cd testsuite
 xtester --all
