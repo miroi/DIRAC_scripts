@@ -46,7 +46,8 @@ export OMP_DYNAMIC="FALSE"
 
 
 CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta
-CFOURBUILD=$CFOUR/build/intelmklpar
+#CFOURBUILD=$CFOUR/build/intelmklpar
+CFOURBUILD=$CFOUR/build/intel_O2_mklpar
 
 
 workdir=/mnt/local/$USER/$PBS_JOBID
@@ -67,8 +68,8 @@ echo -e "\n PATH=$PATH"
 # Run tests
 #
 cd testsuite
-#xtester --all
-xtester --testcase 007
-xtester --testcase 354
+xtester --all
+#xtester --testcase 007
+#xtester --testcase 354
 
 exit 0
