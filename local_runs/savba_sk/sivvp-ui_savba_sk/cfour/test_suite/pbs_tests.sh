@@ -8,7 +8,7 @@
 #PBS -l walltime=6:00:00
 #PBS -l mem=47g
 #PBS -j oe
-#PBS -q short
+#PBS -q long
 
 echo "Working host is: "; hostname -f
 
@@ -44,8 +44,8 @@ CFOURbin=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta_64bit_linux_seri
 # own compiled version
 CFOURown=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta/build/intel_mklpar_i8
 
-workdir1=/mnt/local/$USER/$PBS_JOBID/CFOURrun_bin
-workdir2=/mnt/local/$USER/$PBS_JOBID/CFOURrun_own
+workdir1=/scratch/tmp/$USER/$PBS_JOBID/CFOURrun_bin
+workdir2=/scratch/tmp/$USER/$PBS_JOBID/CFOURrun_own
 mkdir -p $workdir1
 mkdir -p $workdir2
 
