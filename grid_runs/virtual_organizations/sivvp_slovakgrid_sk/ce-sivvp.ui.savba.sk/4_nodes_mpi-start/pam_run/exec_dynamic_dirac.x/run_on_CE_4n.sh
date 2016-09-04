@@ -62,8 +62,8 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 
 
 # directories with all static executables - dirac.x and OpenMPI
-#export PATH_SAVED=$PATH
-#export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
+export PATH_SAVED=$PATH
+export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
 # set the Dirac basis set library path for pam
 export BASDIR_PATH=$PWD/basis:$PWD/basis_dalton:$PWD/basis_ecp
@@ -176,6 +176,24 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "\n\n  Another OpenMPI parallel run .... which mpirun ...\c "; which mpirun
   echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ..."
   mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ./dirac.x
+
+
+  unset PATH
+  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
+  unset OPAL_PREFIX
+  export OPAL_PREFIX=$BUILD_MPI1
+  echo -e "\n\n The modified PATH=$PATH"
+  echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+  echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+  /bin/rm dirac.x
+  cp  $BUILD_MPI1/dirac.x        ${DIRAC_TMPDIR}/.
+  ldd dirac.x
+  echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ..."
+  mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ./dirac.x
+
+# mpi-start params !
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
