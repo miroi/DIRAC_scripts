@@ -164,9 +164,17 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "\n \n Launching command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
   cd ${DIRAC_TMPDIR}
   echo -e "\n pwd= $PWD"; ls -lt
+  echo -e "ldd dirac.x \c "; ldd dirac.x
 
   # run own parallel job
   $DIRAC_MPI_COMMAND
+
+  #
+  # another launch
+  #
+  echo -e "\n\n  Another OpenMPI parallel run .... which mpirun ...\c "; which mpirun
+  echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ..."
+  mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
