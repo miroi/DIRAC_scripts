@@ -13,3 +13,5 @@ In the created directory on CE=login-sivvp.ui.savba.sk, dirac.x is launched with
 
 Server's mpirun works with dynamic dirac.x on 4 nodes !
 
+Own static dirac.x with own static mpirun is crashing ...
+

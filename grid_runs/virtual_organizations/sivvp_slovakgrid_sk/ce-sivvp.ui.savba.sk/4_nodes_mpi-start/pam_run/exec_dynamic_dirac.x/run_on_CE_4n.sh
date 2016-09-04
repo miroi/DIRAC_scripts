@@ -171,26 +171,26 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   $DIRAC_MPI_COMMAND
 
   #
-  # another launch
+  # another launch of dynamic dirax.x
   #
   echo -e "\n\n  Another OpenMPI parallel run .... which mpirun ...\c "; which mpirun
   echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ..."
   mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ./dirac.x
 
 
-  unset PATH
-  export PATH=$BUILD_MPI1/bin:$PATH_SAVED
-  export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
-  unset OPAL_PREFIX
-  export OPAL_PREFIX=$BUILD_MPI1
-  echo -e "\n\n The modified PATH=$PATH"
-  echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-  echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
-  echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+  #unset PATH
+  #export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+  #export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
+  #unset OPAL_PREFIX
+  #export OPAL_PREFIX=$BUILD_MPI1
+  #echo -e "\n\n The modified PATH=$PATH"
+  #echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  #echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+  #echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
   /bin/rm dirac.x
   cp  $BUILD_MPI1/dirac.x        ${DIRAC_TMPDIR}/.
   ldd dirac.x
-  echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ..."
+  echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ./dirac.x # static dirac.x, server's OpenMPI stuff"
   mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ./dirac.x
 
 # mpi-start params !
