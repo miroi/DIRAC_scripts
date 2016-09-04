@@ -133,6 +133,7 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   mkdir ${DIRAC_TMPDIR}
 
   #cp  $BUILD_MPI1/dirac.x        ${DIRAC_TMPDIR}/.
+  chmod u+x ./dirac.x
   cp  dirac.x                    ${DIRAC_TMPDIR}/.
   cp  test/cosci_energy/ci.inp   ${DIRAC_TMPDIR}/DIRAC.INP
   cp  test/cosci_energy/F.mol    ${DIRAC_TMPDIR}/MOLECULE.MOL
@@ -174,7 +175,7 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   #
   echo -e "\n\n  Another OpenMPI parallel run .... which mpirun ...\c "; which mpirun
   echo -e "mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ..."
-  mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH
+  mpirun -H ${UNIQUE_NODES} -npernode 2 -x PATH -x LD_LIBRARY_PATH ./dirac.x
 
   #export DIRAC_MPI_COMMAND="mpirun -np 4"
   #export DIRAC_MPI_COMMAND="mpirun  -np 8 -npernode 2 --prefix $BUILD_MPI1" # this is crashing !
