@@ -17,7 +17,8 @@ else
 fi
 
 # name of Dirac package distributed over grid clusters
-package="DIRAC4Grid_suite.tgz"
+dirac_package="DIRAC4Grid_suite.tgz"
+dirac_exec="dirac.x"
 # set the name of the virtual organization
 VO="sivvp.slovakgrid.sk"
 
@@ -28,21 +29,20 @@ cd ${MPI_SHARED_HOME_PATH}
 
 print_CE_info
 querry_CE_attributes $VO
-check_file_on_SE $VO $package
+#check_file_on_SE $VO $package
 # download & unpack tar-file onto CE - MUST be successfull or exit
-download_from_SE $VO $package
+download_from_SE $VO $dirac_package
+download_from_SE $VO $dirac_exec
+
+unpack_DIRAC $dirac_package
+RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
+
 
 # get number of procs #
 unset nprocs
 get_nprocs_CE nprocs
 #RETVAL=$?; [ $RETVAL -ne 0 ] && exit 5
 echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
-
-#
-# Unpack the downloaded DIRAC tar-ball
-#
-unpack_DIRAC $package
-#RETVAL=$?; [ $RETVAL -ne 0 ] && exit 6
 
 #-----------------------------------------------
 #  specify the scratch space for DIRAC runs    #
@@ -55,32 +55,29 @@ unpack_DIRAC $package
 ##########################################
 
 # directories with all static executables - dirac.x and OpenMPI
-export PATH_SAVED=$PATH
-export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
+#export PATH_SAVED=$PATH
+#export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
 
 # set the Dirac basis set library path for pam
 export BASDIR_PATH=$PWD/basis:$PWD/basis_dalton:$PWD/basis_ecp
-
 export BUILD_MPI1=$PWD/build_intelmkl_openmpi-1.10.1_i8_static
 export BUILD_MPI2=$PWD/build_openmpi_gnu_i8_openblas_static
-
 export BUILD1=$PWD/build_intelmkl_i8_static
 export BUILD2=$PWD/build_gnu_i8_openblas_static
-
 export PAM_MPI1=$BUILD_MPI1/pam
 export PAM_MPI2=$BUILD_MPI2/pam
 export PAM1=$BUILD1/pam
 export PAM2=$BUILD2/pam
 
-unset PATH
-export PATH=$BUILD_MPI1/bin:$PATH_SAVED
-export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
-unset OPAL_PREFIX
-export OPAL_PREFIX=$BUILD_MPI1
-echo -e "\n The modified PATH=$PATH"
-echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
-echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
+#unset PATH
+#export PATH=$BUILD_MPI1/bin:$PATH_SAVED
+#export LD_LIBRARY_PATH=$BUILD_MPI1/lib:$LD_LIBRARY_PATH_SAVED
+#unset OPAL_PREFIX
+#export OPAL_PREFIX=$BUILD_MPI1
+#echo -e "\n The modified PATH=$PATH"
+#echo -e "The LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+#echo -e "The variable OPAL_PREFIX=$OPAL_PREFIX"
+#echo -e "\n The mpirun in PATH ... \c"; which mpirun; mpirun --version
 
 # take care of unique nodes ...
 UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
@@ -114,11 +111,11 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "  Updated MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
   export MPI_OPENMPI_ENABLE="yes"
 
-  export MPI_OPENMPI_PATH=$BUILD_MPI1
+ # export MPI_OPENMPI_PATH=$BUILD_MPI1
   echo -e "  MPI_OPENMPI_PATH=${MPI_OPENMPI_PATH}"
-  export MPI_OPENMPI_MPIEXEC=$BUILD_MPI1/bin/mpirun
+  #export MPI_OPENMPI_MPIEXEC=$BUILD_MPI1/bin/mpirun
   echo -e "  MPI_OPENMPI_EXEC=${MPI_OPENMPI_EXEC}"
-  export MPI_OPENMPI_VERSION=1.10
+  #export MPI_OPENMPI_VERSION=1.10
 
  # echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
 # use global disk for the CE
@@ -128,7 +125,8 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   export DIRAC_TMPDIR=${MPI_SHARED_HOME_PATH}/DiracRun
   mkdir ${DIRAC_TMPDIR}
 
-  cp  $BUILD_MPI1/dirac.x        ${DIRAC_TMPDIR}/.
+  #cp  $BUILD_MPI1/dirac.x        ${DIRAC_TMPDIR}/.
+  cp  dirac.x                    ${DIRAC_TMPDIR}/.
   cp  test/cosci_energy/ci.inp   ${DIRAC_TMPDIR}/DIRAC.INP
   cp  test/cosci_energy/F.mol    ${DIRAC_TMPDIR}/MOLECULE.MOL
 
@@ -147,6 +145,12 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   export BASDIR=${BASDIR_PATH}
 
   #export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -x DIRPAR -x GLBSCR -x BASDIR  -- ${DIRAC_TMPDIR}/dirac.x"
+
+  module avail
+  module load intel/2015
+  module load mkl/2015
+  module load openmpi-intel/1.8.3
+  echo -e "Loaded CE's modules  :"; module list
 
   export I2G_MPI_APPLICATION=${DIRAC_TMPDIR}/dirac.x
   export I2G_MPI_TYPE=openmpi
@@ -171,7 +175,6 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   #echo -e "\n The DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND} \n"
  # $PAM_MPI1 --inp=test/cosci_energy/ci.inp --mol=test/cosci_energy/F.mol  --mw=120 
 
-  
 
 
 ##############################################################

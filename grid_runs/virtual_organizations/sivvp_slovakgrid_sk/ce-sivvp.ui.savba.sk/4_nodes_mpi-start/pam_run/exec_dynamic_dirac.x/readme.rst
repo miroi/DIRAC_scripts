@@ -1,7 +1,14 @@
+======================
 4 nodes, mpi-start run
 ======================
 
-mpi-start with the dirac.x  in shared disk space
+mpi-start with the dynamic dirac.x (from ilias@login-sivvp.ui.savba.sk)  in the shared disk space
+
+The dynamical "dirac.x" is downloaded from SE, together with Dirac4Grid package.
+
+In created directory on CE=login-sivvp.ui.savba.sk, dirac.x is launched with DIRAC.INP and MOLECULE.MOL files.
+
+
 
 qstat -a:
 1312573.batch.sivvp     sivvp082    sivvp    cream_668771202    4667     4     48    --  4000:00:0 R  00:00:19
