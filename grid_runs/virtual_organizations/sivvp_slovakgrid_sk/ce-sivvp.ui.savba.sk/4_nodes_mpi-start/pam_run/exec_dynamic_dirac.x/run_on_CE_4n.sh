@@ -54,6 +54,13 @@ echo -e "\n Number of #CPU obtained from the function: $nprocs \n"
 #      set build dirs and paths          #
 ##########################################
 
+  module avail
+  module load intel/2015
+  module load mkl/2015
+  module load openmpi-intel/1.8.3
+  echo -e "Loaded CE's modules  :"; module list
+
+
 # directories with all static executables - dirac.x and OpenMPI
 #export PATH_SAVED=$PATH
 #export LD_LIBRARY_PATH_SAVED=$LD_LIBRARY_PATH
@@ -146,12 +153,6 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 
   #export DIRAC_MPI_COMMAND="mpi-start -d I2G_MPI_TYPE=openmpi -d I2G_OPENMPI_PREFIX=$BUILD_MPI1  -npnode 2 -x PATH -x LD_LIBRARY_PATH -x DIRPAR -x GLBSCR -x BASDIR  -- ${DIRAC_TMPDIR}/dirac.x"
 
-  module avail
-  module load intel/2015
-  module load mkl/2015
-  module load openmpi-intel/1.8.3
-  echo -e "Loaded CE's modules  :"; module list
-
   export I2G_MPI_APPLICATION=${DIRAC_TMPDIR}/dirac.x
   export I2G_MPI_TYPE=openmpi
   #export I2G_MPI_NP=2
@@ -160,7 +161,9 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   which mpi-start; mpi-start --help
  
   export DIRAC_MPI_COMMAND="mpi-start -d DIRPAR=1 -d GLBSCR=1 -d BASDIR=${BASDIR_PATH}"
-  echo -e "\n Launching command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
+  echo -e "\n \n Launching command DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}"
+  cd ${DIRAC_TMPDIR}
+  echo -e "\n pwd= $PWD"; ls -lt
 
   # run own parallel job
   $DIRAC_MPI_COMMAND
@@ -206,7 +209,7 @@ echo -e "\n --------------------------------- \n ";
 #############################################
 final_message
 
-
+cd $HOME
 echo -e "\n Cleaned space ? pwd=$PWD, ls -l \c"a ;ls -l ${PWD}
 /bin/rm -rf ${MPI_SHARED_HOME_PATH}/*
 echo -e "\n Now cleaned space ? pwd=$PWD, ls -l \c"a ;ls -l ${PWD}
