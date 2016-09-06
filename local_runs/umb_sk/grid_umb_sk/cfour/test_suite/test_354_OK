@@ -1,0 +1,26 @@
+Working host is: 
+comp06.grid.umb.sk
+My PATH=/mnt/apps/pgi/linux86-64/13.10/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/mpirt/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64_mic/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64_mic:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gui/intel64:/usr/lib64/qt-3.3/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
+Running on host comp06
+Time is Tue Sep  6 21:12:59 CEST 2016
+Directory is /home/milias
+This jobs runs on the following processors:
+comp06 comp06 comp06 comp06 comp06 comp06 comp06 comp06 comp06 comp06 comp06 comp06
+This node has 12 CPUs.
+This node has 12 CPUs allocated for PBS calculations.
+PBS_SERVER=
+PBS_NODEFILE=/var/lib/torque/aux//113134.batch.grid.umb.sk
+PBS_O_QUEUE=batch
+PBS_O_WORKDIR=/home/milias/Work/qch/software/My_scripts/local_runs/umb_sk/grid_umb_sk/cfour/test_suite
+MKL_NUM_THREADS=12
+pwd=/mnt/local/milias/113134.batch.grid.umb.sk/CFOURrun
+total 16
+drwxr-xr-x 2 milias milias 4096 Sep  6 21:13 basis
+drwxr-xr-x 2 milias milias 4096 Sep  6 21:13 share
+drwxr-xr-x 2 milias milias 4096 Sep  6 21:13 bin
+drwxr-xr-x 3 milias milias 4096 Sep  6 21:13 testsuite
+
+ PATH=.:/mnt/apps/pgi/linux86-64/13.10/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/mpirt/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64_mic/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gdb/intel64/py26/bin:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64:/mnt/apps/intel/composer_xe_2013_sp1.1.106/bin/intel64_mic:/mnt/apps/intel/composer_xe_2013_sp1.1.106/debugger/gui/intel64:/usr/lib64/qt-3.3/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/mnt/local/milias/113134.batch.grid.umb.sk/CFOURrun/bin
+TEST.354 H2O    CCSD/AUG-PVTZ          ENERGY (NCC, INCORE)                     
+ ... PASSED ... 
+                5.74 seconds walltime passed

@@ -46,7 +46,7 @@ export OMP_DYNAMIC="FALSE"
 
 
 #CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta
-CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_64bit_linux_serial/cfour_v2.00beta_64bit_linux_serial
+CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_64bit_linux_serial
 
 workdir=/mnt/local/$USER/$PBS_JOBID/CFOURrun
 mkdir -p $workdir
@@ -72,6 +72,6 @@ cd testsuite
 #xtester --help
 #xtester --list
 xtester --all
-#xtester --testcase 001
+#xtester --testcase 354 # for Devin
 
 exit 0
