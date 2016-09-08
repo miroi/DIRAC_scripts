@@ -70,12 +70,10 @@ export OMP_DYNAMIC="FALSE"
 
 #export DIRAC_ROOTDIR=/lustre/nyx/ukt/milias/work/software/dirac/trunk
 export DIRAC_ROOTDIR=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
-#export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmkl_i8_xhost_prod
-#export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmklpar_i8_xh
 #export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmkl_i8_prod
+export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intel_mkl_i8_xh
 
-export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_openmpi_intel_mkl_i8
-
+# My OpenMPI-Intel installation
 export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
 export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_PATH
 
@@ -107,18 +105,22 @@ echo -e "For comparison, df -h /tmp/."; df -h /tmp
 #cd $SLURM_SUBMIT_DIR
 
 # for running tests, use this directory ...
-cd $DIRAC_BUILDDIR
+#cd $DIRAC_BUILDDIR
 
 echo -e "\n Current directory where this SLURM job is running `pwd`"
 echo " It has the disk space of (df -h) :"
 df -h .
 echo
 
-$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
+#$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
+$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC_ROOTDIR/test/cc_energy_and_mp2_dipole/H2O.mol
 
+echo -e "\n\n Now ctest -L short ..."
+
+## for running tests, use this directory ...
+cd $DIRAC_BUILDDIR
 #ctest -j $SLURM_CPUS_ON_NODE 
 #ctest -j 10
-
-#ctest 
+ctest -L short
 
 exit
