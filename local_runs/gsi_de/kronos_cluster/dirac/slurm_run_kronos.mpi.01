@@ -80,7 +80,7 @@ export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_
 #export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
 export DIRAC_MPI_COMMAND="mpirun -np 4"
 
-export PAM=$DIRAC/pam
+export PAM=$BUILD/pam
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
 echo -e "\n ldd $DIRAC_BUILDDIR/dirac.x:"
