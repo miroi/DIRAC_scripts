@@ -51,9 +51,11 @@ echo -e "\nMy PATH=$PATH\n"
 echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
 echo "This node has $NPROCS CPUs available."
-echo "This node has $SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+#
+echo "(i) This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
 
-echo -e "\n the memory at the node (in GB)"
+echo -e "\n The memory at the node (in GB)"
 free -t -g
 echo
 
@@ -110,11 +112,10 @@ echo
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 $PAM --mw=320 --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
-echo -e "\n\n Now ctest -L short ..."
+#echo -e "\n\n Now ctest -L short ..."
 ## for running tests, use this directory ...
-cd $BUILD
-#ctest -j $SLURM_CPUS_ON_NODE 
+#cd $BUILD
 #ctest -j 10
-ctest -L short
+#ctest -L short
 
 exit
