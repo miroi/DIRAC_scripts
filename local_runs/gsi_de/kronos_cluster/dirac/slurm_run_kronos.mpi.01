@@ -8,13 +8,12 @@
 #SBATCH -t 0-2:30:00
 
 ## Node count - take only one node for OpenMP-MKL
-##  lxbk0051-lxbk0200 ...
 #SBATCH -N 1
 ## CPU count  - max. 40 per node
-#SBATCH -n 8
+#SBATCH -n 4
 
 ## memory
-#SBATCH --mem=32G
+#SBATCH --mem=36G
 
 ## stdout/stderr output file
 #SBATCH -o log_slurm_job.%j.%N.std_out_err
@@ -68,22 +67,21 @@ export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
-#export DIRAC_ROOTDIR=/lustre/nyx/ukt/milias/work/software/dirac/trunk
-export DIRAC_ROOTDIR=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
-#export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intelmkl_i8_prod
-export DIRAC_BUILDDIR=$DIRAC_ROOTDIR/build_intel_mkl_i8_xh
+export DIRAC=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
+export BUILD=$DIRAC/build_openmpi_intel_mkl_i8_xh
 
 # My OpenMPI-Intel installation
 export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
 export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_PATH
 
 # set MPI launcher
-export DIRAC_MPI="mpirun -np $SLURM_CPUS_ON_NODE"
+#export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
+export DIRAC_MPI_COMMAND="mpirun -np 4"
 
-export PAM=$DIRAC_BUILDDIR/pam
-export BASDIR=$DIRAC_ROOTDIR/basis_dalton:$DIRAC_ROOTDIR/basis
+export PAM=$DIRAC/pam
+export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
-echo -e "\nldd $DIRAC_BUILDDIR/dirac.x:"
+echo -e "\n ldd $DIRAC_BUILDDIR/dirac.x:"
 ldd $DIRAC_BUILDDIR/dirac.x
 echo
 
@@ -101,11 +99,8 @@ df -h $DIRAC_TMPDIR/.
 echo
 echo -e "For comparison, df -h /tmp/."; df -h /tmp
 
-# for running jobs from your homedir
-#cd $SLURM_SUBMIT_DIR
-
-# for running tests, use this directory ...
-#cd $DIRAC_BUILDDIR
+# for running jobs from your homedir, use ...
+cd $SLURM_SUBMIT_DIR
 
 echo -e "\n Current directory where this SLURM job is running `pwd`"
 echo " It has the disk space of (df -h) :"
@@ -113,12 +108,11 @@ df -h .
 echo
 
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
-$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC_ROOTDIR/test/cc_energy_and_mp2_dipole/H2O.mol
+$PAM --mw=320 --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
 echo -e "\n\n Now ctest -L short ..."
-
 ## for running tests, use this directory ...
-cd $DIRAC_BUILDDIR
+cd $BUILD
 #ctest -j $SLURM_CPUS_ON_NODE 
 #ctest -j 10
 ctest -L short
