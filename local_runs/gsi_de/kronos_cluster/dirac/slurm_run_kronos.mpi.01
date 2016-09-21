@@ -83,8 +83,8 @@ export DIRAC_MPI_COMMAND="mpirun -np 4"
 export PAM=$BUILD/pam
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
-echo -e "\n ldd $DIRAC_BUILDDIR/dirac.x:"
-ldd $DIRAC_BUILDDIR/dirac.x
+echo -e "\n ldd $BUILD/dirac.x:"
+ldd $BUILD/dirac.x
 echo
 
 echo -e "Python -v :\c"; python -V
