@@ -26,11 +26,14 @@ echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
 echo $SLURM_JOB_NODELIST
 echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 
-module load git/2.8.0-foss-2016a
-module load intel/2016a
-module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
-module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
-module load CMake/3.6.1-foss-2016a
+echo -e "\n Available modules:"
+module list
+
+#module load git/2.8.0-foss-2016a
+#module load intel/2016a
+#module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
+#module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
+#module load CMake/3.6.1-foss-2016a
 echo "loaded modules:"
 module list
 
@@ -46,7 +49,7 @@ echo "This node has $NPROCS CPUs available."
 echo "(i) This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
 echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
 
-echo -e "\n The memory at the node (in GB)"
+echo -e "\n The memory at the node (in GB); free -t -g"
 free -t -g
 echo
 
@@ -82,12 +85,12 @@ echo -e "mpirun ? which mpirun  = \c"; which mpirun
 echo -e "mpirun --version \c"; mpirun --version
 echo
 
-#export DIRAC_TMPDIR=/data/$USER
-export DIRAC_TMPDIR=/scratch/$USER
+#export DIRAC_TMPDIR=/data
+export DIRAC_TMPDIR=/scratch
 echo -e "\nDIRAC scratch directory space, $DIRAC_TMPDIR"
 df -h $DIRAC_TMPDIR/.
 echo
-echo -e "For comparison, df -h /tmp/."; df -h /tmp
+echo -e "For mere comparison, df -h /tmp/."; df -h /tmp
 
 # for running jobs from your homedir, use ...
 cd $SLURM_SUBMIT_DIR
