@@ -202,6 +202,17 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -j2 -D ExperimentalTest -R cosci_energy
  ctest -D ExperimentalSubmit 
 
+# Finally test the release preparation
+ make -j2 release
+ tar xzf DIRAC-16.0-Source.tar.gz
+ cd DIRAC-16.0-Source
+ python ./setup --type=debug --int64 --cmake-options="-D BUILDNAME='grid_savba_i8_RELEASE'" build_release
+ cd build_release
+ ctest -D ExperimentalConfigure
+ ctest -j4 -D ExperimentalBuild
+ ctest -D ExperimentalSubmit
+
+
 #
 # copy there related OpenMPI directories 
 cp  -R   /home/ilias/bin/openmpi-1.10.1_intel_static/bin            $DIRAC/$BUILD_OMPI_INTEL/.
