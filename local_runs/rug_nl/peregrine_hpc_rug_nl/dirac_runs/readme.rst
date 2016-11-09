@@ -2,5 +2,8 @@
 DIRAC on Peregrine
 ==================
 
-OpenMPI-Intel-i8 parallel runs
+OpenMPI-Intel-MKL-i8 parallel run
+
+
+Intel-MKL-i8 serial run with internally parallelized MKL
 
