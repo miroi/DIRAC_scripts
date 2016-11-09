@@ -35,6 +35,17 @@ ctest  -D ExperimentalConfigure
 ctest -j3 -D ExperimentalBuild  
 ctest -j3 -D ExperimentalTest  -L short
 ctest  -D ExperimentalSubmit    
+#
+#
+make -j3 release
+tar xzf DIRAC-16.0-Source.tar.gz
+cd DIRAC-16.0-Source
+python ./setup  --int64 --type=debug  --cmake-options="-D BUILDNAME='gnu_i8_RELEASE'"  build_release
+cd build_release
+ctest  -D ExperimentalConfigure
+ctest -j3 -D ExperimentalBuild
+ctest  -D ExperimentalSubmit
+
 
 cd $DIRAC
 BUILD_GNU1=build_gnu_i4
