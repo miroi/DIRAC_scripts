@@ -26,9 +26,6 @@ echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
 echo $SLURM_JOB_NODELIST
 echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 
-echo -e "\n Available modules:"
-module list
-
 #module load git/2.8.0-foss-2016a
 #module load intel/2016a
 #module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
@@ -102,7 +99,7 @@ echo
 
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 
-$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
+$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi_out
 
 #echo -e "\n\n Now ctest -L short ..."
 ## for running tests, use this directory ...
