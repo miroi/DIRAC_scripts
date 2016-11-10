@@ -203,7 +203,11 @@ python ./setup --mpi  --fc=/home/ilias/bin/openmpi-1.10.1_intel_static/bin/mpif9
  ctest -D ExperimentalSubmit 
 
 # Finally test the release preparation
+ timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
+ echo -e "\n Preparing release version from master branch at $timestamp "
  make -j2 release
+ echo "is DIRAC-16.0-Source.tar.gz generated ?"
+ ls -lt DIRAC-16.0-Source.tar.gz
  tar xzf DIRAC-16.0-Source.tar.gz
  cd DIRAC-16.0-Source
  python ./setup --type=debug --int64 --cmake-options="-D BUILDNAME='grid_savba_i8_RELEASE'" build_release
