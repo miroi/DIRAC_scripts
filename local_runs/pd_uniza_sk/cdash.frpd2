@@ -45,16 +45,23 @@ ctest  -D ExperimentalSubmit
 #
 echo -e "\n Preparing release version from master, make release"
 make -j3 release
-echo "is DIRAC-16.0-Source.tar.gz ?"
-ls -lt DIRAC-16.0-Source.tar.gz
-tar xzf DIRAC-16.0-Source.tar.gz
-cd DIRAC-16.0-Source
+echo "Did we get DIRAC-XX.X-Source.tar.gz ?"
+ls -lt DIRAC-*-Source.tar.gz
+tarballtgz=`find . -maxdepth 1 -type f -name "DIRAC-*.tar.gz"`
+echo " DIRAC-XX.X-Source.tar.gz = ${tarballtgz}"
+ls -lt ${tarballtgz}
+tar xzf ${tarballtgz}
+tarballdir=${tarballtgz%.tar.gz}
+echo "Is directory ... ${tarballdir} ?"
+ls -lt  ${tarballdir}
+echo "Entering ${tarballdir} directory and performing DIRAC-release buildup there"
+cd ${tarballdir}
+echo -e "Am I in ${tarballdir} ? \c";pwd
 python ./setup  --int64 --type=debug  --cmake-options="-D BUILDNAME='gnu_i8_RELEASE'"  build_release
 cd build_release
 ctest  -D ExperimentalConfigure
 ctest -j3 -D ExperimentalBuild
 ctest  -D ExperimentalSubmit
-
 
 cd $DIRAC
 BUILD_GNU1=build_gnu_i4
