@@ -57,6 +57,8 @@ So far I got membership in these virtual organizations:
 Working with your certificate
 -----------------------------
 
+subject   : /C=SK/O=SlovakGrid/O=UMB/CN=Miroslav Ilias
+
 Simple initialization :
 
 ::

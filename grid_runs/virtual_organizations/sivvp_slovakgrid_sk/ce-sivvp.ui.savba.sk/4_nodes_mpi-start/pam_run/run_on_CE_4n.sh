@@ -98,8 +98,8 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
   echo -e "\n MPI_SHARED_HOME=${MPI_SHARED_HOME}"
   echo -e "  MPI_OPENMPI_ENABLE=${MPI_OPENMPI_ENABLE}"
   echo -e "  MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
-  export MPI_SSH_HOST_BASED_AUTH="yes"
-  echo -e "  Updated MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
+  #export MPI_SSH_HOST_BASED_AUTH="yes"
+  #echo -e "  Updated MPI_SSH_HOST_BASED_AUTH=${MPI_SSH_HOST_BASED_AUTH}"
 
 
   echo -e "\n\n --- Going to launch parallel Dirac - OpenMPI+Intel+MKL+i8 - with few tests  --- \n "; date 
