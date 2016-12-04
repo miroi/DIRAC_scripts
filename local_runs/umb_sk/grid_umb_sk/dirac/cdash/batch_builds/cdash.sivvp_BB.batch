@@ -82,6 +82,8 @@ TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
 DIRAC=${SCRATCH}/trunk.$PBS_JOBID
 echo -e "ls -lt ${DIRAC} ? \c"; ls -lt ${DIRAC}
+cd ${DIRAC}
+git submodule update --init --recursive
 
 # set time for Test
 export DIRTIMEOUT="20m"
@@ -92,7 +94,7 @@ export DIRAC_TMPDIR=${SCRATCH}
 ###############################################
 #      serial DIRAC buildup, Intel MKL        #
 ###############################################
-BUILD_SERIAL=build_intelmkl_i8_batch
+BUILD_SERIAL=build_intelmkl_i8
 cd ${DIRAC}
 echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_SERIAL"
 #
@@ -129,7 +131,7 @@ ctest  -D ExperimentalSubmit
 #####################################################
 #        serial DIRAC buildup with GNU+mkl
 #####################################################
-BUILD_GNU=build_gnu_mkl_i8_batch
+BUILD_GNU=build_gnu_mkl_i8
 echo -e "\n\n Running serial DIRAC buildup in $BUILD_GNU"
 cd ${DIRAC}
 if [[ -d "$BUILD_GNU" ]]; then
@@ -146,7 +148,7 @@ ctest   -D ExperimentalSubmit
 #####################################################
 #        serial DIRAC buildup with PGI+mkl
 #####################################################
-BUILD_PGI=build_pgi_mkl_i8_batch
+BUILD_PGI=build_pgi_mkl_i8
 echo -e "\n\n Running serial DIRAC buildup in $BUILD_PGI"
 cd ${DIRAC}
 if [[ -d "$BUILD_PGI" ]]; then
