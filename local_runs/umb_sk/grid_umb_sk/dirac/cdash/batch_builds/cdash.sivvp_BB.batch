@@ -108,7 +108,8 @@ cd $BUILD_SERIAL
 #ctest  --track Miro  -D ExperimentalUpdate 
 ctest   -D ExperimentalConfigure 
 ctest   -D ExperimentalBuild 
-ctest   -D ExperimentalTest -L short 
+#ctest   -D ExperimentalTest -L short 
+ctest   -D ExperimentalTest 
 ctest   -D ExperimentalSubmit 
 
 ##############################################################################
@@ -125,8 +126,8 @@ python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="
 cd $BUILD_SERIAL_STATIC
 ctest  -D ExperimentalConfigure
 ctest  -D ExperimentalBuild
-#ctest --track Grid  -D ExperimentalTest -L short
-ctest  -D ExperimentalTest -R cosci_energy
+ctest --track Grid  -D ExperimentalTest -L short
+#ctest  -D ExperimentalTest -R cosci_energy
 ctest  -D ExperimentalSubmit 
 
 #####################################################
@@ -160,7 +161,8 @@ python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILD
 cd $BUILD_PGI
 ctest -D ExperimentalConfigure 
 ctest -D ExperimentalBuild   
-ctest -D ExperimentalTest -R cosci_energy  
+#ctest -D ExperimentalTest -R cosci_energy  
+ctest --track Grid  -D ExperimentalTest -L short
 ctest -D ExperimentalSubmit 
 
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
