@@ -74,6 +74,9 @@ echo -e "My PATH=$PATH"
 # Clone DIRAC into unique directory on scratch
 #
 SCRATCH=/mnt/local/$USER/$PBS_JOBID
+mkdir ${SCRATCH}
+echo -e "In ${SCRATCH} ? \c"; pwd
+
 cd ${SCRATCH}
 TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
