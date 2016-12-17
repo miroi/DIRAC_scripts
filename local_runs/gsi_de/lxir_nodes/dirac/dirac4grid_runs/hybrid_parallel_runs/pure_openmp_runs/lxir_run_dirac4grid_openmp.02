@@ -51,15 +51,9 @@ export DIRTIMEOUT="12m"
 export BASDIR="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
 
 #--------------------------------------------------------------
-#     Mixed parallel OpenMPI/OpenMP run on 1 node (8cpus)
-#
-#                Main cycle over np-MKL 
-#
-#          i-j: i - # for OpenMPI, j-# for OpenMP
+#                Main cycle over #MKL 
 #
 #--------------------------------------------------------------
-#for ij in 1-1 1-2 1-4 1-8 2-1 2-2 2-4 4-1 4-2 8-1; do
-#for ij in 1-1 2-1 4-1 8-1; do
 for nmkl in 1 2 4 8; do
 
   # we have unique string of time !
