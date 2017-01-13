@@ -106,6 +106,6 @@ echo
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 #$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
-$RESPECT/test/testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch
+$RESPECT/test/testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
 
 exit
