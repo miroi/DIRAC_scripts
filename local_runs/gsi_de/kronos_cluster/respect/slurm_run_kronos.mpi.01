@@ -74,8 +74,7 @@ export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
-export DIRAC=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
-export BUILD=$DIRAC/build_openmpi_intel_mkl_i8_xh
+export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_3.4.2_beta_x86_64_OpenMPI-1.8.1_intel-14.0
 
 # My OpenMPI-Intel installation
 export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
@@ -107,5 +106,6 @@ echo
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 #$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
+$RESPECT/test/testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch
 
 exit
