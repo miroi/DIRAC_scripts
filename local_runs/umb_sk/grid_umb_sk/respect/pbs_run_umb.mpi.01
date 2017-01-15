@@ -25,6 +25,9 @@ source /mnt/apps/intel/bin/compilervars.sh intel64
 # libnumma for PGI
 #export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
 
+# Path for python 2.7
+export PATH=/mnt/apps/python27/bin:$PATH
+
 echo "My PATH=$PATH"
 echo "Running on host `hostname`"
 echo "Time is `date`"
@@ -78,13 +81,14 @@ which python;  python -V
 cd $RSP/test
 python ./testrs.py --help
 
+mkdir $TMPDIR
+
 #./testrs.py  --scratch=$TMPDIR  --path=$RSP  --np=$NPROCS_PBS
 ./testrs.py  --scratch=$TMPDIR  --np=$NPROCS_PBS
 
 #$RSP/respect --scratch=/localscratch/$PBS_JOBID.$USER --inp=Ru-CO_5.dkh2.scf.v2z --np=$NPROCS
 #$RSP/respect --scratch=/localscratch/$PBS_JOBID.$USER --restart=Ru-CO_5.dkh2.scf.v2z  --inp=Ru-CO_5.dc.pbe.v2z  --np=$NPROCS
 #$RSP/respect --scratch=/localscratch/$PBS_JOBID.$USER --restart=Ru-CO_5.dkh2.scf.v2z  --inp=Ru-CO_5-1p.dc.pbe.v2z  --np=$NPROCS
-
 
 
 exit 0
