@@ -72,7 +72,12 @@ cd $PBS_O_WORKDIR
 
 ### run ReSpect test ###
 
+echo -e "\n Current python version:"
+python -V
+
 cd $RSP/test
+python ./testrs.py --help
+
 #./testrs.py  --scratch=$TMPDIR  --path=$RSP  --np=$NPROCS_PBS
 ./testrs.py  --scratch=$TMPDIR  --np=$NPROCS_PBS
 
