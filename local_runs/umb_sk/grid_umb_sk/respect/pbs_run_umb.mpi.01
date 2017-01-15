@@ -72,9 +72,9 @@ cd $PBS_O_WORKDIR
 
 ### run ReSpect test ###
 
-cd $RSP
+cd $RSP/test
 
-test/testrs.py  --scratch=$TMPDIR   --np=$NPROCS_PBS
+./testrs.py  --scratch=$TMPDIR  --path=$RSP  --np=$NPROCS_PBS
 
 #$RSP/respect --scratch=/localscratch/$PBS_JOBID.$USER --inp=Ru-CO_5.dkh2.scf.v2z --np=$NPROCS
 #$RSP/respect --scratch=/localscratch/$PBS_JOBID.$USER --restart=Ru-CO_5.dkh2.scf.v2z  --inp=Ru-CO_5.dc.pbe.v2z  --np=$NPROCS
