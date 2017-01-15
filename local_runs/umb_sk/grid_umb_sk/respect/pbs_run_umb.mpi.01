@@ -73,7 +73,7 @@ cd $PBS_O_WORKDIR
 ### run ReSpect test ###
 
 echo -e "\n Current python version:"
-python -V
+which python;  python -V
 
 cd $RSP/test
 python ./testrs.py --help
