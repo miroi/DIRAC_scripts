@@ -43,7 +43,7 @@ echo
 module unload compiler/intel/12.1
 module unload compiler/intel/15.0
 module unload compiler/intel/16.0
-
+# this is wanted compiler ...
 module load compiler/intel/15.0
 echo "loaded modules:"
 module list
@@ -57,7 +57,7 @@ echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
 echo "This node has $NPROCS CPUs available."
 #
-echo "(i) This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+echo "(i) This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations. Enough ?"
 echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
 
 echo -e "\n The memory at the node (in GB)"
@@ -74,25 +74,19 @@ export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
-export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_3.4.2_beta_x86_64_OpenMPI-1.8.1_intel-14.0
+#export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_3.4.2_beta_x86_64_OpenMPI-1.8.1_intel-14.0
+export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_4.0.0_beta_x86_64_OpenMPI-2.0.0_intel-15.0
 
 # My OpenMPI-Intel installation
 export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
 export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_PATH
 
-# set MPI launcher
-#export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
-#export DIRAC_MPI_COMMAND="mpirun -np 4"
-export DIRAC_MPI_COMMAND="mpirun"
-
-echo
-
-echo -e "Python -v :\c"; python -V
+echo -e "\n Python -v :\c"; python -V
 echo -e "cmake ? which cmake = \c"; which cmake
 echo -e "ctest ? which ctest = \c"; which ctest
 echo -e "ctest --version \c"; ctest --version
-echo -e "mpirun ? which mpirun  = \c"; which mpirun
-echo -e "mpirun --version \c"; mpirun --version
+echo -e "which mpirun  ? \c"; which mpirun
+echo -e "mpirun --version ? \c"; mpirun --version
 echo
 
 # for running jobs from your homedir, use ...
@@ -106,10 +100,8 @@ echo
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 #$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
-#cd $RESPECT/test
-cd $RESPECT
+#cd $RESPECT
 $RESPECT/test/testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
-
 
 
 exit
