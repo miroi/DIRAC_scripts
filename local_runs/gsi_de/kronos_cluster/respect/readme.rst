@@ -2,7 +2,7 @@
 ReSpect on Kronos, GSI.de cluster
 =================================
 
-OpenMPI run
+OpenMPI version works well.
 
 
 
