@@ -77,9 +77,11 @@ export OMP_DYNAMIC="FALSE"
 #export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_3.4.2_beta_x86_64_OpenMPI-1.8.1_intel-14.0
 export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_4.0.0_beta_x86_64_OpenMPI-2.0.0_intel-15.0
 
-# My OpenMPI-Intel installation
-export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
-export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_PATH
+# My own OpenMPI-Intel installation for ReSpect-OpenMPI
+#export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
+#export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_PATH
+export PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-15/bin:$PATH
+export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-15/lib:$LD_LIBRARY_PATH
 
 echo -e "\n Python -v :\c"; python -V
 echo -e "cmake ? which cmake = \c"; which cmake
@@ -100,8 +102,8 @@ echo
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 #$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
-#cd $RESPECT
-$RESPECT/test/testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
+cd $RESPECT/test
+python ./testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
 
 
 exit
