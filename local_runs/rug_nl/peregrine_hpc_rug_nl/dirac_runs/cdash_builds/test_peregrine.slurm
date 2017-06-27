@@ -70,7 +70,8 @@ export OMP_DYNAMIC="FALSE"
 
 #export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
 export DIRAC=/home/f113112/work/qch/software/dirac/trunk
-export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
+#export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
+export BUILD=$DIRAC/build_cmake_openmpi_intel_openblas_i8_xh
 
 # set MPI launcher
 export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"

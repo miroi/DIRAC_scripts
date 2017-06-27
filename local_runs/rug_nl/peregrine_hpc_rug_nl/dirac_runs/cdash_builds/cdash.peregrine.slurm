@@ -70,7 +70,8 @@ export OMP_DYNAMIC="FALSE"
 
 #export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
 export DIRAC=/home/f113112/work/qch/software/dirac/trunk
-export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
+#export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
+export BUILD=$DIRAC/build_cmake_openmpi_intel_openblas_i8_xh/
 
 # set MPI launcher
 #export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
@@ -120,7 +121,8 @@ else
   echo "Directory $BUILD does not exist in DIRAC space."
 fi
 
-./setup --mpi --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.intel_mkl_i8-slurm" -D DART_TESTING_TIMEOUT=99999' $BUILD
+./setup --mpi --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --blas=off --lapack=off --explicit-libs="-L/home/f113112/work/qch/software/openblas/OpenBLAS-repo  -lopenblas" --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.openmpi_intel_openblas_i8-slurm" -D DART_TESTING_TIMEOUT=99999' $BUILD
+
 
 ## for running tests, use this directory ...
 cd $BUILD
