@@ -26,13 +26,21 @@ echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
 echo $SLURM_JOB_NODELIST
 echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 
-#module load git/2.8.0-foss-2016a
-#module load intel/2016a
-#module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
-#module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
-#module load CMake/3.6.1-foss-2016a
+## Modules
+  module load git/2.8.0-foss-2016a
+  #module load intel/2016a
+  module load iccifort/2015.2.164
+  module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
+  module load ifort/2015.2.164
+  module load icc/2015.2.164
+  #module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
+  module load CMake/3.6.1-foss-2016a
 echo "loaded modules:"
 module list
+
+# my own OpenMPI installation
+export PATH=/home/f113112/work/qch/software/openmpi-2.1.1_intel-15/bin:$PATH
+export LD_LIBRARY_PATH=/home/f113112/work/qch/software/openmpi-2.1.1_intel-15/lib:$LD_LIBRARY_PATH
 
 echo -e "\nRunning on host `hostname`"
 echo -e "Time is `date` \n"
@@ -66,8 +74,7 @@ export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
 
 # set MPI launcher
 #export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
-#export DIRAC_MPI_COMMAND="mpirun -np 4"
-export DIRAC_MPI_COMMAND="mpirun"
+export DIRAC_MPI_COMMAND="mpirun -np 2"
 export PAM=$BUILD/pam
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
@@ -110,14 +117,16 @@ fi
 #ctest -j 10
 #ctest -L short
 
+ctest   -D ExperimentalUpdate
 ctest   -D ExperimentalConfigure 
-ctest   -D ExperimentalBuild 
-ctest   -D ExperimentalTest -L short 
-#ctest   -D ExperimentalTest 
-ctest   -D ExperimentalSubmit 
+ctest -j2   -D ExperimentalBuild 
 
-echo -e "\n ldd $BUILD/dirac.x:"
+echo -e "\n Resulting executable, ldd $BUILD/dirac.x:"
 ldd $BUILD/dirac.x
 echo
+
+ctest -j2  -D ExperimentalTest -L short 
+#ctest   -D ExperimentalTest 
+ctest   -D ExperimentalSubmit 
 
 exit
