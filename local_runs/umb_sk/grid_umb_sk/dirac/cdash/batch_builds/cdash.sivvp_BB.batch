@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# 40 01 * * 1,2,3,4,5,6,7 DB=/home/milias/Work/qch/software/My_scripts/local_runs/umb_sk/grid_umb_sk/dirac/cdash/batch_builds; cd $DB;  /usr/bin/qsub $DB/cdash.sivvp_BB.batch 
+#
+
 #PBS -S /bin/bash
 #PBS -N DIRACbuild
 #PBS -A UMB-ITMS-26110230082
@@ -11,13 +15,19 @@
 #PBS -j oe
 #PBS -q batch
 
-echo "Working host is: "; hostname -f
+echo -e "\n Working host is: "; hostname -f
 
 source /mnt/apps/intel/bin/compilervars.sh intel64
-echo "Intel Fortran/C/C++ noncommercial compilers with MKL library activated, PROD_DIR=$PROD_DIR."
+echo -e "\n Intel Fortran/C/C++ compilers with MKL library activated, PROD_DIR=$PROD_DIR."
+#export MATH_ROOT=/mnt/apps/intel/mkl; echo -e "Activated MATH_ROOT=$MATH_ROOT"
+echo -e "MKLROOT=${MKLROOT}"
+echo -e "ifort ? \c"; which ifort; ifort -V
+echo -e "\n"
 
 source /mnt/apps/pgi/environment.sh
-echo "Portlang Group compilers activated ! PGI=$PGI"
+echo -e "Portlang Group compilers activated ! PGI=$PGI"
+echo -e "pgf90 ? \c"; which pgf90; pgf90 -V
+echo -e "\n"
 
 # my cmake stuff
 #export PATH=/home/milias/bin/cmake/bin:$PATH
@@ -26,7 +36,6 @@ echo "Portlang Group compilers activated ! PGI=$PGI"
 # my most recent python 2.7.1 #
 #export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
 
-#echo "My PATH=$PATH"
 echo "Running on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
@@ -36,6 +45,7 @@ echo `cat $PBS_NODEFILE`
 NPROCS_PBS=`wc -l < $PBS_NODEFILE`
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
 echo "This node has $NPROCS CPUs."
+echo "...but has reserved $NPROCS_PBS CPUs for PBS job."
 echo "PBS_SERVER=$PBS_SERVER"
 echo "PBS_NODEFILE=$PBS_NODEFILE"
 echo "PBS_O_QUEUE=$PBS_O_QUEUE"
@@ -48,22 +58,21 @@ echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
 #export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
 
 # own cmake installation for nodes
-export PATH=/home/milias/bin/cmake/bin/:$PATH
+#export PATH=/home/milias/bin/cmake/bin/:$PATH
 echo -e "which cmake ? \c"
 which cmake; cmake --version
 which ctest; ctest --version
 echo
-# own git installation for nodes
-export PATH=/home/milias/bin/git_cloned/bin:$PATH
-echo -e "which git ? \c"
-which git; git --version
-# check Python
-echo -e "which python ? \c"
-which python; python -V
 
-export MATH_ROOT=/mnt/apps/intel/mkl; echo "Activated MATH_ROOT=$MATH_ROOT"
+# check own git installation for nodes
+#export PATH=/home/milias/bin/git_cloned/bin:$PATH
+echo -e "\n which git ? \c"; which git; git --version
+# check Python
+echo -e "which python ? \c"; which python; python -V
+
 export LC_ALL=C
-export MKL_NUM_THREADS=${NPROCS_PBS}
+#export MKL_NUM_THREADS=${NPROCS_PBS}
+export MKL_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_NUM_THREADS=1
 #
@@ -75,12 +84,12 @@ echo -e "My PATH=$PATH"
 #
 SCRATCH=/mnt/local/$USER/$PBS_JOBID
 mkdir ${SCRATCH}
-echo -e "In ${SCRATCH} ? \c"; pwd
+echo -e "\n In ${SCRATCH} ? \c"; pwd
 
 cd ${SCRATCH}
 TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
-DIRAC=${SCRATCH}/trunk.$PBS_JOBID
+DIRAC=${SCRATCH}/${TRUNK}
 echo -e "ls -lt ${DIRAC} ? \c"; ls -lt ${DIRAC}
 cd ${DIRAC}
 git submodule update --init --recursive
@@ -106,11 +115,15 @@ fi
 python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF -D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
 cd $BUILD_SERIAL
 #ctest  --track Miro  -D ExperimentalUpdate 
-ctest   -D ExperimentalConfigure 
-ctest   -D ExperimentalBuild 
-#ctest   -D ExperimentalTest -L short 
-ctest   -D ExperimentalTest 
-ctest   -D ExperimentalSubmit 
+#ctest   -D ExperimentalConfigure 
+ctest -V -j$NPROCS_PBS   -D ExperimentalBuild 
+
+echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
+ldd dirac.x
+
+#ctest   -D ExperimentalTest 
+ctest -V -j$NPROCS_PBS  -D ExperimentalTest -L short
+ctest  -V -D ExperimentalSubmit 
 
 ##############################################################################
 #          serial,static DIRAC buildup with Intel+MKL
@@ -124,11 +137,15 @@ if [[ -d "$BUILD_SERIAL_STATIC" ]]; then
 fi
 python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF -D BUILDNAME='sivvp-UMB_Intel_mkl_i8_static-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
 cd $BUILD_SERIAL_STATIC
-ctest  -D ExperimentalConfigure
-ctest  -D ExperimentalBuild
-ctest  -D ExperimentalTest -L short
+#ctest  -D ExperimentalConfigure
+ctest -V -j$NPROCS_PBS  -D ExperimentalBuild
+
+echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
+ldd dirac.x
+
+ctest -V -j$NPROCS_PBS -D ExperimentalTest -L short
 #ctest  -D ExperimentalTest -R cosci_energy
-ctest  -D ExperimentalSubmit 
+ctest -V -D ExperimentalSubmit 
 
 #####################################################
 #        serial DIRAC buildup with GNU+mkl
@@ -142,10 +159,15 @@ if [[ -d "$BUILD_GNU" ]]; then
 fi
 python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++  --cmake-options="-D BUILDNAME='sivvp-UMB_GNU_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF"  $BUILD_GNU
 cd $BUILD_GNU
-ctest   -D ExperimentalConfigure 
-ctest   -D ExperimentalBuild  
-ctest   -D ExperimentalTest -R cosci_energy 
-ctest   -D ExperimentalSubmit  
+#ctest   -D ExperimentalConfigure 
+ctest -V -j$NPROCS_PBS  -D ExperimentalBuild  
+
+echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
+ldd dirac.x
+
+#ctest -j$NPROCS_PBS  -D ExperimentalTest -R cosci_energy 
+ctest -V -j$NPROCS_PBS  -D ExperimentalTest -L short
+ctest -V  -D ExperimentalSubmit  
 
 #####################################################
 #        serial DIRAC buildup with PGI+mkl
@@ -159,12 +181,17 @@ if [[ -d "$BUILD_PGI" ]]; then
 fi
 python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-UMB_PGI_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF" $BUILD_PGI
 cd $BUILD_PGI
-ctest -D ExperimentalConfigure 
-ctest -D ExperimentalBuild   
+#ctest -V -D ExperimentalConfigure 
+ctest -V -j$NPROCS_PBS -D ExperimentalBuild   
+
+echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
+ldd dirac.x
+
 #ctest -D ExperimentalTest -R cosci_energy  
-ctest -D ExperimentalTest -L short
-ctest -D ExperimentalSubmit 
+ctest -V -j$NPROCS_PBS -D ExperimentalTest -L short
+ctest -V -D ExperimentalSubmit 
 
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n\n All buildups finished at "$timestamp
+
 exit 0
