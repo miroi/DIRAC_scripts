@@ -49,7 +49,7 @@ echo -e "\nMy PATH=$PATH\n"
 # CPU model, total numer of CPUs, number of allocated CPUs
 echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
-echo "This node has $NPROCS CPUs available."
+echo -e "This node has $NPROCS CPUs available."
 #
 echo "(i) This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
 echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
@@ -82,13 +82,13 @@ export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 echo -e "Python -v :\c"; python -V
 echo -e "cmake ? which cmake = \c"; which cmake
 echo -e "ctest ? which ctest = \c"; which ctest
-echo -e "ctest --version \c"; ctest --version
+echo -e "ctest --version = \c"; ctest --version
 echo -e "mpirun ? which mpirun  = \c"; which mpirun
-echo -e "mpirun --version \c"; mpirun --version
-echo -e "mpif90 ? which mpif90  = \c"; which mpif90
+echo -e "mpirun --version = \c"; mpirun --version
+echo -e "mpif90 ? which mpif90 = \c"; which mpif90
 echo -e "mpif90 --version \c"; mpif90 --version
-echo "'expr $SLURM_CPUS_ON_NODE / 2' gives \c";expr $SLURM_CPUS_ON_NODE / 2
-echo "Also result from that expression `expr $SLURM_CPUS_ON_NODE / 2`" 
+echo -e "\nThe 'expr $SLURM_CPUS_ON_NODE / 2' gives \c"; expr $SLURM_CPUS_ON_NODE / 2
+echo -e "Also result from that expression directly ...`expr $SLURM_CPUS_ON_NODE / 2`" 
 
 #export DIRAC_TMPDIR=/data
 export DIRAC_TMPDIR=/scratch
@@ -113,7 +113,7 @@ else
   echo "Directory $BUILD does not exist in DIRAC space."
 fi
 
-./setup --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.intel_mkl_i8-slurm" -D DART_TESTING_TIMEOUT=99999' $BUILD
+./setup --mpi --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.intel_mkl_i8-slurm" -D DART_TESTING_TIMEOUT=99999' $BUILD
 
 ## for running tests, use this directory ...
 cd $BUILD
