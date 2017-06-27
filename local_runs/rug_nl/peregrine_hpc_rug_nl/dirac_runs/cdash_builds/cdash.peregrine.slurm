@@ -80,6 +80,7 @@ export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
 
 echo -e "Python -v :\c"; python -V
+echo -e "git ? \c"; git --version
 echo -e "cmake ? which cmake = \c"; which cmake
 echo -e "ctest ? which ctest = \c"; which ctest
 echo -e "ctest --version = \c"; ctest --version
@@ -100,6 +101,12 @@ echo -e "For mere comparison, df -h /tmp/."; df -h /tmp
 # for running jobs from your homedir, use ...
 #cd $SLURM_SUBMIT_DIR
 cd $DIRAC
+
+# clean with git and update submodules
+echo -e "git-cleaning and submodules updating in Dirac trunk"
+git clean -f -d -x .
+git remote update --prune
+git submodule update --init --recursive
 
 echo -e "\n Current directory where this SLURM job is running `pwd`"
 echo " It has the disk space of (df -h) :"
