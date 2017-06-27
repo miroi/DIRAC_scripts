@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=DIRACtest
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-node=12
 #SBATCH --mem=50gb
 #SBATCH --time=1-00:10:00
 
@@ -74,7 +74,7 @@ export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
 
 # set MPI launcher
 #export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
-export DIRAC_MPI_COMMAND="mpirun -np 2"
+#export DIRAC_MPI_COMMAND="mpirun -np 2"
 export PAM=$BUILD/pam
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
@@ -87,7 +87,8 @@ echo -e "mpirun ? which mpirun  = \c"; which mpirun
 echo -e "mpirun --version \c"; mpirun --version
 echo -e "mpif90 ? which mpif90  = \c"; which mpif90
 echo -e "mpif90 --version \c"; mpif90 --version
-echo
+echo "'expr $SLURM_CPUS_ON_NODE / 2' gives \c";expr $SLURM_CPUS_ON_NODE / 2
+echo "Also result from that expression `expr $SLURM_CPUS_ON_NODE / 2`" 
 
 #export DIRAC_TMPDIR=/data
 export DIRAC_TMPDIR=/scratch
@@ -112,21 +113,24 @@ else
   echo "Directory $BUILD does not exist in DIRAC space."
 fi
 
-./setup --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release $BUILD
+./setup --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.intel_mkl_i8-slurm" -D DART_TESTING_TIMEOUT=99999' $BUILD
 
 ## for running tests, use this directory ...
 cd $BUILD
+echo "I am in directory $BUILD "; pwd; ls -lt
 
-ctest   -D ExperimentalUpdate
-ctest   -D ExperimentalConfigure 
-ctest -j2   -D ExperimentalBuild 
+ctest -V   -D ExperimentalUpdate
+ctest -V  -D ExperimentalConfigure 
+ctest -VV -j$SLURM_CPUS_ON_NODE  -D ExperimentalBuild 
 
 echo -e "\n Resulting executable, ldd $BUILD/dirac.x:"
 ldd $BUILD/dirac.x
 echo
 
-ctest -j2  -D ExperimentalTest -L short 
+export DIRAC_MPI_COMMAND="mpirun -np 2"
+#ctest -j2  -D ExperimentalTest -L short 
+ctest -V -j`expr $SLURM_CPUS_ON_NODE / 2` -D ExperimentalTest -L short 
 #ctest   -D ExperimentalTest 
-ctest   -D ExperimentalSubmit 
+ctest  -V  -D ExperimentalSubmit 
 
 exit
