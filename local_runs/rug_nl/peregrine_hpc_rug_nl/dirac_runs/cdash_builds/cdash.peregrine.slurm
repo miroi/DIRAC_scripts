@@ -97,7 +97,8 @@ echo
 echo -e "For mere comparison, df -h /tmp/."; df -h /tmp
 
 # for running jobs from your homedir, use ...
-cd $SLURM_SUBMIT_DIR
+#cd $SLURM_SUBMIT_DIR
+cd $DIRAC
 
 echo -e "\n Current directory where this SLURM job is running `pwd`"
 echo " It has the disk space of (df -h) :"
@@ -107,15 +108,14 @@ echo
 if [[ -d "$BUILD" ]]; then
   echo "Deleting the previous build directory $BUILD"
   /bin/rm -rf $BUILD
+else
+  echo "Directory $BUILD does not exist in DIRAC space."
 fi
 
 ./setup --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release $BUILD
 
-#echo -e "\n\n Now ctest -L short ..."
 ## for running tests, use this directory ...
-#cd $BUILD
-#ctest -j 10
-#ctest -L short
+cd $BUILD
 
 ctest   -D ExperimentalUpdate
 ctest   -D ExperimentalConfigure 
