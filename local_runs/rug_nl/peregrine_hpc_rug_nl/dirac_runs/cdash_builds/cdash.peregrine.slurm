@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=DIRACtest
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=12
+#SBATCH --ntasks-per-node=16
 #SBATCH --mem=50gb
 #SBATCH --time=1-00:10:00
 
@@ -73,9 +73,6 @@ export DIRAC=/home/f113112/work/qch/software/dirac/trunk
 #export BUILD=$DIRAC/build_cmake_openmpi_intelmkl_i8_xh/
 export BUILD=$DIRAC/build_cmake_openmpi_intel_openblas_i8_xh/
 
-# set MPI launcher
-#export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
-#export DIRAC_MPI_COMMAND="mpirun -np 2"
 export PAM=$BUILD/pam
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
@@ -121,25 +118,27 @@ else
   echo "Directory $BUILD does not exist in DIRAC space."
 fi
 
-./setup --mpi --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --blas=off --lapack=off --explicit-libs="-L/home/f113112/work/qch/software/openblas/OpenBLAS-repo  -lopenblas" --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.openmpi_intel_openblas_i8-slurm" -D DART_TESTING_TIMEOUT=99999' $BUILD
+./setup --mpi --fc=mpif90 --cc=mpicc --cxx=mpiCC --int64 --blas=off --lapack=off --explicit-libs="-L/home/f113112/work/qch/software/openblas/OpenBLAS-repo  -lopenblas" --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost" --type=release  --cmake-options='-D BUILDNAME="Peregrine.openmpi_intel_openblas_i8-slurm" -D DART_TESTING_TIMEOUT=99999 -D ENABLE_TUTORIALS=ON -D ENABLE_UNIT_TESTS=ON' $BUILD
 
 
 ## for running tests, use this directory ...
 cd $BUILD
 echo "I am in directory $BUILD "; pwd; ls -lt
 
-ctest -V   -D ExperimentalUpdate
-ctest -V  -D ExperimentalConfigure 
+ctest -VV   -D ExperimentalUpdate
+ctest -VV  -D ExperimentalConfigure 
 ctest -VV -j$SLURM_CPUS_ON_NODE  -D ExperimentalBuild 
 
 echo -e "\n Resulting executable, ldd $BUILD/dirac.x:"
 ldd $BUILD/dirac.x
 echo
 
-export DIRAC_MPI_COMMAND="mpirun -np 2"
+export DIRAC_MPI_COMMAND="mpirun -np 4"
 #ctest -j2  -D ExperimentalTest -L short 
-ctest -V -j`expr $SLURM_CPUS_ON_NODE / 2` -D ExperimentalTest -L short 
+#ctest -V -j`expr $SLURM_CPUS_ON_NODE / 2` -D ExperimentalTest -L short 
+ctest -VV -j`expr $SLURM_CPUS_ON_NODE / 4` -D ExperimentalTest 
 #ctest   -D ExperimentalTest 
-ctest  -V  -D ExperimentalSubmit 
+
+ctest  -VV  -D ExperimentalSubmit 
 
 exit
