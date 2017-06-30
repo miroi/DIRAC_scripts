@@ -61,7 +61,9 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
-export BUILD=$DIRAC/build_openmpi_intelmkl_i8_xh/
+#export BUILD=$DIRAC/build_openmpi_intelmkl_i8_xh/
+#export BUILD=$DIRAC/build_openmpi_intel_ownmath_i8_dbg/
+export BUILD=$DIRAC/build_openmpi_intel15_i8_xhost_openblas/
 
 # set MPI launcher
 #export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
@@ -99,12 +101,8 @@ echo
 
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 
-$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi_out
+#$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi_out_ownmath
+$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi_out_openblas
 
-#echo -e "\n\n Now ctest -L short ..."
-## for running tests, use this directory ...
-#cd $BUILD
-#ctest -j 10
-#ctest -L short
 
 exit
