@@ -22,3 +22,34 @@ Own static dirac.x with own static mpirun is crashing ...
 
 Own static dirac.x with server's dynamic mpirun is crashing ...
 
+
+==========
+THIS WORKS
+==========
+
+  Another OpenMPI parallel run .... which mpirun .../shared/software/openmpi/1.8.3-intel/bin/mpirun
+mpirun -H comp22,comp30,comp31,comp32 -npernode 2 -x PATH -x LD_LIBRARY_PATH ...
+
+  ** notice ** integer kinds do not match: dirac --> kind = 8 MPI library --> kind =  4
+  ** interface to 32-bit integer MPI enabled **
+
+DIRAC master    (comp22) starts by allocating             64000000 words (           488 MB) of memory
+DIRAC node    1 (comp22) starts by allocating             64000000 words (           488 MB) of memory
+DIRAC node    4 (comp31) starts by allocating             64000000 words (           488 MB) of memory
+DIRAC node    5 (comp31) starts by allocating             64000000 words (           488 MB) of memory
+DIRAC master    (comp22) to allocate at most            2147483648 words (         16384 MB) of memory
+ 
+Note: maximum allocatable memory for master+nodes can be set by -aw flag (MW) in pam
+ 
+DIRAC node    1 (comp22) to allocate at most            2147483648 words (         16384 MB) of memory
+DIRAC node    6 (comp32) starts by allocating             64000000 words (           488 MB) of memory
+DIRAC node    7 (comp32) starts by allocating             64000000 words (           488 MB) of memory
+DIRAC node    5 (comp31) to allocate at most            2147483648 words (         16384 MB) of memory
+DIRAC node    4 (comp31) to allocate at most            2147483648 words (         16384 MB) of memory
+DIRAC node    6 (comp32) to allocate at most            2147483648 words (         16384 MB) of memory
+DIRAC node    7 (comp32) to allocate at most            2147483648 words (         16384 MB) of memory
+ *******************************************************************************
+ *                                                                             *
+ *                                O U T P U T                                  *
+ *                                   from                                      *
+
