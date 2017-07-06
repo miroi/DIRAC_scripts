@@ -8,6 +8,7 @@
 
 ## max. execution time
 ##SBATCH -t 0-1:30:00
+#SBATCH -t 0-0:20:00
 
 ## Node count - take only one node for OpenMP-MKL
 #SBATCH -N 1
