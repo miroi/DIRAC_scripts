@@ -3,10 +3,11 @@
 
 ##  partition (queue)
 ##SBATCH -p long
-#SBATCH -p main
+##SBATCH -p main
+#SBATCH -p debug
 
 ## max. execution time
-#SBATCH -t 0-1:30:00
+##SBATCH -t 0-1:30:00
 
 ## Node count - take only one node for OpenMP-MKL
 #SBATCH -N 1
@@ -75,11 +76,15 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 export DIRAC=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
-export BUILD=$DIRAC/build_openmpi_intel17_mkl_i8_xh
+#export BUILD=$DIRAC/build_openmpi_intel17_mkl_i8_xh
+export BUILD=$DIRAC/build_openmpi_intel17_openblas_i8_xh
 
-# My OpenMPI-Intel installation
+# My OpenMPI-Intel17 installation
 export PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-17/bin:$PATH
 export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-17/lib:$LD_LIBRARY_PATH
+
+# My OpenBLAS-Intel17-i8 installation
+export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/work/software/openblas/OpenBLAS:$LD_LIBRARY_PATH
 
 # set MPI launcher
 export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
@@ -116,12 +121,8 @@ echo
 
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 
-$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
+#$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=openblas_mpi4_out
 
-#echo -e "\n\n Now ctest -L short ..."
-## for running tests, use this directory ...
-#cd $BUILD
-#ctest -j 10
-#ctest -L short
+$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2h.mol --suffix=openblas_mpi4_out
 
 exit
