@@ -46,7 +46,8 @@ module avail
 echo
 module unload compiler/intel/12.1
 module unload compiler/intel/15.0
-module load compiler/intel/15.0
+# all dirac.x is on Intel 17.0
+module load compiler/intel/17.0
 echo "loaded modules:"
 module list
 
@@ -125,6 +126,7 @@ echo
 #$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=openblas_mpi4_out
 
 #$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2h.mol --suffix=mkl_mpi4_out
+
 $PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2.mol --suffix=mkl_mpi4_out
 
 exit
