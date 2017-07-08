@@ -2,7 +2,7 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N Ddynpar_small
+#PBS -N DparOblas
 ### Declare myprogram non-rerunable
 #PBS -r n
 
@@ -125,7 +125,8 @@ for ij in 1-1 2-1 6-1 12-1; do #
   echo -e "OpenMPI: which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
-  $PAM_MPI1 --noarch --gb=2.4 --ag=3.6 --inp=$INP  --mol=$MOL --suffix=out1n_p-ob.$ij
+  #$PAM_MPI1 --noarch --gb=2.4 --ag=3.6 --inp=$INP  --mol=$MOL --suffix=out1n_p-ob.$ij
+  $PAM_MPI1 --noarch --gb=2.4 --inp=$INP  --mol=$MOL --suffix=out1n_p-ob.$ij
 
   #$PAM_MPI1 --noarch --mw=400 --nw=300 --aw=4200 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
   #$PAM_MPI1 --noarch --mw=600 --nw=800 --aw=1800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
