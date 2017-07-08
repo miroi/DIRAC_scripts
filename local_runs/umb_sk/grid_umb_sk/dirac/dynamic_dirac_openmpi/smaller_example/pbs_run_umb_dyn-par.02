@@ -50,20 +50,22 @@ echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 #export MKL_NUM_THREADS=$NPROCS
 #echo "MKL_NUM_THREADS=$MKL_NUM_THREADS"
 #export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
-export OMP_NUM_THREADS=1
-export MKL_DYNAMIC="FALSE"
-export OMP_DYNAMIC="FALSE"
+#export OMP_NUM_THREADS=1
+#export MKL_DYNAMIC="FALSE"
+#export OMP_DYNAMIC="FALSE"
 
 # provide OpenMPI-Intel - local installation for DIRAC
 export PATH=/home/milias/bin/openmpi-1.8.4-intel/bin:$PATH
 export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
+# provide my own OpenBLAS installation
+export LD_LIBRARY_PATH=/home/milias/bin/openblas/OpenBLAS:$LD_LIBRARY_PATH
 
-#DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
-DIRAC=/home/milias/Work/qch/software/dirac/trunk
+DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
+#DIRAC=/home/milias/Work/qch/software/dirac/trunk
 #DIRAC=/home/milias/Work/qch/software/dirac/dirac_for_grid
 
 #BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
-BUILD_MPI1=$DIRAC/build_ompi_intelmkl_dbg
+BUILD_MPI1=$DIRAC/build_openmpi-1.8.4_intel14_openblas_i8_xh
 PAM_MPI1=$BUILD_MPI1/pam
 
 echo -e "\n The $BUILD_MPI1/dirac.x attributes:"
@@ -80,6 +82,7 @@ MOL=$DIRAC/test/cc_linear/N2.ccpVDZ.mol
 
 # set local scratch directory for your runs 
 export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
+echo -e "\n Scratch dir, DIRAC_TMPDIR=$DIRAC_TMPDIR, df -h \c"; df -h $DIRAC_TMPDIR
 
 #  set BASIS directory for your runs - pam needs to see it
 #export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
@@ -89,8 +92,8 @@ export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
 #export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 1"
 
 # secure maximum time for running Dirac job (for pam)
-#export DIRTIMEOUT="1h"
-export DIRTIMEOUT="40m"
+export DIRTIMEOUT="1h"
+#export DIRTIMEOUT="40m"
 
 cd $PBS_O_WORKDIR
 
@@ -105,18 +108,12 @@ for ij in 1-1 2-1 6-1 12-1; do #
   nmkl=$2
 
   # set MKL envirovariables
-  unset MKL_NUM_THREADS
-  export MKL_NUM_THREADS=$nmkl
-  echo -e "\nUpdated MKL_NUM_THREADS=$MKL_NUM_THREADS"
-  echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
-  echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
-  echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+  unset OPENBLAS_NUM_THREADS
+  export OPENBLAS_NUM_THREADS=$nmkl
+  echo -e "\nUpdated OPENBLAS_NUM_THREADS=$OPENBLAS_NUM_THREADS"
   
-# send MKL enviro-variables to nodes
-#PBS -v MKL_NUM_THREADS
-#PBS -v MKL_DYNAMIC
-#PBS -v OMP_NUM_THREADS
-#PBS -v OMP_DYNAMIC
+# send enviro-variables to nodes
+#PBS -v OPENBLAS_NUM_THREADS
 
 # Passing your whole environment
 #PBS -V
@@ -128,7 +125,7 @@ for ij in 1-1 2-1 6-1 12-1; do #
   echo -e "OpenMPI: which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
-  $PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_i4_p-im.$ij
+  $PAM_MPI1 --noarch --gb=2.4 --ag=3.6 --inp=$INP  --mol=$MOL --suffix=out1n_p-ob.$ij
 
   #$PAM_MPI1 --noarch --mw=400 --nw=300 --aw=4200 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
   #$PAM_MPI1 --noarch --mw=600 --nw=800 --aw=1800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij

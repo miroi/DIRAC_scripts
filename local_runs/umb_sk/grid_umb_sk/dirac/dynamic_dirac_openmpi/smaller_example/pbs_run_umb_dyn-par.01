@@ -58,12 +58,17 @@ export OMP_DYNAMIC="FALSE"
 export PATH=/home/milias/bin/openmpi-1.8.4-intel/bin:$PATH
 export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
 
-#DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
-DIRAC=/home/milias/Work/qch/software/dirac/trunk
+DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
+#DIRAC=/home/milias/Work/qch/software/dirac/trunk
 #DIRAC=/home/milias/Work/qch/software/dirac/dirac_for_grid
 
-BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
+#BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
+BUILD_MPI1=$DIRAC/build_openmpi-1.8.4_intel14_mkl_i8_xh
 PAM_MPI1=$BUILD_MPI1/pam
+
+echo -e "\nPython -V \c"; python -V
+echo -e "mpf90 ? \c"; which mpif90; mpif90 --version
+echo -e "mpirun ? \c"; which mpirun; mpirun --version
 
 echo -e "\n The $BUILD_MPI1/dirac.x attributes:"
 ls -lt $BUILD_MPI1/dirac.x
@@ -79,6 +84,7 @@ MOL=$DIRAC/test/cc_linear/N2.ccpVDZ.mol
 
 # set local scratch directory for your runs 
 export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
+echo -e "\n Local scratch directory, DIRAC_TMPDIR=$DIRAC_TMPDIR \c"; df -h /mnt/local/$USER/
 
 #  set BASIS directory for your runs - pam needs to see it
 #export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
