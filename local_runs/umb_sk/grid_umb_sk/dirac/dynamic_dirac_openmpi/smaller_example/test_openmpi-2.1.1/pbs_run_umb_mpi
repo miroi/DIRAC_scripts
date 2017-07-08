@@ -2,13 +2,13 @@
 
 #PBS -S /bin/bash
 #PBS -A UMB-ITMS-26110230082
-#PBS -N DparMKL
+#PBS -N N2par
 ### Declare myprogram non-rerunable
 #PBS -r n
 
 #PBS -l nodes=1:ppn=12:old
 
-#PBS -l walltime=80:00:00
+#PBS -l walltime=2:00:00
 #PBS -l mem=47g
 #PBS -j oe
 
@@ -100,7 +100,7 @@ echo -e "\n Local scratch directory, DIRAC_TMPDIR=$DIRAC_TMPDIR \c"; df -h /mnt/
 
 # secure maximum time for running Dirac job (for pam)
 #export DIRTIMEOUT="1h"
-export DIRTIMEOUT="40m"
+export DIRTIMEOUT="20m"
 
 cd $PBS_O_WORKDIR
 
@@ -127,21 +127,17 @@ cd $PBS_O_WORKDIR
 
   unset DIRAC_MPI_COMMAND
   #export DIRAC_MPI_COMMAND="mpirun -np ${np}"
+
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
-  $PAM_MPI1 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_mkl_2mpi
-  $PAM_MPI2 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_ob_2mpi
+ # $PAM_MPI1 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_mkl_2mpi
+ # $PAM_MPI2 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_ob_2mpi
 
-  $PAM_MPI1 --mpi=3 --noarch --gb=3.5 --ag=15.5   --inp=$INP  --mol=$MOL --suffix=out_mkl_3mpi
-  $PAM_MPI2 --mpi=3 --noarch --gb=3.5 --ag=15.5   --inp=$INP  --mol=$MOL --suffix=out_ob_3mpi
+  $PAM_MPI1 --mpi=2 --noarch    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_mkl_2mpi
+  $PAM_MPI2 --mpi=2 --noarch    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_ob_2mpi
 
-  $PAM_MPI1 --mpi=4 --noarch --gb=3.5 --ag=11.5   --inp=$INP  --mol=$MOL --suffix=out_mkl_4mpi
-  $PAM_MPI2 --mpi=4 --noarch --gb=3.5 --ag=11.5   --inp=$INP  --mol=$MOL --suffix=out_ob_4mpi
 
-  $PAM_MPI1 --mpi=5 --noarch --gb=3.5 --ag=9.1   --inp=$INP  --mol=$MOL --suffix=out_mkl_5mpi
-  $PAM_MPI2 --mpi=5 --noarch --gb=3.5 --ag=9.1   --inp=$INP  --mol=$MOL --suffix=out_ob_5mpi
 
-  $PAM_MPI1 --mpi=6 --noarch --gb=3.5 --ag=7.7   --inp=$INP  --mol=$MOL --suffix=out_mkl_6mpi
 
 exit 0
