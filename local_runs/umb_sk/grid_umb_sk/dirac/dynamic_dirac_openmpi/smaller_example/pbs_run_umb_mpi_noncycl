@@ -65,6 +65,9 @@ DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
 #BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
 BUILD_MPI1=$DIRAC/build_openmpi-1.8.4_intel14_mkl_i8_xh
 PAM_MPI1=$BUILD_MPI1/pam
+BUILD_MPI2=$DIRAC/build_openmpi-1.8.4_intel14_openblas_i8_xh
+export LD_LIBRARY_PATH=/home/milias/bin/openblas/OpenBLAS:$LD_LIBRARY_PATH
+PAM_MPI2=$BUILD_MPI2/pam
 
 echo -e "\nPython -V \c"; python -V
 echo -e "mpf90 ? \c"; which mpif90; mpif90 --version
@@ -122,18 +125,21 @@ cd $PBS_O_WORKDIR
 
   unset DIRAC_MPI_COMMAND
   #export DIRAC_MPI_COMMAND="mpirun -np ${np}"
-  export DIRAC_MPI_COMMAND="mpirun"
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
-  $PAM_MPI1 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_2mpi
+  $PAM_MPI1 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_mkl_2mpi
+  $PAM_MPI2 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_ob_2mpi
 
-  $PAM_MPI1 --mpi=3 --noarch --gb=3.5 --ag=15.5   --inp=$INP  --mol=$MOL --suffix=out_3mpi
+  $PAM_MPI1 --mpi=3 --noarch --gb=3.5 --ag=15.5   --inp=$INP  --mol=$MOL --suffix=out_mkl_3mpi
+  $PAM_MPI2 --mpi=3 --noarch --gb=3.5 --ag=15.5   --inp=$INP  --mol=$MOL --suffix=out_ob_3mpi
 
-  $PAM_MPI1 --mpi=4 --noarch --gb=3.5 --ag=11.5   --inp=$INP  --mol=$MOL --suffix=out_4mpi
+  $PAM_MPI1 --mpi=4 --noarch --gb=3.5 --ag=11.5   --inp=$INP  --mol=$MOL --suffix=out_mkl_4mpi
+  $PAM_MPI2 --mpi=4 --noarch --gb=3.5 --ag=11.5   --inp=$INP  --mol=$MOL --suffix=out_ob_4mpi
 
-  $PAM_MPI1 --mpi=5 --noarch --gb=3.5 --ag=9.1   --inp=$INP  --mol=$MOL --suffix=out_5mpi
+  $PAM_MPI1 --mpi=5 --noarch --gb=3.5 --ag=9.1   --inp=$INP  --mol=$MOL --suffix=out_mkl_5mpi
+  $PAM_MPI2 --mpi=5 --noarch --gb=3.5 --ag=9.1   --inp=$INP  --mol=$MOL --suffix=out_ob_5mpi
 
-  $PAM_MPI1 --mpi=6 --noarch --gb=3.5 --ag=7.7   --inp=$INP  --mol=$MOL --suffix=out_6mpi
+  $PAM_MPI1 --mpi=6 --noarch --gb=3.5 --ag=7.7   --inp=$INP  --mol=$MOL --suffix=out_mkl_6mpi
 
 exit 0
