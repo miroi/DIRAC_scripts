@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
-from plams   import * 
+from scm.plams   import * 
 from itertools import chain
 
 def main():                                                                                             
