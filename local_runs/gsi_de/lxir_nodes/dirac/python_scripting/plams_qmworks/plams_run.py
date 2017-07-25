@@ -7,7 +7,7 @@ from itertools import chain
 import sys
 # This is the path to the folder containing pam without including pam
 pam_path="/u/milias/Work/qch/software/dirac/trunk/build_intelmkl_i8_xh"
-sys.path.append(pam_path) 
+sys.path.append(pam_path)  # this does not work...
 
 def main():                                                                                             
     #basis  = 'dyall.cv4z'                                                                                                  
@@ -29,11 +29,12 @@ def main():
 
     jr = JobRunner(parallel=False,maxjobs=0) 
     # Running all the jobs    
-    results  = [job.run(jobrunner=jr, nodes=1, walltime="5:00:00") for job in jobs] 
+    results  = [job.run(jobrunner=jr, nodes=1, walltime="00:15:00") for job in jobs] 
 
-    # Waiting for the jobs to be executed                                                                                                                       
+    # Waiting for the jobs to be executed 
     for r in results:                                                                                                      
-        r.wait()       
+        #r.wait()       
+        r.grep_output(pattern='@ Total CCSD(T) energy :')
 
 def create_job(basis, name, mol):
     """
