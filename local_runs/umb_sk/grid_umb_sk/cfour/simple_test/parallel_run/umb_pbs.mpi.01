@@ -19,12 +19,14 @@ source /mnt/apps/intel/bin/compilervars.sh intel64
 source /mnt/apps/pgi/environment.sh
 
 # libnumma for PGI
-export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
+
 # My OpenMPI
 export PATH=/home/milias/bin/openmpi-1.8.4-intel/bin:$PATH
 export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
 
 echo "My PATH=$PATH"
+echo "My LD_LIBRARY_PATH==$LD_LIBRARY_PATH"
 echo "Running on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
@@ -40,7 +42,8 @@ echo "PBS_NODEFILE=$PBS_NODEFILE"
 echo "PBS_O_QUEUE=$PBS_O_QUEUE"
 echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 # ...
-export MKL_NUM_THREADS=$NPROCS_PBS
+#export MKL_NUM_THREADS=$NPROCS_PBS
+export MKL_NUM_THREADS=1
 echo "MKL_NUM_THREADS=$MKL_NUM_THREADS"
 #export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
 export OMP_NUM_THREADS=1
