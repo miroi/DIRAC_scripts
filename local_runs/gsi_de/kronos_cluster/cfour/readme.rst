@@ -17,3 +17,5 @@ milias@lxbk0200.gsi.de:/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00bet
 
 make -j12 install
 
+error in installation !
+
