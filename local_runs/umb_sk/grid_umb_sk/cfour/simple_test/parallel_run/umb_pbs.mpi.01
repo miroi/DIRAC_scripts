@@ -47,10 +47,9 @@ export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
-
 #CFOUR=/scrcluster/harding/aces2.par
 #CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta/build/intelmklpar
-CFOUR=/home/milias/Work/qch/software/cfour/
+CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_openmpi-1.8.4-intel-14
 
 QUESYS=$CFOUR/share/quesys.sh
 
