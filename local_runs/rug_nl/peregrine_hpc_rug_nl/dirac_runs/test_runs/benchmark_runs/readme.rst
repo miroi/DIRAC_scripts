@@ -19,7 +19,9 @@ Peregrine cluster, see https://redmine.hpc.rug.nl/redmine/projects/peregrine/wik
 System
 ------
 
-We use DIRAC benchmark Coupled-Cluster test and two different parallel DIRAC installations:
+We use DIRAC benchmark Coupled-Cluster test and two different parallel DIRAC installations.
+Both consist of the Open MPI framework, the Intel compiler enhanced with highest optimization flag, *-xHost*, 
+and internally threaded mathematical library - open OpenBLAS and commercial MKL.
 
 -  Open MPI 2.0.2; Intel-17 with MKL-int8-threaded library
 
@@ -41,13 +43,15 @@ The higher number of threads, the lower assigned memory per thread.
 Results
 -------
 
-Wall-times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are shown in the following Table.
+Wall times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are shown in the following Table :ref:`mytable`.
 
-TABLE: OpenMPI(mpi) Math-Library-OpenMP(mp) hybrid parallelization performance study.
+.. _mytable:
+.. table:: Hybrid OpenMPI(mpi) & OpenMP(mp) calculations performance
 
 ===  ===  ===============    ===========
 mpi  mp   Int15 -OpenBLAS    Intel17-MKL
 ===  ===  ===============    ===========
+2    12    25min4s            24min0s
 4    1     11min39s           10min39s
 4    6     10min38s           8min13s 
 6    1     10min35s           9min57s
@@ -57,8 +61,10 @@ mpi  mp   Int15 -OpenBLAS    Intel17-MKL
 ===  ===  ===============    ===========
 
 One can see that better performance is obtained with the Intel17-MKL compilation parameters.
-For this testing system, the fastest calculation is with 6 OpenMPI thread,
-where for each OpenMPI thread there are 4 MKL threads by keeping total number of CPUs,6x4=24.
-Higher number of threads may be causing communication overhead and thus performance slowdown.
 
+For this testing system, the fastest calculation is with 6 OpenMPI threads,
+where for each mpi-thread there are 4 MKL threads by keeping total number of CPUs,6x4=24.
+
+Higher number of threads may be causing communication overhead and thus performance slowdown,
+as we see for 12 and 24 threads.
 
