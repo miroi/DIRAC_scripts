@@ -2,35 +2,42 @@ DIRAC hybrid parallelization
 ============================
 
 Here I present simple performance study of the hybrid  Open MPI - OpenMP parallelization 
-of the DIRAC software. Open MPI is explicit code parallelization, while OpenMP is 
-implicit parallelization of the linked mathematical library - either MKL or OpenBLAS, both with Integer*8 support.
+of the DIRAC software. 
+
+The **Open MPI** is code's explicit parallelization, while the **OpenMP** is 
+implicit parallelization of the linked mathematical library - either MKL or OpenBLAS.
 
 Machine
 -------
 
-Peregrine cluster; https://redmine.hpc.rug.nl/redmine/projects/peregrine/wiki
+Peregrine cluster, see https://redmine.hpc.rug.nl/redmine/projects/peregrine/wiki.
+
 - Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz
+
 - 24 cpu node with 125GB memory
 
 System
 ------
 
-We use DIRAC benchmark Coupled-Cluster test and two different parallel DIRAC installations.
+We use DIRAC benchmark Coupled-Cluster test and two different parallel DIRAC installations:
 
--  Open MPI 2.0.2; Intel-17 with MKL-threaded library:
+-  Open MPI 2.0.2; Intel-17 with MKL-i8-threaded library
 
 ::
 
   $PAM --mpi=$THISMPI --gb=MEM1 --ag=MEM2  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
 
--  Open MPI 2.1.1; Intel-15 with OpenBLAS-threaded library:
+-  Open MPI 2.1.1; Intel-15 with OpenBLAS-i8-threaded library
 
 ::
 
   $PAM --mpi=$THISMPI --gb=MEM1 --ag=MEM2  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i15openblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
 
-The variables MEM1 and MEM2 are to be set carefully with respect to the total node memory and number of OpenMPI-threads. For instance, for 12 threads
-the MEM2 is max. 120/12=10GB. MEM1 is lower, 8GB. 
+The variables MEM1 and MEM2 are to be set carefully with respect to the total node memory and number of OpenMPI-threads.
+For instance, for 12 OpenMPI threads MEM2 is max. 120/12=10GB; MEM1 is lower, 8GB.
+
+We have to be carefull with setting the memory and number of OpenMPI threads - the higher number of threads, the lower assigned
+memory per thread.
 
 
 Results
@@ -52,7 +59,4 @@ mpi  mp   Int15 -OpenBLAS    Intel17-MKL
 ===  ===  ===============    ===========
 
 One can see that better performance is obtaine with the Intel17-MKL compilation parameters.
-
-
-
 
