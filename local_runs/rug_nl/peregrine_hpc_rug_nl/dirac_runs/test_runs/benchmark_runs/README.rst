@@ -67,5 +67,7 @@ For this testing system, the fastest calculation is with 6 OpenMPI threads,
 where for each mpi-thread there are 4 MKL omp threads by keeping total number of CPUs,6x4=24.
 
 Higher number of threads may be causing communication overhead and thus performance slowdown,
-as we see for 12 and 24 threads.
+as we see for 12 and 24 mpi-threads. 
+
+However, more testing calculation are to be done for more definitive conclusion.
 
