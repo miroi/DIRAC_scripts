@@ -43,11 +43,10 @@ The higher number of threads, the lower assigned memory per thread.
 Results
 -------
 
-Wall times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are shown in the following Table:
+Wall times depending on number of OpenMPI (mpi) and OpenMP (omp) threads are shown in the following Table:
 
 .. _mytable:
-.. table:: Hybrid OpenMPI(mpi) & OpenMP(mp) calculations performance
-
+.. table:: Hybrid OpenMPI(mpi) & OpenMP(omp) calculations performance
   ===  ===  ===============    ===========
   mpi  mp   Int15 -OpenBLAS    Intel17-MKL
   ===  ===  ===============    ===========
@@ -63,7 +62,7 @@ Wall times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are show
 One can see (in Table :ref:`mytable`) that better performance is obtained with the Intel17-MKL compilation settings.
 
 For this testing system, the fastest calculation is with 6 OpenMPI threads,
-where for each mpi-thread there are 4 MKL threads by keeping total number of CPUs,6x4=24.
+where for each mpi-thread there are 4 MKL omp threads by keeping total number of CPUs,6x4=24.
 
 Higher number of threads may be causing communication overhead and thus performance slowdown,
 as we see for 12 and 24 threads.
