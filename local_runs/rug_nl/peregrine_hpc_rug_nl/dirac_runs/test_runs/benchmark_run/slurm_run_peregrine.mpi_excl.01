@@ -6,12 +6,12 @@
 ##SBATCH --ntasks-per-node=4
 ##SBATCH --mem=50gb
 
-##SBATCH --time=1-00:10:00
-#SBATCH --time=0-00:00:30
-
 ##  partition (queue)
 ##SBATCH -p nodes
 #SBATCH -p short
+
+##SBATCH --time=1-00:10:00
+#SBATCH --time=0-00:30:00
 
 ## memory per CPU ... is it working
 ##SBATCH --mem-per-cpu=9G
@@ -49,12 +49,12 @@ echo -e "\nMy PATH=$PATH\n"
 # CPU model, total numer of CPUs, number of allocated CPUs
 echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
-echo "This node has $NPROCS CPUs available."
+echo "This node has $NPROCS CPUs available for this EXCLUSIVE JOB."
 #
-echo "(i)       This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
-echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
+#echo "(i)       This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+#echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
 
-echo -e "\n The memory at the node (in GB); free -t -g"
+echo -e "\n The total memory at the node (in GB); free -t -g"
 free -t -g
 echo
 
@@ -77,16 +77,18 @@ export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
 export BUILD=$DIRAC/build_openmpi_intel15_i8_xhost_openblas/
 
 # set MPI launcher
-export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
+#export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
 #export DIRAC_MPI_COMMAND="mpirun -np 4"
 #export DIRAC_MPI_COMMAND="mpirun"
+unset mpirun
 export PAM=$BUILD/pam
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
-echo -e "\n ldd $BUILD/dirac.x:"
-ldd $BUILD/dirac.x
-echo
+### some useful printouts
+echo -e "\n ls -lt $BUILD/dirac.x:"; ls -lt $BUILD/dirac.x
+echo -e "\n ldd $BUILD/dirac.x:" ; ldd $BUILD/dirac.x
 
+echo
 echo -e "Python -v :\c"; python -V
 echo -e "cmake ? which cmake = \c"; which cmake
 echo -e "ctest ? which ctest = \c"; which ctest
