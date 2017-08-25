@@ -57,7 +57,8 @@ mpi  mp   Int15 -OpenBLAS    Intel17-MKL
 ===  ===  ===============    ===========
 
 One can see that better performance is obtained with the Intel17-MKL compilation parameters.
-For this testing system, the fastest calculation is with 6 OpenMPI thread, and for each OpenMPI thread there are 4 MKL threads by keeping total number of CPUs,6x4=24.
+For this testing system, the fastest calculation is with 6 OpenMPI thread,
+where for each OpenMPI thread there are 4 MKL threads by keeping total number of CPUs,6x4=24.
 Higher number of threads may be causing communication overhead and thus performance slowdown.
 
 
