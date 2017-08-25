@@ -29,8 +29,7 @@ echo This job was submitted from the computer $SLURM_SUBMIT_HOST
 echo and from the home directory:
 echo $SLURM_SUBMIT_DIR
 echo
-echo It is running on the cluster compute node:
-echo $SLURM_CLUSTER_NAME
+echo It is running on the cluster compute node: $SLURM_CLUSTER_NAME
 echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
 echo $SLURM_JOB_NODELIST
 echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
@@ -40,7 +39,7 @@ echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 #module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
 #module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
 #module load CMake/3.6.1-foss-2016a
-echo "loaded modules:"
+echo -e "\n loaded modules:"
 module list
 
 echo -e "\nRunning on host `hostname`"
@@ -115,9 +114,9 @@ echo
 
 ## Set number of MPI threads and get number of OpenBLAS threads
 THISMPI=4
-let "NUMTHR=$NPROC/$THISMPI"
+let "NUMTHR=$NPROCS/$THISMPI"
 export OPENBLAS_NUM_THREADS=$NUMTHR
-echo "\n This node has $NPROCS CPUs available for this EXCLUSIVE JOB, dirac.x is running via $THISMPI threads."
+echo -e "\n This node has $NPROCS CPUs available for this EXCLUSIVE JOB, dirac.x is running via $THISMPI threads."
 echo -e "Therefore, for the OpenBLAS internal parallelization, number of threads=$OPENBLAS_NUM_THREADS \n"
 
 $PAM --mpi=$THISMPI --gb=18.00 --ag=25.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=mpi$THISMPI-out
