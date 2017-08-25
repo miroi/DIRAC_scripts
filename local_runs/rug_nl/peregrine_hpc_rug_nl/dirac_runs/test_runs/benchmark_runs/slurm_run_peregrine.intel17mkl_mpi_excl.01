@@ -119,8 +119,7 @@ echo
 THISMPI=4
 let "NUMTHR=$NPROCS/$THISMPI"
 export MKL_NUM_THREADS=$NUMTHR
-#export MKL_NUM_THREADS=1
-#export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
 echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI threads."
 echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
 
