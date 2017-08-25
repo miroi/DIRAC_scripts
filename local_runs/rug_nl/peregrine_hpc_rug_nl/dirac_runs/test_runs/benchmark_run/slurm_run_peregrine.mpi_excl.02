@@ -1,0 +1,122 @@
+#!/bin/bash
+#SBATCH --job-name=benchmark6
+#SBATCH --nodes=1
+#SBATCH --exclusive
+
+##SBATCH --ntasks-per-node=4
+##SBATCH --mem=50gb
+
+##  partition (queue)
+##SBATCH -p nodes
+#SBATCH -p short
+
+##SBATCH --time=1-00:10:00
+#SBATCH --time=0-00:30:00
+
+## stdout/stderr output file
+#SBATCH -o log_slurm_job.%j.%N.std_out_err
+
+## mail notification
+##SBATCH --mail-type=BEGIN,END
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=M.Ilias@gsi.de 
+ 
+echo Job user is $SLURM_JOB_USER and his job $SLURM_JOB_NAME has assigned ID $SLURM_JOBID
+echo This job was submitted from the computer $SLURM_SUBMIT_HOST
+echo and from the home directory:
+echo $SLURM_SUBMIT_DIR
+echo
+echo It is running on the cluster compute node: $SLURM_CLUSTER_NAME
+echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
+echo $SLURM_JOB_NODELIST
+echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
+
+#module load git/2.8.0-foss-2016a
+#module load intel/2016a
+#module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
+#module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
+#module load CMake/3.6.1-foss-2016a
+echo -e "\n loaded modules:"
+module list
+
+echo -e "\nRunning on host `hostname`"
+echo -e "Time is `date` \n"
+echo -e "\nMy PATH=$PATH"
+echo -e "\nMy LD_LIBRARY_PATH=$LD_LIBRARY_PATH\n"
+
+# CPU model, total numer of CPUs, number of allocated CPUs
+echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs available for this EXCLUSIVE JOB."
+#
+#echo "(i)       This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+#echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
+
+echo -e "\n The total memory at the node (in GB), free -t -g:"
+free -t -g
+echo
+
+## set internal OpenMP parallelization for MKL - Slurm CPU count
+#export MKL_NUM_THREADS=$SLURM_CPUS_ON_NODE
+# OpenMP multithreading
+#export MKL_NUM_THREADS=1
+#echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
+#export OMP_NUM_THREADS=1
+#export MKL_DYNAMIC="FALSE"
+#export OMP_DYNAMIC="FALSE"
+
+export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
+#export BUILD=$DIRAC/build_openmpi_intelmkl_i8_xh/
+#export BUILD=$DIRAC/build_openmpi_intel_ownmath_i8_dbg/
+export BUILD=$DIRAC/build_openmpi_intel15_i8_xhost_openblas/
+
+# set MPI launcher
+#export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
+#export DIRAC_MPI_COMMAND="mpirun -np 4"
+#export DIRAC_MPI_COMMAND="mpirun"
+unset mpirun
+export PAM=$BUILD/pam
+export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
+
+### some useful printouts
+echo -e "\n ls -lt $BUILD/dirac.x:"; ls -lt $BUILD/dirac.x
+echo -e "\n ldd $BUILD/dirac.x:" ; ldd $BUILD/dirac.x
+
+echo
+echo -e "Python -v :\c"; python -V
+echo -e "cmake ? which cmake = \c"; which cmake
+echo -e "ctest ? which ctest = \c"; which ctest
+echo -e "ctest --version \c"; ctest --version
+echo -e "mpirun ? which mpirun  = \c"; which mpirun
+echo -e "mpirun --version \c"; mpirun --version
+echo
+
+#export DIRAC_TMPDIR=/data
+export DIRAC_TMPDIR=/scratch
+echo -e "\nDIRAC scratch directory space, $DIRAC_TMPDIR"
+df -h $DIRAC_TMPDIR/.
+echo -e "\n For mere comparison, df -h /tmp/."; df -h /tmp
+
+# for running jobs from your homedir, use ...
+cd $SLURM_SUBMIT_DIR
+
+echo -e "\n Current directory where this SLURM job is running `pwd`"
+echo " It has the disk space of (df -h) :"
+df -h .
+echo
+
+#$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
+
+#$PAM --gb=3.00 --ag=5.00  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi-$SLURM_CPUS_ON_NODE-out
+
+## Set number of MPI threads and get number of OpenBLAS threads
+THISMPI=6
+let "NUMTHR=$NPROCS/$THISMPI"
+export OPENBLAS_NUM_THREADS=$NUMTHR
+echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI threads."
+echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
+
+$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=mpi$THISMPI-out
+
+
+exit
