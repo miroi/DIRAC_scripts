@@ -116,7 +116,7 @@ echo
 #$PAM --gb=3.00 --ag=5.00  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi-$SLURM_CPUS_ON_NODE-out
 
 ## Set number of MPI threads and calculate the number of OpenBLAS threads
-THISMPI=6
+THISMPI=2
 let "NUMTHR=$NPROCS/$THISMPI"
 export MKL_NUM_THREADS=$NUMTHR
 #export MKL_NUM_THREADS=1
