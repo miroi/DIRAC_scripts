@@ -40,15 +40,19 @@ Wall-times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are show
 
 TABLE: OpenMPI(mpi) Math-Library-OpenMP(mp) hybrid parallelization performance study.
 
-=== ===  ===============    ===========
-mpi  mp  Int15-OpenBLAS     Intel17-MKL
-=== ===  ===============    ===========
+===  ===  ===============    ===========
+mpi  mp   Int15 -OpenBLAS    Intel17-MKL
+===  ===  ===============    ===========
 4    1     11min39s           10min39s
 4    6     10min38s           8min13s 
 6    1     10min35s           9min57s
 6    4      9min33s           7min53s
-12   2      9min11s           ....
+12   2      9min11s           hanged
 24   1     10min12s           10min2s
-=== ===  ===============    ===========
+===  ===  ===============    ===========
+
+One can see that better performance is obtaine with the Intel17-MKL compilation parameters.
+
+
 
 
