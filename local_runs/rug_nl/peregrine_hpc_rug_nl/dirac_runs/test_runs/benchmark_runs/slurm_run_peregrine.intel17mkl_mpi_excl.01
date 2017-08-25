@@ -66,9 +66,9 @@ echo
 # OpenMP multithreading
 #export MKL_NUM_THREADS=1
 #echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
-#export OMP_NUM_THREADS=1
-#export MKL_DYNAMIC="FALSE"
-#export OMP_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
 
 export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
 #export BUILD=$DIRAC/build_openmpi_intelmkl_i8_xh/
@@ -118,12 +118,13 @@ echo
 ## Set number of MPI threads and get number of OpenBLAS threads
 THISMPI=4
 let "NUMTHR=$NPROCS/$THISMPI"
-export OPENBLAS_NUM_THREADS=$NUMTHR
+export MKL_NUM_THREADS=$NUMTHR
+#export MKL_NUM_THREADS=1
 #export OPENBLAS_NUM_THREADS=1
 echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI threads."
 echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
 
-$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
+$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
 
 
 exit
