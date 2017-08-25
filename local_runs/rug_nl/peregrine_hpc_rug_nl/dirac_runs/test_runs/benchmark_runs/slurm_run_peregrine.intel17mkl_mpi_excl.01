@@ -115,13 +115,13 @@ echo
 
 #$PAM --gb=3.00 --ag=5.00  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi-$SLURM_CPUS_ON_NODE-out
 
-## Set number of MPI threads and get number of OpenBLAS threads
-THISMPI=4
+## Set number of MPI threads and calculate the number of OpenBLAS threads
+THISMPI=6
 let "NUMTHR=$NPROCS/$THISMPI"
 export MKL_NUM_THREADS=$NUMTHR
-export MKL_NUM_THREADS=1
+#export MKL_NUM_THREADS=1
 echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI threads."
-echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
+echo -e "Therefore, for the MKL internal parallelization, number of calculated threads=$MKL_NUM_THREADS \n"
 
 $PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
 

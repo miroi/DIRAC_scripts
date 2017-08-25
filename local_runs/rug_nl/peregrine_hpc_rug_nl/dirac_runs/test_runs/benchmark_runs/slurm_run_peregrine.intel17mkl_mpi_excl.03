@@ -33,20 +33,16 @@ echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 
 module purge
 module load git/2.8.0-foss-2016a
-#module load intel/2016a
-module load imkl/11.3.1.150-iimpi-8.1.5-GCC-4.9.3-2.25
-module load OpenMPI/1.8.6-iccifort-2015.2.164-i8
-module load CMake/3.6.1-foss-2016a
 module load Boost/1.61.0-foss-2016a
-#
-echo -e "\nAll loaded modules:"
+module load CMake/3.8.0-intel-2016a
+module load intel/2017a
+module load OpenMPI/2.0.2-iccifort-2017.1.132-GCC-6.3.0-2.27-i8
+echo -e "\n loaded modules:"
 module list
 
-#my own OpenMPI-2.1.1-Inte15 installation
-export PATH=/home/f113112/work/qch/software/openmpi-2.1.1_intel-15/bin:$PATH
-export LD_LIBRARY_PATH=/home/f113112/work/qch/software/openmpi-2.1.1_intel-15/lib:$LD_LIBRARY_PATH
-# my own OpenBLAS-i8_Intel15
-export LD_LIBRARY_PATH=/home/f113112/work/qch/software/openblas/OpenBLAS-repo:$LD_LIBRARY_PATH 
+#my OpenMPI-2.1.1-Inte15 installation
+#export PATH=/home/f113112/work/qch/software/openmpi-2.1.1_intel-15/bin:$PATH
+#export LD_LIBRARY_PATH=/home/f113112/work/qch/software/openmpi-2.1.1_intel-15/lib:$LD_LIBRARY_PATH
 
 echo -e "\nRunning on host `hostname`"
 echo -e "Time is `date` \n"
@@ -70,14 +66,15 @@ echo
 # OpenMP multithreading
 #export MKL_NUM_THREADS=1
 #echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
-#export OMP_NUM_THREADS=1
-#export MKL_DYNAMIC="FALSE"
-#export OMP_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
 
 export DIRAC=/home/f113112/work/qch/software/dirac/production_trunk
 #export BUILD=$DIRAC/build_openmpi_intelmkl_i8_xh/
 #export BUILD=$DIRAC/build_openmpi_intel_ownmath_i8_dbg/
-export BUILD=$DIRAC/build_openmpi_intel15_i8_xhost_openblas/
+#export BUILD=$DIRAC/build_openmpi_intel15_i8_xhost_openblas/
+export BUILD=$DIRAC/build_openmpi-2.0.2-intel-17-mkl-i8-xhost
 
 # set MPI launcher
 #export DIRAC_MPI_COMMAND="mpirun -np $SLURM_CPUS_ON_NODE"
@@ -118,15 +115,15 @@ echo
 
 #$PAM --gb=3.00 --ag=5.00  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi-$SLURM_CPUS_ON_NODE-out
 
-## Set number of MPI threads and get number of OpenBLAS threads
-THISMPI=6
+## Set number of MPI threads and calculate the number of OpenBLAS threads
+THISMPI=24
 let "NUMTHR=$NPROCS/$THISMPI"
-export OPENBLAS_NUM_THREADS=$NUMTHR
-#export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=$NUMTHR
+#export MKL_NUM_THREADS=1
 echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI threads."
-echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
+echo -e "Therefore, for the MKL internal parallelization, number of calculated threads=$MKL_NUM_THREADS \n"
 
-$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i15openblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
+$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
 
 
 exit

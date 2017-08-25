@@ -119,14 +119,16 @@ echo
 #$PAM --gb=3.00 --ag=5.00  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol --suffix=mpi-$SLURM_CPUS_ON_NODE-out
 
 ## Set number of MPI threads and get number of OpenBLAS threads
-THISMPI=6
+THISMPI=12
 let "NUMTHR=$NPROCS/$THISMPI"
 export OPENBLAS_NUM_THREADS=$NUMTHR
 #export OPENBLAS_NUM_THREADS=1
 echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI threads."
 echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
 
-$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i15openblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
+#$PAM --mpi=$THISMPI --gb=15.00 --ag=20.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i15openblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
+# reduce memory !
+$PAM --mpi=$THISMPI --gb=8.00 --ag=10.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i15openblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
 
 
 exit
