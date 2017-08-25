@@ -43,24 +43,24 @@ The higher number of threads, the lower assigned memory per thread.
 Results
 -------
 
-Wall times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are shown in the following table:
+Wall times depending on number of OpenMPI (mpi) and OpenMP (mp) threads are shown in the following Table:
 
 .. _mytable:
 .. table:: Hybrid OpenMPI(mpi) & OpenMP(mp) calculations performance
 
-===  ===  ===============    ===========
-mpi  mp   Int15 -OpenBLAS    Intel17-MKL
-===  ===  ===============    ===========
-2    12    25min4s            24min0s
-4    1     11min39s           10min39s
-4    6     10min38s           8min13s 
-6    1     10min35s           9min57s
-6    4      9min33s           7min53s
-12   2      9min11s           8min7s
-24   1     10min12s           10min2s
-===  ===  ===============    ===========
+  ===  ===  ===============    ===========
+  mpi  mp   Int15 -OpenBLAS    Intel17-MKL
+  ===  ===  ===============    ===========
+  2    12    25min4s            24min0s
+  4    1     11min39s           10min39s
+  4    6     10min38s           8min13s 
+  6    1     10min35s           9min57s
+  6    4      9min33s           7min53s
+  12   2      9min11s           8min7s
+  24   1     10min12s           10min2s
+  ===  ===  ===============    ===========
 
-In Table :ref:`mytable`,  one can see that better performance is obtained with the Intel17-MKL compilation parameters.
+One can see (in Table :ref:`mytable`) that better performance is obtained with the Intel17-MKL compilation settings.
 
 For this testing system, the fastest calculation is with 6 OpenMPI threads,
 where for each mpi-thread there are 4 MKL threads by keeping total number of CPUs,6x4=24.
