@@ -47,6 +47,7 @@ Wall times depending on number of OpenMPI (mpi) and OpenMP (omp) threads are sho
 
 .. _mytable:
 .. table:: Hybrid OpenMPI(mpi) & OpenMP(omp) calculations performance
+
   ===  ===  ===============    ===========
   mpi  mp   Int15 -OpenBLAS    Intel17-MKL
   ===  ===  ===============    ===========
@@ -58,6 +59,7 @@ Wall times depending on number of OpenMPI (mpi) and OpenMP (omp) threads are sho
   12   2      9min11s           8min7s
   24   1     10min12s           10min2s
   ===  ===  ===============    ===========
+
 
 One can see (in Table :ref:`mytable`) that better performance is obtained with the Intel17-MKL compilation settings.
 
