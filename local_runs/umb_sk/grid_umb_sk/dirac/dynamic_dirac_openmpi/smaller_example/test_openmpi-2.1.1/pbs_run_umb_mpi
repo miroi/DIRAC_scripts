@@ -134,10 +134,7 @@ cd $PBS_O_WORKDIR
  # $PAM_MPI1 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_mkl_2mpi
  # $PAM_MPI2 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_ob_2mpi
 
-  $PAM_MPI1 --mpi=2 --noarch    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_mkl_2mpi
-  $PAM_MPI2 --mpi=2 --noarch    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_ob_2mpi
-
-
-
+  $PAM_MPI1 --mpi=2 --noarch --gb=2.00 --ag=2.50   --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_mkl_2mpi
+  $PAM_MPI2 --mpi=2 --noarch --gb=2.00 --ag=2.50    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_ob_2mpi
 
 exit 0

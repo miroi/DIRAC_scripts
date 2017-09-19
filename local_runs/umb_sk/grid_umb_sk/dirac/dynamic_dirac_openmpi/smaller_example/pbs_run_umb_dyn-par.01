@@ -127,14 +127,14 @@ for ij in 1-1 1-6 1-12 2-1 2-6 6-1 6-2 12-1; do
 #PBS -V
 
   unset DIRAC_MPI_COMMAND
-  export DIRAC_MPI_COMMAND="mpirun -np ${np}"
+  ##export DIRAC_MPI_COMMAND="mpirun -np ${np}"
 
   echo -e "\n OpenMPI-OpenMP hybrid-parallel run OpenMPI:DIRAC_MPI_COMMAND=${DIRAC_MPI_COMMAND}; OpenMP:MKL_NUM_THREADS=${MKL_NUM_THREADS}; disk space:DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
   echo -e "OpenMPI which mpirun ? \c"; which mpirun
 
   #miro: try memory set up...
   #$PAM_MPI1 --noarch --gb=2.5  --ag=3.8 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
-  $PAM_MPI1 --noarch --gb=2.5   --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
+  $PAM_MPI1 --mpi=${np} --noarch --gb=2.5  --ag=2.80  --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
 
   #$PAM_MPI1 --noarch --mw=400 --nw=300 --aw=4200 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
   #$PAM_MPI1 --noarch --mw=600 --nw=800 --aw=1800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
