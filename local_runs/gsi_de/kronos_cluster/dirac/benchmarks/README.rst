@@ -1,8 +1,8 @@
 DIRAC hybrid parallelization
 ============================
 
-Here I present simple performance study of the hybrid  Open MPI - OpenMP parallelization 
-of the DIRAC software, www.diracprogram.org.
+Here I present the simple performance study of the hybrid  Open MPI - OpenMP parallelization 
+of the DIRAC relativistic quantum chemistry software, www.diracprogram.org.
 
 The **Open MPI** is code's explicit parallelization, while the **OpenMP** is 
 implicit parallelization of the linked mathematical library - either MKL or OpenBLAS.
@@ -10,9 +10,9 @@ implicit parallelization of the linked mathematical library - either MKL or Open
 Machine
 -------
 
-We took the Kronos cluster, see https://wiki.gsi.de/foswiki/bin/view/Linux/SlurmUsage?redirectedfrom=Linux.KronosUsage .
+We employed the Kronos cluster, see https://wiki.gsi.de/foswiki/bin/view/Linux/SlurmUsage?redirectedfrom=Linux.KronosUsage .
 
-It has
+The SLURM system chose the working node:
 
 - Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
 
@@ -29,18 +29,19 @@ and internally threaded mathematical library - open OpenBLAS and commercial MKL.
 
 ::
 
-  $PAM --mpi=$THISMPI --gb=MEM1 --ag=MEM2  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
+    $PAM1  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17mkl-mpi$nOpenMPI-omp$MKL_NUM_THREADS-tmp_out
 
 -  Open MPI 2.0.1; Intel-17 with OpenBLAS-integer8 internally-threaded(OpenMP) library
 
 ::
 
-  $PAM --mpi=$THISMPI --gb=MEM1 --ag=MEM2  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_ec2_c2.mol --suffix=i15openblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
+    $PAM2  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17oblas-mpi$nOpenMPI-omp$OPENBLAS_NUM_THREADS-tmp_out
 
-The variables MEM1 and MEM2 are to be set carefully with respect to the total node memory and number of OpenMPI-threads.
-For instance, for 12 OpenMPI threads MEM2 is max. 120/12=10GB; MEM1 is to be lower, 8GB.
+
+The variables --gb=MEM1 and --ag=MEM2 are to be set carefully with respect to the total node memory and number of OpenMPI-threads.
+For instance, for 24 OpenMPI threads MEM2 is max. 120/24=5GB; MEM1 is to be lower, 4.60GB.
 The higher number of threads, the lower assigned memory per thread. 
-We have to be carefull to set the suitable value of MEM2 to make the job pass.
+We have to be carefull to set the suitable value of MEM2 to make the memory demanding job pass.
 
 
 Results
