@@ -12,7 +12,7 @@
 #SBATCH -p hpc_debug
 
 ## max. execution time
-#SBATCH -t 4-12:30:00
+#SBATCH -t 4-00:00:00
 ##SBATCH -t 0-0:20:00
 
 ## stdout/stderr output file
@@ -58,16 +58,14 @@ echo "This node has $NPROCS CPUs available for EXCLUSIVE job."
 #echo "(i) This node has SLURM_CPUS_ON_NODE=$SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
 #echo "(ii) This node has SLURM_JOB_CPUS_PER_NODE=$SLURM_JOB_CPUS_PER_NODE CPUs allocated for SLURM calculations."
 
-echo -e "\n The memory situation at the node (in GB)"
-free -t -g
-echo
+echo -e "\n The memory situation at the node (in GB, free -t -g)"; free -t -g
 
 ## set internal OpenMP parallelization for MKL - Slurm CPU count
 #export MKL_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # no OpenMP multithreading, use full OpenMPI for dirac.x
 #export MKL_NUM_THREADS=1
-echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
+#echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
 export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
@@ -93,8 +91,8 @@ export PAM2=$BUILD2/pam
 
 export BASDIR=$DIRAC/basis_dalton:$DIRAC/basis:$DIRAC/basis_ecp
 
-echo -e "\n ldd $BUILD/dirac.x:"
-ldd $BUILD/dirac.x
+echo -e "\n ldd $BUILD1/dirac.x:"; ldd $BUILD1/dirac.x
+echo -e "\n ldd $BUILD2/dirac.x:"; ldd $BUILD2/dirac.x
 echo
 
 echo -e "Python -v :\c"; python -V
@@ -119,22 +117,21 @@ echo " It has the disk space of (df -h) :"
 df -h .
 echo
 
-#$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2h.mol --suffix=mkl_mpi4_out
 #$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2.mol --suffix=mkl_mpi4_out
 
 ## Set number of MPI threads and calculate the number of OpenBLAS threads (max 24, due to 5GB limit per OpenMPI thread)
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
-for NoOpenMPI in "4 8 12 16 24"; do
+for NoOpenMPI in 4 8 12 16 20 24; do
   THISMPI=$NoOpenMPI
   let "NUMTHR=$NPROCS/$THISMPI"
-  for NoOpenMP="1 $NUMTHR"; do
+  for NoOpenMP=1 $NUMTHR; do
     export MKL_NUM_THREADS=$NoOpenMP
     echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI openmpi threads."
 
     echo -e "For the MKL internal parallelization, number of calculated threads=$MKL_NUM_THREADS per each openmpi thread.\n"
-#   ... C2H4Cl2_sta_c1.mol , C2H4Cl2_sta_c2.mol ...
+#   ... C2H4Cl2_sta_c1.mol , C2H4Cl2_sta_c2.mol 
     $PAM1  --mpi=$THISMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
 
     export OPENBLAS_NUM_THREADS=$NoOpenMP
