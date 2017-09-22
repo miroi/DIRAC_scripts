@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=mpiTest
+#SBATCH --job-name=HybrPar
 
 #SBATCH --nodes=1
 #SBATCH --exclusive
@@ -12,7 +12,7 @@
 #SBATCH -p hpc_debug
 
 ## max. execution time
-#SBATCH -t 1-12:30:00
+#SBATCH -t 4-12:30:00
 ##SBATCH -t 0-0:20:00
 
 ## stdout/stderr output file
@@ -123,22 +123,24 @@ echo
 #$PAM --gb=0.8  --ag=1.5  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c2.mol --suffix=mkl_mpi4_out
 
 ## Set number of MPI threads and calculate the number of OpenBLAS threads (max 24, due to 5GB limit per OpenMPI thread)
-THISMPI=24
-let "NUMTHR=$NPROCS/$THISMPI"
-export MKL_NUM_THREADS=$NUMTHR
-#export MKL_NUM_THREADS=1
-echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI openmpi threads."
+#----------------------------------------------------------
+#   Main cycle over OpenMPI-OpenMP number of tasks/threads
+#----------------------------------------------------------
+for NoOpenMPI in "4 8 12 16 24"; do
+  THISMPI=$NoOpenMPI
+  let "NUMTHR=$NPROCS/$THISMPI"
+  for NoOpenMP="1 $NUMTHR"; do
+    export MKL_NUM_THREADS=$NoOpenMP
+    echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI openmpi threads."
 
-echo -e "Therefore, for the MKL internal parallelization, number of calculated threads=$MKL_NUM_THREADS per each openmpi thread.\n"
+    echo -e "For the MKL internal parallelization, number of calculated threads=$MKL_NUM_THREADS per each openmpi thread.\n"
+#   ... C2H4Cl2_sta_c1.mol , C2H4Cl2_sta_c2.mol ...
+    $PAM1  --mpi=$THISMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
 
-# ... C2H4Cl2_sta_c1.mol , C2H4Cl2_sta_c2.mol ...
-$PAM1  --mpi=$THISMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17mkl_mpi$THISMPI-omp$MKL_NUM_THREADS-out
-
-export OPENBLAS_NUM_THREADS=$NUMTHR 
-#export OPENBLAS_NUM_THREADS=1
-echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
-
-$PAM2  --mpi=$THISMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17oblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
-
+    export OPENBLAS_NUM_THREADS=$NoOpenMP
+    echo -e "Therefore, for the OpenBLAS internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
+    $PAM2  --mpi=$THISMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17oblas_mpi$THISMPI-omp$OPENBLAS_NUM_THREADS-out
+  done
+done
 
 exit
