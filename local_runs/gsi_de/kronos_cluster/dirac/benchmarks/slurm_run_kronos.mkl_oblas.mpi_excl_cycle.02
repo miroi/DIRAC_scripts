@@ -123,10 +123,10 @@ echo
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
 #----------------------------------------------------------
-for NoOpenMPI in 4 8 12 16 20 24; do
+for NoOpenMPI in 4 8 16 24; do
   THISMPI=$NoOpenMPI
   let "NUMTHR=$NPROCS/$THISMPI"
-  for NoOpenMP=1 $NUMTHR; do
+  for NoOpenMP in 1 $NUMTHR; do
     export MKL_NUM_THREADS=$NoOpenMP
     echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $THISMPI openmpi threads."
 
