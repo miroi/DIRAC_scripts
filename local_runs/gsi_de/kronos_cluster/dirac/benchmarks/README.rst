@@ -53,14 +53,9 @@ Wall times depending on number of OpenMPI (mpi) and OpenMP (omp) threads are sho
 .. table:: Hybrid OpenMPI(mpi) & OpenMP(omp) calculations performances
 
   ===  ===  ================    ===========
-  mpi  mp   Intel17-OpenBLAS    Intel17-MKL
+  mpi  omp  OpenBLAS-global     MKL-global
   ===  ===  ================    ===========
   2    12    25min4s            24min0s
-  4    1     11min39s           10min39s
-  4    6     10min38s           8min13s 
-  6    1     10min35s           9min57s
-  6    4      9min33s           7min53s
-  12   2      9min11s           8min7s
   24   1     10min12s           10min2s
   ===  ===  ================    ===========
 
