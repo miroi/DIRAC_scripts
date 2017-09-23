@@ -127,11 +127,11 @@ do
 
     echo -e "For the MKL-i8 internal parallelization, number of calculated threads=$MKL_NUM_THREADS per each openmpi thread.\n"
 #       ... C2H4Cl2_sta_c1.mol , C2H4Cl2_sta_c2.mol 
-    $PAM1 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17mkl-mpi$nOpenMPI-omp$MKL_NUM_THREADS-out
+    $PAM1 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17mkl-mpi$nOpenMPI-omp$MKL_NUM_THREADS-out --timeout=2h30m
 
     export OPENBLAS_NUM_THREADS=$nOpenMP
     echo -e "\nFor the OpenBLAS-i8 internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
-    $PAM2 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17oblas-mpi$nOpenMPI-omp$OPENBLAS_NUM_THREADS-out
+    $PAM2 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc/cc.inp --mol=$DIRAC/test/benchmark_cc/C2H4Cl2_sta_c1.mol --suffix=i17oblas-mpi$nOpenMPI-omp$OPENBLAS_NUM_THREADS-out  --timeout=2h30m
   done
 done
 
