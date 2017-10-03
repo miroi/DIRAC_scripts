@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#
-# 40 01 * * 1,2,3,4,5,6,7 DB=/home/milias/Work/qch/software/My_scripts/local_runs/umb_sk/grid_umb_sk/dirac/cdash/batch_builds; cd $DB;  /usr/bin/qsub $DB/cdash.sivvp_BB.batch 
-#
-
 #PBS -S /bin/bash
 #PBS -N DIRACbuild
 #PBS -A UMB-ITMS-26110230082
@@ -11,11 +7,11 @@
 #PBS -r n
 #PBS -l nodes=1:ppn=6
 #PBS -l walltime=8:00:00
-#PBS -l mem=20g
+#PBS -l mem=10g
 #PBS -j oe
 #PBS -q batch
 
-echo -e "\n Working host is: "; hostname -f
+echo -e "\n Working host is: \c"; hostname -f; " ... today is : \c"; date
 
 source /mnt/apps/intel/bin/compilervars.sh intel64
 echo -e "\n Intel Fortran/C/C++ compilers with MKL library activated, PROD_DIR=$PROD_DIR."
@@ -90,7 +86,7 @@ cd ${SCRATCH}
 TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
 DIRAC=${SCRATCH}/${TRUNK}
-echo -e "ls -lt ${DIRAC} ? \c"; ls -lt ${DIRAC}
+echo -e "pwd; ls -lt ${DIRAC} ? \c"; pwd; ls -lt ${DIRAC}
 cd ${DIRAC}
 git submodule update --init --recursive
 
