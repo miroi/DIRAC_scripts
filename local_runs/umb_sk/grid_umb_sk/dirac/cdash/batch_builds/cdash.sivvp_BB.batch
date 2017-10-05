@@ -25,6 +25,10 @@ source /mnt/apps/pgi/environment.sh
 echo -e "Portlang Group compilers activated ! PGI=$PGI"
 echo -e "pgf90 ? \c"; which pgf90; pgf90 -V
 echo -e "\n"
+# ask on compilers
+echo -e "which ifort ? \c"; which ifort; ifort -V
+echo -e "which gfortran ? \c"; which gfortran; gfortran --version
+echo -e "which pgf90 ? \c"; which pgf90; pgf90 --version
 
 # my cmake stuff
 #export PATH=/home/milias/bin/cmake/bin:$PATH
@@ -59,7 +63,6 @@ echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
 echo -e "which cmake ? \c"
 which cmake; cmake --version
 which ctest; ctest --version
-echo
 
 # check own git installation for nodes
 #export PATH=/home/milias/bin/git_cloned/bin:$PATH
@@ -113,7 +116,7 @@ python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D ENABL
 cd $BUILD_SERIAL
 #ctest  --track Miro  -D ExperimentalUpdate 
 #ctest   -D ExperimentalConfigure 
-ctest -VV -j$NPROCS_PBS   -D ExperimentalBuild 
+ctest -VV -j$NPROCS_PBS -D ExperimentalBuild 
 
 echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
 ldd dirac.x
