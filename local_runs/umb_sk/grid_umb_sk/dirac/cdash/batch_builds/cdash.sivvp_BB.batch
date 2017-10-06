@@ -5,9 +5,10 @@
 #PBS -A UMB-ITMS-26110230082
 ### Declare myprogram non-rerunable
 #PBS -r n
+##PBS -l nodes=1:ppn=12:old
 #PBS -l nodes=1:ppn=6
 #PBS -l walltime=8:00:00
-#PBS -l mem=10g
+#PBS -l mem=26g
 #PBS -j oe
 #PBS -q batch
 
@@ -80,13 +81,21 @@ export OMP_NUM_THREADS=1
 echo -e "My PATH=$PATH"
 
 #
-# Clone DIRAC into unique directory on scratch
+# Make clean space ....
 #
+cd /mnt/local/$USER
+echo -e "in  /mnt/local/$USER .... pwd; ls -lt ? \c"; pwd; ls -lt
+echo -e "\n cleaning /mnt/local/$USER before... /bin/rm -rf /mnt/local/$USER/*";
+/bin/rm -rf /mnt/local/$USER/*
+echo -e "after cleaning, pwd; ls -lt ? \c"; pwd; ls -lt
+
+
 SCRATCH=/mnt/local/$USER/$PBS_JOBID
 mkdir ${SCRATCH}
-echo -e "\n In ${SCRATCH} ? \c"; pwd
-
+echo -e "\n In ${SCRATCH} ? \c"; pwd; 
 cd ${SCRATCH}
+
+# Clone DIRAC into unique directory on scratch
 TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
 DIRAC=${SCRATCH}/${TRUNK}
@@ -112,7 +121,7 @@ if [[ -d "$BUILD_SERIAL" ]]; then
   /bin/rm -rf $BUILD_SERIAL
 fi
 #python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
-python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF -D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
+python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON -D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
 cd $BUILD_SERIAL
 #ctest  --track Miro  -D ExperimentalUpdate 
 #ctest   -D ExperimentalConfigure 
@@ -135,7 +144,7 @@ if [[ -d "$BUILD_SERIAL_STATIC" ]]; then
   echo "deleting previous build directory $BUILD_SERIAL_STATIC"
   /bin/rm -rf $BUILD_SERIAL_STATIC
 fi
-python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF -D BUILDNAME='sivvp-UMB_Intel_mkl_i8_static-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
+python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON -D BUILDNAME='sivvp-UMB_Intel_mkl_i8_static-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
 cd $BUILD_SERIAL_STATIC
 #ctest  -D ExperimentalConfigure
 ctest -VV -j$NPROCS_PBS  -D ExperimentalBuild
@@ -157,7 +166,7 @@ if [[ -d "$BUILD_GNU" ]]; then
   echo "deleting previous build directory $BUILD_GNU"
   /bin/rm -rf $BUILD_GNU
 fi
-python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++  --cmake-options="-D BUILDNAME='sivvp-UMB_GNU_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF"  $BUILD_GNU
+python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++  --cmake-options="-D BUILDNAME='sivvp-UMB_GNU_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON"  $BUILD_GNU
 cd $BUILD_GNU
 #ctest   -D ExperimentalConfigure 
 ctest -VV -j$NPROCS_PBS  -D ExperimentalBuild  
@@ -179,7 +188,7 @@ if [[ -d "$BUILD_PGI" ]]; then
   echo "deleting previous build directory $BUILD_PGI"
   /bin/rm -rf $BUILD_PGI
 fi
-python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-UMB_PGI_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF" $BUILD_PGI
+python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-UMB_PGI_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON" $BUILD_PGI
 cd $BUILD_PGI
 #ctest -V -D ExperimentalConfigure 
 ctest -VV -j$NPROCS_PBS -D ExperimentalBuild   
