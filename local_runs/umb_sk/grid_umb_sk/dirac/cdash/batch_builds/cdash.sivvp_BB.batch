@@ -23,13 +23,13 @@ echo -e "ifort ? \c"; which ifort; ifort -V
 echo -e "\n"
 
 source /mnt/apps/pgi/environment.sh
-echo -e "Portlang Group compilers activated ! PGI=$PGI"
+echo -e "\n Portlang Group compilers activated ! PGI=$PGI"
 echo -e "pgf90 ? \c"; which pgf90; pgf90 -V
-echo -e "\n"
 # ask on compilers
-echo -e "which ifort ? \c"; which ifort; ifort -V
-echo -e "which gfortran ? \c"; which gfortran; gfortran --version
-echo -e "which pgf90 ? \c"; which pgf90; pgf90 --version
+echo -e "\n which ifort ? \c"; which ifort; ifort -V
+echo -e "size of /tmp .. \c"; du -h -s /tmp; df -h /tmp 
+echo -e "\n which gfortran ? \c"; which gfortran; gfortran --version
+echo -e "\n which pgf90 ? \c"; which pgf90; pgf90 --version
 
 # my cmake stuff
 #export PATH=/home/milias/bin/cmake/bin:$PATH
@@ -38,7 +38,7 @@ echo -e "which pgf90 ? \c"; which pgf90; pgf90 --version
 # my most recent python 2.7.1 #
 #export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
 
-echo "Running on host `hostname`"
+echo -e "\nRunning on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
 echo "This jobs runs on the following processors:"
@@ -99,7 +99,7 @@ cd ${SCRATCH}
 TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
 DIRAC=${SCRATCH}/${TRUNK}
-echo -e "pwd; ls -lt ${DIRAC} ? \c"; pwd; ls -lt ${DIRAC}
+echo -e "\n pwd; ls -lt ${DIRAC} ? \c"; pwd; ls -lt ${DIRAC}
 cd ${DIRAC}
 git submodule update --init --recursive
 
