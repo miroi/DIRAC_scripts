@@ -83,11 +83,16 @@ echo -e "My PATH=$PATH"
 #
 # Make clean space ....
 #
+
+echo -e "\n\n ls -lt  /mnt/local/$USER .... \c"; ls -lt  /mnt/local/$USER
+echo -e "du -h -s  /mnt/local/$USER .... \c"; du -h -s  /mnt/local/$USER
+echo -e "df -h /mnt/local/$USER .... \c"; df -h  /mnt/local/$USER
+
 cd /mnt/local/$USER
-echo -e "in  /mnt/local/$USER .... pwd; ls -lt ? \c"; pwd; ls -lt
-echo -e "\n cleaning /mnt/local/$USER before... /bin/rm -rf /mnt/local/$USER/*";
-/bin/rm -rf /mnt/local/$USER/*
-echo -e "after cleaning, pwd; ls -lt ? \c"; pwd; ls -lt
+echo -e "\n\n in  /mnt/local/$USER .... pwd; ls -lt ? \c"; pwd; ls -lt
+#echo -e "\n cleaning /mnt/local/$USER before... /bin/rm -rf /mnt/local/$USER/*";
+##/bin/rm -rf /mnt/local/$USER/* ! No ! Can destroy files of other jobs !
+##echo -e "after cleaning, pwd; ls -lt ? \c"; pwd; ls -lt
 
 
 SCRATCH=/mnt/local/$USER/$PBS_JOBID
@@ -202,5 +207,12 @@ ctest -VV -D ExperimentalSubmit
 
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n\n All buildups finished at "$timestamp
+
+echo -e "\n\n cleaning  /mnt/local/$USER/$PBS_JOBID  ... "
+/bin/rm -rf /mnt/local/$USER/$PBS_JOBID/* 
+
+echo -e "\n ls -lt  /mnt/local/$USER \c"; ls -lt  /mnt/local/$USER
+echo -e "\n df -h  /mnt/local/$USER \c"; df -h   /mnt/local/$USER
+echo -e "\n du -s -h  /mnt/local/$USER \c"; du -h -s   /mnt/local/$USER
 
 exit 0
