@@ -211,8 +211,8 @@ echo -e "\n\n All buildups finished at "$timestamp
 echo -e "\n\n cleaning  /mnt/local/$USER/$PBS_JOBID  ... "
 /bin/rm -rf /mnt/local/$USER/$PBS_JOBID/* 
 
-echo -e "\n ls -lt  /mnt/local/$USER \c"; ls -lt  /mnt/local/$USER
-echo -e "\n df -h  /mnt/local/$USER \c"; df -h   /mnt/local/$USER
-echo -e "\n du -s -h  /mnt/local/$USER \c"; du -h -s   /mnt/local/$USER
+echo -e "\n ls -lt  /mnt/local/$USER "; ls -lt  /mnt/local/$USER
+echo -e "\n df -h  /mnt/local/$USER "; df -h   /mnt/local/$USER
+echo -e "\n du -s -h  /mnt/local/$USER "; du -h -s   /mnt/local/$USER
 
 exit 0
