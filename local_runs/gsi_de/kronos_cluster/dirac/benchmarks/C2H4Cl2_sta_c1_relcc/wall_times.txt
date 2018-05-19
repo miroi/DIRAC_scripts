@@ -1,0 +1,10 @@
+cc_C2H4Cl2_sta_c1.i17mkl-mpi16-omp1-out:>>>> Total WALL time used in DIRAC: 48min59s
+cc_C2H4Cl2_sta_c1.i17mkl-mpi4-omp10-out:>>>> Total WALL time used in DIRAC: 29min1s
+cc_C2H4Cl2_sta_c1.i17mkl-mpi4-omp1-out:>>>> Total WALL time used in DIRAC: 37min4s
+cc_C2H4Cl2_sta_c1.i17mkl-mpi8-omp1-out:>>>> Total WALL time used in DIRAC: 29min13s
+cc_C2H4Cl2_sta_c1.i17mkl-mpi8-omp5-out:>>>> Total WALL time used in DIRAC: 23min36s
+
+cc_C2H4Cl2_sta_c1.i17oblas-mpi4-omp10-out:>>>> Total WALL time used in DIRAC: 33min18s
+cc_C2H4Cl2_sta_c1.i17oblas-mpi4-omp1-out:>>>> Total WALL time used in DIRAC: 38min15s
+cc_C2H4Cl2_sta_c1.i17oblas-mpi8-omp1-out:>>>> Total WALL time used in DIRAC: 30min32s
+cc_C2H4Cl2_sta_c1.i17oblas-mpi8-omp5-out:>>>> Total WALL time used in DIRAC: 28min15s

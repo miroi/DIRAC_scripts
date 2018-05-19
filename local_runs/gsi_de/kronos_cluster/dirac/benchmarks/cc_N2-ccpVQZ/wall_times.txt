@@ -1,0 +1,22 @@
+cc_N2.ccpVQZ.i17mkl-mpi16-omp1-out:>>>> Total WALL time used in DIRAC: 1min24s
+cc_N2.ccpVQZ.i17mkl-mpi16-omp2-out:>>>> Total WALL time used in DIRAC: 1min27s
+cc_N2.ccpVQZ.i17mkl-mpi4-omp10-out:>>>> Total WALL time used in DIRAC: 2min20s
+cc_N2.ccpVQZ.i17mkl-mpi4-omp1-out:>>>> Total WALL time used in DIRAC: 1min56s
+cc_N2.ccpVQZ.i17mkl-mpi8-omp1-out:>>>> Total WALL time used in DIRAC: 1min42s
+cc_N2.ccpVQZ.i17mkl-mpi8-omp5-out:>>>> Total WALL time used in DIRAC: 1min48s
+
+cc_N2.ccpVQZ.i17oblas-mpi16-omp1-out:>>>> Total WALL time used in DIRAC: 1min19s
+cc_N2.ccpVQZ.i17oblas-mpi16-omp2-out:>>>> Total WALL time used in DIRAC: 1min22s
+cc_N2.ccpVQZ.i17oblas-mpi4-omp10-out:>>>> Total WALL time used in DIRAC: 2min6s
+cc_N2.ccpVQZ.i17oblas-mpi4-omp1-out:>>>> Total WALL time used in DIRAC: 1min56s
+cc_N2.ccpVQZ.i17oblas-mpi8-omp1-out:>>>> Total WALL time used in DIRAC: 1min28s
+cc_N2.ccpVQZ.i17oblas-mpi8-omp5-out:>>>> Total WALL time used in DIRAC: 1min48s
+
+cc_N2.ccpVQZ.i17mkl-mpi16-omp1-out.par:>>>> Total WALL time used in DIRAC: 1min40s
+cc_N2.ccpVQZ.i17mkl-mpi16-omp8-out.par:>>>> Total WALL time used in DIRAC: 2min4s
+cc_N2.ccpVQZ.i17mkl-mpi24-omp1-out.par:>>>> Total WALL time used in DIRAC: 1min43s
+cc_N2.ccpVQZ.i17mkl-mpi24-omp5-out.par:>>>> Total WALL time used in DIRAC: 2min2s
+cc_N2.ccpVQZ.i17mkl-mpi4-omp1-out.par:>>>> Total WALL time used in DIRAC: 2min33s
+cc_N2.ccpVQZ.i17mkl-mpi4-omp32-out.par:>>>> Total WALL time used in DIRAC: 4min12s
+cc_N2.ccpVQZ.i17mkl-mpi8-omp16-out.par:>>>> Total WALL time used in DIRAC: 2min45s
+cc_N2.ccpVQZ.i17mkl-mpi8-omp1-out.par:>>>> Total WALL time used in DIRAC: 2min4s

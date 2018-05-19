@@ -1,19 +1,18 @@
 #!/bin/bash
 #
-#SBATCH --job-name=HybrPar
+#SBATCH --job-name=HybrPar4
 
 #SBATCH --nodes=1
 #SBATCH --exclusive
 
 ##  partition (queue)
 ##SBATCH -p long
-#SBATCH -p main
+#SBATCH -p parallel
 ##SBATCH -p debug
 ##SBATCH -p hpc_debug
 
 ## max. execution time
-#SBATCH -t 0-08:00:00
-##SBATCH -t 1-00:00:00
+#SBATCH -t 7-00:00:00
 ##SBATCH -t 0-0:20:00
 
 ## stdout/stderr output file
@@ -68,8 +67,8 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 export DIRAC=/lustre/nyx/ukt/milias/work/software/dirac/production_trunk
-export BUILD1=$DIRAC/build_openmpi_intel17_mkl_i8_xh
-export BUILD2=$DIRAC/build_openmpi_intel17_openblas_i8_xh
+export BUILD1=$DIRAC/build_openmpi_intel17_mkl_i8
+Eexport BUILD2=$DIRAC/build_openmpi_intel17_openblas_i8_xh
 
 # My OpenMPI-Intel17 instalation
 export PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-17/bin:$PATH
@@ -126,13 +125,10 @@ do
     echo -e "\nThis node has $NPROCS CPUs available for this EXCLUSIVE JOB and dirac.x is running via $nOpenMPI openmpi threads."
 
     export MKL_NUM_THREADS=$nOpenMP
-    echo -e "\nFor the MKL-i8 internal parallelization, number of calculated threads=$MKL_NUM_THREADS per each openmpi thread.\n"
+    echo -e "For the MKL-i8 internal parallelization, number of calculated threads=$MKL_NUM_THREADS per each openmpi thread.\n"
 #       ... C2H4Cl2_sta_c1.mol , C2H4Cl2_sta_c2.mol 
-    $PAM1 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=cc.inp --mol=C2H4Cl2_sta_c1.mol --suffix=i17mkl-mpi$nOpenMPI-omp$MKL_NUM_THREADS-out --timeout=1h30m
+    $PAM1 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=$DIRAC/test/benchmark_cc_linear/cc.inp --mol=$DIRAC/test/benchmark_cc_linear/N2.ccpVQZ.mol --suffix=i17mkl-mpi$nOpenMPI-omp$MKL_NUM_THREADS-out.par --timeout=30m
 
-    export OPENBLAS_NUM_THREADS=$nOpenMP
-    echo -e "\nFor the OpenBLAS-i8 internal parallelization, number of calculated threads=$OPENBLAS_NUM_THREADS \n"
-    $PAM2 --scratch=$DIRAC_TMPDIR  --mpi=$nOpenMPI  --gb=4.60  --ag=5.00  --noarch --inp=cc.inp --mol=C2H4Cl2_sta_c1.mol --suffix=i17oblas-mpi$nOpenMPI-omp$OPENBLAS_NUM_THREADS-out  --timeout=1h30m
   done
 done
 
