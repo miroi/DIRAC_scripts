@@ -5,7 +5,11 @@
 ###SBATCH -D /lustre/nyx/ukt/milias
 
 ## max. execution time
-#SBATCH -t 0-2:30:00
+#SBATCH -t 0-1:30:00
+
+##  partition (queue)
+##SBATCH -p long
+#SBATCH -p main
 
 ## Node count - take only one node for OpenMP-MKL
 #SBATCH -N 1
@@ -16,13 +20,14 @@
 ##SBATCH --mem=36G
 
 ## memory per CPU
-#SBATCH --mem-per-cpu=9G
+##SBATCH --mem-per-cpu=9G
 
 ## stdout/stderr output file
 #SBATCH -o log_slurm_job.%j.%N.std_out_err
 
 ## mail
-#SBATCH --mail-user=m.ilias@gsi.de 
+#SBATCH --mail-user=M.Ilias@gsi.de 
+#SBATCH --mail-type=ALL
 
  
 echo Job user is $SLURM_JOB_USER and his job $SLURM_JOB_NAME has assigned ID $SLURM_JOBID
@@ -43,6 +48,7 @@ echo
 module unload compiler/intel/12.1
 module unload compiler/intel/15.0
 module unload compiler/intel/16.0
+module unload compiler/intel/17.0
 # this is wanted compiler ...
 module load compiler/intel/15.0
 echo "loaded modules:"
