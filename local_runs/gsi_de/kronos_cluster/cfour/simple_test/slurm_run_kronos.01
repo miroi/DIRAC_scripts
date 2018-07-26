@@ -1,26 +1,29 @@
 #!/bin/bash
 #SBATCH -J CFOUR
 
-# Working directory on the shared storage ...
-###SBATCH -D /lustre/nyx/ukt/milias
+##  partition (queue)
+#SBATCH -p debug
+##SBATCH -p long
+##SBATCH -p main
 
-## max. execution time
-#SBATCH -t 0-2:30:00
+## max. execution time according to queue
+#SBATCH -t 0-0:20:00
 
 ## Node count - take only one node for OpenMP-MKL
 ##  lxbk0051-lxbk0200 ...
 #SBATCH -N 1
 ## CPU count  - max. 40 per node
-#SBATCH -n 8
+#SBATCH -n 1
 
-## memory
-#SBATCH --mem=32G
+## memory - 3GB/CPU
+##SBATCH --mem=32G
 
 ## stdout/stderr output file
 #SBATCH -o log_slurm_job.%j.%N.std_out_err
 
-## mail
-#SBATCH --mail-user=m.ilias@gsi.de 
+## E-mail send
+#SBATCH --mail-user=M.Ilias@gsi.de 
+#SBATCH --mail-type=ALL
 
  
 echo Job user is $SLURM_JOB_USER and his job $SLURM_JOB_NAME has assigned ID $SLURM_JOBID

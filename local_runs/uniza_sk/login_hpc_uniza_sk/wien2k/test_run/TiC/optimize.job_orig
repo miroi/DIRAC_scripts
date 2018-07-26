@@ -1,0 +1,25 @@
+#!/bin/csh -f
+ #   Modify this script according to your needs: 
+ #      Uncomment one of the lines ...
+ #      Change run_lapw to runsp_lapw or use different convergence criterium
+ #      Change save_lapw -d XXX
+foreach i ( \
+                                           TiC_vol_-10.0  \
+                                           TiC_vol__-5.0  \
+                                           TiC_vol___0.0  \
+                                           TiC_vol___5.0  \
+                                           TiC_vol__10.0  \
+ )
+     cp  $i.struct TiC.struct
+ #    cp  $i.clmsum TiC.clmsum
+     x dstart
+ #    run_lapw -ec 0.0001 -in1new 3 -in1orig -renorm
+     run_lapw -ec 0.0001
+     set stat = $status
+     if ($stat) then
+        echo "ERROR status in" $i
+        exit 1
+     endif
+     save_lapw  $i
+ #    save_lapw  -f -d XXX $i
+ end

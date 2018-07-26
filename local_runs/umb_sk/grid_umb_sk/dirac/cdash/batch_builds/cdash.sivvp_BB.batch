@@ -1,21 +1,19 @@
 #!/bin/bash
 
-#
-# 40 01 * * 1,2,3,4,5,6,7 DB=/home/milias/Work/qch/software/My_scripts/local_runs/umb_sk/grid_umb_sk/dirac/cdash/batch_builds; cd $DB;  /usr/bin/qsub $DB/cdash.sivvp_BB.batch 
-#
-
 #PBS -S /bin/bash
 #PBS -N DIRACbuild
 #PBS -A UMB-ITMS-26110230082
 ### Declare myprogram non-rerunable
 #PBS -r n
+##PBS -l nodes=1:ppn=12:old
 #PBS -l nodes=1:ppn=6
 #PBS -l walltime=8:00:00
-#PBS -l mem=20g
+#PBS -l mem=26g
 #PBS -j oe
 #PBS -q batch
 
-echo -e "\n Working host is: "; hostname -f
+echo -e "\n Working host is: \c"; hostname -f; 
+echo -e " Today is : \c"; date
 
 source /mnt/apps/intel/bin/compilervars.sh intel64
 echo -e "\n Intel Fortran/C/C++ compilers with MKL library activated, PROD_DIR=$PROD_DIR."
@@ -25,9 +23,13 @@ echo -e "ifort ? \c"; which ifort; ifort -V
 echo -e "\n"
 
 source /mnt/apps/pgi/environment.sh
-echo -e "Portlang Group compilers activated ! PGI=$PGI"
+echo -e "\n Portlang Group compilers activated ! PGI=$PGI"
 echo -e "pgf90 ? \c"; which pgf90; pgf90 -V
-echo -e "\n"
+# ask on compilers
+echo -e "\n which ifort ? \c"; which ifort; ifort -V
+echo -e "size of /tmp .. \c"; du -h -s /tmp; df -h /tmp 
+echo -e "\n which gfortran ? \c"; which gfortran; gfortran --version
+echo -e "\n which pgf90 ? \c"; which pgf90; pgf90 --version
 
 # my cmake stuff
 #export PATH=/home/milias/bin/cmake/bin:$PATH
@@ -36,7 +38,7 @@ echo -e "\n"
 # my most recent python 2.7.1 #
 #export PATH=/people/disk2/ilias/bin/python/Python-2.7.1:$PATH
 
-echo "Running on host `hostname`"
+echo -e "\nRunning on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
 echo "This jobs runs on the following processors:"
@@ -62,7 +64,6 @@ echo -e "\n\n Running DIRAC cdash buildups at "$timestamp ; echo -e "\n\n"
 echo -e "which cmake ? \c"
 which cmake; cmake --version
 which ctest; ctest --version
-echo
 
 # check own git installation for nodes
 #export PATH=/home/milias/bin/git_cloned/bin:$PATH
@@ -80,17 +81,30 @@ export OMP_NUM_THREADS=1
 echo -e "My PATH=$PATH"
 
 #
-# Clone DIRAC into unique directory on scratch
+# Make clean space ....
 #
+
+echo -e "\n\n ls -lt  /mnt/local/$USER .... \c"; ls -lt  /mnt/local/$USER
+echo -e "du -h -s  /mnt/local/$USER .... \c"; du -h -s  /mnt/local/$USER
+echo -e "df -h /mnt/local/$USER .... \c"; df -h  /mnt/local/$USER
+
+cd /mnt/local/$USER
+echo -e "\n\n in  /mnt/local/$USER .... pwd; ls -lt ? \c"; pwd; ls -lt
+#echo -e "\n cleaning /mnt/local/$USER before... /bin/rm -rf /mnt/local/$USER/*";
+##/bin/rm -rf /mnt/local/$USER/* ! No ! Can destroy files of other jobs !
+##echo -e "after cleaning, pwd; ls -lt ? \c"; pwd; ls -lt
+
+
 SCRATCH=/mnt/local/$USER/$PBS_JOBID
 mkdir ${SCRATCH}
-echo -e "\n In ${SCRATCH} ? \c"; pwd
-
+echo -e "\n In ${SCRATCH} ? \c"; pwd; 
 cd ${SCRATCH}
+
+# Clone DIRAC into unique directory on scratch
 TRUNK=trunk.$PBS_JOBID
 git clone --recursive git@gitlab.com:dirac/dirac.git ${TRUNK}
 DIRAC=${SCRATCH}/${TRUNK}
-echo -e "ls -lt ${DIRAC} ? \c"; ls -lt ${DIRAC}
+echo -e "\n pwd; ls -lt ${DIRAC} ? \c"; pwd; ls -lt ${DIRAC}
 cd ${DIRAC}
 git submodule update --init --recursive
 
@@ -105,93 +119,100 @@ export DIRAC_TMPDIR=${SCRATCH}
 ###############################################
 BUILD_SERIAL=build_intelmkl_i8
 cd ${DIRAC}
-echo -e "\n\n Running serial, dynamic DIRAC buildup in $BUILD_SERIAL"
+echo -e "\n\n Running serial, dynamic Intel/MKL/i8 DIRAC buildup in $BUILD_SERIAL"
 #
 if [[ -d "$BUILD_SERIAL" ]]; then
   echo "deleting previous build directory $BUILD_SERIAL"
   /bin/rm -rf $BUILD_SERIAL
 fi
 #python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
-python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF -D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
+python ./setup  --int64 --fc=ifort --cc=icc --cxx=icpc --cmake-options="-D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON -D BUILDNAME='sivvp-UMB_Intel_mkl_i8-batch' -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL
 cd $BUILD_SERIAL
 #ctest  --track Miro  -D ExperimentalUpdate 
 #ctest   -D ExperimentalConfigure 
-ctest -V -j$NPROCS_PBS   -D ExperimentalBuild 
+ctest -VV -j$NPROCS_PBS -D ExperimentalBuild 
 
 echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
 ldd dirac.x
 
 #ctest   -D ExperimentalTest 
-ctest -V -j$NPROCS_PBS  -D ExperimentalTest -L short
-ctest  -V -D ExperimentalSubmit 
+ctest -VV -j$NPROCS_PBS  -D ExperimentalTest -L short
+ctest  -VV -D ExperimentalSubmit 
 
 ##############################################################################
 #          serial,static DIRAC buildup with Intel+MKL
 ##############################################################################
 BUILD_SERIAL_STATIC=build_intelmkl_i8_static_batch
-echo -e "\n\n Running serial, static DIRAC buildup in $BUILD_SERIAL_STATIC"
+echo -e "\n\n Running serial, static Intel/MKL/i8 DIRAC buildup in $BUILD_SERIAL_STATIC"
 cd ${DIRAC}
 if [[ -d "$BUILD_SERIAL_STATIC" ]]; then
   echo "deleting previous build directory $BUILD_SERIAL_STATIC"
   /bin/rm -rf $BUILD_SERIAL_STATIC
 fi
-python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF -D BUILDNAME='sivvp-UMB_Intel_mkl_i8_static-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
+python ./setup --int64 --fc=ifort --cc=icc --cxx=icpc --static --cmake-options="-D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON -D BUILDNAME='sivvp-UMB_Intel_mkl_i8_static-batch'  -D DART_TESTING_TIMEOUT=99999" $BUILD_SERIAL_STATIC
 cd $BUILD_SERIAL_STATIC
 #ctest  -D ExperimentalConfigure
-ctest -V -j$NPROCS_PBS  -D ExperimentalBuild
+ctest -VV -j$NPROCS_PBS  -D ExperimentalBuild
 
 echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
 ldd dirac.x
 
-ctest -V -j$NPROCS_PBS -D ExperimentalTest -L short
+ctest -VV -j$NPROCS_PBS -D ExperimentalTest -L short
 #ctest  -D ExperimentalTest -R cosci_energy
-ctest -V -D ExperimentalSubmit 
+ctest -VV -D ExperimentalSubmit 
 
 #####################################################
 #        serial DIRAC buildup with GNU+mkl
 #####################################################
 BUILD_GNU=build_gnu_mkl_i8
-echo -e "\n\n Running serial DIRAC buildup in $BUILD_GNU"
+echo -e "\n\n Running serial GNU/MKL/i8 DIRAC buildup in $BUILD_GNU"
 cd ${DIRAC}
 if [[ -d "$BUILD_GNU" ]]; then
   echo "deleting previous build directory $BUILD_GNU"
   /bin/rm -rf $BUILD_GNU
 fi
-python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++  --cmake-options="-D BUILDNAME='sivvp-UMB_GNU_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF"  $BUILD_GNU
+python ./setup --int64 --fc=gfortran --cc=gcc --cxx=g++  --cmake-options="-D BUILDNAME='sivvp-UMB_GNU_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON"  $BUILD_GNU
 cd $BUILD_GNU
 #ctest   -D ExperimentalConfigure 
-ctest -V -j$NPROCS_PBS  -D ExperimentalBuild  
+ctest -VV -j$NPROCS_PBS  -D ExperimentalBuild  
 
 echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
 ldd dirac.x
 
 #ctest -j$NPROCS_PBS  -D ExperimentalTest -R cosci_energy 
-ctest -V -j$NPROCS_PBS  -D ExperimentalTest -L short
-ctest -V  -D ExperimentalSubmit  
+ctest -VV -j$NPROCS_PBS  -D ExperimentalTest -L short
+ctest -VV  -D ExperimentalSubmit  
 
 #####################################################
 #        serial DIRAC buildup with PGI+mkl
 #####################################################
 BUILD_PGI=build_pgi_mkl_i8
-echo -e "\n\n Running serial DIRAC buildup in $BUILD_PGI"
+echo -e "\n\n Running serial PGI/MKL/i8 DIRAC buildup in $BUILD_PGI"
 cd ${DIRAC}
 if [[ -d "$BUILD_PGI" ]]; then
   echo "deleting previous build directory $BUILD_PGI"
   /bin/rm -rf $BUILD_PGI
 fi
-python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-UMB_PGI_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=OFF -D ENABLE_PCMSOLVER=OFF" $BUILD_PGI
+python ./setup --int64 --fc=pgf90 --cc=pgcc --cxx=pgCC --cmake-options="-D BUILDNAME='sivvp-UMB_PGI_mkl_i8-batch'  -D DART_TESTING_TIMEOUT=99999 -D ENABLE_STIELTJES=ON -D ENABLE_PCMSOLVER=ON" $BUILD_PGI
 cd $BUILD_PGI
 #ctest -V -D ExperimentalConfigure 
-ctest -V -j$NPROCS_PBS -D ExperimentalBuild   
+ctest -VV -j$NPROCS_PBS -D ExperimentalBuild   
 
 echo -e "\n Created dirac.x executable ? \c"; ls -lt dirac.x
 ldd dirac.x
 
 #ctest -D ExperimentalTest -R cosci_energy  
-ctest -V -j$NPROCS_PBS -D ExperimentalTest -L short
-ctest -V -D ExperimentalSubmit 
+ctest -VV -j$NPROCS_PBS -D ExperimentalTest -L short
+ctest -VV -D ExperimentalSubmit 
 
 timestamp1=`date +\%F_\%k-\%M-\%S`; timestamp=${timestamp1// /};
 echo -e "\n\n All buildups finished at "$timestamp
+
+echo -e "\n\n cleaning  /mnt/local/$USER/$PBS_JOBID  ... "
+/bin/rm -rf /mnt/local/$USER/$PBS_JOBID/* 
+
+echo -e "\n ls -lt  /mnt/local/$USER "; ls -lt  /mnt/local/$USER
+echo -e "\n df -h  /mnt/local/$USER "; df -h   /mnt/local/$USER
+echo -e "\n du -s -h  /mnt/local/$USER "; du -h -s   /mnt/local/$USER
 
 exit 0

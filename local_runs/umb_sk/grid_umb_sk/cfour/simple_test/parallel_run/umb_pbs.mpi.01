@@ -1,28 +1,32 @@
 #!/bin/sh
 ##
-##   Written by Jonas Juselius <jonas@iki.fi>
-##   extended by Michael Harding <harding@uni-mainz.de> 
-##
 
 #PBS -S /bin/bash
-#PBS -N C4_H2O
+#PBS -A UMB-ITMS-26110230082
+#PBS -N H2O
 ### Declare myprogram non-rerunable
 #PBS -r n
-#PBS -l nodes=1:ppn=12
-#PBS -l walltime=6:00:00
-#PBS -l mem=47g
+##PBS -l nodes=1:ppn=12:old
+#PBS -l nodes=1:ppn=4
+#PBS -l walltime=20:00:00
+##PBS -l mem=47g
+#PBS -l mem=16g
 #PBS -j oe
-#PBS -q short
+#PBS -q batch
 
 echo "Working host is: "; hostname -f
+source /mnt/apps/intel/bin/compilervars.sh intel64
+source /mnt/apps/pgi/environment.sh
 
-# load necessary modules
-module load intel/2015
-module load mkl/2015
-#module load openmpi-intel/2.1.0
-#module load openmpi-intel/1.8.3
+# libnumma for PGI
+#export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
+
+# My OpenMPI
+export PATH=/home/milias/bin/openmpi-1.8.4-intel/bin:$PATH
+export LD_LIBRARY_PATH=/home/milias/bin/openmpi-1.8.4-intel/lib:$LD_LIBRARY_PATH
 
 echo "My PATH=$PATH"
+echo "My LD_LIBRARY_PATH==$LD_LIBRARY_PATH"
 echo "Running on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
@@ -38,16 +42,18 @@ echo "PBS_NODEFILE=$PBS_NODEFILE"
 echo "PBS_O_QUEUE=$PBS_O_QUEUE"
 echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
 # ...
-export MKL_NUM_THREADS=$NPROCS_PBS
+#export MKL_NUM_THREADS=$NPROCS_PBS
+export MKL_NUM_THREADS=1
 echo "MKL_NUM_THREADS=$MKL_NUM_THREADS"
 #export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
 export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
-
 #CFOUR=/scrcluster/harding/aces2.par
-CFOUR=/shared/home/ilias/Work/software/cfour/cfour_v2.00beta/build/intel_mklpar_i8
+#CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta/build/intelmklpar
+CFOUR=/home/milias/Work/qch/software/cfour/cfour_v2.00beta_openmpi-1.8.4-intel-14
+
 QUESYS=$CFOUR/share/quesys.sh
 
 if [ -f $QUESYS ]; then
@@ -77,14 +83,13 @@ jobtype="serial"
 
 # a job id is automatically added to the workdir
 #workdir=/scr/$USER 
-#workdir=/mnt/local/$USER/$PBS_JOBID
-workdir=/scratch/tmp
+workdir=/mnt/local/$USER/$PBS_JOBID
 #mkdir -p $workdir   # create the workdir
 
 global_workdisk=no
 #outdir=out
 #outdir=$workdir/out # 
-outdir=$workdir/cfour_run
+outdir=$workdir
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"

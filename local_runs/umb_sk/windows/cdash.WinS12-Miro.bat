@@ -26,7 +26,8 @@ rem write timestamp as the first entry into the empty log file
 echo %DATE% %TIME% 1>%LOG% 2>&1
 
 rem test connection on native Windows
-"C:\Program Files (x86)\PuTTY\plink.exe" -agent git@gitlab.com 1>>%LOG% 2>&1
+rem "C:\Program Files (x86)\PuTTY\plink.exe" -agent git@gitlab.com 1>>%LOG% 2>&1
+"C:\Program Files\PuTTY\plink.exe" -agent git@gitlab.com 1>>%LOG% 2>&1
 
 rem go to the local DIRAC directory
 cd %DIRAC%

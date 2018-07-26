@@ -1,0 +1,103 @@
+Overview of memory preparedness
+===============================
+
+grep -A 8 "The node's CPU model name"  log_slurm_job.*
+
+
+log_slurm_job.29594954.lxbk0349.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29594954.lxbk0349.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29594954.lxbk0349.std_out_err-
+log_slurm_job.29594954.lxbk0349.std_out_err- The memory situation at the node (in GB)
+log_slurm_job.29594954.lxbk0349.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29594954.lxbk0349.std_out_err-Mem:           126          4        121          1          0          2
+log_slurm_job.29594954.lxbk0349.std_out_err--/+ buffers/cache:          1        124
+log_slurm_job.29594954.lxbk0349.std_out_err-Swap:           19          0         19
+--
+log_slurm_job.29595550.lxbk0341.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29595550.lxbk0341.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29595550.lxbk0341.std_out_err-
+log_slurm_job.29595550.lxbk0341.std_out_err- The memory situation at the node (in GB)
+log_slurm_job.29595550.lxbk0341.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29595550.lxbk0341.std_out_err-Mem:           126          4        121          0          0          1
+log_slurm_job.29595550.lxbk0341.std_out_err--/+ buffers/cache:          2        123
+log_slurm_job.29595550.lxbk0341.std_out_err-Swap:           19          0         19
+--
+log_slurm_job.29596490.lxbk0341.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29596490.lxbk0341.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29596490.lxbk0341.std_out_err-
+log_slurm_job.29596490.lxbk0341.std_out_err- The memory situation at the node (in GB)
+log_slurm_job.29596490.lxbk0341.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29596490.lxbk0341.std_out_err-Mem:           126          8        117          0          0          6
+log_slurm_job.29596490.lxbk0341.std_out_err--/+ buffers/cache:          2        123
+log_slurm_job.29596490.lxbk0341.std_out_err-Swap:           19          0         19
+--
+log_slurm_job.29597073.lxbk0342.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29597073.lxbk0342.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29597073.lxbk0342.std_out_err-
+log_slurm_job.29597073.lxbk0342.std_out_err- The memory situation at the node (in GB)
+log_slurm_job.29597073.lxbk0342.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29597073.lxbk0342.std_out_err-Mem:           126          4        121          1          0          2
+log_slurm_job.29597073.lxbk0342.std_out_err--/+ buffers/cache:          2        124
+log_slurm_job.29597073.lxbk0342.std_out_err-Swap:           19          0         19
+--
+log_slurm_job.29597282.lxbk0342.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29597282.lxbk0342.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29597282.lxbk0342.std_out_err-
+log_slurm_job.29597282.lxbk0342.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29597282.lxbk0342.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29597282.lxbk0342.std_out_err-Mem:           126          4        121          1          0          2
+log_slurm_job.29597282.lxbk0342.std_out_err--/+ buffers/cache:          2        124
+log_slurm_job.29597282.lxbk0342.std_out_err-Swap:           19          0         19
+--
+log_slurm_job.29597303.lxbk0342.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29597303.lxbk0342.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29597303.lxbk0342.std_out_err-
+log_slurm_job.29597303.lxbk0342.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29597303.lxbk0342.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29597303.lxbk0342.std_out_err-Mem:           126          4        121          1          0          2
+log_slurm_job.29597303.lxbk0342.std_out_err--/+ buffers/cache:          2        124
+log_slurm_job.29597303.lxbk0342.std_out_err-Swap:           19          0         19
+--
+log_slurm_job.29602756.lxbk0341.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29602756.lxbk0341.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29602756.lxbk0341.std_out_err-
+log_slurm_job.29602756.lxbk0341.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29602756.lxbk0341.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29602756.lxbk0341.std_out_err-Mem:           126          8        117          0          0          6
+log_slurm_job.29602756.lxbk0341.std_out_err--/+ buffers/cache:          2        123
+log_slurm_job.29602756.lxbk0341.std_out_err-Swap:           19          0         19
+
+log_slurm_job.29603122.lxbk0341.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29603122.lxbk0341.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29603122.lxbk0341.std_out_err-
+log_slurm_job.29603122.lxbk0341.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29603122.lxbk0341.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29603122.lxbk0341.std_out_err-Mem:           126         45         80          0          0         41
+log_slurm_job.29603122.lxbk0341.std_out_err--/+ buffers/cache:          3        122
+--
+log_slurm_job.29603123.lxbk0342.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29603123.lxbk0342.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29603123.lxbk0342.std_out_err-
+log_slurm_job.29603123.lxbk0342.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29603123.lxbk0342.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29603123.lxbk0342.std_out_err-Mem:           126         45         81          1          0         38
+log_slurm_job.29603123.lxbk0342.std_out_err--/+ buffers/cache:          6        119
+log_slurm_job.29606294.lxbk0341.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29606294.lxbk0341.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29606294.lxbk0341.std_out_err-
+log_slurm_job.29606294.lxbk0341.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29606294.lxbk0341.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29606294.lxbk0341.std_out_err-Mem:           126         40         85          0          0         36
+log_slurm_job.29606294.lxbk0341.std_out_err--/+ buffers/cache:          3        122
+log_slurm_job.29606294.lxbk0341.std_out_err-Swap:           19          0         19
+log_slurm_job.29606294.lxbk0341.std_out_err-Total:         145         40        105
+--
+log_slurm_job.29606295.lxbk0342.std_out_err:The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+log_slurm_job.29606295.lxbk0342.std_out_err-This node has 56 CPUs available for EXCLUSIVE job.
+log_slurm_job.29606295.lxbk0342.std_out_err-
+log_slurm_job.29606295.lxbk0342.std_out_err- The memory situation at the node (in GB, free -t -g)
+log_slurm_job.29606295.lxbk0342.std_out_err-             total       used       free     shared    buffers     cached
+log_slurm_job.29606295.lxbk0342.std_out_err-Mem:           126         20        105          1          0         17
+log_slurm_job.29606295.lxbk0342.std_out_err--/+ buffers/cache:          2        123
+log_slurm_job.29606295.lxbk0342.std_out_err-Swap:           19          0         19
+log_slurm_job.29606295.lxbk0342.std_out_err-Total:         145         20        125
