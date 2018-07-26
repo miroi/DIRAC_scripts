@@ -17,7 +17,7 @@ that not all CE are equipped with appropriate python version. So we resort to th
 Making dirac.x static
 ---------------------
 
-Don't forget to include "--static" to your setup flags.
+Don't forget to include "--static" to your setup flags. 
 
 Making Python static
 --------------------
@@ -52,6 +52,7 @@ So far I got membership in these virtual organizations:
  vo.africa-grid.org
  voce
 
+The most equipped is VO=enmr.eu.
 
 -----------------------------
 Working with your certificate
@@ -67,7 +68,7 @@ Simple initialization :
  voms-proxy-init --voms sivvp.slovakgrid.sk
 
 
-More advanced initialization:
+More advanced initialization with the longest lifetime and certificate file storing:
 
 ::
 
@@ -97,6 +98,13 @@ where you can point your environmental variable to given certificate:
  export X509_USER_PROXY=~/compchem_cert
  export X509_USER_PROXY=~/enmr_eu_cert
 
+Checking the status of the certificate:
+
+::
+
+  voms-proxy-info --all
+
+
 
 Long-term certificate
 ---------------------
@@ -113,15 +121,15 @@ Create certificate for longer time:
 
 ::
 
-  myproxy-init  --pshost px.ui.savba.sk        -d -n -c 4780       # voce, cca 198.1 days (maximum) 
-  myproxy-init  --pshost myproxy.cnaf.infn.it  -d -n -c 4780       # compchem, cca 198.1 days (maximum) 
+  myproxy-init  --pshost px.ui.savba.sk        -d -n -c 4780       # voce, sivvp; cca 198.1 dys (maximum period)
+  myproxy-init  --pshost myproxy.cnaf.infn.it  -d -n -c 4780       # compchem, enmr.eu; maximum period
 
 where "--pshost <myproxy_server>" specifies the hostname of the machine where a MyProxy Server runs, 
 the -d option instructs the server to associate the user DN to the proxy, 
 and the -n option avoids the use of a passphrase to access the long-term proxy, 
 so that the WMS renews the proxy automatically. 
 
-Verify your long-term certificate:
+Verify long-term certificate:
 
 ::
 

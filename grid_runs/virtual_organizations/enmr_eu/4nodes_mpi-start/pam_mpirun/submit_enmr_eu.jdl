@@ -7,7 +7,7 @@
 ##############################################################
 
 Executable   = "run_on_CE_4n.sh";
-InputSandbox = {"run_on_CE_4n.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+InputSandbox = {"run_on_CE_4n.sh","/scratch/milias/Work/qch/projects/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
 #InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
 #Arguments    = "sivvp.slovakgrid.sk";
 #Arguments    = "voce";
