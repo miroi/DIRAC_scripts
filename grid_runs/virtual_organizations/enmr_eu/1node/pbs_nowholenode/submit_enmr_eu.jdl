@@ -56,8 +56,8 @@ PerusalTimeInterval=10005;
 #################
 Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
 # PBS jobs only
-Requirements =
-other.GlueCEInfoLRMSType == "pbs";
+#Requirements =
+#other.GlueCEInfoLRMSType == "pbs";
 # other.GlueCEPolicyMaxWallClockTime > 1200 && 
 # other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
 # other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"

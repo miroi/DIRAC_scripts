@@ -24,7 +24,7 @@ VirtualOrganisation="enmr.eu";
 WholeNodes = True;
 #WholeNodes = False;
 # number of allocated nodes 
-HostNumber = 4;
+HostNumber = 1;
 #  request # of cores on 1 node
 #CpuNumber = 24;
 SMPgranularity = 2;
@@ -47,19 +47,22 @@ OutputSandbox = {"DIRAC_runs.std_oe.log"};
 
 ## to be able to reach intermediate results of your job
 # see http://goc.grid.auth.gr/wiki/bin/view/Groups/ALL/MonitoringTheOutputOfYourJob
-PerusalFileEnable=true;
+##PerusalFileEnable=true;
 # for VOCE this limit must be > 10000 sec (cca 17 min)
-PerusalTimeInterval=10005; 
+##PerusalTimeInterval=10005; 
 
 #################
 # Demands on CE #
 #################
-Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
+#Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
+Requirements  = member("MPI-START", other.GlueHostApplicationSoftwareRunTimeEnvironment);
 # PBS jobs only
-Requirements =
-Member("MPI-START", other.GlueHostApplicationSoftwareRunTimeEnvironment )
+#Requirements =
+#Member("MPI-START", other.GlueHostApplicationSoftwareRunTimeEnvironment )  &&
+# member("OPENMPI", other.GlueHostApplicationSoftwareRunTimeEnvironment) &&
+# other.GlueCEUniqueID == "ce.lsg.bcbr.uu.nl:8443/cream-pbs-long")
 #other.GlueCEInfoLRMSType == "pbs";
 # other.GlueCEPolicyMaxWallClockTime > 1200 && 
 # other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
 # other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"
-;
+#;
