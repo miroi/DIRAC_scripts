@@ -5,15 +5,17 @@
 #
 #
 ##############################################################
-
+[
 Executable   = "run_on_CE_1n.sh";
-InputSandbox = {"run_on_CE_1n.sh","/scratch/milias/Work/qch/software/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+InputSandbox = {"run_on_CE_1n.sh","/scratch/milias/Work/qch/projects/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
 #InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
+#
 #Arguments    = "sivvp.slovakgrid.sk";
 #Arguments    = "voce";
 #Arguments = "compchem";
 #Arguments = "osg";
 Arguments = "enmr.eu";
+
 #VirtualOrganisation="sivvp.slovakgrid.sk";
 #VirtualOrganisation="voce";
 #VirtualOrganisation="compchem";
@@ -44,12 +46,14 @@ MyProxyServer = "myproxy.cnaf.infn.it";
 StdOutput = "DIRAC_runs.std_oe.log";
 StdError = "DIRAC_runs.std_oe.log";
 OutputSandbox = {"DIRAC_runs.std_oe.log"};
+OutputSandboxBaseDestUri ={"gsiftp://localhost"};
 
 ## to be able to reach intermediate results of your job
 # see http://goc.grid.auth.gr/wiki/bin/view/Groups/ALL/MonitoringTheOutputOfYourJob
-PerusalFileEnable=true;
+##PerusalFileEnable={true};
 # for VOCE this limit must be > 10000 sec (cca 17 min)
-PerusalTimeInterval=10005; 
+##PerusalTimeInterval={10005};
+##PerusalFilesDestURI={"gsiftp://localhost"};
 
 #################
 # Demands on CE #
@@ -62,3 +66,5 @@ Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
 # other.GlueCEUniqueID == "ce4.ui.savba.sk:8443/cream-pbs-voce" ||
 # other.GlueCEUniqueID == "ce3.ui.savba.sk:8443/cream-pbs-voce"
 #;
+
+]
