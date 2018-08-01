@@ -6,8 +6,8 @@
 #
 ##############################################################
 [
-Executable   = "run_on_CE_1n.sh";
-InputSandbox = {"run_on_CE_1n.sh","/scratch/milias/Work/qch/projects/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
+Executable   = "run_on_CE_test.sh";
+InputSandbox = {"run_on_CE_test.sh","/scratch/milias/Work/qch/projects/My_scripts/grid_runs/common_bash_routines/UtilsCE.sh"};
 #InputSandbox = {"run_on_CE.sh","UtilsCE.sh"};
 #
 #Arguments    = "sivvp.slovakgrid.sk";
@@ -46,7 +46,7 @@ MyProxyServer = "myproxy.cnaf.infn.it";
 StdOutput = "DIRAC_runs.std_oe.log";
 StdError = "DIRAC_runs.std_oe.log";
 OutputSandbox = {"DIRAC_runs.std_oe.log"};
-OutputSandboxBaseDestUri ={"gsiftp://localhost"};
+OutputSandboxBaseDestUri = "gsiftp://localhost";
 
 ## to be able to reach intermediate results of your job
 # see http://goc.grid.auth.gr/wiki/bin/view/Groups/ALL/MonitoringTheOutputOfYourJob
@@ -58,7 +58,7 @@ OutputSandboxBaseDestUri ={"gsiftp://localhost"};
 #################
 # Demands on CE #
 #################
-Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
+#Requirements = other.GlueCEPolicyMaxWallClockTime > 3600;
 # PBS jobs only
 #Requirements =
 #other.GlueCEInfoLRMSType == "pbs";

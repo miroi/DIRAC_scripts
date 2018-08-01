@@ -54,7 +54,7 @@ fi
 ###  memory of CE ###
 #####################
 echo -e "\n ---- server's total memory :\c"; cat /proc/meminfo | grep MemTotal
-echo -e "through the 'free -t -m' command (values in MB): "; free -m -t
+echo -e "through the 'free -t -g' command (values in GB): "; free -g -t
 #####################
 # check space on CE #
 #####################
@@ -79,10 +79,10 @@ local VO=$1
 echo -e "\n First, on CE=$CE, VO=$VO checking long-term proxy with myproxy-info -v : "
 if [[ "$VO" == "voce" ]]; then
   myproxy-info -v -d --pshost px.ui.savba.sk
-elif [[ "$VO" == "compchem" ]]; then
+elif [[ "$VO" == "compchem" || "$VO" == "enmr.eu" ]]; then
   myproxy-info -v -d --pshost myproxy.cnaf.infn.it
 else
-  echo -e "\n What is your VO ? Neither voce,nor compchem..."
+  echo -e "\n What is your VO ? Neither voce,nor compchem, enmr.eu..."
 fi
 #
 echo -e "\n Checking short-term proxy, stamped with myproxy, voms-proxy-info --all : "

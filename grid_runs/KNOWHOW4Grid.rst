@@ -383,13 +383,13 @@ Get grid job files back (to default /tmp directory)
 ::
 
  glite-wms-job-output -i <JOB_ID_file>
+ glite-ce-job-output -i <JOB_ID_file>
 
 
 Get job files back to user's current directory
 
 ::
 
- glite-wms-job-output --dir $PWD  -i JOB_sivvp
  glite-wms-job-output --dir $PWD  -i JOB_enmr_eu
 
 
@@ -448,3 +448,25 @@ Launch your bash-script with the help of the nohup command:
  nohup grid3savba_cdash_grid_buildup.bash voce     > nohup_voce 2>&1 & 
  nohup grid3savba_cdash_grid_buildup.bash compchem > nohup_compchem 2>&1 & 
 
+Valuable CE resources
+=====================
+
+High-memory nodes
+-----------------
+
+For VO=enmr.eu, those CE with high memory (256GB)
+
+::
+
+ ce.lsg.bcbr.uu.nl:8443/cream-pbs-express
+ ce.lsg.bcbr.uu.nl:8443/cream-pbs-long
+ ce.lsg.bcbr.uu.nl:8443/cream-pbs-medium
+
+ ce.lsg.maastrichtuniversity.nl:8443/cream-pbs-express
+ ce.lsg.maastrichtuniversity.nl:8443/cream-pbs-long
+ ce.lsg.maastrichtuniversity.nl:8443/cream-pbs-medium
+
+ gb-ce-lumc.lumc.nl:8443/cream-pbs-express
+ gb-ce-lumc.lumc.nl:8443/cream-pbs-long
+ gb-ce-lumc.lumc.nl:8443/cream-pbs-medium
+ 
