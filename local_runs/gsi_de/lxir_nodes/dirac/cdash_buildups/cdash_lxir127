@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#
+#
+#  05 00 * * 1,2,3,4,5,6,7  S=/u/milias/Work/qch/software/My_scripts/local_runs/gsi_de/lxir_nodes/dirac/cdash_buildups; $S/cdash.lxir127 > $S/cdash_buildup.log 2>&1
+#
+#
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+module unload compiler/intel/12.1
+module unload compiler/intel/15.0
+module unload compiler/intel/16.0
+module load compiler/intel/17.4
+module list
+
+## my installation of Integer*8 OpenMPI:
+## milias@lxir127.gsi.de:~/bin/openmpi-i8/openmpi-3.1.0/../configure --prefix=/u/milias/bin/openmpi-i8  F77=ifort FC=ifort FFLAGS=-i8 FCFLAGS=-i8 CXX=icpc CC=icc
+export PATH=/u/milias/bin/openmpi-i8/bin:$PATH
+export LD_LIBRARY_PATH=/u/milias/bin/openmpi-i8/lib:$PATH
+
+export CTEST_PROJECT_NAME="DIRAC"
+export DIRTIMEOUT="14m"
+
+TMP_DIR=/tmp/milias/DIRAC_builds
+if [[ -d "$TMP_DIR" ]]; then
+  /bin/rm -rf $TMP_DIR
+  mkdir -p $TMP_DIR
+else
+  mkdir -p $TMP_DIR
+fi
+
+git clone --recursive git@gitlab.com:dirac/dirac.git  $TMP_DIR
+cd $TMP_DIR
+git submodule update --init --recursive
+BUILD_OMPI=build_openmpi_intel_mkl_i8_rtcheck
+export DIRAC_MPI_COMMAND="mpirun -np 2"
+
+# configure step
+python ./setup --mpi --check --fc=mpif90  --cc=mpicc  --cxx=mpicxx --int64  --cmake-options="-D BUILDNAME='lxir127-gsi.de-openmpi-intel-mkl-i8-rtcheck' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON" $BUILD_OMPI
+cd $BUILD_OMPI
+ctest -D ExperimentalUpdate --track master
+ctest -j16 -D ExperimentalConfigure --track master
+ctest -j16 -D ExperimentalBuild --track master
+ctest -j8 -D ExperimentalTest --track master
+ctest -D ExperimentalSubmit --track master
+
+echo -e "\n Running DIRAC serial buildup"
+unset DIRAC_MPI_COMMAND
+BUILD_SERIAL=build_intel_mkl_i4_rtcheck
+
+# configure step
+python ./setup --check --fc=ifort  --cc=icc  --cxx=icpc  --cmake-options="-D BUILDNAME='lxir127-gsi.de-intel-mkl-i4-rtcheck' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON" $BUILD_SERIAL
+cd $BUILD_SERIAL
+ctest -D ExperimentalUpdate --track master
+ctest -j16 -D ExperimentalConfigure --track master
+ctest -j16 -D ExperimentalBuild --track master
+ctest -j16 -D ExperimentalTest --track master
+ctest -D ExperimentalSubmit --track master
+
+
+exit 0
+
+
