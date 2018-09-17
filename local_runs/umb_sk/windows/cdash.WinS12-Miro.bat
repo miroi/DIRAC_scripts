@@ -63,10 +63,10 @@ if exist %CLONED% rmdir /S /Q %CLONED% 1>>%LOG% 2>&1
 git clone --recursive git@gitlab.com:dirac/dirac.git %CLONED% 1>>%LOG% 2>&1
 cd %CLONED%
 git submodule update --init --recursive
-set BUILD=build_mingw64_i8_tests
+set BUILD=build_mingw64_i8_tests_rtcheck
 if exist %BUILD% rmdir /S /Q %BUILD%
 rem split setup command line
-python setup --int64 --blas=off --lapack=off ^
+python setup --check --int64 --blas=off --lapack=off ^
  --explicit-libs="C:/libraries/OpenBLAS/OpenBLAS-v0.2.14-Win64-int64/bin/libopenblas.dll" ^
  --cmake-options="-D ZLIB_ROOT='C:\libraries\zlib' -D BOOST_INCLUDEDIR='C:\libraries\Boost\include' -D BOOST_LIBRARYDIR='C:\libraries\Boost\lib' -D BUILDNAME='WinS12_MinGW64_i8_OpenBLAS_parallel_cloned' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_BENCHMARKS=OFF -D ENABLE_TUTORIALS=ON -D ENABLE_UNIT_TESTS=ON -D ENABLE_PCMSOLVER=OFF -D ENABLE_STIELTJES=OFF -D ENABLE_BUILTIN_LAPACK=ON" ^
  --generator="MinGW Makefiles" %BUILD% 1>>%LOG% 2>&1
