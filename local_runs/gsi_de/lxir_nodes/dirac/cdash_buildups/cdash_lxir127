@@ -21,7 +21,9 @@ export PATH=/u/milias/bin/openmpi-i8/bin:$PATH
 export LD_LIBRARY_PATH=/u/milias/bin/openmpi-i8/lib:$LD_LIBRARY_PATH
 
 export CTEST_PROJECT_NAME="DIRAC"
-export DIRTIMEOUT="14m"
+
+# for RT-checks one needs more time !
+export DIRTIMEOUT="30m"
 
 #TMP_DIR=/tmp/milias/DIRAC_builds
 TMP_DIR=/tmp/milias-dirac-software/dirac_cloned
