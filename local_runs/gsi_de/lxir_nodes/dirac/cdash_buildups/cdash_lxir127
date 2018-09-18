@@ -18,7 +18,7 @@ module list
 ## my installation of Integer*8 OpenMPI:
 ## milias@lxir127.gsi.de:~/bin/openmpi-i8/openmpi-3.1.0/../configure --prefix=/u/milias/bin/openmpi-i8  F77=ifort FC=ifort FFLAGS=-i8 FCFLAGS=-i8 CXX=icpc CC=icc
 export PATH=/u/milias/bin/openmpi-i8/bin:$PATH
-export LD_LIBRARY_PATH=/u/milias/bin/openmpi-i8/lib:$PATH
+export LD_LIBRARY_PATH=/u/milias/bin/openmpi-i8/lib:$LD_LIBRARY_PATH
 
 export CTEST_PROJECT_NAME="DIRAC"
 export DIRTIMEOUT="14m"
@@ -27,6 +27,7 @@ export DIRTIMEOUT="14m"
 TMP_DIR=/tmp/milias-dirac-software/dirac_cloned
 #
 if [[ -d "$TMP_DIR" ]]; then
+  echo -e "\n ...deleting previous clone $TMP_DIR "
   /bin/rm -rf $TMP_DIR
   mkdir -p $TMP_DIR
 else
@@ -37,6 +38,7 @@ fi
 git clone --recursive git@gitlab.com:dirac/dirac.git  $TMP_DIR
 cd $TMP_DIR
 git submodule update --init --recursive
+
 BUILD_OMPI=build_openmpi_intel_mkl_i8_rtcheck
 export DIRAC_MPI_COMMAND="mpirun -np 2"
 
