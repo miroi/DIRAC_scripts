@@ -23,14 +23,17 @@ export LD_LIBRARY_PATH=/u/milias/bin/openmpi-i8/lib:$PATH
 export CTEST_PROJECT_NAME="DIRAC"
 export DIRTIMEOUT="14m"
 
-TMP_DIR=/tmp/milias/DIRAC_builds
+#TMP_DIR=/tmp/milias/DIRAC_builds
+TMP_DIR=/tmp/milias-dirac-software/dirac_cloned
+#
 if [[ -d "$TMP_DIR" ]]; then
   /bin/rm -rf $TMP_DIR
   mkdir -p $TMP_DIR
 else
   mkdir -p $TMP_DIR
 fi
-
+#
+#
 git clone --recursive git@gitlab.com:dirac/dirac.git  $TMP_DIR
 cd $TMP_DIR
 git submodule update --init --recursive
@@ -46,7 +49,7 @@ ctest -j16 -D ExperimentalBuild --track master
 ctest -j8 -D ExperimentalTest --track master
 ctest -D ExperimentalSubmit --track master
 
-echo -e "\n Running DIRAC serial buildup"
+echo -e "\n Running DIRAC serial buildup \n"
 unset DIRAC_MPI_COMMAND
 BUILD_SERIAL=build_intel_mkl_i4_rtcheck
 
@@ -59,7 +62,4 @@ ctest -j16 -D ExperimentalBuild --track master
 ctest -j16 -D ExperimentalTest --track master
 ctest -D ExperimentalSubmit --track master
 
-
 exit 0
-
-
