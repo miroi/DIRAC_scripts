@@ -13,6 +13,8 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 echo -e "\n Are modules available ?"
+ls -l  /etc/profile.d/
+. /etc/profile.d/modules.sh
 module use /cvmfs/it.gsi.de/modulefiles/
 echo -e "...after loading, modules at disposal:"
 module avail
