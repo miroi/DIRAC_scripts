@@ -57,6 +57,7 @@ BUILD_OMPI=build_openmpi_intel_mkl_i8_rtcheck
 export DIRAC_MPI_COMMAND="mpirun -np 2"
 
 # configure step
+echo -e "\n Running DIRAC parallel-RTcheck buildup \n"
 python ./setup --mpi --check --fc=mpif90  --cc=mpicc  --cxx=mpicxx --int64  --cmake-options="-D BUILDNAME='lxir127-gsi.de-openmpi-intel-mkl-i8-rtcheck' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON" $BUILD_OMPI
 cd $BUILD_OMPI
 ctest -V -D ExperimentalUpdate --track master
@@ -65,7 +66,7 @@ ctest -VV -j16 -D ExperimentalBuild --track master
 ctest -V -j8 -D ExperimentalTest --track master
 ctest -V -D ExperimentalSubmit --track master
 
-echo -e "\n Running DIRAC serial buildup \n"
+echo -e "\n Running DIRAC serial-RTcheck buildup \n"
 cd $TMP_DIR
 echo -e "\n I am in $PWD "
 unset DIRAC_MPI_COMMAND
@@ -77,5 +78,19 @@ ctest -V -j16 -D ExperimentalConfigure --track master
 ctest -VV -j16 -D ExperimentalBuild --track master
 ctest -V -j16 -D ExperimentalTest --track master
 ctest -V -D ExperimentalSubmit --track master
+
+echo -e "\n Running DIRAC parallel-benchmark buildup \n"
+cd $TMP_DIR
+echo -e "\n I am in $PWD "
+BUILD_OMPI_BENCHMARK=build_openmpi_intel_mkl_i8_xh
+export DIRAC_MPI_COMMAND="mpirun -np 4"
+python ./setup --mpi --fc=mpif90  --cc=mpicc  --cxx=mpicxx --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost"  --int64  --cmake-options="-D BUILDNAME='lxir127-gsi.de-openmpi-intel-mkl-i8-xh' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_TUTORIALS=ON" $BUILD_OMPI_BENCHMARK
+cd $BUILD_OMPI_BENCHMARK
+ctest -V -D ExperimentalUpdate --track master
+ctest -V -j16 -D ExperimentalConfigure --track master
+ctest -VV -j16 -D ExperimentalBuild --track master
+ctest -V -C benchmarks -j4 -D ExperimentalTest --track master
+ctest -V -D ExperimentalSubmit --track master
+
 
 exit 0
