@@ -61,11 +61,12 @@ echo -e "\n Running DIRAC parallel-RTcheck buildup \n"
 python ./setup --mpi --check --fc=mpif90  --cc=mpicc  --cxx=mpicxx --int64  --cmake-options="-D BUILDNAME='lxir127-gsi.de-openmpi-intel-mkl-i8-rtcheck' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON" $BUILD_OMPI
 cd $BUILD_OMPI
 ctest -V -D ExperimentalUpdate --track master
-ctest -V -j16 -D ExperimentalConfigure --track master
+ctest -V -D ExperimentalConfigure --track master
 ctest -VV -j16 -D ExperimentalBuild --track master
 ctest -V -j8 -D ExperimentalTest --track master
 ctest -V -D ExperimentalSubmit --track master
 
+sleep 60
 echo -e "\n Running DIRAC serial-RTcheck buildup \n"
 cd $TMP_DIR
 echo -e "\n I am in $PWD "
@@ -74,11 +75,12 @@ BUILD_SERIAL=build_intel_mkl_i4_rtcheck
 # configure step
 python ./setup --check --fc=ifort  --cc=icc  --cxx=icpc  --cmake-options="-D BUILDNAME='lxir127-gsi.de-intel-mkl-i4-rtcheck' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON" $BUILD_SERIAL
 cd $BUILD_SERIAL
-ctest -V -j16 -D ExperimentalConfigure --track master
+ctest -V  -D ExperimentalConfigure --track master
 ctest -VV -j16 -D ExperimentalBuild --track master
 ctest -V -j16 -D ExperimentalTest --track master
 ctest -V -D ExperimentalSubmit --track master
 
+sleep 60
 echo -e "\n Running DIRAC parallel-benchmark buildup \n"
 cd $TMP_DIR
 echo -e "\n I am in $PWD "
@@ -87,7 +89,7 @@ export DIRAC_MPI_COMMAND="mpirun -np 4"
 python ./setup --mpi --fc=mpif90  --cc=mpicc  --cxx=mpicxx --extra-fc-flags="-xHost" --extra-cc-flags="-xHost" --extra-cxx-flags="-xHost"  --int64  --cmake-options="-D BUILDNAME='lxir127-gsi.de-openmpi-intel-mkl-i8-xh' -D DART_TESTING_TIMEOUT=99999 -D ENABLE_UNIT_TESTS=ON -D ENABLE_TUTORIALS=ON" $BUILD_OMPI_BENCHMARK
 cd $BUILD_OMPI_BENCHMARK
 ctest -V -D ExperimentalUpdate --track master
-ctest -V -j16 -D ExperimentalConfigure --track master
+ctest -V -D ExperimentalConfigure --track master
 ctest -VV -j16 -D ExperimentalBuild --track master
 ctest -V -C benchmarks -j4 -D ExperimentalTest --track master
 ctest -V -D ExperimentalSubmit --track master
