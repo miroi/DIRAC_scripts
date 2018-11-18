@@ -1,6 +1,9 @@
 @ECHO OFF
 cls
 
+rem set proxy
+set HTTP_PROXY=http://194.160.44.44:3128
+
 rem set number of threads for OpenBLAS
 rem 24GB RAM,8 CPU
 set OPENBLAS_NUM_THREADS=2
