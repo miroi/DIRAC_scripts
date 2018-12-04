@@ -65,6 +65,7 @@ set CLONED=trunk_cloned
 if exist %CLONED% rmdir /S /Q %CLONED% 1>>%LOG% 2>&1
 git clone --recursive git@gitlab.com:dirac/dirac.git %CLONED% 1>>%LOG% 2>&1
 cd %CLONED%
+git config --global http.proxy http://194.160.44.44:3128
 git submodule update --init --recursive
 set BUILD=build_mingw64_i8_tests_rtcheck
 if exist %BUILD% rmdir /S /Q %BUILD%
