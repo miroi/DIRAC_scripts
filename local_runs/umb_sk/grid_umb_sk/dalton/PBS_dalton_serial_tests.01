@@ -58,12 +58,9 @@ export OMP_DYNAMIC="FALSE"
 #export PATH=/home/milias/bin/openmpi-2.1.1-intel14/bin:$PATH
 #export LD_LIBRARY_PATH=/home/milias/bin/openmpi-2.1.1-intel14/lib:$LD_LIBRARY_PATH
 
-#DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
-DALTON=/home/milias/Work/qch/software/dalton
+DALTON=/home/milias/Work/qch/software/dalton/dalton_master
 BUILD=build_intel14-i8-mkl
 
-#BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
-#BUILD_MPI1=$DIRAC/build_openmpi-1.8.4_intel14_mkl_i8_xh
 #BUILD_MPI1=$DIRAC/build_openmpi-2.1.1_intel14_mkl_i8_xh
 #PAM_MPI1=$BUILD_MPI1/pam
 
@@ -78,6 +75,7 @@ echo -e "\nPython -V \c"; python -V
 #$echo -e "\n The $BUILD_MPI1/dirac.x attributes:"
 #ls -lt $BUILD_MPI1/dirac.x
 
+$echo -e "\n The $DALTON/$BUILD/dalton.x attributes:"
 ls -lt $DALTON/$BUILD/dalton.x
 ldd $DALTON/$BUILD/dalton.x
 
