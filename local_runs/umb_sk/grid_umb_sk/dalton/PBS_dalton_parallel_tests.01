@@ -129,12 +129,15 @@ echo -e "Dik Space df -h /mnt/local/$USER \c "; df -h /mnt/local/$USER
    #export DALTON_NUM_MPI_PROCS=$NPROCS_PBS
    export DALTON_NUM_MPI_PROCS=$THISMPI
    let "NUMTHR=$NPROCS_PBS/$THISMPI"
+
    echo -e "\nThis node has $NPROCS_PBS CPUs available for this EXCLUSIVE JOB and dalton.x is running via $THISMPI threads."
 
    echo -e "ctest ? \c"; which ctest; ctest --version
+
    #echo -e "running ctest -j$NPROCS_PBS"
    echo -e "running ctest -V  -j$NUMTHR -L dft ..."
    #ctest -V  -j$NPROCS_PBS -L short
-   ctest  -V  -j$NUMTHR -L dft
+   #ctest  -V  -j$NUMTHR -L dft
+   ctest  -j$NUMTHR 
 
 exit 0
