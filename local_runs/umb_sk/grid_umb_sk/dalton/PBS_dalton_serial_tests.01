@@ -18,17 +18,20 @@
 
 #PBS -M Miroslav.Ilias@umb.sk
 
-echo -e "Working host is: \c "; hostname -f
+echo -e "\n Working host is: \c "; hostname -f
+echo "Time is `date`"
 source /mnt/apps/intel/bin/compilervars.sh intel64
 #source /mnt/apps/pgi/environment.sh
 
 # libnumma for PGI
 #export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
 
+# my CMake into PATH
+export PATH=/home/milias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:$PATH
 echo "My PATH=$PATH"
-echo "Time is `date`"
-echo "Directory is `pwd`"
-echo "This jobs runs on the following processors:"
+
+echo "Launching directory for PBS is `pwd`"
+echo -e "\nThis jobs runs on the following processors:"
 echo `cat $PBS_NODEFILE`
 
 UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
@@ -41,7 +44,7 @@ NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
 echo -e "\nThis node has $NPROCS CPUs."
 echo -e "This node has $NPROCS_PBS CPUs allocated for PBS calculations."
 
-#echo "PBS_SERVER=$PBS_SERVER"
+echo -e "\n PBS variables:"
 echo "PBS_NODEFILE=$PBS_NODEFILE"
 echo "PBS_O_QUEUE=$PBS_O_QUEUE"
 echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
@@ -75,7 +78,7 @@ echo -e "\nPython -V \c"; python -V
 #$echo -e "\n The $BUILD_MPI1/dirac.x attributes:"
 #ls -lt $BUILD_MPI1/dirac.x
 
-$echo -e "\n The $DALTON/$BUILD/dalton.x attributes:"
+echo -e "\n The $DALTON/$BUILD/dalton.x attributes:"
 ls -lt $DALTON/$BUILD/dalton.x
 ldd $DALTON/$BUILD/dalton.x
 
@@ -89,7 +92,8 @@ ldd $DALTON/$BUILD/dalton.x
 
 # set local scratch directory for your runs 
 export DALTON_TMPDIR=/mnt/local/$USER/$PBS_JOBID
-echo -e "\n Local scratch directory, DALTON_TMPDIR=$DALTON_TMPDIR \c"; df -h /mnt/local/$USER/
+echo -e "\n Local scratch directory for Dalton, DALTON_TMPDIR=$DALTON_TMPDIR "
+echo -e "df -h /mnt/local/$USER \c "; df -h /mnt/local/$USER
 
 #  set BASIS directory for your runs - pam needs to see it
 #export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
@@ -138,10 +142,11 @@ echo -e "\n Local scratch directory, DALTON_TMPDIR=$DALTON_TMPDIR \c"; df -h /mn
   #$PAM_MPI2 --mpi=2 --noarch --gb=2.00 --ag=2.50    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_ob_2mpi
 
    cd $DALTON/$BUILD
-   echo -e "I am in Dalton build directory \c"; pwd
+   echo -e "\n I am in Dalton build directory \c"; pwd
    echo -e "ctest ? \c"; which ctest; ctest --version
 
    echo -e "running ctest -j$NPROCS_PBS"
+   #ctest -V  -j$NPROCS_PBS -L short
    ctest -j$NPROCS_PBS
 
 exit 0
