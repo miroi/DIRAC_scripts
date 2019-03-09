@@ -18,7 +18,7 @@
 
 #PBS -M Miroslav.Ilias@umb.sk
 
-echo "Working host is: "; hostname -f
+echo -e "Working host is: \c "; hostname -f
 source /mnt/apps/intel/bin/compilervars.sh intel64
 #source /mnt/apps/pgi/environment.sh
 
@@ -26,7 +26,6 @@ source /mnt/apps/intel/bin/compilervars.sh intel64
 #export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
 
 echo "My PATH=$PATH"
-echo "Running on host `hostname`"
 echo "Time is `date`"
 echo "Directory is `pwd`"
 echo "This jobs runs on the following processors:"
@@ -39,8 +38,8 @@ echo "Unique nodes for parallel run:  $UNIQUE_NODES"
 # Extract number of processors
 NPROCS_PBS=`wc -l < $PBS_NODEFILE`
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
-echo "This node has $NPROCS CPUs."
-echo "This node has $NPROCS_PBS CPUs allocated for PBS calculations."
+echo -e "\nThis node has $NPROCS CPUs."
+echo -e "This node has $NPROCS_PBS CPUs allocated for PBS calculations."
 
 #echo "PBS_SERVER=$PBS_SERVER"
 echo "PBS_NODEFILE=$PBS_NODEFILE"
@@ -60,7 +59,7 @@ export OMP_DYNAMIC="FALSE"
 #export LD_LIBRARY_PATH=/home/milias/bin/openmpi-2.1.1-intel14/lib:$LD_LIBRARY_PATH
 
 #DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
-DALTON=/home/milias/Work/qch/software/dalton/
+DALTON=/home/milias/Work/qch/software/dalton
 BUILD=build_intel14-i8-mkl
 
 #BUILD_MPI1=$DIRAC/build_ompi_intelmkl_i8
@@ -73,12 +72,14 @@ BUILD=build_intel14-i8-mkl
 #PAM_MPI2=$BUILD_MPI2/pam
 
 echo -e "\nPython -V \c"; python -V
-echo -e "mpf90 ? \c"; which mpif90; mpif90 --version
-echo -e "mpirun ? \c"; which mpirun; mpirun --version
+#echo -e "mpf90 ? \c"; which mpif90; mpif90 --version
+#echo -e "mpirun ? \c"; which mpirun; mpirun --version
 
 #$echo -e "\n The $BUILD_MPI1/dirac.x attributes:"
 #ls -lt $BUILD_MPI1/dirac.x
-#ldd $BUILD_MPI1/dirac.x
+
+ls -lt $DALTON/$BUILD/dalton.x
+ldd $DALTON/$BUILD/dalton.x
 
 #  set your test case
 #INP=$DIRAC/test/benchmark_cc_linear/cc.inp
@@ -103,7 +104,7 @@ echo -e "\n Local scratch directory, DALTON_TMPDIR=$DALTON_TMPDIR \c"; df -h /mn
 #export DIRTIMEOUT="1h"
 #export DIRTIMEOUT="20m"
 
-cd $PBS_O_WORKDIR
+#cd $PBS_O_WORKDIR
 
 #----------------------------------------------------------
 #   Main cycle over OpenMPI-OpenMP number of tasks/threads
@@ -138,6 +139,11 @@ cd $PBS_O_WORKDIR
   #$PAM_MPI1 --mpi=2 --noarch --gb=2.00 --ag=2.50   --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_mkl_2mpi
   #$PAM_MPI2 --mpi=2 --noarch --gb=2.00 --ag=2.50    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_ob_2mpi
 
-  $DALTON/$BUILD/ctest -j$NPROCS_PBS
+   cd $DALTON/$BUILD
+   echo -e "I am in Dalton build directory \c"; pwd
+   echo -e "ctest ? \c"; which ctest; ctest --version
+
+   echo -e "running ctest -j$NPROCS_PBS"
+   ctest -j$NPROCS_PBS
 
 exit 0
