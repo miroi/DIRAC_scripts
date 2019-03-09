@@ -1,0 +1,140 @@
+#!/bin/bash
+
+#PBS -S /bin/bash
+#PBS -A UMB-ITMS-26110230082
+#PBS -N DalParTests
+
+### Declare myprogram non-rerunable
+#PBS -r n
+
+#PBS -l nodes=1:ppn=12:old
+
+#PBS -l walltime=5:00:00
+#PBS -l mem=47g
+#PBS -j oe
+
+#PBS -q batch
+##PBS -q debug
+
+#PBS -M Miroslav.Ilias@umb.sk
+
+echo -e "\n Working host is: \c "; hostname -f
+echo "Time is `date`"
+source /mnt/apps/intel/bin/compilervars.sh intel64
+
+## PGI compiler ... ##
+#source /mnt/apps/pgi/environment.sh
+# libnumma for PGI
+#export LD_LIBRARY_PATH=/home/milias/bin/lib64_libnuma:$LD_LIBRARY_PATH
+
+# my CMake into PATH
+export PATH=/home/milias/bin/cmake/cmake-3.3.0-Linux-x86_64/bin:$PATH
+# provide OpenMPI-Intel-i8
+export PATH=/home/milias/bin/openmpi-4.0.0/openmpi-4.0.0-intel14-i8/bin:$PATH
+export LD_LIBRARY_PATH=/home/milias/bin/openmpi-4.0.0/openmpi-4.0.0-intel14-i8/lib:$LD_LIBRARY_PATH
+
+echo "My PATH=$PATH"
+echo "My LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+
+echo -e "mpf90 ? \c"; which mpif90; mpif90 --version
+echo -e "mpirun ? \c"; which mpirun; mpirun --version
+
+echo -e "\nLaunching directory for PBS is `pwd`"
+echo -e "This jobs runs on the following processors:"
+echo `cat $PBS_NODEFILE`
+
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo "Unique nodes for parallel run:  $UNIQUE_NODES"
+
+# Extract number of processors
+NPROCS_PBS=`wc -l < $PBS_NODEFILE`
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo -e "\nThis node has $NPROCS CPUs."
+echo -e "This node has $NPROCS_PBS CPUs allocated for PBS calculations."
+
+echo -e "\n PBS variables:"
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "PBS_O_QUEUE=$PBS_O_QUEUE"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+#
+
+#export MKL_NUM_THREADS=$NPROCS
+#echo "MKL_NUM_THREADS=$MKL_NUM_THREADS"
+#export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
+
+
+DALTON=/home/milias/Work/qch/software/dalton/dalton_master
+#BUILD=build_intel14-i8-mkl
+BUILD=build_openmpi-4.0.0-intel14-i8-mkl/
+
+echo -e "\nPython -V \c"; python -V
+
+
+echo -e "\n The $DALTON/$BUILD/dalton.x attributes:"
+ls -lt $DALTON/$BUILD/dalton.x
+ldd $DALTON/$BUILD/dalton.x
+
+# set local scratch directory for your runs 
+export DALTON_TMPDIR=/mnt/local/$USER/$PBS_JOBID
+echo -e "\n Local scratch directory for Dalton, DALTON_TMPDIR=$DALTON_TMPDIR "
+echo -e "Dik Space df -h /mnt/local/$USER \c "; df -h /mnt/local/$USER
+
+#  set BASIS directory for your runs - pam needs to see it
+#export BASDIR_PATH="$DIRAC/basis:$DIRAC/basis_dalton:$DIRAC/basis_ecp"
+
+#  MPI command
+#export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 1 -x MKL_NUM_THREADS"
+#export DIRAC_MPI_COMMAND="mpirun -H ${UNIQUE_NODES} -npernode 1"
+
+#cd $PBS_O_WORKDIR
+
+  # set MKL envirovariables
+  unset MKL_NUM_THREADS
+  #export MKL_NUM_THREADS=$nmkl
+  export MKL_NUM_THREADS=1
+  echo -e "\nUpdated MKL_NUM_THREADS=$MKL_NUM_THREADS"
+  echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+  echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+  echo -e "OMP_DYNAMIC=$OMP_DYNAMIC"
+  
+# send MKL enviro-variables to nodes
+#PBS -v MKL_NUM_THREADS
+#PBS -v MKL_DYNAMIC
+#PBS -v OMP_NUM_THREADS
+#PBS -v OMP_DYNAMIC
+
+# Passing your whole environment
+#PBS -V
+
+  #unset DIRAC_MPI_COMMAND
+  #export DIRAC_MPI_COMMAND="mpirun -np ${np}"
+
+  #echo -e "OpenMPI which mpirun ? \c"; which mpirun
+
+  #miro: try memory set up...
+ # $PAM_MPI1 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_mkl_2mpi
+ # $PAM_MPI2 --mpi=2 --noarch --gb=3.5 --ag=23   --inp=$INP  --mol=$MOL --suffix=out_ob_2mpi
+
+  #$PAM_MPI1 --mpi=2 --noarch --gb=2.00 --ag=2.50   --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_mkl_2mpi
+  #$PAM_MPI2 --mpi=2 --noarch --gb=2.00 --ag=2.50    --inp=cc.inp  --mol=N2.ccpVDZ.mol --suffix=out_ob_2mpi
+
+   cd $DALTON/$BUILD
+   echo -e "\n I am in Dalton build directory \c"; pwd
+
+   THISMPI=2
+   #export DALTON_NUM_MPI_PROCS=$NPROCS_PBS
+   export DALTON_NUM_MPI_PROCS=$THISMPI
+   let "NUMTHR=$NPROCS_PBS/$THISMPI"
+   echo -e "\nThis node has $NPROCS_PBS CPUs available for this EXCLUSIVE JOB and dalton.x is running via $THISMPI threads."
+
+   echo -e "ctest ? \c"; which ctest; ctest --version
+   #echo -e "running ctest -j$NPROCS_PBS"
+   echo -e "running ctest -V  -j$NUMTHR -L dft ..."
+   #ctest -V  -j$NPROCS_PBS -L short
+   ctest  -V  -j$NUMTHR -L dft
+
+exit 0
