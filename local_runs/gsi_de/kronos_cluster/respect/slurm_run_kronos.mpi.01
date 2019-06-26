@@ -86,8 +86,8 @@ export RESPECT=/lustre/nyx/ukt/milias/work/software/respect/ReSpect_4.0.0_beta_x
 # My own OpenMPI-Intel installation for ReSpect-OpenMPI
 #export PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/bin:$PATH
 #export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-intel/lib:$LD_LIBRARY_PATH
-export PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-15/bin:$PATH
-export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-15/lib:$LD_LIBRARY_PATH
+export PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.0-intel-15/bin:$PATH
+export LD_LIBRARY_PATH=/lustre/nyx/ukt/milias/bin/openmpi-2.0.0-intel-15/lib:$LD_LIBRARY_PATH
 
 echo -e "\n Python -v :\c"; python -V
 echo -e "cmake ? which cmake = \c"; which cmake
@@ -95,6 +95,7 @@ echo -e "ctest ? which ctest = \c"; which ctest
 echo -e "ctest --version \c"; ctest --version
 echo -e "which mpirun  ? \c"; which mpirun
 echo -e "mpirun --version ? \c"; mpirun --version
+echo -e "ifort -V ? \c"; ifort -V
 echo
 
 # for running jobs from your homedir, use ...
