@@ -1,0 +1,397 @@
+Job user is milias and his job ReSpectMPI has assigned ID 85169844
+This job was submitted from the computer lxbk0197
+and from the home directory:
+/lustre/ukt/milias/work/projects/My_scripts/local_runs/gsi_de/kronos_cluster/respect
+
+It is running on the cluster compute node:
+
+and is employing 1 node/nodes:
+lxbk0490
+The job requests 4 CPU per task.
+modules at disposal:
+
+------------------------ /cvmfs/it.gsi.de/modulefiles/ -------------------------
+compiler/gcc/10                       openmpi/gcc/1.10.0
+compiler/gcc/10.0.0                   openmpi/gcc/1.10_gcc6
+compiler/gcc/4.8.4                    openmpi/gcc/1.10_gcc7
+compiler/gcc/5.1.0                    openmpi/gcc/1.10_gcc8
+compiler/gcc/6                        openmpi/gcc/1.10_sys
+compiler/gcc/6.1.0                    openmpi/gcc/2.1_gcc6
+compiler/gcc/6.3.0                    openmpi/gcc/2.1_gcc7
+compiler/gcc/7                        openmpi/gcc/2.1_gcc8
+compiler/gcc/8                        openmpi/gcc/2.1_sys
+compiler/gcc/8.1.0                    openmpi/gcc/3.1_gcc6
+compiler/gcc/8.2.0                    openmpi/gcc/3.1_gcc7
+compiler/gcc/8.3.0                    openmpi/gcc/3.1_gcc8
+compiler/gcc/9                        openmpi/gcc/3.1_sys
+compiler/gcc/9.1.0                    openmpi/gcc/4.0_gcc8
+compiler/intel/15.0                   openmpi/gcc/4.0_sys
+compiler/intel/16.0                   openmpi/intel/4.0_intel17.4
+compiler/intel/17.0                   openmpi/intel/4.0_mp1compat_intel17.4
+compiler/intel/17.4                   pelegant/28.1.0
+compiler/llvm/3.6.1                   root/v5-34-14
+compiler/llvm/4.0.1                   root/v5.34-14
+compiler/llvm/6.0.1                   root/v6.06-06
+epoch/gcc/4.16.4_ompi4.0_gcc8         ucx/gcc/1.5_gcc8.3
+epoch/gcc/4.16.4_ompi4.0_sys          ucx/gcc/1.5_sys
+epoch/gcc/4.16.4_sys                  ucx/intel/1.5_intel17.4
+epoch/intel/4.16.4_ompi4.0_intel17.4  warp/gcc/4.5_sys
+hdf5/gcc/1.10_sys
+
+------------------------- /usr/share/modules/versions --------------------------
+3.2.10
+
+------------------------ /usr/share/modules/modulefiles ------------------------
+dot         module-git  module-info modules     null        use.own
+
+loaded modules:
+Currently Loaded Modulefiles:
+  1) /compiler/intel/15.0
+
+Running on host lxbk0490
+Time is Wed Jun 26 16:15:28 CEST 2019 
+
+
+My PATH=/cvmfs/it.gsi.de/compiler/intel/15.0/bin:/cvmfs/it.gsi.de/compiler/intel/15.0/advisor_xe_2015.1.10.380555/bin64:/cvmfs/it.gsi.de/compiler/intel/15.0/vtune_amplifier_xe_2015.3.0.403110/bin64:/cvmfs/it.gsi.de/compiler/intel/15.0/inspector_xe_2015.1.2.379161/bin64:/cvmfs/it.gsi.de/compiler/intel/15.0/composer_xe_2015.3.187/bin/intel64:/cvmfs/it.gsi.de/compiler/intel/15.0/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin::/lustre/nyx/ukt/milias/bin/openmpi-3.1.0-intel17-i8/bin:/lustre/nyx/ukt/milias/bin/openmpi-2.0.1-intel-17/bin:/u/milias/.local/bin:/u/milias/software/flint:/u/milias/bin/cmake/cmake-3.12.0-Linux-x86_64/bin:/u/milias/Work/qch/software/abinit/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:.
+
+The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+This node has 56 CPUs available.
+(i) This node has SLURM_CPUS_ON_NODE=4 CPUs allocated for SLURM calculations. Enough ?
+(ii) This node has SLURM_JOB_CPUS_PER_NODE=4 CPUs allocated for SLURM calculations.
+
+ The memory at the node (in GB)
+             total       used       free     shared    buffers     cached
+Mem:           126         62         63          1          0         41
+-/+ buffers/cache:         20        105
+Swap:           19          0         19
+Total:         145         62         82
+
+
+Internal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=1
+
+
+ Python -v :Python 2.7.9
+cmake ? which cmake = /usr/bin/cmake
+ctest ? which ctest = /usr/bin/ctest
+ctest --version ctest version 3.0.2
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+which mpirun  ? /lustre/nyx/ukt/milias/bin/openmpi-2.0.0-intel-15/bin/mpirun
+mpirun --version ? mpirun (Open MPI) 2.0.0
+
+Report bugs to http://www.open-mpi.org/community/help/
+ifort -V ? Intel(R) Fortran Intel(R) 64 Compiler XE for applications running on Intel(R) 64, Version 15.0.3.187 Build 20150407
+Copyright (C) 1985-2015 Intel Corporation.  All rights reserved.
+
+
+
+ Current directory where this SLURM job is running /lustre/ukt/milias/work/projects/My_scripts/local_runs/gsi_de/kronos_cluster/respect
+ It has the disk space of (df -h) :
+Filesystem                             Size  Used Avail Use% Mounted on
+10.20.3.0@o2ib5:10.20.3.1@o2ib5:/hebe   14P  5.8P  7.9P  43% /lustre
+
+              result            module                  test                inp/molecule        time
+ [  0%]    --   OK   --     1c-properties       NMR-shielding_B3LYP              H2O2            00m06s  
+ [  1%]    --   OK   --     1c-properties       NMR-shielding_B3LYP         H2O2-CS1-CGA2        00m04s  
+ [  1%]    --   OK   --     1c-properties       NMR-shielding_B3LYP          H2O2-CS1-CGM        00m04s  
+ [  1%]    --   OK   --     1c-properties        NMR-shielding_BP86              H2O2            00m03s  
+ [  2%]    --   OK   --     1c-properties        NMR-shielding_BP86         H2O2-CS1-CGA2        00m02s  
+ [  2%]    --   OK   --     1c-properties        NMR-shielding_BP86          H2O2-CS1-CGM        00m02s  
+ [  2%]    --   OK   --     1c-properties         NMR-shielding_HF               H2O2            00m02s  
+ [  3%]    --   OK   --     1c-properties         NMR-shielding_HF          H2O2-CS1-CGA2        00m04s  
+ [  3%]    --   OK   --     1c-properties         NMR-shielding_HF           H2O2-CS1-CGM        00m05s  
+ [  3%]    --   OK   --     1c-properties       Spin-Rotation_B3LYP              H2O2            00m03s  
+ [  4%]    --   OK   --     1c-properties       Spin-Rotation_B3LYP            H2O2-SR1          00m04s  
+ [  4%]    --   OK   --     1c-properties        Spin-Rotation_BP86              H2O2            00m03s  
+ [  4%]    --   OK   --     1c-properties        Spin-Rotation_BP86            H2O2-SR1          00m01s  
+ [  5%]    --   OK   --     1c-properties         Spin-Rotation_HF               H2O2            00m02s  
+ [  5%]    --   OK   --     1c-properties         Spin-Rotation_HF             H2O2-SR1          00m05s  
+ [  6%]    --   OK   --     1c-properties             TDDFT_HF                   h2o             00m02s  
+ [  6%]    --   OK   --     1c-properties             TDDFT_HF                 h2o-tda           00m03s  
+ [  6%]    --   OK   --     1c-properties      freq-polarizability_HF            LiH             00m02s  
+ [  7%]    --   OK   --     1c-properties      freq-polarizability_HF         LiH-RANGE          00m04s  
+ [  7%]    --   OK   --     1c-properties           mo-analysis                  h2o             00m01s  
+ [  7%]    --   OK   --     1c-properties           mo-analysis                h2o-POL           00m02s  
+ [  8%]    --   OK   --     1c-properties           mo-analysis                 h2o-SR           00m02s  
+ [  8%]    --   OK   --     1c-properties           mo-analysis               h2o-CS-CGO         00m02s  
+ [  8%]    --   OK   --     1c-properties       polarizability_B3LYP              CO             00m02s  
+ [  9%]    --   OK   --     1c-properties       polarizability_B3LYP         CO-POL1-NUM         00m03s  
+ [  9%]    --   OK   --     1c-properties       polarizability_BP86               CO             00m02s  
+ [  9%]    --   OK   --     1c-properties       polarizability_BP86          CO-POL1-NUM         00m03s  
+ [ 10%]    --   OK   --     1c-properties       polarizability_BP86          CO-POL1-ANA         00m05s  
+ [ 10%]    --   OK   --     1c-properties        polarizability_HF                CO             00m02s  
+ [ 10%]    --   OK   --     1c-properties        polarizability_HF             CO-POL1           00m01s  
+ [ 11%]    --   OK   --          MAG                    EPR                    ZnH_DKH2          00m04s  
+ [ 11%]    --   OK   --          MAG                    EPR                     ZnH_X            00m07s  
+ [ 11%]    --   OK   --          MAG                    EPR                     ZnH_Y            00m08s  
+ [ 12%]    --   OK   --          MAG                    EPR                     ZnH_Z            00m07s  
+ [ 12%]    --   OK   --          MAG                    EPR                     ZnH-GT           00m01s  
+ [ 12%]    --   OK   --          MAG                    EPR                   ZnH-HFS-FN         00m01s  
+ [ 13%]    --   OK   --          MAG                    EPR                   ZnH-HFS-PN         00m01s  
+ [ 13%]    --   OK   --          MAG                    EPR                   rotate_gt          00m00s  
+ [ 13%]    --   OK   --          MAG                    EPR                 AlO_dkh-b3lyp        00m02s  
+ [ 14%]    --   OK   --          MAG                    EPR                AlO_mdks-b3lyp_X      00m06s  
+ [ 14%]    --   OK   --          MAG                    EPR                AlO_mdks-b3lyp_Y      00m06s  
+ [ 14%]    --   OK   --          MAG                    EPR                AlO_mdks-b3lyp_Z      00m05s  
+ [ 15%]    --   OK   --          MAG                    EPR               AlO_mdks-b3lyp-GT      00m01s  
+ [ 15%]    --   OK   --          MAG                    EPR             AlO_mdks-b3lyp-HFS-FN    00m01s  
+ [ 16%]    --   OK   --          MAG                    EPR             AlO_mdks-b3lyp-HFS-PN    00m01s  
+ [ 16%]    --   OK   --          MAG            NMR-shielding_B3LYP            h2o-10a           00m03s  
+ [ 16%]    --   OK   --          MAG            NMR-shielding_B3LYP        h2o-10a-GIAO-UP       00m05s  
+ [ 17%]    --   OK   --          MAG            NMR-shielding_B3LYP         h2o-10a-CGO-CP       00m12s  
+ [ 17%]    --   OK   --          MAG            NMR-shielding_B3LYP        h2o-10a-GIAO-CP       00m16s  
+ [ 17%]    --   OK   --          MAG              NMR-shielding_H2               noRI            00m02s  
+ [ 18%]    --   OK   --          MAG              NMR-shielding_H2              noRIc            00m02s  
+ [ 18%]    --   OK   --          MAG              NMR-shielding_H2                RI             00m02s  
+ [ 18%]    --   OK   --          MAG              NMR-shielding_H2         noRI-CGO-UP-Wno       00m01s  
+ [ 19%]    --   OK   --          MAG              NMR-shielding_H2       noRIc-CGO-CP-Jc-Rmno    00m05s  
+ [ 19%]    --   OK   --          MAG              NMR-shielding_H2      noRIc-CGO-CP-Jc-Rmyes    00m04s  
+ [ 19%]    --   OK   --          MAG              NMR-shielding_H2         noRIc-CGO-CP-JKc      00m03s  
+ [ 20%]    --   OK   --          MAG              NMR-shielding_H2          RI-CGO-UP-Wno        00m01s  
+ [ 20%]    --   OK   --          MAG              NMR-shielding_H2         RI-CGO-UP-Wno-CM      00m01s  
+ [ 20%]    --   OK   --          MAG              NMR-shielding_H2       RI-CGO-CP-Wyes-Rmno     00m02s  
+ [ 21%]    --   OK   --          MAG              NMR-shielding_H2           noRI-GIAO-UP        00m02s  
+ [ 21%]    --   OK   --          MAG              NMR-shielding_H2      noRIc-GIAO-CP-Jc-Rmno    00m05s  
+ [ 21%]    --   OK   --          MAG              NMR-shielding_H2      noRIc-GIAO-CP-Jc-Rmyes   00m05s  
+ [ 22%]    --   OK   --          MAG              NMR-shielding_H2        noRIc-GIAO-CP-JKc      00m04s  
+ [ 22%]    --   OK   --          MAG              NMR-shielding_H2            RI-GIAO-UP         00m02s  
+ [ 22%]    --   OK   --          MAG              NMR-shielding_H2         RI-GIAO-CP-Rmno       00m02s  
+ [ 23%]    --   OK   --          MAG              NMR-shielding_HI               DKH2            00m03s  
+ [ 23%]    --   OK   --          MAG              NMR-shielding_HI                RI             00m12s  
+ [ 23%]    --   OK   --          MAG              NMR-shielding_HI          RI-CGO-UP-Wno        00m01s  
+ [ 24%]    --   OK   --          MAG              NMR-shielding_HI         RI-CGO-UP-Wno-CM      00m01s  
+ [ 24%]    --   OK   --          MAG              NMR-shielding_HI         RI-CGO-UP-Wno-FN      00m01s  
+ [ 24%]    --   OK   --          MAG              NMR-shielding_HI          RI-CGO-UP-Wyes       00m12s  
+ [ 25%]    --   OK   --          MAG              NMR-shielding_HI        RI-CGO-CP-Wno-Rmno     00m18s  
+ [ 25%]    --   OK   --          MAG              NMR-shielding_HI            RI-GIAO-UP         00m23s  
+ [ 26%]    --   OK   --          MAG              NMR-shielding_HI         RI-GIAO-CP-Rmno       00m31s  
+ [ 26%]    --   OK   --          MAG             NMR-shielding_PBE             h2o-10a           00m04s  
+ [ 26%]    --   OK   --          MAG             NMR-shielding_PBE         h2o-10a-GIAO-UP       00m06s  
+ [ 27%]    --   OK   --          MAG             NMR-shielding_PBE       h2o-10a-GIAO-UP-RI-J    00m04s  
+ [ 27%]    --   OK   --          MAG             NMR-shielding_PBE          h2o-10a-CGO-CP       00m09s  
+ [ 27%]    --   OK   --          MAG             NMR-shielding_PBE         h2o-10a-GIAO-CP       00m12s  
+ [ 28%]    --   OK   --          MAG             NMR-shielding_PBE       h2o-10a-GIAO-CP-RI-J    00m12s  
+ [ 28%]    --   OK   --          MAG             NMR-shielding_mDHF             h2o-5a           00m03s  
+ [ 28%]    --   OK   --          MAG             NMR-shielding_mDHF         h2o-5a-CGO-CP        00m03s  
+ [ 29%]    --   OK   --          MAG             NMR-shielding_mDHF         h2o-5a-GIAO-UP       00m04s  
+ [ 29%]    --   OK   --          MAG             NMR-shielding_mDHF         h2o-5a-GIAO-CP       00m06s  
+ [ 29%]    --   OK   --          MAG             Spin-Rotation_BP86            CO-DKH2           00m02s  
+ [ 30%]    --   OK   --          MAG             Spin-Rotation_BP86               CO             00m04s  
+ [ 30%]    --   OK   --          MAG             Spin-Rotation_BP86          CO-SR-UP-CM         00m02s  
+ [ 30%]    --   OK   --          MAG             Spin-Rotation_BP86           CO-SR-UP-O         00m01s  
+ [ 31%]    --   OK   --          MAG             Spin-Rotation_BP86           CO-SR-UP-C         00m01s  
+ [ 31%]    --   OK   --          MAG             Spin-Rotation_BP86          CO-SR-CP-JK         00m06s  
+ [ 31%]    --   OK   --          MAG             Spin-Rotation_PBE0            CO-DKH2           00m02s  
+ [ 32%]    --   OK   --          MAG             Spin-Rotation_PBE0               CO             00m03s  
+ [ 32%]    --   OK   --          MAG             Spin-Rotation_PBE0            CO-SR-CP          00m06s  
+ [ 32%]    --   OK   --          MAG             Spin-Rotation_mDHF            CO-DKH2           00m01s  
+ [ 33%]    --   OK   --          MAG             Spin-Rotation_mDHF               CO             00m02s  
+ [ 33%]    --   OK   --          MAG             Spin-Rotation_mDHF            CO-SR-CP          00m02s  
+ [ 33%]    --   OK   --          MAG              density-on-grid                 H2             00m02s  
+ [ 34%]    --   OK   --          MAG              density-on-grid         H2-1DIM_atoms_BOTH     00m01s  
+ [ 34%]    --   OK   --          MAG              density-on-grid             H2-NORMAL          00m01s  
+ [ 34%]    --   OK   --          MAG              density-on-grid           H2-CUBE_file-0       00m02s  
+ [ 35%]    --   OK   --          MAG              density-on-grid                H2O             00m04s  
+ [ 35%]    --   OK   --          MAG              density-on-grid               H2O+_X           00m04s  
+ [ 36%]    --   OK   --          MAG              density-on-grid               H2O+_Y           00m04s  
+ [ 36%]    --   OK   --          MAG              density-on-grid               H2O+_Z           00m04s  
+ [ 36%]    --   OK   --          MAG              density-on-grid             H2O-GIAO-X         00m03s  
+ [ 37%]    --   OK   --          MAG              density-on-grid           H2O+_X-GIAO-X        00m03s  
+ [ 37%]    --   OK   --          MAG              density-on-grid           H2O+_Y-GIAO-X        00m02s  
+ [ 37%]    --   OK   --          MAG              density-on-grid           H2O+_Z-GIAO-X        00m02s  
+ [ 38%]    --   OK   --          MAG              density-on-grid         H2O+_X-CUBE_file-X     00m01s  
+ [ 38%]    --   OK   --          MAG              density-on-grid         H2O+_Y-CUBE_file-Y     00m03s  
+ [ 38%]    --   OK   --          MAG              density-on-grid         H2O+_Z-CUBE_file-Z     00m01s  
+ [ 39%]    --   OK   --          MAG              density-on-grid           H2O+_X-RhoS-2D       00m02s  
+ [ 39%]    --   OK   --          MAG              density-on-grid           H2O+_Y-RhoS-2D       00m01s  
+ [ 39%]    --   OK   --          MAG              density-on-grid           H2O+_Z-RhoS-2D       00m02s  
+ [ 40%]    --   OK   --          MAG              density-on-grid         H2O+_Z-RhoS-2D-FR      00m01s  
+ [ 40%]    --   OK   --          MAG              density-on-grid         H2O+_Z-RhoS-2D-5MO     00m02s  
+ [ 40%]    --   OK   --          MAG              density-on-grid         H2O+_X-RhoS-1X-2D      00m02s  
+ [ 41%]    --   OK   --          MAG              density-on-grid         H2O+_Y-RhoS-1X-2D      00m02s  
+ [ 41%]    --   OK   --          MAG              density-on-grid         H2O+_Z-RhoS-1X-2D      00m02s  
+ [ 41%]    --   OK   --          MAG              density-on-grid           H2O+_X-RhoS-3D       00m01s  
+ [ 42%]    --   OK   --          MAG              density-on-grid           H2O+_Y-RhoS-3D       00m02s  
+ [ 42%]    --   OK   --          MAG              density-on-grid           H2O+_Z-RhoS-3D       00m02s  
+ [ 42%]    --   OK   --          MAG              density-on-grid         H2O+_X-RhoS-1X-MOs     00m03s  
+ [ 43%]    --   OK   --          MAG              density-on-grid         H2O+_X-RhoS-1X-occ     00m01s  
+ [ 43%]    --   OK   --          MAG              density-on-grid         H2O+_X-RhoS-1X-3D      00m02s  
+ [ 43%]    --   OK   --          MAG              density-on-grid         H2O+_Y-RhoS-1X-3D      00m02s  
+ [ 44%]    --   OK   --          MAG              density-on-grid         H2O+_Z-RhoS-1X-3D      00m02s  
+ [ 44%]    --   OK   --          MAG              density-on-grid           H2O+_X-Rho0-2D       00m01s  
+ [ 44%]    --   OK   --          MAG              density-on-grid         H2O+_X-Rho0-1X-MOs     00m03s  
+ [ 45%]    --   OK   --          MAG              density-on-grid            H2O-Rho0-2D         00m02s  
+ [ 45%]    --   OK   --          MAG              density-on-grid           H2O-RhoS-1X-2D       00m02s  
+ [ 46%]    --   OK   --          MAG              density-on-grid              HI-DKH2           00m03s  
+ [ 46%]    --   OK   --          MAG              density-on-grid                 HI             00m22s  
+ [ 46%]    --   OK   --          MAG              density-on-grid         HI-1DIM_atoms_BOTH     00m04s  
+ [ 47%]    --   OK   --          MAG              density-on-grid           HI-CUBE_file-0       00m09s  
+ [ 47%]    --   OK   --          MAG              response-current             HI-DKH2           00m03s  
+ [ 47%]    --   OK   --          MAG              response-current                HI             00m20s  
+ [ 48%]    --   OK   --          MAG              response-current             HI-CGO-Y          00m02s  
+ [ 48%]    --   OK   --          MAG              response-current             HI-CGO-Z          00m02s  
+ [ 48%]    --   OK   --          MAG              response-current         HI-JB-CGO-Y-CUBE      00m03s  
+ [ 49%]    --   OK   --          MAG              response-current         HI-JB-CGO-Z-FLOW      00m04s  
+ [ 49%]    --   OK   --          MAG              response-current           HI-JB-CGO-Z         00m03s  
+ [ 49%]    --   OK   --          MAG              response-current            HI-GIAO-X          00m20s  
+ [ 50%]    --   OK   --          MAG              response-current            HI-GIAO-Y          00m32s  
+ [ 50%]    --   OK   --          MAG              response-current            HI-GIAO-Z          00m32s  
+ [ 50%]    --   OK   --          MAG              response-current           HI-JB-GIAO-X        00m02s  
+ [ 51%]    --   OK   --          MAG              response-current           HI-JB-GIAO-Y        00m02s  
+ [ 51%]    --   OK   --          MAG              response-current           HI-JB-GIAO-Z        00m03s  
+ [ 51%]    --   OK   --          MAG                 spin-spin                 H2_poin           00m03s  
+ [ 52%]    --   OK   --          MAG                 spin-spin                 H2_fini           00m03s  
+ [ 52%]    --   OK   --          MAG                 spin-spin               H2_poin-Z_5         00m08s  
+ [ 52%]    --   OK   --          MAG                 spin-spin               H2_fini-Z_5         00m07s  
+ [ 53%]    --   OK   --          MAG                 spin-spin               H2_poin-Z_6         00m04s  
+ [ 53%]    --   OK   --          MAG                 spin-spin               H2_fini-Z_6         00m04s  
+ [ 53%]    --   OK   --          MAG                 spin-spin                 CH4_fini          00m06s  
+ [ 54%]    --   OK   --          MAG                 spin-spin                 CH4_poin          00m06s  
+ [ 54%]    --   OK   --          MAG                 spin-spin               CH4_poin-Z_1        00m07s  
+ [ 54%]    --   OK   --          MAG                 spin-spin               CH4_fini-Z_1        00m07s  
+ [ 55%]    --   OK   --          MAG                 spin-spin               CH4_fini-Z_2        00m02s  
+ [ 55%]    --   OK   --          MAG                 spin-spin               CH4_fini-Z_3        00m21s  
+ [ 56%]    --   OK   --          MAG                 spin-spin               CH4_fini-Z_4        00m27s  
+ [ 56%]    --   OK   --          PCM                     hf                   h2o-water          00m02s  
+ [ 56%]    --   OK   --          PCM                     hf                h2o+-water-fine       00m02s  
+ [ 57%]    --   OK   --          PCM                     hf                 h2o-own-input        00m02s  
+ [ 57%]    --   OK   --          PCM                     hf                 h2o+-own-input       00m02s  
+ [ 57%]    --   OK   --          PCM                     hf                  h2o-explicit        00m02s  
+ [ 58%]    --   OK   --          PCM                     hf                  h2o-defaults        00m02s  
+ [ 58%]    --   OK   --          PCM                  ks-b3lyp                h2o-water          00m02s  
+ [ 58%]    --   OK   --          PCM                  ks-b3lyp              h2o-water-fine       00m02s  
+ [ 59%]    --   OK   --          PCM                  ks-b3lyp                h2o+-water         00m03s  
+ [ 59%]    --   OK   --          PCM                  ks-b3lyp             h2o+-water-fine       00m03s  
+ [ 59%]    --   OK   --          PCM                  ks-b3lyp              h2o-own-input        00m02s  
+ [ 60%]    --   OK   --          PCM                  ks-b3lyp              h2o+-own-input       00m03s  
+ [ 60%]    --   OK   --          PCM                    mdhf                mDHF-h2o-water       00m02s  
+ [ 60%]    --   OK   --          PCM                    mdhf             mDHF-h2o-water-fine     00m03s  
+ [ 61%]    --   OK   --          PCM                    mdhf               mDHF-h2o+-water       00m03s  
+ [ 61%]    --   OK   --          PCM                    mdhf             mDHF-h2o+-water-fine    00m04s  
+ [ 61%]    --   OK   --          PCM                    mdhf              mDHF-h2o-own-input     00m03s  
+ [ 62%]    --   OK   --          PCM                    mdhf             mDHF-h2o+-own-input     00m03s  
+ [ 62%]    --   OK   --          PCM                 mdks-b3lyp             mDKS-h2o-water       00m04s  
+ [ 62%]    --   OK   --          PCM                 mdks-b3lyp          mDKS-h2o-water-fine     00m05s  
+ [ 63%]    --   OK   --          PCM                 mdks-b3lyp            mDKS-h2o+-water       00m07s  
+ [ 63%]    --   OK   --          PCM                 mdks-b3lyp          mDKS-h2o+-water-fine    00m08s  
+ [ 63%]    --   OK   --          PCM                 mdks-b3lyp           mDKS-h2o-own-input     00m04s  
+ [ 64%]    --   OK   --          PCM                 mdks-b3lyp          mDKS-h2o+-own-input     00m07s  
+ [ 64%]    --   OK   --          SCF                Total_energy                  H2             00m02s  
+ [ 64%]    --   OK   --          SCF                Total_energy                 H2O             00m03s  
+ [ 65%]    --   OK   --          SCF                   initmo                   ks_eht           00m02s  
+ [ 65%]    --   OK   --          SCF                   initmo                 ks_atomic          00m03s  
+ [ 66%]    --   OK   --          SCF                   initmo                 ks_restart         00m02s  
+ [ 66%]    --   OK   --          SCF                   initmo                  mdks_eht          00m04s  
+ [ 66%]    --   OK   --          SCF                   initmo                mdks_atomic         00m04s  
+ [ 67%]    --   OK   --          SCF                   initmo                mdks_restart        00m04s  
+ [ 67%]    --   OK   --          SCF                   initmo                mdks-ri_eht         00m03s  
+ [ 67%]    --   OK   --          SCF                   initmo              mdks-ri_restart       00m04s  
+ [ 68%]    --   OK   --          SCF                 moessbauer                   co             00m04s  
+ [ 68%]    --   OK   --         TDSCF               b3lyp_delta               h2o_ccpvdz         00m02s  
+ [ 68%]    --   OK   --         TDSCF                b3lyp_zero                h2o_upc1          00m02s  
+ [ 69%]    --   OK   --         TDSCF               hf-x2c_delta             h2o_ccpvdz_5        00m02s  
+ [ 69%]    --   OK   --         TDSCF               hf-x2c_delta           h2o_ccpvdz_5+x2c      00m02s  
+ [ 69%]    --   OK   --         TDSCF               hf-x2c_delta            h2o_ccpvdz_10        00m02s  
+ [ 70%]    --   OK   --         TDSCF               hf-x2c_delta          h2o_ccpvdz_10+x2c      00m02s  
+ [ 70%]    --   OK   --         TDSCF               hf-x2c_zero               h2o_ccpvdz         00m02s  
+ [ 70%]    --   OK   --         TDSCF               hf-x2c_zero             h2o_ccpvdz+x2c       00m02s  
+ [ 71%]    --   OK   --         TDSCF             hf_analysis_mos             h2o_ccpvdz         00m01s  
+ [ 71%]    --   OK   --         TDSCF                 hf_delta               h2o_ccpvdz_5        00m02s  
+ [ 71%]    --   OK   --         TDSCF                 hf_delta              h2o_ccpvdz_10        00m01s  
+ [ 72%]    --   OK   --         TDSCF                 hf_delta              h2o_ccpvdz_15        00m01s  
+ [ 72%]    --   OK   --         TDSCF               hf_delta_pc               h2o_ccpvdz         00m02s  
+ [ 72%]    --   OK   --         TDSCF               hf_frozenMO             h2o_ccpvdz_10        00m02s  
+ [ 73%]    --   OK   --         TDSCF                 hf_gauss                h2o_ccpvdz         00m02s  
+ [ 73%]    --   OK   --         TDSCF                 hf_zero                  h2o_upc1          00m01s  
+ [ 73%]    --   OK   --         TDSCF               ks-x2c_delta              h2o_ccpvdz         00m06s  
+ [ 74%]    --   OK   --         TDSCF               ks-x2c_zero               h2o_ccpvdz         00m04s  
+ [ 74%]    --   OK   --         TDSCF                lda_delta                co_ccpvdz          00m03s  
+ [ 74%]    --   OK   --         TDSCF            mdhf_analysis_mos           h2o+_ccpvdz         00m04s  
+ [ 75%]    --   OK   --         TDSCF                mdhf_delta              h2o_ccpvdz_5        00m04s  
+ [ 75%]    --   OK   --         TDSCF                mdhf_delta             h2o_ccpvdz_10        00m02s  
+ [ 76%]    --   OK   --         TDSCF           mdhf_delta_eri_abcd           h2o_ccpvdz         00m04s  
+ [ 76%]    --   OK   --         TDSCF              mdhf_delta_pc              h2o_ccpvdz         00m03s  
+ [ 76%]    --   OK   --         TDSCF              mdhf_frozenMO             h2o_ccpvdz_5        00m04s  
+ [ 77%]    --   OK   --         TDSCF                mdhf_zero                h2o_ccpvdz         00m03s  
+ [ 77%]    --   OK   --         TDSCF             mdks_b3lyp_delta            h2o_ccpvdz         00m09s  
+ [ 77%]    --   OK   --         TDSCF             mdks_b3lyp_zero             h2o_ccpvdz         00m06s  
+ [ 78%]    --   OK   --         TDSCF              mdks_lda_delta             co_ccpvdz          00m17s  
+ [ 78%]    --   OK   --          grid                   sf6                    sf6_ref           00m11s  
+ [ 78%]    --   OK   --          grid                   sf6                    sf6_rot           00m07s  
+ [ 79%]    --   OK   --         method                diagfree               c6h6_upc0_hf        00m05s  
+ [ 79%]    --   OK   --         method                diagfree               h2o_ucc-pvdz        00m02s  
+ [ 79%]    --   OK   --         method                   hf                  h2o_ucc-pvdz        00m01s  
+ [ 80%]    --   OK   --         method                   hf                 h2o+_ucc-pvdz        00m02s  
+ [ 80%]    --   OK   --         method                   hf                     C_raoc           00m02s  
+ [ 80%]    --   OK   --         method                   hf                     C_uaoc           00m02s  
+ [ 81%]    --   OK   --         method                hf-dkh2                 h2se_dkh1          00m02s  
+ [ 81%]    --   OK   --         method                hf-dkh2                 h2se_dkh2          00m02s  
+ [ 81%]    --   OK   --         method                 hf-x2c                 h2o_nucX2C         00m02s  
+ [ 82%]    --   OK   --         method                 hf-x2c               h2o_nucX2C_qa        00m02s  
+ [ 82%]    --   OK   --         method                 hf-x2c                 h2o_mmfX2C         00m02s  
+ [ 82%]    --   OK   --         method                ks-dkh2                 h2se_dkh1          00m02s  
+ [ 83%]    --   OK   --         method                ks-dkh2                 h2se_dkh2          00m02s  
+ [ 83%]    --   OK   --         method              ks-x2c_b3lyp           h2o_b3lyp_nucX2C      00m03s  
+ [ 83%]    --   OK   --         method              ks-x2c_b3lyp         h2o_b3lyp_nucX2C_qa     00m04s  
+ [ 84%]    --   OK   --         method           ks-x2c_local_RI-J           h2o_ucc-pvdz        00m03s  
+ [ 84%]    --   OK   --         method                ks_b3lyp               h2o_ucc-pvdz        00m02s  
+ [ 84%]    --   OK   --         method                ks_b3lyp              h2o+_ucc-pvdz        00m02s  
+ [ 85%]    --   OK   --         method                ks_blyp                h2o_ucc-pvdz        00m02s  
+ [ 85%]    --   OK   --         method                ks_blyp               h2o+_ucc-pvdz        00m02s  
+ [ 86%]    --   OK   --         method                ks_bp86                h2o_ucc-pvdz        00m02s  
+ [ 86%]    --   OK   --         method                ks_bp86               h2o+_ucc-pvdz        00m02s  
+ [ 86%]    --   OK   --         method                 ks_kt2                h2o_ucc-pvdz        00m02s  
+ [ 87%]    --   OK   --         method                 ks_kt2               h2o+_ucc-pvdz        00m02s  
+ [ 87%]    --   OK   --         method                ks_local               h2o_ucc-pvdz        00m02s  
+ [ 87%]    --   OK   --         method                ks_local              h2o+_ucc-pvdz        00m02s  
+ [ 88%]    --   OK   --         method             ks_local_RI-J             h2o_ucc-pvqz        00m03s  
+ [ 88%]    --   OK   --         method             ks_local_RI-J            h2o+_ucc-pvqz        00m03s  
+ [ 88%]    --   OK   --         method                 ks_pbe                h2o_ucc-pvdz        00m02s  
+ [ 89%]    --   OK   --         method                 ks_pbe               h2o+_ucc-pvdz        00m02s  
+ [ 89%]    --   OK   --         method                ks_pbe0                h2o_ucc-pvdz        00m02s  
+ [ 89%]    --   OK   --         method                ks_pbe0               h2o+_ucc-pvdz        00m02s  
+ [ 90%]    --   OK   --         method               ks_slaterx              h2o_ucc-pvdz        00m02s  
+ [ 90%]    --   OK   --         method               ks_slaterx             h2o+_ucc-pvdz        00m02s  
+ [ 90%]    --   OK   --         method               mdhf_atoms                   K              00m02s  
+ [ 91%]    --   OK   --         method                mdhf_ll                   h2o_ll           00m02s  
+ [ 91%]    --   OK   --         method                mdhf_ll                  h2o+_ll           00m02s  
+ [ 91%]    --   OK   --         method                mdhf_ll              h2o_ll_diagfree       00m02s  
+ [ 92%]    --   OK   --         method                mdhf_ll              h2o+_ll_diagfree      00m03s  
+ [ 92%]    --   OK   --         method                mdhf_sl                h2o_sl_aabb         00m02s  
+ [ 92%]    --   OK   --         method                mdhf_sl                h2o+_sl_aabb        00m03s  
+ [ 93%]    --   OK   --         method                mdhf_sl                   h2o_sl           00m03s  
+ [ 93%]    --   OK   --         method                mdhf_sl                  h2o+_sl           00m04s  
+ [ 93%]    --   OK   --         method                mdhf_sl                 h2o_sl_qa          00m04s  
+ [ 94%]    --   OK   --         method                mdhf_sl                 h2o+_sl_qa         00m06s  
+ [ 94%]    --   OK   --         method                mdhf_ss                   h2o_ss           00m03s  
+ [ 94%]    --   OK   --         method                mdhf_ss                  h2o+_ss           00m03s  
+ [ 95%]    --   OK   --         method                mdhf_ss                 h2o_ss_qa          00m05s  
+ [ 95%]    --   OK   --         method                mdhf_ss                 h2o+_ss_qa         00m06s  
+ [ 96%]    --   OK   --         method              mdhf_ss_abcd             h2o_ss_abcd         00m02s  
+ [ 96%]    --   OK   --         method              mdhf_ss_abcd             h2o+_ss_abcd        00m03s  
+ [ 96%]    --   OK   --         method              mdhf_ss_abcd            h2o_ss_abcd_qa       00m06s  
+ [ 97%]    --   OK   --         method              mdhf_ss_abcd           h2o+_ss_abcd_qa       00m09s  
+ [ 97%]    --   OK   --         method                  mdks              h2o_ucc-pvdz_b3lyp     00m03s  
+ [ 97%]    --   OK   --         method                  mdks             h2o+_ucc-pvdz_b3lyp     00m07s  
+ [ 98%]    --   OK   --         method                  mdks            h2o_ucc-pvdz_b3lyp_qa    00m05s  
+ [ 98%]    --   OK   --         method                  mdks            h2o+_ucc-pvdz_b3lyp_qa   00m08s  
+ [ 98%]    --   OK   --         method                  mdks              h2o_ucc-pvdz_blyp      00m04s  
+ [ 99%]    --   OK   --         method                  mdks              h2o+_ucc-pvdz_blyp     00m05s  
+ [ 99%]    --   OK   --         method                  mdks             h2o_ucc-pvdz_blyp_qa    00m09s  
+ [ 99%]    --   OK   --         method                  mdks            h2o+_ucc-pvdz_blyp_qa    00m08s  
+ [100%]    --   OK   --         method               mdks_RI-J            h2o_ucc-pvdz_blyp      00m04s  
+ [100%]    --   OK   --         method               mdks_RI-J            h2o+_ucc-pvdz_blyp     00m06s  
+
+ Summary:
+
+       Total time = 19m53s
+           OK     = 290
+          FAIL    =   0
+         CRASH    =   0
+         ERROR    =   0
+         no ref   =   0
+
+
+   OK   --> the difference between tested values is smaller than a given threshold
+
+
