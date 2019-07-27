@@ -37,12 +37,14 @@ echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
 echo $SLURM_JOB_NODELIST
 echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 
+source /etc/profile.d/modules.sh
+echo -e "\n module use /cvmfs/it.gsi.de/modulefiles/ : "
 module use /cvmfs/it.gsi.de/modulefiles/
-echo "modules at disposal:"
+echo -e "modules at disposal:"
 module avail
 echo
-module load /compiler/intel/17.4
-module load /openmpi/intel/4.0_intel17.4
+module load compiler/intel/17.4
+module load openmpi/intel/4.0_intel17.4
 echo "loaded modules:"
 module list
 
