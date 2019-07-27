@@ -1,0 +1,121 @@
+#!/bin/bash
+#SBATCH -J CFOUR
+
+##  partition (queue)
+#SBATCH -p debug
+##SBATCH -p long
+##SBATCH -p main
+
+## max. execution time according to queue
+#SBATCH -t 0-0:20:00
+
+## Node count - take only one node for OpenMP-MKL
+##  lxbk0051-lxbk0200 ...
+#SBATCH -N 1
+## CPU count  - max. 40 per node
+#SBATCH -n 4
+
+## memory - 3GB/CPU
+#SBATCH --mem=4G
+
+## stdout/stderr output file
+#SBATCH -o log_slurm_job.%j.%N.std_out_err
+
+## E-mail send
+#SBATCH --mail-user=M.Ilias@gsi.de 
+#SBATCH --mail-type=ALL
+
+ 
+echo Job user is $SLURM_JOB_USER and his job $SLURM_JOB_NAME has assigned ID $SLURM_JOBID
+echo This job was submitted from the computer $SLURM_SUBMIT_HOST
+echo and from the home directory:
+echo $SLURM_SUBMIT_DIR
+echo
+echo It is running on the cluster compute node:
+echo $SLURM_CLUSTER_NAME
+echo and is employing $SLURM_JOB_NUM_NODES node/nodes:
+echo $SLURM_JOB_NODELIST
+echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
+
+module use /cvmfs/it.gsi.de/modulefiles/
+echo "modules at disposal:"
+module avail
+echo
+module load /compiler/intel/17.4
+module load /openmpi/intel/4.0_intel17.4
+echo "loaded modules:"
+module list
+
+echo -e "\nRunning on host `hostname`"
+echo -e "Time is `date` \n"
+echo -e "\nMy PATH=$PATH\n"
+
+# CPU model, total numer of CPUs, number of allocated CPUs
+echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
+NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
+echo "This node has $NPROCS CPUs available."
+echo "This node has $SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
+
+echo -e "\n the memory at the node (in GB)"
+free -t -g
+echo
+
+## set internal OpenMP parallelization for MKL - Slurm CPU count
+#export MKL_NUM_THREADS=$SLURM_CPUS_ON_NODE
+export MKL_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export MKL_DYNAMIC="FALSE"
+export OMP_DYNAMIC="FALSE"
+echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
+
+CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel
+QUESYS=$CFOUR/share/quesys.sh
+if [ -f $QUESYS ]; then
+    .   $QUESYS
+else
+    echo "$QUESYS not found!"
+    exit 1
+fi
+
+export PATH=$CFOUR/bin:$PATH
+
+export CFOUR_NUM_CORES=$SLURM_CPUS_ON_NODE
+
+# for running jobs from your homedir
+#cd $SLURM_SUBMIT_DIR
+
+#stop_on_crash=no
+# possible jobs types are: mpich, lam, scali, mvapich or serial
+jobtype="serial" 
+
+# a job id is automatically added to the workdir
+workdir=/lustre/nyx/ukt/milias/scratch
+global_workdisk=yes
+#outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
+outdir=$workdir/CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
+
+###--- JOB SPECIFICATION ---###
+input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
+initialize_job
+
+# distribute input files to all nodes
+distribute $input
+
+# exenodes executes non MPI commands on every node. If the '-all' flag is
+# given it will execute the command for every allocated CPU on every node.
+#exenodes mycomand files foobar
+
+# run job either in parallel (if appropriate)
+#run xcfour.sh 
+cd $workdir
+xcfour
+
+
+# gather files from all nodes. gather accepts the follwing flags:
+#  -tag      append the nodename to every file 
+#  -maxsize  maximum size (kB) of files to copy back
+#gather -maxsize 10000
+
+finalize_job
+
+exit
