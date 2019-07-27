@@ -45,18 +45,19 @@ export PATH=$CFOUR/bin:$PATH
 export CFOUR_NUM_CORES=1
 
 # needs this var
-has_nodefile=0
+has_nodefile=1
 
-stop_on_crash=yes
+stop_on_crash=no
 
 # possible jobs types are: mpich, lam, scali, mvapich or serial
 #jobtype="serial" 
 jobtype="openmpi" 
 
 # a job id is automatically added to the workdir
-workdir=/tmp
 
-global_workdisk=yes
+global_workdisk=no
+
+workdir=/tmp
 outdir=$workdir/CFOURrun
 
 ###--- JOB SPECIFICATION ---###
