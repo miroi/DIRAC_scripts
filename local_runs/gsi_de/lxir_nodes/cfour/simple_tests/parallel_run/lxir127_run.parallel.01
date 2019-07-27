@@ -32,13 +32,26 @@ module list
 
 #CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
 CFOUR=/tmp/milias-dirac-software/cfour/cfour-public_openmpi_intel
+QUESYS=$CFOUR/share/quesys.sh
+if [ -f $QUESYS ]; then
+    .   $QUESYS
+else
+    echo "$QUESYS not found!"
+    exit 1
+fi
 
 export PATH=$CFOUR/bin:$PATH
+
+# set number of cores
+CFOUR_NUM_CORES=2
+
+# needs this var
+has_nodefile=1
 
 stop_on_crash=no
 # possible jobs types are: mpich, lam, scali, mvapich or serial
 #jobtype="serial" 
-jobtype="mpich" 
+jobtype="openmpi" 
 
 # a job id is automatically added to the workdir
 workdir=/tmp
