@@ -5,7 +5,7 @@
 #
 # Launched as:
 # ~~~~~~~~~~~~
-# nohup lxir_run_gsi.01 &> log.lxir_run_gsi.01.std_err_out &
+# nohup script &> log.script.std_err_out &
 #
 
 echo -e "\nRunning on host `hostname -f`"
@@ -14,17 +14,20 @@ echo Directory is `pwd`
 
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
 echo -e "\nThis node has $NPROCS CPUs."
-export MKL_NUM_THREADS=$NPROCS
+
+
 echo "Internal MKL library parallelization with MKL_NUM_THREADS=$MKL_NUM_THREADS"
 #export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
+#export MKL_NUM_THREADS=$NPROCS
+export MKL_NUM_THREADS=1
 export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 echo -e "\nWorking server memory status"
-free -m -t -h
+free -g -t -h
 
-echo -e "\n Loaded Modules"
+echo -e "\n Loaded Modules:"
 module list
 
 #CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
@@ -52,22 +55,8 @@ distribute $input
 # run job either in parallel (if appropriate)
 #run xcfour.sh 
 cd $workdir
-xcfour
+time xcfour
 
 finalize_job
-
-
-
-
-
-
-
-
-#echo -e "\n Pure OpenMP (MKL) run;  MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
-
-#time $DIRAC/test/cc_linear/test -b $BUILD_DIR_MPI -w $DIRAC_TMPDIR  -v -d
-#remove scratch space aftrwards
-#/bin/rm -r $DIRAC_TMPDIR
-
 
 exit 0
