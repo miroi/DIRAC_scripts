@@ -45,7 +45,7 @@ export PATH=$CFOUR/bin:$PATH
 export CFOUR_NUM_CORES=1
 
 # needs this var
-has_nodefile=1
+has_nodefile=0
 
 stop_on_crash=yes
 
@@ -55,7 +55,8 @@ jobtype="openmpi"
 
 # a job id is automatically added to the workdir
 workdir=/tmp
-global_workdisk=no
+
+global_workdisk=yes
 outdir=$workdir/CFOURrun
 
 ###--- JOB SPECIFICATION ---###
@@ -68,7 +69,7 @@ distribute $input
 # run job either in parallel (if appropriate)
 #run xcfour.sh 
 cd $workdir
-time xcfour
+xcfour
 
 finalize_job
 
