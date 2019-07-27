@@ -15,14 +15,13 @@ echo Directory is `pwd`
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
 echo -e "\nThis node has $NPROCS CPUs."
 
-
-echo "Internal MKL library parallelization with MKL_NUM_THREADS=$MKL_NUM_THREADS"
 #export MKL_DOMAIN_NUM_THREADS="MKL_BLAS=$NPROCS"
 #export MKL_NUM_THREADS=$NPROCS
 export MKL_NUM_THREADS=1
 export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
+echo -e "\n Internal MKL library parallelization with MKL_NUM_THREADS=$MKL_NUM_THREADS"
 
 echo -e "\nWorking server memory status"
 free -g -t -h
@@ -43,10 +42,10 @@ fi
 export PATH=$CFOUR/bin:$PATH
 
 # set number of cores
-CFOUR_NUM_CORES=2
+export CFOUR_NUM_CORES=2
 
 # needs this var
-has_nodefile=1
+has_nodefile=0
 
 stop_on_crash=no
 # possible jobs types are: mpich, lam, scali, mvapich or serial
