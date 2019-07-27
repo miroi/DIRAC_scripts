@@ -42,12 +42,13 @@ fi
 export PATH=$CFOUR/bin:$PATH
 
 # set number of cores
-export CFOUR_NUM_CORES=2
+export CFOUR_NUM_CORES=1
 
 # needs this var
-has_nodefile=0
+has_nodefile=1
 
-stop_on_crash=no
+stop_on_crash=yes
+
 # possible jobs types are: mpich, lam, scali, mvapich or serial
 #jobtype="serial" 
 jobtype="openmpi" 
