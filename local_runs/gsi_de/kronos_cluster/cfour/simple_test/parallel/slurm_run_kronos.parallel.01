@@ -90,6 +90,9 @@ cd $SLURM_SUBMIT_DIR
 stop_on_crash=yes
 # possible jobs types are: mpich, lam, scali, mvapich or serial
 jobtype="openmpi" 
+cleanup_on_end=yes
+paratype="openmpi" 
+
 
 # a job id is automatically added to the workdir
 workdir=/lustre/nyx/ukt/milias/scratch
@@ -99,6 +102,7 @@ outdir=$workdir/CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
 
 ###--- JOB SPECIFICATION ---###
 input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
+initialize_cfour
 initialize_job
 
 # distribute input files to all nodes
@@ -109,8 +113,8 @@ distribute $input
 #exenodes mycomand files foobar
 
 # run job either in parallel (if appropriate)
-#run xcfour.sh 
 cd $workdir
+#run -para
 xcfour
 
 
