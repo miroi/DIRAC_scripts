@@ -5,7 +5,7 @@
 #
 # Launched as:
 # ~~~~~~~~~~~~
-# nohup lxir_run_gsi.01 &> log.lxir_run_gsi.01.std_err_out &
+# nohup lxir127_run.serial.02 &> log.lxir127_run.serial.02.std_err_out &
 #
 
 echo -e "\nRunning on host `hostname -f`"
@@ -22,20 +22,30 @@ export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
 
 echo -e "\nWorking server memory status"
-free -m -t -h
+free -g -t -h
 
 echo -e "\n Loaded Modules"
 module list
 
 #CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
-CFOUR=/tmp/milias-dirac-software/cfour/cfour-public_openmpi_intel
+#CFOUR=/tmp/milias-dirac-software/cfour/cfour-public_openmpi_intel
+CFOUR=/tmp/milias-dirac-software/cfour/cfour-public-v2.1
+
+CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
+QUESYS=$CFOUR/share/quesys.sh
+if [ -f $QUESYS ]; then
+    .   $QUESYS
+else
+    echo "$QUESYS not found!"
+    exit 1
+fi
 
 export PATH=$CFOUR/bin:$PATH
 
 stop_on_crash=no
 # possible jobs types are: mpich, lam, scali, mvapich or serial
-#jobtype="serial" 
-jobtype="mpich" 
+jobtype="serial" 
+#jobtype="mpich" 
 
 # a job id is automatically added to the workdir
 workdir=/tmp
@@ -49,19 +59,11 @@ initialize_job
 # distribute input files to all nodes
 distribute $input
 
-# run job either in parallel (if appropriate)
 #run xcfour.sh 
 cd $workdir
-xcfour
+time xcfour
 
 finalize_job
-
-
-
-
-
-
-
 
 #echo -e "\n Pure OpenMP (MKL) run;  MKL_NUM_THREADS=${MKL_NUM_THREADS}; DIRAC_TMPDIR=${DIRAC_TMPDIR} :"
 
