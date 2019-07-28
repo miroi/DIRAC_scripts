@@ -13,7 +13,7 @@
 ##  lxbk0051-lxbk0200 ...
 #SBATCH -N 1
 ## CPU count  - max. 40 per node
-#SBATCH -n 4
+#SBATCH -n 1
 
 ## total allocated memory 
 #SBATCH --mem=4G
