@@ -1,0 +1,136 @@
+Running on host comp46
+Time is Sun Jul 28 20:36:37 CEST 2019
+Directory is /home/umbilias
+This jobs runs on the following processors:
+comp46 comp46 comp46 comp46
+Unique nodes (processors), from PBS_NODEFILE:
+comp46
+This job has allocated 4 cpus
+# of processors in node: 12
+The host (main) node has  cpus.
+Unique nodes (processors) :  comp46
+
+MKL_NUM_THREADS=4
+MKL_DYNAMIC=FALSE
+OMP_NUM_THREADS=1
+--------------------------------------------
+
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sdb1             459G  8.5G  427G   2% /tmp
+cp: cannot create regular file `/localscratch/817342.mgmt1/umbilias.CFOURrun/817342.mgmt1/xprepfc2f': File exists
+cp: cannot create regular file `/localscratch/817342.mgmt1/umbilias.CFOURrun/817342.mgmt1/xprepfc2f': File exists
+cp: cannot create regular file `/localscratch/817342.mgmt1/umbilias.CFOURrun/817342.mgmt1/xprepfc2f': File exists
+-------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code.. Per user-direction, the job has been aborted.
+-------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[20202,1],1]
+  Exit code:    1
+--------------------------------------------------------------------------
+ --invoking executable--
+/work/umbilias/work/software/cfour/cfour_v2.1_openmpi1.8.4_Intel14/cfour-public-master/bin/xinitenv
+--executable xinitenv finished with status     0 in        0.60 seconds (walltime).
+ --invoking executable--
+/work/umbilias/work/software/cfour/cfour_v2.1_openmpi1.8.4_Intel14/cfour-public-master/bin/xjoda
+
+
+   *************************************************************************
+         <<<     CCCCCC     CCCCCC   |||     CCCCCC     CCCCCC   >>>
+       <<<      CCC        CCC       |||    CCC        CCC         >>>
+      <<<      CCC        CCC        |||   CCC        CCC            >>>
+    <<<        CCC        CCC        |||   CCC        CCC              >>>
+      <<<      CCC        CCC        |||   CCC        CCC            >>>
+       <<<      CCC        CCC       |||    CCC        CCC         >>>
+         <<<     CCCCCC     CCCCCC   |||     CCCCCC     CCCCCC   >>>
+   *************************************************************************
+
+     ****************************************************************
+     * CFOUR Coupled-Cluster techniques for Computational Chemistry *
+     ****************************************************************
+ 
+
+   Department of Chemistry                Institut fuer Physikalische Chemie
+   University of Florida                  Universitaet Mainz
+   Gainesville, FL 32611, USA             D-55099 Mainz, Germany
+
+   Department of Chemistry                Fakultaet fuer Chemie und Biowiss.
+   Johns Hopkins University               Karlsruher Institut fuer Technologie
+   Baltimore, MD 21218, USA               D-76131 Karlsruhe, Germany
+
+   Department of Chemistry                Department of Physical Chemistry
+   Southern Methodist University          Eotvos Lorand University
+   Dallas, TX 75275, USA                  H-1053 Budapest, Hungary
+
+ 
+                       Version 2.1
+ 
+                     comp46                                            
+                     Sun Jul 28 20:36:52 CEST 2019                     
+                     integer*8 version is running
+ 
+********************************************************************************
+*                          Input from ZMAT file                                *
+********************************************************************************
+Geometry optimization of H2O at CCSD(T) level (from the cfour web)              
+O                                                                               
+H 1 R*                                                                          
+H 1 R* 2 A*                                                                     
+                                                                                
+R=0.958                                                                         
+A=104.5                                                                         
+                                                                                
+*CFOUR(                                                                         
+CALC=CCSD(T)                                                                    
+BASIS=DZP                                                                       
+CC_PROG=ECC                                                                     
+)                                                                               
+********************************************************************************
+ 
+     PARALLEL RUN STARTED ON            1  CORES/NODES.
+ 
+  @GTFLGS-F, Must supply value for keyword string                                                                                 
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.46 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD 
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun has exited due to process rank 0 with PID 28471 on
+node comp46 exiting improperly. There are three reasons this could occur:
+
+1. this process did not call "init" before exiting, but others in
+the job did. This can cause a job to hang indefinitely while it waits
+for all processes to call "init". By rule, if one process calls "init",
+then ALL processes must call "init" prior to termination.
+
+2. this process called "init", but exited without calling "finalize".
+By rule, all processes that call "init" MUST call "finalize" prior to
+exiting or it will be considered an "abnormal termination"
+
+3. this process called "MPI_Abort" or "orte_abort" and the mca parameter
+orte_create_session_dirs is set to false. In this case, the run-time cannot
+detect that the abort call was an abnormal termination. Hence, the only
+error message you will receive is this one.
+
+This may have caused other processes in the application to be
+terminated by signals sent by mpirun (as reported here).
+
+You can avoid this message by specifying -quiet on the mpirun command line.
+
+--------------------------------------------------------------------------
+--executable xjoda finished with status   256 in        0.85 seconds (walltime).
+  This computation required                            1.97 seconds (walltime).
+ls: cannot access /localscratch/817342.mgmt1/umbilias.CFOURrun/817342.mgmt1: No such file or directory
