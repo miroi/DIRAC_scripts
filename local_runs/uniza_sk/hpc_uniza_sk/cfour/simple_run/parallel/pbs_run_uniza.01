@@ -1,0 +1,85 @@
+#!/bin/sh
+
+### Set the job name
+#PBS -N cfour
+#PBS -r n 
+#PBS -q parallel
+#PBS -j oe
+#PBS -l nodes=1:ppn=12
+#PBS -l mem=47g
+##PBS -l walltime=200:00:00
+#PBS -l walltime=2:00:00
+
+### Run some informational commands.
+echo Running on host `hostname`
+echo Time is `date`
+echo Directory is `pwd`
+echo This jobs runs on the following processors:
+echo `cat $PBS_NODEFILE`
+echo "Unique nodes (processors), from PBS_NODEFILE:"
+echo `cat $PBS_NODEFILE | sort | uniq `
+ 
+### Define number of processors for the job
+NPROCS=`wc -l < $PBS_NODEFILE`
+echo This job has allocated $NPROCS cpus
+echo -e "# of processors in node: \c"; cat /proc/cpuinfo | grep processor | wc -l
+echo -e "The host (main) node has $NCPUS cpus."
+UNIQUE_NODES="`cat $PBS_NODEFILE | sort | uniq`"
+UNIQUE_NODES="`echo $UNIQUE_NODES | sed s/\ /,/g `"
+echo "Unique nodes (processors) :  $UNIQUE_NODES"
+
+export MKL_NUM_THREADS=${NPROCS}
+export MKL_DYNAMIC="FALSE"
+export OMP_NUM_THREADS=1
+#
+
+module load intel/composerxe_2013
+module load Python/2.7.8
+module load openmpi/1.8.4-i
+module load devtools/2   # this is for GNU g++
+
+echo -e "\nMKL_NUM_THREADS=$MKL_NUM_THREADS"
+echo -e "MKL_DYNAMIC=$MKL_DYNAMIC"
+echo -e "OMP_NUM_THREADS=$OMP_NUM_THREADS"
+echo -e "--------------------------------------------\n"
+
+# distributed binaries
+#CFOUR=/work/umbilias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
+CFOUR=/work/umbilias/work/software/cfour/cfour_v2.1_openmpi1.8.4_Intel14/cfour-public-master
+QUESYS=$CFOUR/share/quesys.sh
+if [ -f $QUESYS ]; then
+    .   $QUESYS
+else
+    echo "$QUESYS not found!"
+    exit 1
+fi
+export PATH=$CFOUR/bin:$PATH
+
+
+workdir=/localscratch/$PBS_JOBID/$USER/CFOURrun_bin
+global_workdisk=yes
+#outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
+outdir=$workdir/CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
+
+###--- JOB SPECIFICATION ---###
+input="ZMAT $CFOUR/basis/GENBAS $CFOUR/bin/x*"
+initialize_job  # distribute input files to all nodes
+distribute $input
+
+# exenodes executes non MPI commands on every node. If the '-all' flag is
+# given it will execute the command for every allocated CPU on every node.
+#exenodes mycomand files foobar
+
+# run job either in parallel (if appropriate)
+#run xcfour.sh 
+cd $workdir
+xcfour
+
+# gather files from all nodes. gather accepts the follwing flags:
+#  -tag      append the nodename to every file 
+#  -maxsize  maximum size (kB) of files to copy back
+#gather -maxsize 10000
+
+finalize_job
+
+exit 0
