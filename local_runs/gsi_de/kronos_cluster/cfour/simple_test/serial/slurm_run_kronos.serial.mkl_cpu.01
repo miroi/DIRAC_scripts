@@ -13,10 +13,10 @@
 ##  lxbk0051-lxbk0200 ...
 #SBATCH -N 1
 ## CPU count  - max. 40 per node
-#SBATCH -n 1
+#SBATCH -n 4
 
-## memory - 3GB/CPU
-##SBATCH --mem=32G
+## total memory 
+#SBATCH --mem=4G
 
 ## stdout/stderr output file
 #SBATCH -o log_slurm_job.%j.%N.std_out_err
@@ -41,9 +41,7 @@ module use /cvmfs/it.gsi.de/modulefiles/
 echo "modules at disposal:"
 module avail
 echo
-module unload compiler/intel/12.1
-module unload compiler/intel/15.0
-module load compiler/intel/15.0
+module load compiler/intel/17.4
 echo "loaded modules:"
 module list
 
@@ -64,12 +62,13 @@ echo
 ## set internal OpenMP parallelization for MKL - Slurm CPU count
 export MKL_NUM_THREADS=$SLURM_CPUS_ON_NODE
 #export MKL_NUM_THREADS=2
-echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
 export OMP_NUM_THREADS=1
 export MKL_DYNAMIC="FALSE"
 export OMP_DYNAMIC="FALSE"
+echo -e  "\nInternal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=$MKL_NUM_THREADS\n"
 
-CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
+#CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour_v2.00beta_64bit_linux_serial
+CFOUR=/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_intel-serial
 QUESYS=$CFOUR/share/quesys.sh
 if [ -f $QUESYS ]; then
     .   $QUESYS
@@ -89,7 +88,7 @@ jobtype="serial"
 
 # a job id is automatically added to the workdir
 workdir=/lustre/nyx/ukt/milias/scratch
-global_workdisk=no
+global_workdisk=yes
 #outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
 outdir=$workdir/CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
 
@@ -108,7 +107,6 @@ distribute $input
 #run xcfour.sh 
 cd $workdir
 xcfour
-
 
 # gather files from all nodes. gather accepts the follwing flags:
 #  -tag      append the nodename to every file 
