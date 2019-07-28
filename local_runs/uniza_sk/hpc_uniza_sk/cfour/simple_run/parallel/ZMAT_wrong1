@@ -1,0 +1,16 @@
+Geometry optimization of H2O at CCSD(T) level (from the cfour web)
+O
+H 1 R*
+H 1 R* 2 A*
+
+R=0.958
+A=104.5
+
+*CFOUR(
+CALC=CCSD(T)
+BASIS=DZP
+CONTRACTION=UNCONTRACTED
+RELATIVISTIC=X2C1E
+ABCDTYPE=AOBASIS
+CC_PROG=ECC
+)
