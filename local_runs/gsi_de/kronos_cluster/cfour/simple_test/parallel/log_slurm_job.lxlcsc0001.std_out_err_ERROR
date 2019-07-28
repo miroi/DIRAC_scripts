@@ -11550,3 +11550,1212 @@ exactly when Open MPI kills them.
 --executable xvscf finished with status     0 in        0.25 seconds (walltime).
  --invoking executable--
 /lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvdint
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @GETREC-F, File attached to unit  75 does not contain record IFLAGS  .
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvdint finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xjoda
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write   AU_LENGT.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xjoda finished with status     0 in        0.24 seconds (walltime).
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ PARALLEL VERSION OF MOLECULE STARTED ON NODE            0 :
+  @SHOWMOL-I, MOL FILE NOT PRESENT.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol2ja
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ @V2JA-F, Unable to find integral file.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.05/*********** seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol2ja finished with status     0 in        0.24 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvscf
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write     NSOSCF.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvscf finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvdint
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @GETREC-F, File attached to unit  75 does not contain record IFLAGS  .
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvdint finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xjoda
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write   AU_LENGT.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xjoda finished with status     0 in        0.25 seconds (walltime).
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ PARALLEL VERSION OF MOLECULE STARTED ON NODE            0 :
+  @SHOWMOL-I, MOL FILE NOT PRESENT.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol2ja
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ @V2JA-F, Unable to find integral file.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.05/*********** seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol2ja finished with status     0 in        0.24 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvscf
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write     NSOSCF.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvscf finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvdint
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @GETREC-F, File attached to unit  75 does not contain record IFLAGS  .
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvdint finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xjoda
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write   AU_LENGT.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xjoda finished with status     0 in        0.25 seconds (walltime).
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ PARALLEL VERSION OF MOLECULE STARTED ON NODE            0 :
+  @SHOWMOL-I, MOL FILE NOT PRESENT.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol finished with status     0 in        0.24 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol2ja
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ @V2JA-F, Unable to find integral file.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.05/*********** seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol2ja finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvscf
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write     NSOSCF.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvscf finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvdint
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @GETREC-F, File attached to unit  75 does not contain record IFLAGS  .
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvdint finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xjoda
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write   AU_LENGT.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xjoda finished with status     0 in        0.25 seconds (walltime).
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ PARALLEL VERSION OF MOLECULE STARTED ON NODE            0 :
+  @SHOWMOL-I, MOL FILE NOT PRESENT.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol2ja
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ @V2JA-F, Unable to find integral file.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.05/*********** seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol2ja finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvscf
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write     NSOSCF.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvscf finished with status     0 in        0.26 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvdint
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @GETREC-F, File attached to unit  75 does not contain record IFLAGS  .
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvdint finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xjoda
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write   AU_LENGT.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xjoda finished with status     0 in        0.27 seconds (walltime).
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ PARALLEL VERSION OF MOLECULE STARTED ON NODE            0 :
+  @SHOWMOL-I, MOL FILE NOT PRESENT.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol finished with status     0 in        0.24 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvmol2ja
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+ @V2JA-F, Unable to find integral file.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.05/*********** seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvmol2ja finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvscf
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @PUTREC-F, Something quite wrong with JAINDX file.
+  @PUTREC-F, I/O error on unit  75 while trying to write     NSOSCF.
+   System IOSTAT error number is  25.
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvscf finished with status     0 in        0.25 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xvdint
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+  @GETREC-F, File attached to unit  75 does not contain record IFLAGS  .
+ @CHECKOUT-I, Total execution time (CPU/WALL):        0.00/       0.00 seconds.
+ 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+  Job has terminated with error flag 
+  ERROR ERROR ERROR ERROR ERROR ERROR 
+ 
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--executable xvdint finished with status     0 in        0.24 seconds (walltime).
+ --invoking executable--
+/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v2.1_openmpi_intel/bin/xjoda
+--------------------------------------------------------------------------
+By default, for Open MPI 4.0 and later, infiniband ports on a device
+are not used by default.  The intent is to use UCX for these devices.
+You can override this policy by setting the btl_openib_allow_ib MCA parameter
+to true.
+
+  Local host:              lxlcsc0001
+  Local adapter:           mlx4_0
+  Local port:              1
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   lxlcsc0001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--executable xjoda finished with status     9 in        0.20 seconds (walltime).
+slurmstepd: _slurm_cgroup_destroy: problem deleting step cgroup path /cgroup/freezer/slurm/uid_7841/job_87398590/step_batch: Device or resource busy
