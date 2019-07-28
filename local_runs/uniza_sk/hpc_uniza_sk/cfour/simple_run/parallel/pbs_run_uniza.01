@@ -58,7 +58,9 @@ export PATH=$CFOUR/bin:$PATH
 #export CFOUR_NUM_CORES=$SLURM_CPUS_ON_NODE
 export CFOUR_NUM_CORES=1  # on one node !
 
-workdir=/localscratch/$PBS_JOBID/$USER/CFOURrun_bin
+### working space ... ###
+workdir=/localscratch/$PBS_JOBID/$USER.CFOURrun
+
 global_workdisk=yes
 #outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
 outdir=$workdir/CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
