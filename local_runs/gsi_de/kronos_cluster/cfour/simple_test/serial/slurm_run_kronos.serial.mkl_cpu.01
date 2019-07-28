@@ -26,6 +26,7 @@
 #SBATCH --mail-type=ALL
 
  
+echo -e "\nDate: \c";date
 echo Job user is $SLURM_JOB_USER and his job $SLURM_JOB_NAME has assigned ID $SLURM_JOBID
 echo This job was submitted from the computer $SLURM_SUBMIT_HOST
 echo and from the home directory:
@@ -38,12 +39,13 @@ echo $SLURM_JOB_NODELIST
 echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 
 module use /cvmfs/it.gsi.de/modulefiles/
-echo "modules at disposal:"
+echo -e "\n Modules at disposal:"
 module avail
 echo
 module load compiler/intel/17.4
-echo "loaded modules:"
+echo -e "\n loaded modules:"
 module list
+echo -e "\n \n"
 
 echo -e "\nRunning on host `hostname`"
 echo -e "Time is `date` \n"
@@ -52,7 +54,7 @@ echo -e "\nMy PATH=$PATH\n"
 # CPU model, total numer of CPUs, number of allocated CPUs
 echo -e "The node's CPU \c"; cat /proc/cpuinfo | grep 'model name' | uniq
 NPROCS=`cat /proc/cpuinfo | grep processor | wc -l`
-echo "This node has $NPROCS CPUs available."
+echo "This single node has $NPROCS CPUs available."
 echo "This node has $SLURM_CPUS_ON_NODE CPUs allocated for SLURM calculations."
 
 echo -e "\n the memory at the node (in GB)"
