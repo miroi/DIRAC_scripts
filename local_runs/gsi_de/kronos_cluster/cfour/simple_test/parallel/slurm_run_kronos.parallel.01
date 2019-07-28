@@ -114,9 +114,8 @@ distribute $input
 
 # run job either in parallel (if appropriate)
 cd $workdir
-run -para
+#run -para
 xcfour
-
 
 # gather files from all nodes. gather accepts the follwing flags:
 #  -tag      append the nodename to every file 
