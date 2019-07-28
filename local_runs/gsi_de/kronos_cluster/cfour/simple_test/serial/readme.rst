@@ -12,6 +12,7 @@ milias@lxbk0196.gsi.de:/lustre/nyx/ukt/milias/work/software/cfour/cfour-public_v
 
   make -j32
 
+.... test is fine
 
 
 
