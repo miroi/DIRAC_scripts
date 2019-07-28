@@ -5,8 +5,13 @@
 #PBS -r n 
 #PBS -q parallel
 #PBS -j oe
-#PBS -l nodes=1:ppn=12
-#PBS -l mem=47g
+
+##PBS -l nodes=1:ppn=12
+#PBS -l nodes=1:ppn=4
+
+##PBS -l mem=47g
+#PBS -l mem=4g
+
 ##PBS -l walltime=200:00:00
 #PBS -l walltime=2:00:00
 
@@ -59,7 +64,10 @@ export PATH=$CFOUR/bin:$PATH
 export CFOUR_NUM_CORES=1  # on one node !
 
 ### working space ... ###
+df -h /localscratch/
+
 workdir=/localscratch/$PBS_JOBID/$USER.CFOURrun
+mkdir -p /localscratch/$PBS_JOBID/$USER.CFOURrun
 
 global_workdisk=yes
 #outdir=CFOURrun.$SLURM_JOB_NAME.$SLURM_JOBID
@@ -85,5 +93,9 @@ xcfour
 #gather -maxsize 10000
 
 finalize_job
+
+ls -lt $workdir
+
+#/bin/rm -r  $workdir
 
 exit 0
