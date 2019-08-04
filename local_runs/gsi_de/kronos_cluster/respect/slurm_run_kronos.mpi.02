@@ -5,7 +5,7 @@
 ###SBATCH -D /lustre/nyx/ukt/milias
 
 ## max. execution time
-#SBATCH -t 0-1:30:00
+#SBATCH -t 0-8:00:00
 
 ##  partition (queue)
 ##SBATCH -p long
@@ -14,7 +14,7 @@
 ## Node count - take only one node for OpenMP-MKL
 #SBATCH -N 1
 ## CPU count  - max. 40 per node
-#SBATCH -n 4
+#SBATCH -n 12
 
 ## total memory - not use
 ##SBATCH --mem=36G
@@ -45,9 +45,9 @@ module use /cvmfs/it.gsi.de/modulefiles/
 echo -e "\n modules at disposal:"
 module avail
 echo
-module load compiler/intel/17.4
-#module load compiler/intel/17.0
-module load openmpi/intel/4.0_intel17.4
+#module load compiler/intel/17.4
+module load compiler/intel/17.0
+#module load openmpi/intel/4.0_intel17.4
 echo -e "\n loaded modules:"
 module list
 
@@ -109,14 +109,13 @@ echo
 #$PAM --mw=320 --aw=1200 --noarch --inp=$DIRAC_ROOTDIR/test/cosci_energy/ci.inp --mol=$DIRAC_ROOTDIR/test/cosci_energy/F.mol
 #$PAM --mw=320 --nw=220 --aw=560  --noarch --inp=$DIRAC/test/cc_energy_and_mp2_dipole/ccsd.inp --mol=$DIRAC/test/cc_energy_and_mp2_dipole/H2O.mol
 
-echo -e "\n ReSpect 5.2.0_beta standard test suite, with --np=$SLURM_CPUS_ON_NODE :"
-cd $RESPEC/test
-python ./testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
+echo -e "\n ReSpect 5.2.0_beta standard test suite, with --nt=$SLURM_CPUS_ON_NODE :"
+cd $RESPECT/test
+python ./testrs.py --nt=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
 
-echo -e "\n ReSpect  5.2.0_beta  tutorial test suite, with --np=$SLURM_CPUS_ON_NODE:"
+echo -e "\n ReSpect  5.2.0_beta  tutorial test suite, with --nt=$SLURM_CPUS_ON_NODE:"
 cd $RESPECT/tutorial
-python ./testrs.py --np=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
-
+python ./testrs.py --nt=$SLURM_CPUS_ON_NODE --scratch=/lustre/nyx/ukt/milias/scratch  --path=$RESPECT
 
 
 exit

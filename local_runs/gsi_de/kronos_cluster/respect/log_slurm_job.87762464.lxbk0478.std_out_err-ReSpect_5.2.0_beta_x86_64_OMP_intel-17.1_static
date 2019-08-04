@@ -1,0 +1,604 @@
+Job user is milias and his job Rsp5.2 has assigned ID 87762464
+This job was submitted from the computer lxbk0195
+and from the home directory:
+/lustre/ukt/milias/work/projects/My_scripts/local_runs/gsi_de/kronos_cluster/respect
+
+It is running on the cluster compute node:
+
+and is employing 1 node/nodes:
+lxbk0478
+The job requests 12 CPU per task.
+
+ modules at disposal:
+
+------------------------ /cvmfs/it.gsi.de/modulefiles/ -------------------------
+compiler/gcc/10                       hdf5/gcc/1.10_sys
+compiler/gcc/10.0.0                   openmpi/gcc/1.10.0
+compiler/gcc/4.8.4                    openmpi/gcc/1.10_gcc6
+compiler/gcc/5.1.0                    openmpi/gcc/1.10_gcc7
+compiler/gcc/6                        openmpi/gcc/1.10_gcc8
+compiler/gcc/6.1.0                    openmpi/gcc/1.10_sys
+compiler/gcc/6.3.0                    openmpi/gcc/2.1_gcc6
+compiler/gcc/7                        openmpi/gcc/2.1_gcc7
+compiler/gcc/8                        openmpi/gcc/2.1_gcc8
+compiler/gcc/8.1.0                    openmpi/gcc/2.1_sys
+compiler/gcc/8.2.0                    openmpi/gcc/3.1_gcc6
+compiler/gcc/8.3.0                    openmpi/gcc/3.1_gcc7
+compiler/gcc/9                        openmpi/gcc/3.1_gcc8
+compiler/gcc/9.1.0                    openmpi/gcc/3.1_sys
+compiler/intel/15.0                   openmpi/gcc/4.0_gcc8
+compiler/intel/16.0                   openmpi/gcc/4.0_sys
+compiler/intel/17.0                   openmpi/intel/4.0_intel17.4
+compiler/intel/17.4                   openmpi/intel/4.0_mp1compat_intel17.4
+compiler/intel/19.0                   pelegant/28.1.0
+compiler/llvm/3.6.1                   root/v5-34-14
+compiler/llvm/4.0.1                   root/v5.34-14
+compiler/llvm/6.0.1                   root/v6.06-06
+epoch/gcc/4.16.4_ompi4.0_gcc8         ucx/gcc/1.5_gcc8.3
+epoch/gcc/4.16.4_ompi4.0_sys          ucx/gcc/1.5_sys
+epoch/gcc/4.16.4_sys                  ucx/intel/1.5_intel17.4
+epoch/intel/4.16.4_ompi4.0_intel17.4  warp/gcc/4.5_sys
+
+------------------------- /usr/share/modules/versions --------------------------
+3.2.10
+
+------------------------ /usr/share/modules/modulefiles ------------------------
+dot         module-git  module-info modules     null        use.own
+
+compiler/intel/17.0(3):ERROR:150: Module 'compiler/intel/17.0' conflicts with the currently loaded module(s) 'compiler/intel/17.4'
+compiler/intel/17.0(3):ERROR:102: Tcl command execution failed: conflict compiler
+
+
+ loaded modules:
+Currently Loaded Modulefiles:
+  1) /compiler/intel/17.4
+
+Running on host lxbk0478
+Time is Sun Aug  4 12:20:09 CEST 2019 
+
+
+My PATH=/cvmfs/it.gsi.de/compiler/intel/17.0/compilers_and_libraries_2017.4.196/linux/bin/intel64:/cvmfs/it.gsi.de/compiler/intel/17.0/compilers_and_libraries_2017.4.196/linux/mpi/intel64/bin:/cvmfs/it.gsi.de/compiler/intel/17.0/debugger_2017/gdb/intel64_mic/bin:/cvmfs/it.gsi.de/compiler/intel/17.0/vtune_amplifier_xe_2017.3.0.510739/bin64:/cvmfs/it.gsi.de/compiler/intel/17.0/advisor_xe_2017.1.3.510716/bin64:/cvmfs/it.gsi.de/compiler/intel/17.0/advisor_xe_2017.1.3.510716/bin64:/u/milias/.local/bin:/u/milias/software/flint:/u/milias/bin/cmake/cmake-3.12.0-Linux-x86_64/bin:/u/milias/Work/qch/software/abinit/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:.
+
+The node's CPU model name	: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+This node has 56 CPUs available.
+(i) This node has SLURM_CPUS_ON_NODE=12 CPUs allocated for SLURM calculations. Enough ?
+(ii) This node has SLURM_JOB_CPUS_PER_NODE=12 CPUs allocated for SLURM calculations.
+
+ The memory at the node (in GB)
+             total       used       free     shared    buffers     cached
+Mem:           126        106         19          2          0         70
+-/+ buffers/cache:         34         91
+Swap:           19          0         19
+Total:         145        106         39
+
+
+Internal MKL parallelization upon SLURM CPU count, MKL_NUM_THREADS=1
+
+
+ Python -v :Python 2.7.9
+cmake ? which cmake = /usr/bin/cmake
+ctest ? which ctest = /usr/bin/ctest
+ctest --version ctest version 3.0.2
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+which mpirun  ? /cvmfs/it.gsi.de/compiler/intel/17.0/compilers_and_libraries_2017.4.196/linux/mpi/intel64/bin/mpirun
+mpirun --version ? Intel(R) MPI Library for Linux* OS, Version 2017 Update 3 Build 20170405 (id: 17193)
+Copyright (C) 2003-2017, Intel Corporation. All rights reserved.
+ifort -V ? Intel(R) Fortran Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 17.0.4.196 Build 20170411
+Copyright (C) 1985-2017 Intel Corporation.  All rights reserved.
+
+ulimit -s unlimited 
+ Current directory where this SLURM job is running /lustre/ukt/milias/work/projects/My_scripts/local_runs/gsi_de/kronos_cluster/respect
+ It has the disk space of (df -h) :
+Filesystem                             Size  Used Avail Use% Mounted on
+10.20.3.0@o2ib5:10.20.3.1@o2ib5:/hebe   14P  7.6P  5.9P  57% /lustre
+
+
+ ReSpect 5.2.0_beta standard test suite, with --nt=12 :
+mv: cannot stat ‘h2.inp_orig’: No such file or directory
+              result                      test                section             input             time  
+ [  0%]    --   OK   --            alpha/ecd_ks_b3lyp           scf                H2O2            08m11s 
+ [  0%]    --   OK   --            alpha/ecd_ks_b3lyp          alpha               H2O2            01m18s 
+ [  1%]    --   OK   --            alpha/ecd_ks_b3lyp          alpha             eas+ecd           01m24s 
+ [  1%]    --   OK   --              alpha/ecd_mdhf             scf                H2O2            00m24s 
+ [  1%]    --   OK   --              alpha/ecd_mdhf            alpha               H2O2            00m33s 
+ [  1%]    --   OK   --            alpha/ecd_mdks_lda           scf                H2O2            00m26s 
+ [  2%]    --   OK   --            alpha/ecd_mdks_lda          alpha               H2O2            01m06s 
+ [  2%]    --   OK   --            alpha/ecd_mdks_lda          alpha             eas+ecd           01m07s 
+ [  2%]    --   OK   --            alpha/ecd_mdks_pbe           scf                H2O2            00m19s 
+ [  2%]    --   OK   --            alpha/ecd_mdks_pbe          alpha               H2O2            01m15s 
+ [  2%]    --   OK   --                 alpha/hf                scf                 CO             00m17s 
+ [  3%]    --   OK   --                 alpha/hf               alpha                CO             00m17s 
+ [  3%]    --   OK   --           alpha/hf+mo-analysis          scf                h2o             00m13s 
+ [  3%]    --   OK   --           alpha/hf+mo-analysis         alpha               h2o             00m14s 
+ [  3%]    --   OK   --              alpha/hf_damp              scf                LiH             00m15s 
+ [  4%]    --   OK   --              alpha/hf_damp             alpha             cpp-pair          00m21s 
+ [  4%]    --   OK   --              alpha/hf_damp             alpha            cpp-batch          01m09s 
+ [  4%]    --   OK   --              alpha/hf_damp             alpha           cpp-batch-ng        00m11s 
+ [  4%]    --   OK   --              alpha/hf_freq              scf                LiH             00m11s 
+ [  4%]    --   OK   --              alpha/hf_freq             alpha               LiH             00m12s 
+ [  5%]    --   OK   --              alpha/hf_freq             alpha               sub             00m13s 
+ [  5%]    --   OK   --              alpha/hf_freq             alpha             sub-pair          00m15s 
+ [  5%]    --   OK   --              alpha/ks_b3lyp             scf                 CO             00m09s 
+ [  5%]    --   OK   --              alpha/ks_b3lyp            alpha                CO             00m13s 
+ [  6%]    --   OK   --              alpha/ks_bp86              scf                 CO             00m10s 
+ [  6%]    --   OK   --              alpha/ks_bp86             alpha              CO-num           00m11s 
+ [  6%]    --   OK   --              alpha/ks_bp86             alpha              CO-ana           00m14s 
+ [  6%]    --   OK   --            alpha/ks_pbe_damp            scf                LiH             00m09s 
+ [  6%]    --   OK   --            alpha/ks_pbe_damp           alpha           LiH-cpp-pair        00m31s 
+ [  7%]    --   OK   --            alpha/ks_pbe_damp           alpha          LiH-cpp-batch        01m20s 
+ [  7%]    --   OK   --            alpha/ks_pbe_damp           alpha         LiH-cpp-batch-ng      00m24s 
+ [  7%]    --   OK   --            alpha/ks_pbe_damp            scf              LiH-rij           00m10s 
+ [  7%]    --   OK   --            alpha/ks_pbe_damp           alpha        LiH-rij-cpp-batch      01m14s 
+ [  8%]    --   OK   --            alpha/ks_pbe_damp           alpha       LiH-rij-cpp-batch-ng    00m21s 
+ [  8%]    --   OK   --          alpha/ks_pbe_damp+dwta         scf                LiH             00m09s 
+ [  8%]    --   OK   --          alpha/ks_pbe_damp+dwta        alpha               LiH             00m39s 
+ [  8%]    --   OK   --        alpha/ks_pbe_damp+mowindow       scf                LiH             00m12s 
+ [  8%]    --   OK   --        alpha/ks_pbe_damp+mowindow      alpha             LiH-cpp           00m30s 
+ [  9%]    --   OK   --            alpha/ks_pbe_freq            scf                LiH             00m11s 
+ [  9%]    --   OK   --            alpha/ks_pbe_freq           alpha             LiH-diis          00m21s 
+ [  9%]    --   OK   --            alpha/ks_pbe_freq           alpha             LiH-pol           00m21s 
+ [  9%]    --   OK   --            alpha/ks_pbe_freq           alpha           LiH-pol-pair        00m27s 
+ [ 10%]    --   OK   --            alpha/ks_pbe_freq            scf              LiH-rij           00m10s 
+ [ 10%]    --   OK   --            alpha/ks_pbe_freq           alpha           LiH-rij-diis        00m22s 
+ [ 10%]    --   OK   --            alpha/ks_pbe_freq           alpha           LiH-rij-pol         00m16s 
+ [ 10%]    --   OK   --        alpha/ks_pbe_freq+mowindow       scf                LiH             00m10s 
+ [ 10%]    --   OK   --        alpha/ks_pbe_freq+mowindow      alpha             LiH-diis          00m14s 
+ [ 11%]    --   OK   --        alpha/ks_pbe_freq+mowindow      alpha             LiH-pol           00m12s 
+ [ 11%]    --   OK   --                alpha/mdhf               scf                H2O             00m11s 
+ [ 11%]    --   OK   --                alpha/mdhf              alpha               H2O             00m13s 
+ [ 11%]    --   OK   --             alpha/mdhf_damp             scf                LiH             00m08s 
+ [ 12%]    --   OK   --             alpha/mdhf_damp            alpha               LiH             00m15s 
+ [ 12%]    --   OK   --             alpha/mdhf_damp            alpha              batch            00m17s 
+ [ 12%]    --   OK   --             alpha/mdhf_damp            alpha             batch-ng          00m11s 
+ [ 12%]    --   OK   --             alpha/mdhf_damp            alpha             restart           00m09s 
+ [ 12%]    --   OK   --             alpha/mdhf_freq             scf                H2O             00m12s 
+ [ 13%]    --   OK   --             alpha/mdhf_freq            alpha             H2O-diis          00m30s 
+ [ 13%]    --   OK   --             alpha/mdhf_freq            alpha             H2O-sub           00m22s 
+ [ 13%]    --   OK   --             alpha/mdks_b3lyp            scf                H2O             00m08s 
+ [ 13%]    --   OK   --             alpha/mdks_b3lyp           alpha             H2O-ana           00m15s 
+ [ 14%]    --   OK   --             alpha/mdks_b3lyp           alpha             H2O-num           00m14s 
+ [ 14%]    --   OK   --          alpha/mdks_b3lyp_freq          scf                LiH             00m07s 
+ [ 14%]    --   OK   --          alpha/mdks_b3lyp_freq         alpha             LiH-diis          00m56s 
+ [ 14%]    --   OK   --          alpha/mdks_b3lyp_freq         alpha             LiH-sub           00m52s 
+ [ 14%]    --   OK   --           alpha/mdks_lda_damp           scf                LiH             00m10s 
+ [ 15%]    --   OK   --           alpha/mdks_lda_damp          alpha               LiH             00m44s 
+ [ 15%]    --   OK   --           alpha/mdks_lda_damp          alpha              batch            00m39s 
+ [ 15%]    --   OK   --           alpha/mdks_lda_damp          alpha             batch-ng          00m29s 
+ [ 15%]    --   OK   --           alpha/mdks_pbe+dwta           scf                LiH             00m08s 
+ [ 16%]    --  FAIL  --           alpha/mdks_pbe+dwta          alpha               LiH             00m49s 
+ [ 16%]    --   OK   --         alpha/mdks_pbe+mowindow         scf                LiH             00m09s 
+ [ 16%]    --   OK   --         alpha/mdks_pbe+mowindow        alpha             LiH-diis          00m55s 
+ [ 16%]    --   OK   --         alpha/mdks_pbe+mowindow        alpha             LiH-pol           00m22s 
+ [ 16%]    --   OK   --         alpha/mdks_pbe+mowindow        alpha           LiH-pol-damp        00m20s 
+ [ 17%]    --   OK   --         alpha/mdks_pbe_rij_damp         scf                LiH             00m10s 
+ [ 17%]    --   OK   --         alpha/mdks_pbe_rij_damp        alpha             LiH-pol           00m31s 
+ [ 17%]    --   OK   --         alpha/mdks_pbe_rij_damp        alpha           LiH-pol-damp        00m32s 
+ [ 17%]    --   OK   --         alpha/mdks_pbe_rij_damp        alpha         LiH-pol-batch-ng      00m19s 
+ [ 18%]    --   OK   --                  cs/hf                  scf                H2O2            00m06s 
+ [ 18%]    --   OK   --                  cs/hf                   cs           H2O2-CS1-CGA2        00m13s 
+ [ 18%]    --   OK   --                  cs/hf                   cs            H2O2-CS1-CGM        00m10s 
+ [ 18%]    --   OK   --                 cs/hf+SO                scf                HNO             00m06s 
+ [ 18%]    --   OK   --                 cs/hf+SO                 cs               HNO-UP           00m13s 
+ [ 19%]    --   OK   --                 cs/hf+SO                 cs            HNO-analysis        00m16s 
+ [ 19%]    --   OK   --                 cs/hf+SO                 cs               HNO-CP           00m36s 
+ [ 19%]    --   OK   --            cs/hf+mo-analysis            scf                h2o             00m05s 
+ [ 19%]    --   OK   --            cs/hf+mo-analysis             cs                h2o             00m09s 
+ [ 20%]    --   OK   --               cs/ks_b3lyp               scf                H2O2            00m05s 
+ [ 20%]    --   OK   --               cs/ks_b3lyp                cs           H2O2-CS1-CGA2        00m06s 
+ [ 20%]    --   OK   --               cs/ks_b3lyp                cs            H2O2-CS1-CGM        00m06s 
+ [ 20%]    --   OK   --                cs/ks_bp86               scf                H2O2            00m07s 
+ [ 20%]    --   OK   --                cs/ks_bp86                cs           H2O2-CS1-CGA2        00m04s 
+ [ 21%]    --   OK   --                cs/ks_bp86                cs            H2O2-CS1-CGM        00m02s 
+ [ 21%]    --   OK   --                 cs/mdhf                 scf               h2o-5a           00m06s 
+ [ 21%]    --   OK   --                 cs/mdhf                  cs           h2o-5a-CGO-CP        00m08s 
+ [ 21%]    --   OK   --                 cs/mdhf                  cs           h2o-5a-GIAO-UP       00m06s 
+ [ 22%]    --   OK   --                 cs/mdhf                  cs           h2o-5a-GIAO-CP       00m09s 
+ [ 22%]    --   OK   --           cs/mdks+mo-analysis           scf                h2o             00m10s 
+ [ 22%]    --   OK   --           cs/mdks+mo-analysis            cs             h2o-CS-CGO         00m07s 
+ [ 22%]    --   OK   --           cs/mdks+mo-analysis            cs            h2o-CS-GIAO         00m06s 
+ [ 22%]    --   OK   --              cs/mdks_b3lyp              scf              h2o-10a           00m06s 
+ [ 23%]    --   OK   --              cs/mdks_b3lyp               cs          h2o-10a-GIAO-UP       00m07s 
+ [ 23%]    --   OK   --              cs/mdks_b3lyp               cs           h2o-10a-CGO-CP       00m12s 
+ [ 23%]    --   OK   --              cs/mdks_b3lyp               cs          h2o-10a-GIAO-CP       00m15s 
+ [ 23%]    --   OK   --               cs/mdks_pbe               scf              h2o-10a           00m05s 
+ [ 24%]    --   OK   --               cs/mdks_pbe                cs          h2o-10a-GIAO-UP       00m05s 
+ [ 24%]    --   OK   --               cs/mdks_pbe                cs        h2o-10a-GIAO-UP-RI-J    00m06s 
+ [ 24%]    --   OK   --               cs/mdks_pbe                cs           h2o-10a-CGO-CP       00m07s 
+ [ 24%]    --   OK   --               cs/mdks_pbe                cs          h2o-10a-GIAO-CP       00m11s 
+ [ 24%]    --   OK   --               cs/mdks_pbe                cs        h2o-10a-GIAO-CP-RI-J    00m12s 
+ [ 25%]    --   OK   --              cs/mdks_rij_HI             scf                DKH2            00m03s 
+ [ 25%]    --   OK   --              cs/mdks_rij_HI             scf                 RI             00m13s 
+ [ 25%]    --   OK   --              cs/mdks_rij_HI              cs           RI-CGO-UP-Wno        00m04s 
+ [ 25%]    --   OK   --              cs/mdks_rij_HI              cs          RI-CGO-UP-Wno-CM      00m03s 
+ [ 26%]    --  FAIL  --              cs/mdks_rij_HI              cs          RI-CGO-UP-Wno-FN      00m02s 
+ [ 26%]    --   OK   --              cs/mdks_rij_HI              cs           RI-CGO-UP-Wyes       00m07s 
+ [ 26%]    --   OK   --              cs/mdks_rij_HI              cs         RI-CGO-CP-Wno-Rmno     00m15s 
+ [ 26%]    --   OK   --              cs/mdks_rij_HI              cs             RI-GIAO-UP         00m08s 
+ [ 26%]    --   OK   --              cs/mdks_rij_HI              cs          RI-GIAO-CP-Rmno       00m19s 
+ [ 27%]    --   OK   --           cs/mdks_rij_exact_H2          scf                noRI            00m04s 
+ [ 27%]    --   OK   --           cs/mdks_rij_exact_H2          scf               noRIc            00m03s 
+ [ 27%]    --   OK   --           cs/mdks_rij_exact_H2          scf                 RI             00m03s 
+ [ 27%]    --   OK   --           cs/mdks_rij_exact_H2           cs          noRI-CGO-UP-Wno       00m03s 
+ [ 28%]    --   OK   --           cs/mdks_rij_exact_H2           cs        noRIc-CGO-CP-Jc-Rmno    00m07s 
+ [ 28%]    --   OK   --           cs/mdks_rij_exact_H2           cs       noRIc-CGO-CP-Jc-Rmyes    00m06s 
+ [ 28%]    --   OK   --           cs/mdks_rij_exact_H2           cs           RI-CGO-UP-Wno        00m03s 
+ [ 28%]    --   OK   --           cs/mdks_rij_exact_H2           cs          RI-CGO-UP-Wno-CM      00m04s 
+ [ 28%]    --   OK   --           cs/mdks_rij_exact_H2           cs        RI-CGO-CP-Wyes-Rmno     00m03s 
+ [ 29%]    --   OK   --           cs/mdks_rij_exact_H2           cs            noRI-GIAO-UP        00m06s 
+ [ 29%]    --   OK   --           cs/mdks_rij_exact_H2           cs       noRIc-GIAO-CP-Jc-Rmno    00m05s 
+ [ 29%]    --   OK   --           cs/mdks_rij_exact_H2           cs       noRIc-GIAO-CP-Jc-Rmyes   00m06s 
+ [ 29%]    --   OK   --           cs/mdks_rij_exact_H2           cs             RI-GIAO-UP         00m03s 
+ [ 30%]    --   OK   --           cs/mdks_rij_exact_H2           cs          RI-GIAO-CP-Rmno       00m05s 
+ [ 30%]    --   OK   --         cs/pnmr_mdks+mo-analysis        scf               h2o+_X           00m05s 
+ [ 30%]    --   OK   --         cs/pnmr_mdks+mo-analysis        scf               h2o+_Y           00m05s 
+ [ 30%]    --   OK   --         cs/pnmr_mdks+mo-analysis        scf               h2o+_Z           00m04s 
+ [ 30%]    --   OK   --         cs/pnmr_mdks+mo-analysis         cs          h2o+_X-CS-GIAO-X      00m03s 
+ [ 31%]    --   OK   --         cs/pnmr_mdks+mo-analysis         cs          h2o+_Y-CS-GIAO-Y      00m03s 
+ [ 31%]    --   OK   --         cs/pnmr_mdks+mo-analysis         cs          h2o+_Z-CS-GIAO-Z      00m03s 
+ [ 31%]    --   OK   --            cs/pnmr_mdks_bp86            scf             h2o+_dkh2          00m02s 
+ [ 31%]    --   OK   --            cs/pnmr_mdks_bp86            scf               h2o+_X           00m03s 
+ [ 32%]    --   OK   --            cs/pnmr_mdks_bp86            scf               h2o+_Y           00m04s 
+ [ 32%]    --   OK   --            cs/pnmr_mdks_bp86            scf               h2o+_Z           00m04s 
+ [ 32%]    --   OK   --            cs/pnmr_mdks_bp86             gt              h2o+-GT           00m02s 
+ [ 32%]    --   OK   --            cs/pnmr_mdks_bp86            hfcc             h2o+-HFS          00m02s 
+ [ 32%]    --   OK   --            cs/pnmr_mdks_bp86            ---       OUTPUT_Hydrogen_1_2_Hp   00m00s 
+ [ 33%]    --   OK   --            cs/pnmr_mdks_bp86            ---         OUTPUT_Oxygen_3_Op     00m00s 
+ [ 33%]    --   OK   --            cs/pnmr_mdks_bp86             cs         h2o+_X-GIAO_RI-J_X     00m05s 
+ [ 33%]    --   OK   --            cs/pnmr_mdks_bp86             cs         h2o+_Y-GIAO_RI-J_Y     00m06s 
+ [ 33%]    --   OK   --            cs/pnmr_mdks_bp86             cs         h2o+_Z-GIAO_RI-J_Z     00m05s 
+ [ 34%]    --   OK   --            cs/pnmr_mdks_bp86             cs            h2o+_X-CGO-X        00m05s 
+ [ 34%]    --   OK   --            cs/pnmr_mdks_bp86             cs            h2o+_Y-CGO-Y        00m06s 
+ [ 34%]    --   OK   --            cs/pnmr_mdks_bp86             cs            h2o+_Z-CGO-Z        00m04s 
+ [ 34%]    --   OK   --            cs/pnmr_mdks_bp86            ---       OUTPUT_Hydrogen_1_2_H    00m00s 
+ [ 34%]    --   OK   --            cs/pnmr_mdks_bp86            ---         OUTPUT_Oxygen_3_O      00m00s 
+ [ 35%]    --   OK   --            cs/pnmr_mdks_bp86             cs         h2o+_X-GIAO_noRI_X     00m05s 
+ [ 35%]    --   OK   --            cs/pnmr_mdks_bp86             cs         h2o+_Y-GIAO_noRI_Y     00m05s 
+ [ 35%]    --   OK   --            cs/pnmr_mdks_bp86             cs         h2o+_Z-GIAO_noRI_Z     00m05s 
+ [ 35%]    --   OK   --                 epr/mdks                scf              ZnH_DKH2          00m04s 
+ [ 36%]    --   OK   --                 epr/mdks                scf               ZnH_X            00m14s 
+ [ 36%]    --   OK   --                 epr/mdks                scf               ZnH_Y            00m13s 
+ [ 36%]    --   OK   --                 epr/mdks                scf               ZnH_Z            00m16s 
+ [ 36%]    --   OK   --                 epr/mdks                 gt               ZnH-GT           00m02s 
+ [ 36%]    --   OK   --                 epr/mdks                 gt          ZnH-GT-template       00m03s 
+ [ 37%]    --   OK   --                 epr/mdks                hfcc            ZnH-HFS-FN         00m02s 
+ [ 37%]    --   OK   --                 epr/mdks                hfcc            ZnH-HFS-PN         00m01s 
+ [ 37%]    --   OK   --                 epr/mdks                ---             rotate_gt          00m00s 
+ [ 37%]    --   OK   --                 epr/mdks                scf           AlO_dkh-b3lyp        00m03s 
+ [ 38%]    --   OK   --                 epr/mdks                scf          AlO_mdks-b3lyp_X      00m06s 
+ [ 38%]    --   OK   --                 epr/mdks                scf          AlO_mdks-b3lyp_Y      00m05s 
+ [ 38%]    --   OK   --                 epr/mdks                scf          AlO_mdks-b3lyp_Z      00m06s 
+ [ 38%]    --   OK   --                 epr/mdks                 gt         AlO_mdks-b3lyp-GT      00m01s 
+ [ 38%]    --   OK   --                 epr/mdks                hfcc      AlO_mdks-b3lyp-HFS-FN    00m01s 
+ [ 39%]    --   OK   --                 epr/mdks                hfcc      AlO_mdks-b3lyp-HFS-PN    00m02s 
+ [ 39%]    --   OK   --              mossbauer/mdhf             scf                x2c             00m03s 
+ [ 39%]    --   OK   --              mossbauer/mdhf          mossbauer             x2c             00m01s 
+ [ 39%]    --   OK   --              mossbauer/mdhf             scf                 4c             00m04s 
+ [ 40%]    --   OK   --              mossbauer/mdhf          mossbauer              4c             00m01s 
+ [ 40%]    --   OK   --                  nsr/hf                 scf                H2O2            00m03s 
+ [ 40%]    --   OK   --                  nsr/hf                 nsr                H2O2            00m05s 
+ [ 40%]    --   OK   --            nsr/hf+mo-analysis           scf                h2o             00m02s 
+ [ 40%]    --   OK   --            nsr/hf+mo-analysis           nsr                h2o             00m04s 
+ [ 41%]    --   OK   --               nsr/ks_b3lyp              scf                H2O2            00m02s 
+ [ 41%]    --   OK   --               nsr/ks_b3lyp              nsr                H2O2            00m04s 
+ [ 41%]    --   OK   --               nsr/ks_bp86               scf                H2O2            00m03s 
+ [ 41%]    --   OK   --               nsr/ks_bp86               nsr                H2O2            00m02s 
+ [ 42%]    --   OK   --                 nsr/mdhf                scf              CO-DKH2           00m02s 
+ [ 42%]    --   OK   --                 nsr/mdhf                scf                 CO             00m02s 
+ [ 42%]    --   OK   --                 nsr/mdhf                nsr                 CO             00m03s 
+ [ 42%]    --   OK   --           nsr/mdks+mo-analysis          scf                h2o             00m04s 
+ [ 42%]    --   OK   --           nsr/mdks+mo-analysis          nsr               h2o-SR           00m02s 
+ [ 43%]    --   OK   --              nsr/mdks_bp86              scf              CO-DKH2           00m02s 
+ [ 43%]    --   OK   --              nsr/mdks_bp86              scf                 CO             00m04s 
+ [ 43%]    --   OK   --              nsr/mdks_bp86              nsr            CO-SR-UP-CM         00m01s 
+ [ 43%]    --  FAIL  --              nsr/mdks_bp86              nsr             CO-SR-UP-O         00m01s 
+ [ 44%]    --  FAIL  --              nsr/mdks_bp86              nsr             CO-SR-UP-C         00m02s 
+ [ 44%]    --   OK   --              nsr/mdks_bp86              nsr              CO-SR-CP          00m07s 
+ [ 44%]    --   OK   --              nsr/mdks_pbe0              scf              CO-DKH2           00m02s 
+ [ 44%]    --   OK   --              nsr/mdks_pbe0              scf                 CO             00m02s 
+ [ 44%]    --   OK   --              nsr/mdks_pbe0              nsr              CO-SR-CP          00m05s 
+ [ 45%]    -- ERROR  --                  pcm/hf                 scf             h2o-water          00m01s 
+ [ 45%]    --  FAIL  --                  pcm/hf                 scf            h2o-water-TZ        00m00s 
+ [ 45%]    -- ERROR  --                  pcm/hf                 scf            h2o-separate        00m00s 
+ [ 45%]    -- ERROR  --                  pcm/hf                 scf          h2o+-water-fine       00m00s 
+ [ 46%]    -- ERROR  --                  pcm/hf                 scf           h2o+-separate        00m01s 
+ [ 46%]    --   OK   --                  pcm/hf                 scf           h2o-own-input        00m03s 
+ [ 46%]    --   OK   --                  pcm/hf                 scf           h2o+-own-input       00m02s 
+ [ 46%]    --   OK   --                  pcm/hf                 scf            h2o-explicit        00m02s 
+ [ 46%]    --   OK   --                  pcm/hf                 scf            h2o-defaults        00m02s 
+ [ 47%]    -- ERROR  --               pcm/ks-b3lyp              scf             h2o-water          00m00s 
+ [ 47%]    --  FAIL  --               pcm/ks-b3lyp              scf            h2o-water-TZ        00m00s 
+ [ 47%]    -- ERROR  --               pcm/ks-b3lyp              scf            h2o-separate        00m00s 
+ [ 47%]    -- ERROR  --               pcm/ks-b3lyp              scf           h2o-water-fine       00m01s 
+ [ 48%]    -- ERROR  --               pcm/ks-b3lyp              scf             h2o+-water         00m00s 
+ [ 48%]    -- ERROR  --               pcm/ks-b3lyp              scf           h2o+-separate        00m01s 
+ [ 48%]    -- ERROR  --               pcm/ks-b3lyp              scf          h2o+-water-fine       00m00s 
+ [ 48%]    --   OK   --               pcm/ks-b3lyp              scf           h2o-own-input        00m03s 
+ [ 48%]    --   OK   --               pcm/ks-b3lyp              scf           h2o+-own-input       00m03s 
+ [ 49%]    -- ERROR  --                 pcm/mdhf                scf           mDHF-h2o-water       00m00s 
+ [ 49%]    -- ERROR  --                 pcm/mdhf                scf         mDHF-h2o-separate      00m00s 
+ [ 49%]    -- ERROR  --                 pcm/mdhf                scf        mDHF-h2o-water-fine     00m01s 
+ [ 49%]    -- ERROR  --                 pcm/mdhf                scf          mDHF-h2o+-water       00m00s 
+ [ 50%]    -- ERROR  --                 pcm/mdhf                scf         mDHF-h2o+-separate     00m00s 
+ [ 50%]    -- ERROR  --                 pcm/mdhf                scf        mDHF-h2o+-water-fine    00m00s 
+ [ 50%]    --   OK   --                 pcm/mdhf                scf         mDHF-h2o-own-input     00m03s 
+ [ 50%]    --   OK   --                 pcm/mdhf                scf        mDHF-h2o+-own-input     00m04s 
+ [ 50%]    -- ERROR  --              pcm/mdks-b3lyp             scf           mDKS-h2o-water       00m00s 
+ [ 51%]    -- ERROR  --              pcm/mdks-b3lyp             scf         mDKS-h2o-separate      00m00s 
+ [ 51%]    -- ERROR  --              pcm/mdks-b3lyp             scf        mDKS-h2o-water-fine     00m00s 
+ [ 51%]    -- ERROR  --              pcm/mdks-b3lyp             scf          mDKS-h2o+-water       00m00s 
+ [ 51%]    -- ERROR  --              pcm/mdks-b3lyp             scf         mDKS-h2o+-separate     00m00s 
+ [ 52%]    -- ERROR  --              pcm/mdks-b3lyp             scf        mDKS-h2o+-water-fine    00m00s 
+ [ 52%]    --   OK   --              pcm/mdks-b3lyp             scf         mDKS-h2o-own-input     00m05s 
+ [ 52%]    --   OK   --              pcm/mdks-b3lyp             scf        mDKS-h2o+-own-input     00m07s 
+ [ 52%]    --   OK   --               pcm/mdks-nmr              scf            h2o-in-water        00m05s 
+ [ 52%]    --   OK   --               pcm/mdks-nmr               cs            h2o-in-water        00m07s 
+ [ 53%]    --   OK   --               pcm/mdks-nmr              scf             h2o+_dkh2          00m03s 
+ [ 53%]    --   OK   --               pcm/mdks-nmr              scf          h2o+-in-water_X       00m04s 
+ [ 53%]    --   OK   --               pcm/mdks-nmr              scf          h2o+-in-water_Y       00m03s 
+ [ 53%]    --   OK   --               pcm/mdks-nmr              scf          h2o+-in-water_Z       00m03s 
+ [ 54%]    --   OK   --               pcm/mdks-nmr               cs          h2o+-in-water_X       00m04s 
+ [ 54%]    --   OK   --               pcm/mdks-nmr               cs          h2o+-in-water_Y       00m04s 
+ [ 54%]    --   OK   --               pcm/mdks-nmr               cs          h2o+-in-water_Z       00m05s 
+ [ 54%]    --   OK   --               scf/analysis              scf               basic            00m02s 
+ [ 54%]    --   OK   --               scf/analysis              scf              mulliken          00m02s 
+ [ 55%]    --   OK   --               scf/diagfree              scf            c6h6_upc0_hf        00m04s 
+ [ 55%]    --   OK   --               scf/diagfree              scf            h2o_ucc-pvdz        00m03s 
+ [ 55%]    --   OK   --                 scf/grid                scf              sf6_ref           00m07s 
+ [ 55%]    --   OK   --                 scf/grid                scf              sf6_rot           00m07s 
+ [ 56%]    --   OK   --                  scf/hf                 scf            h2o_ucc-pvdz        00m02s 
+ [ 56%]    --   OK   --                  scf/hf                 scf           h2o+_ucc-pvdz        00m02s 
+ [ 56%]    --   OK   --                  scf/hf                 scf               C_raoc           00m02s 
+ [ 56%]    --   OK   --                  scf/hf                 scf               C_uaoc           00m02s 
+ [ 56%]    --   OK   --               scf/hf-dkh2               scf             h2se_dkh1          00m02s 
+ [ 57%]    --   OK   --               scf/hf-dkh2               scf             h2se_dkh2          00m02s 
+ [ 57%]    --   OK   --                scf/hf-x2c               scf             h2o_1eX2C          00m02s 
+ [ 57%]    --   OK   --                scf/hf-x2c               scf            h2o_1eX2C_qa        00m05s 
+ [ 57%]    --   OK   --                scf/hf-x2c               scf             h2o_mmfX2C         00m03s 
+ [ 58%]    --   OK   --                scf/initmo               scf               ks_eht           00m03s 
+ [ 58%]    --   OK   --                scf/initmo               scf             ks_atomic          00m02s 
+ [ 58%]    --   OK   --                scf/initmo               scf             ks_rest1c          00m02s 
+ [ 58%]    --   OK   --                scf/initmo               scf              x2c_eht           00m03s 
+ [ 58%]    --   OK   --                scf/initmo               scf             x2c_atomic         00m03s 
+ [ 59%]    --   OK   --                scf/initmo               scf             x2c_rest1c         00m04s 
+ [ 59%]    --   OK   --                scf/initmo               scf             x2c_rest2c         00m03s 
+ [ 59%]    --   OK   --                scf/initmo               scf              mdks_eht          00m04s 
+ [ 59%]    --   OK   --                scf/initmo               scf            mdks_atomic         00m04s 
+ [ 60%]    --   OK   --                scf/initmo               scf            mdks_rest1c         00m04s 
+ [ 60%]    --   OK   --                scf/initmo               scf            mdks_rest2c         00m05s 
+ [ 60%]    --   OK   --                scf/initmo               scf            mdks_rest3c         00m05s 
+ [ 60%]    --   OK   --               scf/ks-dkh2               scf             h2se_dkh1          00m02s 
+ [ 60%]    --   OK   --               scf/ks-dkh2               scf             h2se_dkh2          00m02s 
+ [ 61%]    --   OK   --             scf/ks-x2c_b3lyp            scf          h2o_b3lyp_1eX2C       00m02s 
+ [ 61%]    --   OK   --             scf/ks-x2c_b3lyp            scf         h2o_b3lyp_1eX2C_qa     00m05s 
+ [ 61%]    --   OK   --          scf/ks-x2c_local_RI-J          scf            h2o_ucc-pvdz        00m03s 
+ [ 61%]    --   OK   --               scf/ks_b3lyp              scf            h2o_ucc-pvdz        00m02s 
+ [ 62%]    --   OK   --               scf/ks_b3lyp              scf           h2o+_ucc-pvdz        00m02s 
+ [ 62%]    --   OK   --               scf/ks_b3lyp              scf             h2o_hfx-50         00m02s 
+ [ 62%]    --   OK   --               scf/ks_blyp               scf            h2o_ucc-pvdz        00m02s 
+ [ 62%]    --   OK   --               scf/ks_blyp               scf           h2o+_ucc-pvdz        00m02s 
+ [ 62%]    --   OK   --               scf/ks_bp86               scf            h2o_ucc-pvdz        00m02s 
+ [ 63%]    --   OK   --               scf/ks_bp86               scf           h2o+_ucc-pvdz        00m02s 
+ [ 63%]    --   OK   --                scf/ks_kt2               scf            h2o_ucc-pvdz        00m02s 
+ [ 63%]    --   OK   --                scf/ks_kt2               scf           h2o+_ucc-pvdz        00m02s 
+ [ 63%]    --   OK   --               scf/ks_local              scf            h2o_ucc-pvdz        00m02s 
+ [ 64%]    --   OK   --               scf/ks_local              scf           h2o+_ucc-pvdz        00m02s 
+ [ 64%]    --   OK   --            scf/ks_local_RI-J            scf            h2o_ucc-pvqz        00m03s 
+ [ 64%]    --   OK   --            scf/ks_local_RI-J            scf           h2o+_ucc-pvqz        00m03s 
+ [ 64%]    --   OK   --                scf/ks_pbe               scf            h2o_ucc-pvdz        00m02s 
+ [ 64%]    --   OK   --                scf/ks_pbe               scf           h2o+_ucc-pvdz        00m02s 
+ [ 65%]    --   OK   --               scf/ks_pbe0               scf            h2o_ucc-pvdz        00m02s 
+ [ 65%]    --   OK   --               scf/ks_pbe0               scf           h2o+_ucc-pvdz        00m02s 
+ [ 65%]    --   OK   --               scf/ks_pp86               scf            h2o_ucc-pvdz        00m02s 
+ [ 65%]    --   OK   --               scf/ks_pp86               scf           h2o+_ucc-pvdz        00m02s 
+ [ 66%]    --   OK   --              scf/ks_slaterx             scf            h2o_ucc-pvdz        00m02s 
+ [ 66%]    --   OK   --              scf/ks_slaterx             scf           h2o+_ucc-pvdz        00m02s 
+ [ 66%]    --   OK   --              scf/mdhf_atoms             scf                 K              00m03s 
+ [ 66%]    --   OK   --               scf/mdhf_ll               scf               h2o_ll           00m02s 
+ [ 66%]    --   OK   --               scf/mdhf_ll               scf          h2o_ll_diagfree       00m02s 
+ [ 67%]    --   OK   --               scf/mdhf_ll               scf             h2o+_dkh2          00m02s 
+ [ 67%]    --   OK   --               scf/mdhf_ll               scf              h2o+_ll           00m03s 
+ [ 67%]    --   OK   --               scf/mdhf_ll               scf          h2o+_ll_diagfree      00m04s 
+ [ 67%]    --   OK   --               scf/mdhf_sl               scf               h2o_sl           00m03s 
+ [ 68%]    --   OK   --               scf/mdhf_sl               scf             h2o_sl_qa          00m05s 
+ [ 68%]    --   OK   --               scf/mdhf_sl               scf            h2o_sl_aabb         00m03s 
+ [ 68%]    --   OK   --               scf/mdhf_sl               scf             h2o+_dkh2          00m02s 
+ [ 68%]    --   OK   --               scf/mdhf_sl               scf              h2o+_sl           00m04s 
+ [ 68%]    --   OK   --               scf/mdhf_sl               scf             h2o+_sl_qa         00m06s 
+ [ 69%]    --   OK   --               scf/mdhf_sl               scf            h2o+_sl_aabb        00m04s 
+ [ 69%]    --   OK   --               scf/mdhf_ss               scf               h2o_ss           00m03s 
+ [ 69%]    --   OK   --               scf/mdhf_ss               scf             h2o_ss_qa          00m05s 
+ [ 69%]    --   OK   --               scf/mdhf_ss               scf             h2o+_dkh2          00m03s 
+ [ 70%]    --   OK   --               scf/mdhf_ss               scf              h2o+_ss           00m04s 
+ [ 70%]    --   OK   --               scf/mdhf_ss               scf             h2o+_ss_qa         00m07s 
+ [ 70%]    --   OK   --             scf/mdhf_ss_abcd            scf            h2o_ss_abcd         00m03s 
+ [ 70%]    --   OK   --             scf/mdhf_ss_abcd            scf           h2o_ss_abcd_qa       00m06s 
+ [ 70%]    --   OK   --             scf/mdhf_ss_abcd            scf             h2o+_dkh2          00m02s 
+ [ 71%]    --   OK   --             scf/mdhf_ss_abcd            scf            h2o+_ss_abcd        00m03s 
+ [ 71%]    --   OK   --             scf/mdhf_ss_abcd            scf          h2o+_ss_abcd_qa       00m08s 
+ [ 71%]    --   OK   --                 scf/mdks                scf         h2o_ucc-pvdz_blyp      00m03s 
+ [ 71%]    --   OK   --                 scf/mdks                scf        h2o_ucc-pvdz_blyp_qa    00m06s 
+ [ 72%]    --   OK   --                 scf/mdks                scf         h2o_ucc-pvdz_b3lyp     00m03s 
+ [ 72%]    --   OK   --                 scf/mdks                scf       h2o_ucc-pvdz_b3lyp_qa    00m05s 
+ [ 72%]    --   OK   --                 scf/mdks                scf             h2o+_blyp          00m03s 
+ [ 72%]    --   OK   --                 scf/mdks                scf             h2o+_b3lyp         00m02s 
+ [ 72%]    --   OK   --                 scf/mdks                scf         h2o+_ucc-pvdz_blyp     00m04s 
+ [ 73%]    --   OK   --                 scf/mdks                scf       h2o+_ucc-pvdz_blyp_qa    00m06s 
+ [ 73%]    --   OK   --                 scf/mdks                scf        h2o+_ucc-pvdz_b3lyp     00m04s 
+ [ 73%]    --   OK   --                 scf/mdks                scf       h2o+_ucc-pvdz_b3lyp_qa   00m07s 
+ [ 73%]    --   OK   --              scf/mdks_RI-J              scf         h2o_ucc-pvdz_blyp      00m04s 
+ [ 74%]    --   OK   --              scf/mdks_RI-J              scf         h2o+_ucc-pvdz_blyp     00m04s 
+ [ 74%]    --   OK   --               scf/mdks_SOS              scf           h2o+_nr_b3lyp        00m02s 
+ [ 74%]    --   OK   --               scf/mdks_SOS              scf           h2o+_sf_b3lyp        00m05s 
+ [ 74%]    --   OK   --               scf/mdks_SOS              scf           h2o+_05_b3lyp        00m04s 
+ [ 74%]    -- ERROR  --               scf/optimize              ---                 h2             00m00s 
+ [ 75%]    --   OK   --          sscc/mdks+mo-analysis          scf                h2o             00m04s 
+ [ 75%]    --   OK   --          sscc/mdks+mo-analysis          sscc              h2o-JJ           00m02s 
+ [ 75%]    --   OK   --              sscc/mdks_bp86             scf                 H2             00m03s 
+ [ 75%]    --   OK   --              sscc/mdks_bp86             scf                H2-1            00m04s 
+ [ 76%]    --   OK   --              sscc/mdks_bp86             sscc            H2-CP-Rmno         00m04s 
+ [ 76%]    --   OK   --              sscc/mdks_bp86             sscc           H2-CP-Rmyes         00m06s 
+ [ 76%]    --  FAIL  --              sscc/mdks_bp86             sscc          H2-1-CP-Rmyes        00m01s 
+ [ 76%]    --   OK   --              sscc/mdks_bp86             scf                CH4             00m06s 
+ [ 76%]    --  FAIL  --              sscc/mdks_bp86             sscc              CH4-UP           00m02s 
+ [ 77%]    --  FAIL  --              sscc/mdks_bp86             sscc            CH4-CP-ANA         00m01s 
+ [ 77%]    --   OK   --            tdscf/b3lyp_delta            scf             h2o_ccpvdz         00m02s 
+ [ 77%]    --   OK   --            tdscf/b3lyp_delta           tdscf            h2o_ccpvdz         00m03s 
+ [ 77%]    --   OK   --             tdscf/b3lyp_zero            scf              h2o_upc1          00m02s 
+ [ 78%]    --   OK   --             tdscf/b3lyp_zero           tdscf             h2o_upc1          00m01s 
+ [ 78%]    --   OK   --          tdscf/hf-x2c_delta_eas         scf             h2o_ccpvdz         00m03s 
+ [ 78%]    --   OK   --          tdscf/hf-x2c_delta_eas        tdscf                5              00m03s 
+ [ 78%]    --   OK   --          tdscf/hf-x2c_delta_eas        tdscf              5+x2c            00m02s 
+ [ 78%]    --   OK   --          tdscf/hf-x2c_delta_eas        tdscf                10             00m02s 
+ [ 79%]    --   OK   --          tdscf/hf-x2c_delta_eas        tdscf              10+x2c           00m02s 
+ [ 79%]    --   OK   --          tdscf/hf-x2c_delta_ecd         scf             h2o_ccpvdz         00m02s 
+ [ 79%]    --   OK   --          tdscf/hf-x2c_delta_ecd        tdscf                5              00m02s 
+ [ 79%]    --   OK   --          tdscf/hf-x2c_delta_ecd        tdscf              5+x2c            00m02s 
+ [ 80%]    --   OK   --          tdscf/hf-x2c_delta_ecd        tdscf                10             00m03s 
+ [ 80%]    --   OK   --          tdscf/hf-x2c_delta_ecd        tdscf              10+x2c           00m02s 
+ [ 80%]    --   OK   --          tdscf/hf-x2c_zero_eas          scf             h2o_ccpvdz         00m02s 
+ [ 80%]    --   OK   --          tdscf/hf-x2c_zero_eas         tdscf            h2o_ccpvdz         00m01s 
+ [ 80%]    --   OK   --          tdscf/hf-x2c_zero_eas          scf           h2o_ccpvdz+x2c       00m02s 
+ [ 81%]    --   OK   --          tdscf/hf-x2c_zero_eas         tdscf          h2o_ccpvdz+x2c       00m02s 
+ [ 81%]    --   OK   --          tdscf/hf-x2c_zero_ecd          scf             h2o_ccpvdz         00m02s 
+ [ 81%]    --   OK   --          tdscf/hf-x2c_zero_ecd         tdscf            h2o_ccpvdz         00m01s 
+ [ 81%]    --   OK   --          tdscf/hf-x2c_zero_ecd          scf           h2o_ccpvdz+x2c       00m02s 
+ [ 82%]    --   OK   --          tdscf/hf-x2c_zero_ecd         tdscf          h2o_ccpvdz+x2c       00m02s 
+ [ 82%]    --   OK   --            tdscf/hf_analysis            scf             h2o_ccpvdz         00m02s 
+ [ 82%]    --   OK   --            tdscf/hf_analysis           tdscf            h2o_ccpvdz         00m02s 
+ [ 82%]    --   OK   --               tdscf/hf_cos              scf             h2o_ccpvdz         00m02s 
+ [ 82%]    --   OK   --               tdscf/hf_cos             tdscf               cos5            00m02s 
+ [ 83%]    --   OK   --               tdscf/hf_cos             tdscf              cos10            00m03s 
+ [ 83%]    --   OK   --               tdscf/hf_cos             tdscf               ecos            00m01s 
+ [ 83%]    --   OK   --               tdscf/hf_cos             tdscf               sin             00m02s 
+ [ 83%]    --   OK   --            tdscf/hf_delta_eas           scf                 5              00m02s 
+ [ 84%]    --   OK   --            tdscf/hf_delta_eas          tdscf                5              00m02s 
+ [ 84%]    --   OK   --            tdscf/hf_delta_eas          tdscf                10             00m02s 
+ [ 84%]    --   OK   --            tdscf/hf_delta_eas          tdscf                15             00m02s 
+ [ 84%]    --   OK   --          tdscf/hf_delta_eas+ecd         scf                5cs             00m02s 
+ [ 84%]    --   OK   --          tdscf/hf_delta_eas+ecd        tdscf               5cs             00m01s 
+ [ 85%]    --   OK   --          tdscf/hf_delta_eas+ecd         scf                5os             00m02s 
+ [ 85%]    --   OK   --          tdscf/hf_delta_eas+ecd        tdscf               5os             00m02s 
+ [ 85%]    --   OK   --          tdscf/hf_delta_eas+ecd        tdscf               10cs            00m02s 
+ [ 85%]    --   OK   --            tdscf/hf_delta_ecd           scf            h2o_ccpvdz_x        00m02s 
+ [ 86%]    --   OK   --            tdscf/hf_delta_ecd           scf            h2o_ccpvdz_y        00m02s 
+ [ 86%]    --   OK   --            tdscf/hf_delta_ecd           scf            h2o_ccpvdz_z        00m02s 
+ [ 86%]    --   OK   --            tdscf/hf_delta_ecd          tdscf           h2o_ccpvdz_x        00m01s 
+ [ 86%]    --   OK   --            tdscf/hf_delta_ecd          tdscf           h2o_ccpvdz_y        00m02s 
+ [ 86%]    --   OK   --            tdscf/hf_delta_ecd          tdscf           h2o_ccpvdz_z        00m02s 
+ [ 87%]    --   OK   --            tdscf/hf_delta_pc            scf             h2o_ccpvdz         00m02s 
+ [ 87%]    --   OK   --            tdscf/hf_delta_pc           tdscf            h2o_ccpvdz         00m01s 
+ [ 87%]    --   OK   --              tdscf/hf_gauss             scf             h2o_ccpvdz         00m02s 
+ [ 87%]    --   OK   --              tdscf/hf_gauss            tdscf            h2o_ccpvdz         00m01s 
+ [ 88%]    --   OK   --            tdscf/hf_mowindow            scf           h2o_ccpvdz_10        00m02s 
+ [ 88%]    --   OK   --            tdscf/hf_mowindow           tdscf          h2o_ccpvdz_10        00m02s 
+ [ 88%]    --   OK   --            tdscf/hf_mowindow           tdscf               ecd             00m01s 
+ [ 88%]    --   OK   --              tdscf/hf_zero              scf              h2o_upc1          00m02s 
+ [ 88%]    --   OK   --              tdscf/hf_zero             tdscf             h2o_upc1          00m02s 
+ [ 89%]    --   OK   --            tdscf/ks-x2c_delta           scf             h2o_ccpvdz         00m03s 
+ [ 89%]    --   OK   --            tdscf/ks-x2c_delta          tdscf            h2o_ccpvdz         00m02s 
+ [ 89%]    --   OK   --          tdscf/ks-x2c_rij_delta         scf              h2o_pbe           00m03s 
+ [ 89%]    --   OK   --          tdscf/ks-x2c_rij_delta        tdscf             h2o_pbe           00m02s 
+ [ 90%]    --   OK   --          tdscf/ks-x2c_rij_zero          scf              h2o_pbe           00m02s 
+ [ 90%]    --   OK   --          tdscf/ks-x2c_rij_zero         tdscf             h2o_pbe           00m01s 
+ [ 90%]    --   OK   --            tdscf/ks-x2c_zero            scf             h2o_ccpvdz         00m02s 
+ [ 90%]    --   OK   --            tdscf/ks-x2c_zero           tdscf            h2o_ccpvdz         00m02s 
+ [ 90%]    --   OK   --            tdscf/ks_rij_delta           scf              h2o_pbe           00m02s 
+ [ 91%]    --   OK   --            tdscf/ks_rij_delta          tdscf             h2o_pbe           00m01s 
+ [ 91%]    --   OK   --            tdscf/ks_rij_zero            scf              h2o_pbe           00m02s 
+ [ 91%]    --   OK   --            tdscf/ks_rij_zero           tdscf             h2o_pbe           00m01s 
+ [ 91%]    --   OK   --             tdscf/lda_delta             scf             co_ccpvdz          00m02s 
+ [ 92%]    --   OK   --             tdscf/lda_delta            tdscf            co_ccpvdz          00m02s 
+ [ 92%]    --   OK   --              tdscf/mdhf_cos             scf             h2o_ccpvdz         00m03s 
+ [ 92%]    --   OK   --              tdscf/mdhf_cos            tdscf               cos5            00m03s 
+ [ 92%]    --   OK   --              tdscf/mdhf_cos            tdscf              cos10            00m03s 
+ [ 92%]    --   OK   --              tdscf/mdhf_cos            tdscf               ecos            00m03s 
+ [ 93%]    --   OK   --              tdscf/mdhf_cos            tdscf               sin             00m04s 
+ [ 93%]    --   OK   --           tdscf/mdhf_delta_eas          scf              h2o_dkh2          00m02s 
+ [ 93%]    --   OK   --           tdscf/mdhf_delta_eas          scf                5cs             00m03s 
+ [ 93%]    --   OK   --           tdscf/mdhf_delta_eas         tdscf               5cs             00m03s 
+ [ 94%]    --   OK   --           tdscf/mdhf_delta_eas         tdscf               10cs            00m04s 
+ [ 94%]    --   OK   --           tdscf/mdhf_delta_eas         tdscf               15cs            00m03s 
+ [ 94%]    --   OK   --           tdscf/mdhf_delta_eas          scf             h2o+_dkh2          00m02s 
+ [ 94%]    --   OK   --           tdscf/mdhf_delta_eas          scf                5os             00m03s 
+ [ 94%]    --   OK   --           tdscf/mdhf_delta_eas         tdscf               5os             00m04s 
+ [ 95%]    --   OK   --           tdscf/mdhf_delta_eas         tdscf               10os            00m03s 
+ [ 95%]    --   OK   --           tdscf/mdhf_delta_eas         tdscf               15os            00m04s 
+ [ 95%]    --   OK   --           tdscf/mdhf_delta_ecd          scf                 5              00m07s 
+ [ 95%]    --   OK   --           tdscf/mdhf_delta_ecd         tdscf                5              00m07s 
+ [ 96%]    --   OK   --           tdscf/mdhf_delta_ecd         tdscf                10             00m08s 
+ [ 96%]    --   OK   --        tdscf/mdhf_delta_eri_abcd        scf             h2o_ccpvdz         00m03s 
+ [ 96%]    --   OK   --        tdscf/mdhf_delta_eri_abcd       tdscf            h2o_ccpvdz         00m03s 
+ [ 96%]    --   OK   --           tdscf/mdhf_delta_pc           scf             h2o_ccpvdz         00m03s 
+ [ 96%]    --   OK   --           tdscf/mdhf_delta_pc          tdscf            h2o_ccpvdz         00m02s 
+ [ 97%]    --   OK   --           tdscf/mdhf_mowindow           scf            h2o_ccpvdz_5        00m03s 
+ [ 97%]    --   OK   --           tdscf/mdhf_mowindow          tdscf           h2o_ccpvdz_5        00m03s 
+ [ 97%]    --   OK   --           tdscf/mdhf_mowindow           scf              h2o2_ecd          00m07s 
+ [ 97%]    --   OK   --           tdscf/mdhf_mowindow          tdscf             h2o2_ecd          00m07s 
+ [ 98%]    --   OK   --             tdscf/mdhf_zero             scf             h2o_ccpvdz         00m03s 
+ [ 98%]    --   OK   --             tdscf/mdhf_zero            tdscf            h2o_ccpvdz         00m03s 
+ [ 98%]    --   OK   --          tdscf/mdks_b3lyp_delta         scf             h2o_ccpvdz         00m03s 
+ [ 98%]    --   OK   --          tdscf/mdks_b3lyp_delta        tdscf            h2o_ccpvdz         00m07s 
+ [ 98%]    --   OK   --          tdscf/mdks_b3lyp_zero          scf             h2o_ccpvdz         00m04s 
+ [ 99%]    --   OK   --          tdscf/mdks_b3lyp_zero         tdscf            h2o_ccpvdz         00m04s 
+ [ 99%]    --   OK   --           tdscf/mdks_lda_delta          scf             co_ccpvdz          00m05s 
+ [ 99%]    --   OK   --           tdscf/mdks_lda_delta         tdscf            co_ccpvdz          00m12s 
+ [ 99%]    --   OK   --           tdscf/mdks_rij_delta          scf              h2o_pbe           00m03s 
+ [100%]    --   OK   --           tdscf/mdks_rij_delta         tdscf             h2o_pbe           00m03s 
+ [100%]    --   OK   --           tdscf/mdks_rij_zero           scf              h2o_pbe           00m04s 
+ [100%]    --   OK   --           tdscf/mdks_rij_zero          tdscf             h2o_pbe           00m02s 
+
+ Summary:
+
+       Total time = 62m51s
+           OK     = 418
+          FAIL    =   9
+         CRASH    =   0
+         ERROR    =  23
+         nodata   =   0
+
+
+   OK   --> the difference between tested values is smaller than a given threshold
+  FAIL  --> the difference between tested values is larger than a given threshold
+ ERROR  --> an error occurred while running the given test; check .log files
+
+
+
+ ReSpect  5.2.0_beta  tutorial test suite, with --nt=12:
+              result                      test               section           input             time  
+ [  5%]    --   OK   --                 epr/GaO                scf               1c             00m03s 
+ [  9%]    --   OK   --                 epr/GaO                scf              4c_X            00m15s 
+ [ 14%]    --   OK   --                 epr/GaO                scf              4c_Y            00m16s 
+ [ 18%]    --   OK   --                 epr/GaO                scf              4c_Z            00m15s 
+ [ 23%]    --   OK   --                 epr/GaO                 gt             4c-epr           00m01s 
+ [ 27%]    --   OK   --                 epr/GaO                hfcc            4c-epr           00m01s 
+ [ 32%]    --   OK   --                  nmr/cs                scf               1c             00m03s 
+ [ 36%]    --   OK   --                  nmr/cs                scf               4c             00m08s 
+ [ 41%]    --   OK   --                  nmr/cs                 cs               4c             00m55s 
+ [ 45%]    --   OK   --                 nmr/sscc               scf               1c             00m03s 
+ [ 50%]    --   OK   --                 nmr/sscc               scf               4c             00m09s 
+ [ 55%]    --   OK   --                 nmr/sscc               sscc              4c             00m18s 
+ [ 59%]    --   OK   --                 nsr/AsH3               scf               1c             00m04s 
+ [ 64%]    --   OK   --                 nsr/AsH3               scf               4c             00m21s 
+ [ 68%]    --   OK   --                 nsr/AsH3               nsr               4c             00m51s 
+ [ 73%]    --   OK   --                 scf/h2se               scf               1c             00m03s 
+ [ 77%]    --   OK   --                 scf/h2se               scf               2c             00m04s 
+ [ 82%]    --   OK   --                 scf/h2se               scf               4c             00m08s 
+ [ 86%]    --   OK   --              tdscf-eas/h2o             scf              scf             00m02s 
+ [ 91%]    --   OK   --              tdscf-eas/h2o            tdscf            eas_x            01m04s 
+ [ 95%]    --   OK   --              tdscf-eas/h2o            tdscf            eas_y            01m05s 
+ [100%]    --   OK   --              tdscf-eas/h2o            tdscf            eas_z            01m05s 
+
+ Summary:
+
+       Total time = 7m14s
+           OK     =  22
+          FAIL    =   0
+         CRASH    =   0
+         ERROR    =   0
+         nodata   =   0
+
+
+   OK   --> the difference between tested values is smaller than a given threshold
+
+
