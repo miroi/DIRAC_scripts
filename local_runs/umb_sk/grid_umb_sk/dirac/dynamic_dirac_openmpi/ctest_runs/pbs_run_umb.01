@@ -23,7 +23,7 @@
 # scl enable devtoolset-6 bash
 echo -e "Must do: scl enable devtoolset-6 bash"
 
-echo "Working host is: "; hostname -f
+echo -e "\nWorking host is: "; hostname -f
 source /mnt/apps/intel/bin/compilervars.sh intel64
 #source /mnt/apps/pgi/environment.sh
 
@@ -86,13 +86,14 @@ export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
 
 #export DIRTIMEOUT="20m"
 
-cd $BUILD_MPI
 
   unset DIRAC_MPI_COMMAND
   export DIRAC_MPI_COMMAND="mpirun -np $NPROCS_PBS"
+  echo -e "\n DIRAC_MPI_COMMAND=$DIRAC_MPI_COMMAND"
+
+cd $BUILD_MPI
 
   #$PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
-
   ctest -VV  -L -short
 
 
