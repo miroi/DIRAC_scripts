@@ -92,7 +92,8 @@ export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
   export DIRAC_MPI_COMMAND="mpirun -np $NPROCS_PBS"
   echo -e "\n DIRAC_MPI_COMMAND=$DIRAC_MPI_COMMAND"
 
-cd $BUILD_MPI
+cd $PBS_O_WORKDIR
+echo -e "I am in PBS_O_WORKDIR=$PBS_O_WORKDIR "; pwd
 
   $PAM_MPI --noarch --inp=$DIRAC/test/cc_essential/ccsd.small.inp  --mol=$DIRAC/test/cc_essential/H2O.mol
 
