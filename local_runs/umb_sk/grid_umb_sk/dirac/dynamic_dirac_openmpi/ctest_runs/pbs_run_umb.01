@@ -64,11 +64,12 @@ export OMP_DYNAMIC="FALSE"
 export PATH=/home/milias/bin/openmpi-4.0.1_suites/openmpi-4.0.1_Intel14_GNU6.3g++/bin:$PATH
 export LD_LIBRARY_PATH=/home/milias/bin/openmpi-4.0.1_suites/openmpi-4.0.1_Intel14_GNU6.3g++/lib:$LD_LIBRARY_PATH
 
- echo -e "My OpenMPI-4.0.1 installation with ifort,icc and GNU 6.3 g++"
+ echo -e "\nMy OpenMPI-4.0.1 installation with ifort,icc and GNU 6.3 g++"
  echo -e "Launcher mpirun ? \c"; which mpirun; mpirun --version
  echo -e "Compiler mpif90 ? \c"; which mpif90; mpif90 --version
  echo -e "Compiler mpicc ? \c"; which mpicc; mpicc --version
  echo -e "Compiler mpicxx ? \c"; which mpicxx; mpicxx --version
+ echo
 
 #DIRAC=/home/milias/Work/qch/software/dirac/production_trunk
 DIRAC=/home/milias/Work/qch/software/dirac/dirac_production
@@ -93,8 +94,11 @@ export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
 
 cd $BUILD_MPI
 
-  #$PAM_MPI1 --noarch --mw=300 --nw=200 --aw=3800 --inp=$INP  --mol=$MOL --suffix=out1n_p-im.$ij
-  ctest -VV  -L -short
+  $PAM_MPI --noarch --inp=$DIRAC/test/cc_essential/ccsd.small.inp  --mol=$DIRAC/test/cc_essential/H2O.mol
+
+  echo -e  "\n\n Now short tests..."
+  ctest -V -L short
+  ctest -D ExperimentalSubmit
 
 
 exit 0
