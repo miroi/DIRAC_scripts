@@ -93,12 +93,11 @@ export DIRAC_TMPDIR=/mnt/local/$USER/$PBS_JOBID
   echo -e "\n DIRAC_MPI_COMMAND=$DIRAC_MPI_COMMAND"
 
 cd $BUILD_MPI
+echo -e "I am in $BUILD_MPI; pwd=\c";pwd
 
-  $PAM_MPI --noarch --inp=$DIRAC/test/cc_essential/ccsd.small.inp  --mol=$DIRAC/test/cc_essential/H2O.mol
-
-  echo -e  "\n\n Now short tests..."
-  ctest -V -L short
+  echo -e  "\n\n Now tests..."
+  #ctest -V -L short
+  ctest -V 
   ctest -D ExperimentalSubmit
-
 
 exit 0
