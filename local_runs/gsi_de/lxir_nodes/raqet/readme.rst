@@ -41,8 +41,6 @@ INSTALL
 
 RAQET has been installed successfully !!
 
-================================================================
-
 1. To run RAQET, make sure that environment variables are
    set appropriately by loading configure script file
    (e.g. of bash: source /tmp/milias-work/software/qch/raqet/raqet.1.0/raqet-config.bash
@@ -59,6 +57,9 @@ Exit RAQET install wizard ...
 
 Running test set
 ----------------
+
+ cp /tmp/milias-work/software/qch/raqet/raqet.1.0/samples /tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/
+
  milias@lxir127.gsi.de:/tmp/milias-work/software/qch/raqet/raqet-package/.
 
  milias@lxir127.gsi.de:/tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/samples/.source /tmp/milias-work/software/qch/raqet/raqet.1.0/raqet-config.bash 
