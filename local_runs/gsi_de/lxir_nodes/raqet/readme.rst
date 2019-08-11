@@ -58,11 +58,64 @@ Exit RAQET install wizard ...
 Running test set
 ----------------
 
- cp /tmp/milias-work/software/qch/raqet/raqet.1.0/samples /tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/
-
  milias@lxir127.gsi.de:/tmp/milias-work/software/qch/raqet/raqet-package/.
+ cp /tmp/milias-work/software/qch/raqet/raqet.1.0/samples /tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/
 
  milias@lxir127.gsi.de:/tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/samples/.source /tmp/milias-work/software/qch/raqet/raqet.1.0/raqet-config.bash 
 
  milias@lxir127.gsi.de:/tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/samples/../test.bash 
+
+milias@lxir127.gsi.de:/tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/samples/../test.bash 
+Running test job: 01_sp_HBr_trimer
+Total energy:  -7814.9357010672
+Reference:  -7814.9357010677
+Difference:  5.00222E-10
+Test calculation succeeded.
+Running test job: 02_sp_HCl
+Total energy:  -461.7655163693
+Reference:  -461.7655163694
+Difference:  1.00044E-10
+Test calculation succeeded.
+Running test job: 03_sp_C3H5
+Total energy:  -117.2300693490
+Reference:  -117.230069349
+Difference:  0
+Test calculation succeeded.
+Running test job: 04_sp_Ar
+Lowest excitation energy (eV):  11.820246
+Reference (eV):  11.820246
+Difference:  0
+Test calculation succeeded.
+Running test job: 05_grad_ZrF4
+RMS gradient:  0.0015409
+Reference:  0.0015409
+Difference:  0
+Test calculation succeeded.
+Running test job: 06_opt_O2
+Total energy:  -150.2600959988
+Reference:  -150.2600959988
+Difference:  0
+Test calculation succeeded.
+Running test job: 07_opt_CH3
+Total energy:  -39.8090889622
+Reference:  -39.8090889622
+Difference:  0
+Test calculation succeeded.
+Running test job: 08_opt_TlH
+Total energy:  -20234.6229450164
+Reference:  -20234.6229450175
+Difference:  1.10231E-09
+Test calculation succeeded.
+Running test job: 09_FCP_Cu
+Total energy:  -1653.1915945769
+Reference:  -1653.1915945147
+Difference:  6.21999E-08
+Test calculation succeeded.
+Running test job: 10_FCP_Cu2
+Total energy:  -392.8399423023
+Reference:  -392.8399423631
+Difference:  6.08E-08
+Test calculation succeeded.
+milias@lxir127.gsi.de:/tmp/milias-work/My_scripts/local_runs/gsi_de/lxir_nodes/raqet/samples/.
+
 
