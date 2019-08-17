@@ -67,7 +67,8 @@ echo
 
 #cd $SLURM_SUBMIT_DIR
 
-DIRAC=/home/f113112/work/qch/software/dirac/devel_trunk/build_intelmpi_mklpar_i8
+#DIRAC=/home/f113112/work/qch/software/dirac/devel_trunk/build_intelmpi_mklpar_i8
+DIRAC=/data/f113112/qch_software/dirac/devel_trunk/build_intelmpi_mklpar_i8
 
 #echo -e "\n Current directory where this SLURM job is running `pwd`"
 #echo " It has the disk space of (df -h) :"
