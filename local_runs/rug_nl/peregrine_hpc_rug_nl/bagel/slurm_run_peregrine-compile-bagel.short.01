@@ -71,11 +71,11 @@ BAGEL=/home/f113112/work/qch/software/bagel_suite/bagel_master
 #echo " It has the disk space of (df -h) :"
 #df -h .
 
-
 cd $BAGEL
 echo -e "\n Current directory where this SLURM job is running `pwd`"
 
-make -j$SLURM_CPUS_ON_NODE
+make  -j$SLURM_CPUS_ON_NODE
+make all install
 
 
 exit
