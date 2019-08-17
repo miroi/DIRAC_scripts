@@ -1,9 +1,14 @@
 #!/bin/bash
 #SBATCH --job-name=BAGELbuild
+
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=10
+#SBATCH -p regular
+
+#SBATCH --ntasks-per-node=20
+
 # the whole allocated memory
 #SBATCH --mem=20gb
+
 #SBATCH --time=1-00:10:00
 
 ## memory per CPU ... is it working
