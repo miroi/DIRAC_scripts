@@ -39,7 +39,9 @@ echo The job requests $SLURM_CPUS_ON_NODE CPU per task.
 # Must unload all modules, and load selected to avoid mess
 module unload all
 
-  module load CMake/3.12.1-GCCcore-7.3.0
+  #module load CMake/3.12.1-GCCcore-7.3.0
+   module load CMake/3.10.1-GCCcore-6.4.0
+
   module load intel/2019a  # Intel compilers, Intel MPI and MKL
   module load Boost/1.67.0-foss-2018a
   module unload OpenMPI/2.1.2-GCC-6.4.0-2.28
