@@ -46,6 +46,8 @@ module unload all
   module load Boost/1.67.0-foss-2018a
   module unload OpenMPI/2.1.2-GCC-6.4.0-2.28
 
+  module load Doxygen/1.8.13-GCCcore-6.4.0
+
 echo "loaded modules:"
 module list
 
